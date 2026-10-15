@@ -18,19 +18,18 @@
   <div class="tape"></div>
   <nav aria-label="Mục lục">
     <a href="#cover">Thông tin tài liệu</a>
-    <a href="#scope">1. Mục tiêu và phạm vi</a>
-    <a href="#arch">2. Kiến trúc và phân vai</a>
-    <a href="#master">3. Master data và tem QR</a>
-    <div class="grp">Quy trình To-Be</div>
-    <a href="#nvl">4. Nguyên vật liệu</a>
-    <a href="#giacong">5. Gia công</a>
-    <a href="#tp">6. Thành phẩm</a>
-    <a href="#khac">7. Nhập xuất khác, chuyển kho</a>
-    <a href="#kiemke">8. Kiểm kê và tồn kho</a>
-    <a href="#report">9. Báo cáo</a>
-    <div class="grp">Chốt giải pháp</div>
-    <a href="#decisions">10. Điểm cần khách chốt</a>
-    <a href="#signoff">11. Phê duyệt</a>
+    <a href="#scope">I. Mục tiêu và phạm vi</a>
+    <a href="#arch">II. Kiến trúc và phân vai</a>
+    <a href="#solution">III. Giải pháp hệ thống</a>
+    <a class="s2" href="#master">1. Master data</a>
+    <a class="s2" href="#nvl">2. Quy trình nguyên vật liệu</a>
+    <a class="s2" href="#giacong">3. Quy trình gia công</a>
+    <a class="s2" href="#tp">4. Quy trình thành phẩm</a>
+    <a class="s2" href="#khac">5. Nhập xuất khác, chuyển kho</a>
+    <a class="s2" href="#kiemke">6. Kiểm kê và tồn kho</a>
+    <a class="s2" href="#report">7. Báo cáo</a>
+    <a href="#decisions">IV. Điểm cần khách chốt</a>
+    <a href="#signoff">V. Phê duyệt</a>
   </nav>
   <div class="foot">Dữ liệu trong mockup chỉ để minh họa.</div>
 </aside>
@@ -61,8 +60,8 @@
   <div class="tape"></div>
 </section>
 <section class="doc" id="scope">
-<h2>1. Mục tiêu và phạm vi</h2>
-<p class="lead">Tài liệu mô tả cách DORCO WMS vận hành sau khi triển khai, dựa trên kết quả khảo sát tại Hưng Yên (02 đến 05/2026) và Hà Nam (10/2026). Sau buổi trình bày, mục đích là chốt giải pháp và các điểm còn mở ở mục 10.</p>
+<h2>I. Mục tiêu và phạm vi</h2>
+<p class="lead">Tài liệu mô tả cách DORCO WMS vận hành sau khi triển khai, dựa trên kết quả khảo sát tại Hưng Yên (02 đến 05/2026) và Hà Nam (10/2026). Sau buổi trình bày, mục đích là chốt giải pháp và các điểm còn mở ở mục IV.</p>
 
 <h3>Mục tiêu</h3>
 <ul>
@@ -109,7 +108,7 @@
 
 </section>
 <section class="doc" id="arch">
-<h2>2. Kiến trúc và phân vai</h2>
+<h2>II. Kiến trúc và phân vai</h2>
 <p class="lead">SAP vẫn là hệ thống gốc cho danh mục, đơn hàng và sổ sách. WMS quản lý tem, vị trí và thao tác kho. PDA là công cụ làm việc của nhân viên kho.</p>
 
 <div class="arch">
@@ -157,10 +156,24 @@
 </ul></div>
 </div>
 <p class="sub" style="margin-top:8px">Chuyển vị trí trong cùng kho không đồng bộ sang SAP, vì SAP không quản lý vị trí.</p>
-<div class="ask"><b>Cần xác nhận:</b> map loại giao dịch SAP (hiện dùng 101 nhập mua, 311 chuyển kho) với từng nghiệp vụ WMS (D03). Các điểm khác giữa HY và HN ở mục 10.</div>
+<div class="ask"><b>Cần xác nhận:</b> map loại giao dịch SAP (hiện dùng 101 nhập mua, 311 chuyển kho) với từng nghiệp vụ WMS (D03). Các điểm khác giữa HY và HN ở mục IV.</div>
 </section>
-<section class="doc" id="master">
-<h2>3. Master data và tem QR</h2>
+<section class="doc" id="solution">
+<h2>III. Giải pháp hệ thống</h2>
+<p class="lead">Giải pháp chi tiết cho từng nhóm nghiệp vụ, kèm mockup màn hình trên WMS Web và PDA. Mỗi phần mô tả quy trình To-Be, người thực hiện, hệ thống tham gia (SAP, WMS, PDA) và các điểm cần xác nhận.</p>
+
+<div class="lanes8 idx">
+ <a href="#master"><i>1</i><div><b>Master data</b><span>Cơ cấu kho, vị trí, danh mục, tem QR</span></div></a>
+ <a href="#nvl"><i>2</i><div><b>Quy trình nguyên vật liệu</b><span>Nhập, trả NCC, xuất dùng, trả hàng dư</span></div></a>
+ <a href="#giacong"><i>3</i><div><b>Quy trình gia công</b><span>Xuất đi và nhận về</span></div></a>
+ <a href="#tp"><i>4</i><div><b>Quy trình thành phẩm</b><span>Nhập kho, giao hàng, hàng bán trả lại</span></div></a>
+ <a href="#khac"><i>5</i><div><b>Nhập xuất khác, chuyển kho</b><span>Xuất hủy, xuất mẫu, chuyển kho, chuyển vị trí</span></div></a>
+ <a href="#kiemke"><i>6</i><div><b>Kiểm kê và tồn kho</b><span>Kiểm kê tháng, FIFO, tra cứu tồn</span></div></a>
+ <a href="#report"><i>7</i><div><b>Báo cáo</b><span>Tồn kho, tồn lâu, chứng từ NVL</span></div></a>
+</div>
+</section>
+<section class="doc subdoc" id="master">
+<h2>1. Master data</h2>
 <p class="lead">Danh mục nền đồng bộ từ SAP. Tem QR là chìa khóa của toàn bộ thao tác kho: mỗi tem định danh một pallet.</p>
 
 <h3>Master data</h3>
@@ -226,8 +239,8 @@
 </div>
 <div class="ask"><b>Cần xác nhận:</b> cách dán tem NVL giữa hai nhà máy (D01) và dán tem thành phẩm theo thùng gộp pallet (D02).</div>
 </section>
-<section class="doc" id="nvl">
-<h2>4. Nguyên vật liệu</h2>
+<section class="doc subdoc" id="nvl">
+<h2>2. Quy trình nguyên vật liệu</h2>
 <p class="lead">Bốn quy trình: nhập từ nhà cung cấp (quy trình 1), trả NCC, xuất cho sản xuất và nhận lại hàng dư (quy trình 2).</p>
 
 <h3>Quy trình 1: Mua và nhập NVL</h3>
@@ -278,8 +291,8 @@
 <div class="rfnote"><b>Bấm nút trên máy để chạy thử.</b><div class="dots"><i></i><i></i><i></i></div><p>Cho phép xuất lẻ pallet. Hệ thống trừ dần số lượng còn lại trên tem.</p>
 <p>Xuất nhiều hơn yêu cầu thì BP Sản xuất sửa yêu cầu trên SAP, đồng bộ lại sang WMS rồi mới xuất.</p></div></div></div></div></div>
 </section>
-<section class="doc" id="giacong">
-<h2>5. Gia công</h2>
+<section class="doc subdoc" id="giacong">
+<h2>3. Quy trình gia công</h2>
 <p class="lead">Hàng đi gia công luôn có hai chiều: xuất đi và nhận về (quy trình 3).</p>
 
 <h3>Quy trình 3: Xuất đi và nhận về</h3>
@@ -298,8 +311,8 @@
 <div class="tw"><table><thead><tr><th class="">Mã hàng</th><th class="">Tên hàng</th><th class="">Loại</th><th class="n">SL cần xuất</th><th class="n">SL đã xuất</th></tr></thead><tbody><tr><td class="">BTP-0210</td><td class="">Thân dao cạo</td><td class="">BTP</td><td class="n">5.000</td><td class="n">3.000 <i class="mk">2</i></td></tr><tr><td class="">NVL-0412</td><td class="">Dải thép lưỡi dao</td><td class="">NVL</td><td class="n">2.000</td><td class="n">0</td></tr></tbody></table></div>
 <div class="nt">Xuất lẻ thùng không phải tách tem, hệ thống trừ dần số lượng trên tem <i class="mk">3</i>. Phiếu xuất tự sinh sau khi quét PDA.</div></div></div></div></div><div class="cap"><ol><li><i class="mk">1</i><span>Yêu cầu xuất đi gia công tạo trên WMS dựa trên PR hoặc PO gia công.</span></li><li><i class="mk">2</i><span>Có thể xuất nhiều lần cho một yêu cầu. Xuất nhiều hơn hoặc ít hơn thì sửa yêu cầu.</span></li><li><i class="mk">3</i><span>Xuất lẻ thùng thao tác đơn giản. Văn phòng kho duyệt phiếu và đồng bộ sang SAP.</span></li></ol></div></div></div>
 </section>
-<section class="doc" id="tp">
-<h2>6. Thành phẩm</h2>
+<section class="doc subdoc" id="tp">
+<h2>4. Quy trình thành phẩm</h2>
 <p class="lead">Từ khi sản xuất xong đến khi giao khách, và khi hàng bán bị trả lại (quy trình 4 và 5).</p>
 
 <h3>Quy trình 4: Nhập kho thành phẩm</h3>
@@ -323,7 +336,7 @@
 <li><div><b>Phiếu trả hàng, xác nhận<span class="who">Văn phòng kho</span><span class="sy WMS">WMS</span><span class="sy SAP">SAP</span></b><span>Hàng ở vị trí tạm trong kho 5900. Xác nhận phiếu để tăng tồn, đồng bộ sang SAP.</span></div></li>
 <li><div><b>Hàng thực tế về<span class="who">BP Kho</span><span class="sy PDA">PDA</span></b><span>Quét QR tem, chuyển từ vị trí tạm sang vị trí thật.</span></div></li>
 </ol>
-<p class="sub">Tái sử dụng hoặc tái xuất sau khi nhận về đi theo quy trình chuyển kho (mục 7): Hưng Yên 5900 sang 3000 hoặc 5000, Hà Nam 5900 sang 3903 hoặc 5003.</p>
+<p class="sub">Tái sử dụng hoặc tái xuất sau khi nhận về đi theo quy trình chuyển kho (mục III.5): Hưng Yên 5900 sang 3000 hoặc 5000, Hà Nam 5900 sang 3903 hoặc 5003.</p>
 <div class="ask"><b>Cần xác nhận:</b> quy trình nhận kế hoạch giao hàng từ XNK và Kinh doanh: tiếp tục gửi Excel hay import vào WMS để lập lệnh giao trước 1 đến 2 ngày (D12).</div>
 <h3>Màn hình</h3>
 <div class="tabset"><div class="tabs" role="tablist"><button role="tab">Nhập kho TP</button><button role="tab">Lệnh giao hàng</button><button role="tab">Giao hàng trên PDA</button><button role="tab">Trả hàng bán</button></div><div class="pane"><div class="stage"><div class="win">
@@ -344,8 +357,8 @@
 <div class="tw"><table><thead><tr><th class="">Mã hàng</th><th class="n">SL trả</th><th class="">Cách trả</th><th class="">Cần in tem mới</th><th class="">Vị trí tạm</th></tr></thead><tbody><tr><td class="">TP-1101</td><td class="n">1.000</td><td class="">Nguyên pallet, từ phiếu giao</td><td class="">Không (dùng tem cũ)</td><td class="">5900-TMP <i class="mk">2</i></td></tr><tr><td class="">TP-1102</td><td class="n">300</td><td class="">Thủ công, lẻ pallet</td><td class="">Có <i class="mk">3</i></td><td class="">5900-TMP</td></tr></tbody></table></div>
 <div class="nt">Hàng nhận về kho 5900 ở vị trí tạm. Xác nhận phiếu thì tăng tồn và đồng bộ sang SAP.</div></div></div></div></div><div class="cap"><ol><li><i class="mk">1</i><span>Khi XNK thông tin xong tờ khai nhập khẩu, PO trả hàng từ SAP thành yêu cầu trả hàng trên WMS. Có thể tạo từ phiếu giao hàng hoặc thủ công.</span></li><li><i class="mk">2</i><span>Hàng về đặt ở vị trí tạm. Khi hàng thực tế về, quét QR tem để chuyển sang vị trí thật.</span></li><li><i class="mk">3</i><span>Trả không nguyên pallet thì in và dán tem mới, trả nguyên pallet thì dùng tem cũ.</span></li><li><i class="mk">4</i><span>Lập phiếu trả hàng, xác nhận phiếu để tăng tồn kho.</span></li></ol></div></div></div>
 </section>
-<section class="doc" id="khac">
-<h2>7. Nhập xuất khác, chuyển kho</h2>
+<section class="doc subdoc" id="khac">
+<h2>5. Nhập xuất khác, chuyển kho</h2>
 <p class="lead">Các nghiệp vụ ngoài luồng mua, sản xuất, bán: nhập xuất khác (quy trình 6), chuyển kho và chuyển vị trí (quy trình 7).</p>
 
 <h3>Quy trình 6: Nhập xuất khác</h3>
@@ -397,8 +410,8 @@
 <div class="tw"><table><thead><tr><th class="">Yêu cầu</th><th class="">Loại</th><th class="">Lý do</th><th class="">Cost center</th><th class="">Phê duyệt</th></tr></thead><tbody><tr><td class="">XH-0412</td><td class="">Xuất hủy</td><td class="">Hàng NG, SX yêu cầu</td><td class="">CC-1210 <i class="mk">2</i></td><td class=""><span class="st ok">Đã duyệt</span></td></tr><tr><td class="">XH-0413</td><td class="">Xuất hủy</td><td class="">Tồn trên 6 tháng</td><td class="">CC-1210</td><td class=""><span class="st ok">Đã duyệt</span></td></tr><tr><td class="">XH-0414</td><td class="">Xuất mẫu</td><td class="">QA đề xuất</td><td class="">CC-3300</td><td class=""><span class="st wa">Chờ duyệt</span> <i class="mk">3</i></td></tr></tbody></table></div>
 <div class="nt">Xuất hủy gồm hàng NG (SX, QA), hàng tồn lâu, hủy do đơn hàng bị cancel (kinh doanh). Tất cả đều qua phê duyệt.</div></div></div></div></div><div class="cap"><ol><li><i class="mk">1</i><span>Yêu cầu xuất mẫu, xuất hủy tạo trên SAP, đồng bộ sang WMS.</span></li><li><i class="mk">2</i><span>Yêu cầu kèm thông tin cost center.</span></li><li><i class="mk">3</i><span>Chỉ khi đã được duyệt, kho mới được quét tem xuất.</span></li><li><i class="mk">4</i><span>Quét tem hàng bằng PDA, phiếu xuất tự sinh, xác nhận để giảm tồn và đồng bộ sang SAP.</span></li></ol></div></div></div>
 </section>
-<section class="doc" id="kiemke">
-<h2>8. Kiểm kê và tồn kho</h2>
+<section class="doc subdoc" id="kiemke">
+<h2>6. Kiểm kê và tồn kho</h2>
 <p class="lead">Kiểm kê hằng tháng bằng PDA (quy trình 8) và các công cụ tra cứu tồn.</p>
 
 <h3>Quy trình 8: Kiểm kê hằng tháng</h3>
@@ -440,8 +453,8 @@
 <div class="tw"><table><thead><tr><th class="">Vị trí</th><th class="">Mã hàng</th><th class="">Tem</th><th class="n">SL</th><th class="">Ngày nhập</th><th class="n">Số ngày tồn</th></tr></thead><tbody><tr><td class="">A1-1-3</td><td class="">NVL-0412</td><td class="">P-88001</td><td class="n">800</td><td class="">12/03/2026</td><td class="n">216 <i class="mk">3</i></td></tr><tr><td class="">A1-1-3</td><td class="">NVL-0412</td><td class="">P-88050</td><td class="n">500</td><td class="">20/09/2026</td><td class="n">25</td></tr><tr><td class="">A1-1-4</td><td class="">NVL-0877</td><td class="">P-87122</td><td class="n">1.000</td><td class="">02/10/2026</td><td class="n">13</td></tr></tbody></table></div>
 <div class="tb" style="margin-top:10px"><span class="btn ">Lịch sử barcode</span> <i class="mk">2</i></div></div></div></div></div><div class="cap"><ol><li><i class="mk">1</i><span>Tìm vị trí ra mặt hàng, hoặc tìm mặt hàng ra vị trí.</span></li><li><i class="mk">2</i><span>Lịch sử barcode cho thấy mọi giao dịch của một tem: nhập, xuất, chuyển vị trí.</span></li><li><i class="mk">3</i><span>Số ngày tồn tính từ ngày nhập. Hàng tồn trên 6 tháng được làm nổi bật để cân nhắc xuất hủy.</span></li></ol></div></div></div>
 </section>
-<section class="doc" id="report">
-<h2>9. Báo cáo</h2>
+<section class="doc subdoc" id="report">
+<h2>7. Báo cáo</h2>
 <p class="lead">Giữ mẫu báo cáo tồn kho của SAP mà Dorco đang dùng, bổ sung các trường theo yêu cầu khảo sát.</p>
 
 <div class="tw"><table class="t">
@@ -462,12 +475,12 @@
 <div class="nt">Báo cáo giữ mẫu tồn kho trên SAP và bổ sung các trường theo yêu cầu <i class="mk">3</i>.</div></div></div></div></div><div class="cap"><ol><li><i class="mk">1</i><span>Lọc theo số tháng tồn và theo kho.</span></li><li><i class="mk">2</i><span>Hàng tồn quá ngưỡng (ví dụ 6 tháng) được tô đỏ để thủ kho đề xuất xuất hủy.</span></li><li><i class="mk">3</i><span>Báo cáo theo mẫu SAP đang dùng, thêm tồn theo vị trí và ngày nhập gần nhất của NVL.</span></li></ol></div></div></div>
 </section>
 <section class="doc" id="decisions">
-<h2>10. Điểm cần khách chốt</h2>
+<h2>IV. Điểm cần khách chốt</h2>
 <p class="lead">Các điểm dưới đây rút ra từ khảo sát và ảnh hưởng đến thiết kế. Chọn trạng thái ngay trong buổi họp, lựa chọn lưu trên trình duyệt của bạn. Tình trạng hiện tại: <b id="dec-count"></b>.</p>
 <details class="dec"><summary><span class="id">D01</span><b><span class="pl hy">HY</span><span class="pl hn">HN</span>Dán tem NVL: NCC dán trước khi giao hay kho dán khi hàng về</b><select data-id="D01" aria-label="Trạng thái D01"><option value="">Chưa chốt</option><option value="ok">Đồng ý đề xuất</option><option value="chg">Điều chỉnh</option></select></summary><div class="in">Đề xuất: giữ như hiện tại, Hưng Yên NCC dán, Hà Nam kho dán. Cả hai dùng chung mẫu tem.</div></details><details class="dec"><summary><span class="id">D02</span><b>Dán tem thành phẩm theo thùng và gộp theo pallet</b><select data-id="D02" aria-label="Trạng thái D02"><option value="">Chưa chốt</option><option value="ok">Đồng ý đề xuất</option><option value="chg">Điều chỉnh</option></select></summary><div class="in">Đề xuất: dán theo thùng, gộp tem theo pallet, dùng một mẫu tem chung cho hai nhà máy.</div></details><details class="dec"><summary><span class="id">D03</span><b><span class="pl hn">HN</span>Danh mục đồng bộ từ SAP và map loại giao dịch</b><select data-id="D03" aria-label="Trạng thái D03"><option value="">Chưa chốt</option><option value="ok">Đồng ý đề xuất</option><option value="chg">Điều chỉnh</option></select></summary><div class="in">Cần chốt: SAP có tạo plant không, khách hàng và NCC dùng chung hay tách danh mục, khách có đơn ở cả 2000 và 2100 dùng một hay hai mã. Map MvT 101, 311 và các loại khác với nghiệp vụ WMS.</div></details><details class="dec"><summary><span class="id">D04</span><b><span class="pl hn">HN</span>Bộ phận tạo yêu cầu nhập NVL và yêu cầu trả NCC tại Hà Nam</b><select data-id="D04" aria-label="Trạng thái D04"><option value="">Chưa chốt</option><option value="ok">Đồng ý đề xuất</option><option value="chg">Điều chỉnh</option></select></summary><div class="in">Đề xuất: giống Hưng Yên, BP Mua tạo.</div></details><details class="dec"><summary><span class="id">D05</span><b><span class="pl hn">HN</span>Bộ phận tạo yêu cầu xuất đi gia công và nhập gia công về tại Hà Nam</b><select data-id="D05" aria-label="Trạng thái D05"><option value="">Chưa chốt</option><option value="ok">Đồng ý đề xuất</option><option value="chg">Điều chỉnh</option></select></summary><div class="in">Đề xuất: BP Mua tạo yêu cầu xuất đi gia công trên WMS, BP Sản xuất tạo yêu cầu nhập về trên SAP.</div></details><details class="dec"><summary><span class="id">D06</span><b>Bộ phận xác nhận điều chỉnh kiểm kê trên WMS</b><select data-id="D06" aria-label="Trạng thái D06"><option value="">Chưa chốt</option><option value="ok">Đồng ý đề xuất</option><option value="chg">Điều chỉnh</option></select></summary><div class="in">Cần khách chỉ định bộ phận và người có quyền duyệt.</div></details><details class="dec"><summary><span class="id">D07</span><b><span class="pl hn">HN</span>Quản lý vị trí giữa Hà Nam A và Hà Nam B</b><select data-id="D07" aria-label="Trạng thái D07"><option value="">Chưa chốt</option><option value="ok">Đồng ý đề xuất</option><option value="chg">Điều chỉnh</option></select></summary><div class="in">Đề xuất: Hà Nam A quản lý vị trí, Hà Nam B chỉ quản lý theo kho.</div></details><details class="dec"><summary><span class="id">D08</span><b><span class="pl hn">HN</span>Hàng chế xuất (miễn thuế)</b><select data-id="D08" aria-label="Trạng thái D08"><option value="">Chưa chốt</option><option value="ok">Đồng ý đề xuất</option><option value="chg">Điều chỉnh</option></select></summary><div class="in">Đề xuất: để khu vực riêng và có cờ phân biệt với hàng không miễn thuế.</div></details><details class="dec"><summary><span class="id">D09</span><b>Xuất hủy: cost center, phê duyệt và hàng tồn trên 6 tháng</b><select data-id="D09" aria-label="Trạng thái D09"><option value="">Chưa chốt</option><option value="ok">Đồng ý đề xuất</option><option value="chg">Điều chỉnh</option></select></summary><div class="in">Đề xuất: yêu cầu xuất hủy trên SAP kèm cost center. Báo cáo tồn lâu giúp thủ kho đề xuất hủy hàng quá 6 tháng.</div></details><details class="dec"><summary><span class="id">D10</span><b>FIFO gợi ý cho hàng không theo đơn</b><select data-id="D10" aria-label="Trạng thái D10"><option value="">Chưa chốt</option><option value="ok">Đồng ý đề xuất</option><option value="chg">Điều chỉnh</option></select></summary><div class="in">Đề xuất: WMS gợi ý lô xuất theo FIFO trên lệnh xuất cho hàng không theo đơn, nhất là bán thành phẩm.</div></details><details class="dec"><summary><span class="id">D11</span><b>Xuất nhiều hơn yêu cầu của sản xuất</b><select data-id="D11" aria-label="Trạng thái D11"><option value="">Chưa chốt</option><option value="ok">Đồng ý đề xuất</option><option value="chg">Điều chỉnh</option></select></summary><div class="in">Đề xuất: BP Sản xuất sửa yêu cầu trên SAP, đồng bộ lại sang WMS rồi kho mới xuất.</div></details><details class="dec"><summary><span class="id">D12</span><b>Kế hoạch giao hàng từ XNK và Kinh doanh</b><select data-id="D12" aria-label="Trạng thái D12"><option value="">Chưa chốt</option><option value="ok">Đồng ý đề xuất</option><option value="chg">Điều chỉnh</option></select></summary><div class="in">Đề xuất: gửi kế hoạch giao dạng file import vào WMS trước 1 đến 2 ngày để kho lập lệnh giao hàng.</div></details></section>
 <section class="doc" id="signoff">
-<h2>11. Phê duyệt</h2>
-<p class="lead">Bằng chữ ký bên dưới, hai bên xác nhận đã thống nhất giải pháp To-Be trong tài liệu này, cùng kết quả của các điểm ở mục 10.</p>
+<h2>V. Phê duyệt</h2>
+<p class="lead">Bằng chữ ký bên dưới, hai bên xác nhận đã thống nhất giải pháp To-Be trong tài liệu này, cùng kết quả của các điểm ở mục IV.</p>
 <div class="tw"><table class="t sign">
 <thead><tr><th>Bên</th><th>Họ tên</th><th>Chức vụ</th><th>Chữ ký</th><th>Ngày</th></tr></thead>
 <tbody>
