@@ -28,8 +28,6 @@
     <a class="s2" href="#khac">5. Nhập xuất khác, chuyển kho</a>
     <a class="s2" href="#kiemke">6. Kiểm kê và tồn kho</a>
     <a class="s2" href="#report">7. Báo cáo</a>
-    <a href="#decisions">IV. Điểm cần khách chốt</a>
-    <a href="#signoff">V. Phê duyệt</a>
   </nav>
   <div class="foot">Dữ liệu trong mockup chỉ để minh họa.</div>
 </aside>
@@ -61,7 +59,7 @@
 </section>
 <section class="doc" id="scope">
 <h2>I. Mục tiêu và phạm vi</h2>
-<p class="lead">Tài liệu mô tả cách DORCO WMS vận hành sau khi triển khai, dựa trên kết quả khảo sát tại Hưng Yên (02 đến 05/2026) và Hà Nam (10/2026). Sau buổi trình bày, mục đích là chốt giải pháp và các điểm còn mở ở mục IV.</p>
+<p class="lead">Tài liệu mô tả cách DORCO WMS vận hành sau khi triển khai, dựa trên kết quả khảo sát tại Hưng Yên (02 đến 05/2026) và Hà Nam (10/2026). Sau buổi trình bày, mục đích là chốt giải pháp và các điểm cần xác nhận, được nêu ở cuối từng phần.</p>
 
 <h3>Mục tiêu</h3>
 <ul>
@@ -156,7 +154,7 @@
 </ul></div>
 </div>
 <p class="sub" style="margin-top:8px">Chuyển vị trí trong cùng kho không đồng bộ sang SAP, vì SAP không quản lý vị trí.</p>
-<div class="ask"><b>Cần xác nhận:</b> map loại giao dịch SAP (hiện dùng 101 nhập mua, 311 chuyển kho) với từng nghiệp vụ WMS (D03). Các điểm khác giữa HY và HN ở mục IV.</div>
+<div class="ask"><b>Cần xác nhận:</b> map loại giao dịch SAP (hiện dùng 101 nhập mua, 311 chuyển kho) với từng nghiệp vụ WMS.</div>
 </section>
 <section class="doc" id="solution">
 <h2>III. Giải pháp hệ thống</h2>
@@ -186,35 +184,9 @@
 <tr><td>Đối tác (NCC, khách hàng)</td><td>SAP</td><td>Đồng bộ từ SAP</td></tr>
 <tr><td>Loại giao dịch, loại phiếu kho</td><td>SAP</td><td>Đồng bộ từ SAP và map với nghiệp vụ trên WMS</td></tr>
 </tbody></table></div>
-<div class="ask"><b>Cần xác nhận:</b> SAP có tạo plant không, khách hàng và NCC dùng chung một danh mục hay tách riêng, một khách có đơn ở cả 2000 và 2100 thì dùng một hay hai mã (D03). Cách quản lý vị trí giữa Hà Nam A và B (D07), khu hàng chế xuất (D08).</div>
+<div class="ask"><b>Cần xác nhận:</b> SAP có tạo plant không, khách hàng và NCC dùng chung một danh mục hay tách riêng, một khách có đơn ở cả 2000 và 2100 thì dùng một hay hai mã. Ngoài ra cần xác nhận cách quản lý vị trí giữa Hà Nam A và B, và khu riêng cho hàng chế xuất.</div>
 <h3>Màn hình</h3>
-<div class="tabset"><div class="tabs" role="tablist"><button role="tab">Cơ cấu tổ chức</button><button role="tab">Phát hành tem NVL</button></div><div class="pane"><div class="stage"><div class="win">
-<div class="bar"><i></i><i></i><i></i><span>DORCO WMS – Organization</span></div>
-<div class="app"><div class="side"><a class="" href="#">Theo dõi</a><a class="cur" href="#">Master data</a><a class="" href="#">Nhập kho</a><a class="" href="#">Xuất kho</a><a class="" href="#">Chuyển kho</a><a class="" href="#">Kiểm kê</a><a class="" href="#">Tồn kho</a><a class="" href="#">Báo cáo</a></div><div class="body"><div class="ttl"><b>Cơ cấu tổ chức</b><span><span class="btn ">+ Add Organization</span> <i class="mk">1</i></span></div>
-<div class="split">
- <div class="tree">
-  <div class="sm">Organization Tree</div>
-  <div>▾ [DORCO_CPN] Công ty TNHH Dorco Vina (2000)</div>
-  <div class="l2 on">▸ Kho 5000 – Thành phẩm</div>
-  <div class="l2">▸ Kho 1000 – NVL, BTP</div>
-  <div class="l2">▸ Kho 5900 – Hàng bán trả lại</div>
-  <div class="l2">▸ Kho 9000 – Hàng lỗi</div>
-  <div>▾ [DORCO_LV] Công ty TNHH Dorco Living (2100)</div>
-  <div class="l2">▸ Kho 1000, 3000, 5000</div>
- </div>
- <div class="pnl"><h5>Chi tiết kho đang chọn <i class="mk">2</i></h5>
-  <div class="frm">
-   <label>Mã (Code)</label><div class="v ro">5000</div>
-   <label>Tên</label><div class="v">Kho thành phẩm</div>
-   <label>Loại</label><div class="v ro">Kho (Warehouse)</div>
-   <label>Cấp</label><div class="v ro">2</div>
-   <label>Địa chỉ</label><div class="v">Hưng Yên</div>
-   <label>Trạng thái</label><div class="v">Active</div>
-  </div>
-  <div class="tb" style="margin-top:12px"><span class="btn p">Save</span> <span class="btn ">Cancel</span> <i class="mk">3</i></div>
-  <div class="nt">Đồng bộ từ SAP <i class="mk">4</i>. Vị trí (kệ, khoang) khai báo riêng ở Location Master.</div>
- </div>
-</div></div></div></div></div><div class="cap"><ol><li><i class="mk">1</i><span>Cây tổ chức hai cấp: pháp nhân, rồi kho thuộc pháp nhân. Mọi phiếu nhập, xuất, chuyển kho đều gắn với một kho trong cây.</span></li><li><i class="mk">2</i><span>Mã kho không sửa được. Tên, địa chỉ và trạng thái (Active hoặc Inactive) sửa được.</span></li><li><i class="mk">3</i><span>Lưu hoặc hủy thay đổi đang nhập.</span></li><li><i class="mk">4</i><span>Danh mục pháp nhân và kho đồng bộ từ SAP, mã kho trên WMS trùng mã kho trên SAP.</span></li></ol></div></div><div class="pane"><div class="stage"><div class="win">
+<div class="tabset"><div class="tabs" role="tablist"><button role="tab">Tổ chức: công ty</button><button role="tab">Tổ chức: kho</button><button role="tab">Phát hành tem NVL</button></div><div class="pane"><div class="stage shotstage"><figure class="shot"><img src="images/1.png" alt="Màn hình Tổ chức: cây tổ chức và chi tiết công ty" loading="lazy"><i class="mk pin" style="left:16.7%;top:29.6%">1</i><i class="mk pin" style="left:46%;top:23.5%">2</i><i class="mk pin" style="left:47.8%;top:15.4%">3</i><i class="mk pin" style="left:36.6%;top:43.5%">4</i><i class="mk pin" style="left:39.7%;top:72%">5</i><i class="mk pin" style="left:59%;top:22.5%">6</i><i class="mk pin" style="left:89.6%;top:16%">7</i></figure></div><div class="cap"><ol><li><i class="mk">1</i><span>Vào Thiết lập chung › Thiết lập tổ chức › Tổ chức. Cùng nhóm có Mã chung, Danh mục vị trí, Danh mục tiền tệ, Quốc gia, Quy tắc sinh mã.</span></li><li><i class="mk">2</i><span>Cây tổ chức có hai công ty: Dorco Vina (2000) và Dorco Living (2100). Kho nằm dưới từng công ty. Ô tìm kiếm lọc theo mã hoặc tên.</span></li><li><i class="mk">3</i><span>Thêm tổ chức để thêm nút mới. Nút làm mới tải lại cây.</span></li><li><i class="mk">4</i><span>Kho của Dorco Vina: K01 Kho NVL, K02 Kho DD, K03 Kho TP, K04 Kho Phế liệu, và các kho 1003, 3013, 3903, 5003, 5900, 9300.</span></li><li><i class="mk">5</i><span>Kho của Dorco Living: 1004, 3004, 5004, 9004.</span></li><li><i class="mk">6</i><span>Chi tiết công ty đang chọn: mã công ty (không sửa được), tên công ty, loại tổ chức, cấp, địa chỉ và trạng thái Hoạt động hoặc Không hoạt động.</span></li><li><i class="mk">7</i><span>Lưu hoặc Hủy thay đổi vừa nhập.</span></li></ol></div></div><div class="pane"><div class="stage shotstage"><figure class="shot"><img src="images/2.png" alt="Màn hình Tổ chức: chi tiết một kho" loading="lazy"><i class="mk pin" style="left:47.5%;top:27.6%">1</i><i class="mk pin" style="left:59.1%;top:15.9%">2</i><i class="mk pin" style="left:83%;top:33.9%">3</i><i class="mk pin" style="left:57.5%;top:49.6%">4</i><i class="mk pin" style="left:90.7%;top:16%">5</i><i class="mk pin" style="left:47.8%;top:15.6%">6</i></figure></div><div class="cap"><ol><li><i class="mk">1</i><span>Chọn một kho trong cây để xem chi tiết, ví dụ [K01] Kho NVL.</span></li><li><i class="mk">2</i><span>Chi tiết kho gồm mã kho, tên kho và loại tổ chức là Kho.</span></li><li><i class="mk">3</i><span>Nút cha cho biết kho thuộc nhà máy nào, ví dụ [DC_FAC1] Hưng Yên. Cấp của kho là 3.</span></li><li><i class="mk">4</i><span>Loại nút phân nhóm kho, ví dụ Raw Material cho kho nguyên vật liệu.</span></li><li><i class="mk">5</i><span>Chỉnh sửa để sửa thông tin kho.</span></li><li><i class="mk">6</i><span>Khi đang xem chi tiết kho, nút Thêm tổ chức bị mờ.</span></li></ol></div></div><div class="pane"><div class="stage"><div class="win">
 <div class="bar"><i></i><i></i><i></i><span>DORCO WMS – Phát hành tem NVL</span></div>
 <div class="app"><div class="side"><a class="" href="#">Theo dõi</a><a class="cur" href="#">Master data</a><a class="" href="#">Nhập kho</a><a class="" href="#">Xuất kho</a><a class="" href="#">Chuyển kho</a><a class="" href="#">Kiểm kê</a><a class="" href="#">Tồn kho</a><a class="" href="#">Báo cáo</a></div><div class="body"><div class="ttl"><b>Phát hành tem QR nguyên vật liệu</b><span><span class="btn p">In tem</span> <i class="mk">4</i></span></div>
 <div class="tb"><span class="sm">Lệnh nhập</span><input value="PO-4500123 / SO-2610" aria-label="Lệnh nhập"> <i class="mk">1</i></div>
@@ -237,7 +209,7 @@
   <li>Gộp, tách barcode để ghép pallet.</li>
  </ul></div>
 </div>
-<div class="ask"><b>Cần xác nhận:</b> cách dán tem NVL giữa hai nhà máy (D01) và dán tem thành phẩm theo thùng gộp pallet (D02).</div>
+<div class="ask"><b>Cần xác nhận:</b> cách dán tem NVL giữa hai nhà máy và dán tem thành phẩm theo thùng gộp pallet.</div>
 </section>
 <section class="doc subdoc" id="nvl">
 <h2>2. Quy trình nguyên vật liệu</h2>
@@ -250,7 +222,7 @@
 <li><div><b>Nhập hàng và QC<span class="who">BP Kho, QC</span><span class="sy PDA">PDA</span><span class="sy QC">QC</span></b><span>Quét tem bằng PDA. Hàng OK lên vị trí, hàng NG chuyển khu NG chờ xuất trả.</span><span class="sub"><span class="pl hy">HY</span>Nhập vào khu chờ, QC xong chuyển lên vị trí.</span><span class="sub"><span class="pl hn">HN</span>Kho kiểm và QC xong thì nhập vào vị trí.</span></div></li>
 <li><div><b>Phiếu nhập kho tự sinh<span class="who">Văn phòng kho</span><span class="sy WMS">WMS</span><span class="sy SAP">SAP</span></b><span>WMS tự sinh phiếu chờ duyệt. Văn phòng kho kiểm tra và duyệt trên WMS.</span><span class="sub"><span class="sync">⇄ WMS đồng bộ phiếu nhập kho sang SAP</span></span></div></li>
 <li><div><b>Trả hàng NG cho NCC<span class="who">BP Mua (HY)</span><span class="sy WMS">WMS</span><span class="sy SAP">SAP</span></b><span>Tạo yêu cầu trả từ phiếu nhập, tick chọn dòng cần trả. Xuất trả trên app hoặc web.</span><span class="sub"><span class="sync">⇄ Phiếu xuất đồng bộ về SAP</span></span></div></li>
-</ol><div class="ask"><b>Cần xác nhận:</b> bộ phận tạo yêu cầu nhập NVL và yêu cầu trả NCC tại Hà Nam (D04).</div>
+</ol><div class="ask"><b>Cần xác nhận:</b> bộ phận tạo yêu cầu nhập NVL và yêu cầu trả NCC tại Hà Nam.</div>
 <h3>Quy trình 2: Xuất dùng NVL và nhận lại hàng dư</h3>
 <ol class="steps">
 <li><div><b>Yêu cầu xuất NVL<span class="who">BP Sản xuất</span><span class="sy SAP">SAP</span><span class="sy WMS">WMS</span></b><span>Tạo yêu cầu xuất trên SAP, đồng bộ sang WMS.</span></div></li>
@@ -302,7 +274,7 @@
 <li><div><b>Phiếu xuất tự sinh, duyệt<span class="who">Văn phòng kho</span><span class="sy WMS">WMS</span><span class="sy SAP">SAP</span></b><span>Kiểm tra, duyệt, đồng bộ phiếu xuất sang SAP.</span></div></li>
 <li><div><b>Yêu cầu nhập hàng gia công về<span class="who">BP Sản xuất</span><span class="sy SAP">SAP</span><span class="sy WMS">WMS</span></b><span>Tạo trên SAP, đồng bộ sang WMS. In tem mới cho hàng nhận về.</span></div></li>
 <li><div><b>Nhập kho bằng PDA, duyệt<span class="who">BP Kho, Văn phòng kho</span><span class="sy PDA">PDA</span><span class="sy WMS">WMS</span><span class="sy SAP">SAP</span></b><span>BP Sản xuất giao hàng cho kho, kho quét PDA nhập. Phiếu nhập tự sinh, văn phòng kho duyệt và đồng bộ sang SAP.</span></div></li>
-</ol><div class="ask"><b>Cần xác nhận:</b> bộ phận tạo yêu cầu xuất đi gia công và nhập gia công về tại Hà Nam. Hiện chỉ trao đổi qua email (D05).</div>
+</ol><div class="ask"><b>Cần xác nhận:</b> bộ phận tạo yêu cầu xuất đi gia công và nhập gia công về tại Hà Nam. Hiện chỉ trao đổi qua email.</div>
 <h3>Màn hình</h3>
 <div class="tabset"><div class="tabs" role="tablist"><button role="tab">Yêu cầu xuất gia công</button></div><div class="pane"><div class="stage"><div class="win">
 <div class="bar"><i></i><i></i><i></i><span>DORCO WMS – Yêu cầu xuất gia công</span></div>
@@ -337,7 +309,7 @@
 <li><div><b>Hàng thực tế về<span class="who">BP Kho</span><span class="sy PDA">PDA</span></b><span>Quét QR tem, chuyển từ vị trí tạm sang vị trí thật.</span></div></li>
 </ol>
 <p class="sub">Tái sử dụng hoặc tái xuất sau khi nhận về đi theo quy trình chuyển kho (mục III.5): Hưng Yên 5900 sang 3000 hoặc 5000, Hà Nam 5900 sang 3903 hoặc 5003.</p>
-<div class="ask"><b>Cần xác nhận:</b> quy trình nhận kế hoạch giao hàng từ XNK và Kinh doanh: tiếp tục gửi Excel hay import vào WMS để lập lệnh giao trước 1 đến 2 ngày (D12).</div>
+<div class="ask"><b>Cần xác nhận:</b> quy trình nhận kế hoạch giao hàng từ XNK và Kinh doanh: tiếp tục gửi Excel hay import vào WMS để lập lệnh giao trước 1 đến 2 ngày.</div>
 <h3>Màn hình</h3>
 <div class="tabset"><div class="tabs" role="tablist"><button role="tab">Nhập kho TP</button><button role="tab">Lệnh giao hàng</button><button role="tab">Giao hàng trên PDA</button><button role="tab">Trả hàng bán</button></div><div class="pane"><div class="stage"><div class="win">
 <div class="bar"><i></i><i></i><i></i><span>DORCO WMS – Nhập kho thành phẩm</span></div>
@@ -390,7 +362,7 @@
 </ol></div>
 </div>
 <p class="sub">Hiện nay phụ trách kho tự sắp xếp vị trí, ghi vị trí cũ và mới lên phiếu giấy (Hà Nam) hoặc không ghi. Sau khi triển khai, mọi lần chuyển đều có phiếu.</p>
-<div class="ask"><b>Cần xác nhận:</b> cost center và luồng phê duyệt xuất hủy trên WMS, quy tắc xử lý hàng tồn trên 6 tháng (D09).</div>
+<div class="ask"><b>Cần xác nhận:</b> cost center và luồng phê duyệt xuất hủy trên WMS, quy tắc xử lý hàng tồn trên 6 tháng.</div>
 <h3>Màn hình</h3>
 <div class="tabset"><div class="tabs" role="tablist"><button role="tab">Phiếu chuyển kho</button><button role="tab">Chuyển vị trí trên PDA</button><button role="tab">Xuất hủy, xuất mẫu</button></div><div class="pane"><div class="stage"><div class="win">
 <div class="bar"><i></i><i></i><i></i><span>DORCO WMS – Phiếu chuyển kho</span></div>
@@ -422,7 +394,7 @@
 <li><div><b>Duyệt điều chỉnh<span class="who">Bộ phận có thẩm quyền</span><span class="sy WMS">WMS</span><span class="sy SAP">SAP</span></b><span>Duyệt thì hệ thống tự tạo phiếu nhập, xuất điều chỉnh và đồng bộ kết quả sang SAP.</span></div></li>
 </ol>
 <p class="sub">Hiện nay: Hưng Yên kiểm kê cuối tháng và kế toán kiểm theo quý, Hà Nam in tồn từ SAP, điền phiếu dán ở từng pallet rồi nhập số vào SAP. Chênh lệch phải xin duyệt qua email.</p>
-<div class="ask"><b>Cần xác nhận:</b> bộ phận chịu trách nhiệm xác nhận điều chỉnh kiểm kê trên WMS (D06).</div>
+<div class="ask"><b>Cần xác nhận:</b> bộ phận chịu trách nhiệm xác nhận điều chỉnh kiểm kê trên WMS.</div>
 <h3>Tiện ích tồn kho</h3>
 <div class="grid2">
  <div class="box"><h4>FIFO</h4><p>Hàng theo đơn thì xuất theo đơn. Hàng không theo đơn, nhất là bán thành phẩm, WMS gợi ý lô xuất theo FIFO trên lệnh xuất.</p></div>
@@ -433,7 +405,7 @@
   <li>Lịch sử barcode</li>
  </ul></div>
 </div>
-<div class="ask"><b>Cần xác nhận:</b> quy tắc FIFO gợi ý cho hàng không theo đơn (D10).</div>
+<div class="ask"><b>Cần xác nhận:</b> quy tắc FIFO gợi ý cho hàng không theo đơn.</div>
 <h3>Màn hình</h3>
 <div class="tabset"><div class="tabs" role="tablist"><button role="tab">Kiểm kê trên web</button><button role="tab">Kiểm kê trên PDA</button><button role="tab">Tồn theo vị trí</button></div><div class="pane"><div class="stage"><div class="win">
 <div class="bar"><i></i><i></i><i></i><span>DORCO WMS – Kiểm kê</span></div>
@@ -445,7 +417,7 @@
  <div><small>Chênh lệch</small><b>7</b> <i class="mk">1</i></div>
 </div>
 <div class="tw"><table><thead><tr><th class="">Vị trí</th><th class="">Mã hàng</th><th class="n">Tồn WMS</th><th class="n">Đếm thực tế</th><th class="n">Chênh lệch</th><th class="">Lý do</th></tr></thead><tbody><tr class="bad"><td class="">A1-1-3</td><td class="">NVL-0412</td><td class="n">800</td><td class="n">780</td><td class="n">-20</td><td class="">Kiểm tra lại <i class="mk">2</i></td></tr><tr class="bad"><td class="">A2-1-1</td><td class="">NVL-1203</td><td class="n">800</td><td class="n">810</td><td class="n">+10</td><td class="">Ghi lý do</td></tr><tr><td class="">A2-2-4</td><td class="">NVL-0877</td><td class="n">1.000</td><td class="n">1.000</td><td class="n">0</td><td class=""><span class="st ok">Khớp</span></td></tr></tbody></table></div>
-<div class="nt">Duyệt điều chỉnh: hệ thống tự tạo phiếu nhập, xuất điều chỉnh và đồng bộ sang SAP <i class="mk">3</i>.</div></div></div></div></div><div class="cap"><ol><li><i class="mk">1</i><span>Chốt số tồn theo tháng trước khi kiểm. Sau khi quét, WMS so sánh số đếm với số chốt.</span></li><li><i class="mk">2</i><span>Dòng chênh lệch được tô đỏ, ghi lý do hoặc kiểm tra lại.</span></li><li><i class="mk">3</i><span>Điều chỉnh tồn tạo phiếu nhập hoặc xuất điều chỉnh tự động, không phải tạo tay trên SAP.</span></li><li><i class="mk">4</i><span>Người duyệt điều chỉnh trên WMS còn chờ khách chốt (D06).</span></li></ol></div></div><div class="pane"><div class="stage"><div class="rfwrap"><div class="rf"><div class="scr"><div class="step"><div class="hd"><span>Kiểm kê</span><span>1/3</span></div><div class="bd"><div class="big">Tháng 10/2026</div><div class="fld"><small>Kho</small><b>1003 NVL/BTP/NPL</b></div><div class="fld"><small>Đã quét</small><b>0 / 412 tem</b></div></div><div class="ft"><button data-next>Bắt đầu quét</button></div></div><div class="step"><div class="hd"><span>Kiểm kê</span><span>2/3</span></div><div class="bd"><div class="fld act"><small>Quét tem</small><b>P-88120</b></div><div class="fld"><small>Mặt hàng</small><b>NVL-1203</b></div><div class="fld act"><small>Số lượng đếm</small><b>800</b></div><p class="sm">Tồn trên hệ thống không hiển thị để đếm khách quan.</p></div><div class="ft"><button data-next>Ghi nhận</button><button class="s" data-back>Quay lại</button></div></div><div class="step"><div class="hd"><span>Kiểm kê</span><span>3/3</span></div><div class="bd"><div class="okbox">Đã quét 1 tem</div><div class="fld"><small>Đã quét</small><b>1 / 412 tem</b></div><div class="fld"><small>Vị trí</small><b>A2-1-1</b></div></div><div class="ft"><button data-next>Quét tiếp</button></div></div></div></div>
+<div class="nt">Duyệt điều chỉnh: hệ thống tự tạo phiếu nhập, xuất điều chỉnh và đồng bộ sang SAP <i class="mk">3</i>.</div></div></div></div></div><div class="cap"><ol><li><i class="mk">1</i><span>Chốt số tồn theo tháng trước khi kiểm. Sau khi quét, WMS so sánh số đếm với số chốt.</span></li><li><i class="mk">2</i><span>Dòng chênh lệch được tô đỏ, ghi lý do hoặc kiểm tra lại.</span></li><li><i class="mk">3</i><span>Điều chỉnh tồn tạo phiếu nhập hoặc xuất điều chỉnh tự động, không phải tạo tay trên SAP.</span></li><li><i class="mk">4</i><span>Người duyệt điều chỉnh trên WMS còn chờ khách chốt.</span></li></ol></div></div><div class="pane"><div class="stage"><div class="rfwrap"><div class="rf"><div class="scr"><div class="step"><div class="hd"><span>Kiểm kê</span><span>1/3</span></div><div class="bd"><div class="big">Tháng 10/2026</div><div class="fld"><small>Kho</small><b>1003 NVL/BTP/NPL</b></div><div class="fld"><small>Đã quét</small><b>0 / 412 tem</b></div></div><div class="ft"><button data-next>Bắt đầu quét</button></div></div><div class="step"><div class="hd"><span>Kiểm kê</span><span>2/3</span></div><div class="bd"><div class="fld act"><small>Quét tem</small><b>P-88120</b></div><div class="fld"><small>Mặt hàng</small><b>NVL-1203</b></div><div class="fld act"><small>Số lượng đếm</small><b>800</b></div><p class="sm">Tồn trên hệ thống không hiển thị để đếm khách quan.</p></div><div class="ft"><button data-next>Ghi nhận</button><button class="s" data-back>Quay lại</button></div></div><div class="step"><div class="hd"><span>Kiểm kê</span><span>3/3</span></div><div class="bd"><div class="okbox">Đã quét 1 tem</div><div class="fld"><small>Đã quét</small><b>1 / 412 tem</b></div><div class="fld"><small>Vị trí</small><b>A2-1-1</b></div></div><div class="ft"><button data-next>Quét tiếp</button></div></div></div></div>
 <div class="rfnote"><b>Bấm nút trên máy để chạy thử.</b><div class="dots"><i></i><i></i><i></i></div><p>Kho quét tem từng pallet. Thay cho việc in tồn, điền phiếu giấy và nhập lại vào SAP.</p></div></div></div></div><div class="pane"><div class="stage"><div class="win">
 <div class="bar"><i></i><i></i><i></i><span>DORCO WMS – Giám sát tồn theo vị trí</span></div>
 <div class="app"><div class="side"><a class="" href="#">Theo dõi</a><a class="" href="#">Master data</a><a class="" href="#">Nhập kho</a><a class="" href="#">Xuất kho</a><a class="" href="#">Chuyển kho</a><a class="" href="#">Kiểm kê</a><a class="cur" href="#">Tồn kho</a><a class="" href="#">Báo cáo</a></div><div class="body"><div class="ttl"><b>Tồn kho theo vị trí</b><span><span class="btn ">Xuất Excel</span></span></div>
@@ -473,22 +445,6 @@
 <div class="tb"><span class="sm">Tồn trên</span><select aria-label="Số tháng"><option>6 tháng</option></select> <span class="sm">Kho</span><select aria-label="Kho"><option>Tất cả</option></select> <i class="mk">1</i></div>
 <div class="tw"><table><thead><tr><th class="">Mã hàng</th><th class="">Tên hàng</th><th class="">Kho</th><th class="n">SL</th><th class="">Ngày nhập gần nhất</th><th class="n">Số ngày tồn</th></tr></thead><tbody><tr class="bad"><td class="">NVL-0412</td><td class="">Dải thép lưỡi dao</td><td class="">1003</td><td class="n">800</td><td class="">12/03/2026</td><td class="n">216 <i class="mk">2</i></td></tr><tr class="bad"><td class="">BTP-0210</td><td class="">Thân dao cạo</td><td class="">3013</td><td class="n">1.500</td><td class="">28/02/2026</td><td class="n">228</td></tr><tr><td class="">NVL-1203</td><td class="">Hộp carton 3 lớp</td><td class="">1003</td><td class="n">2.400</td><td class="">15/10/2026</td><td class="n">1</td></tr></tbody></table></div>
 <div class="nt">Báo cáo giữ mẫu tồn kho trên SAP và bổ sung các trường theo yêu cầu <i class="mk">3</i>.</div></div></div></div></div><div class="cap"><ol><li><i class="mk">1</i><span>Lọc theo số tháng tồn và theo kho.</span></li><li><i class="mk">2</i><span>Hàng tồn quá ngưỡng (ví dụ 6 tháng) được tô đỏ để thủ kho đề xuất xuất hủy.</span></li><li><i class="mk">3</i><span>Báo cáo theo mẫu SAP đang dùng, thêm tồn theo vị trí và ngày nhập gần nhất của NVL.</span></li></ol></div></div></div>
-</section>
-<section class="doc" id="decisions">
-<h2>IV. Điểm cần khách chốt</h2>
-<p class="lead">Các điểm dưới đây rút ra từ khảo sát và ảnh hưởng đến thiết kế. Chọn trạng thái ngay trong buổi họp, lựa chọn lưu trên trình duyệt của bạn. Tình trạng hiện tại: <b id="dec-count"></b>.</p>
-<details class="dec"><summary><span class="id">D01</span><b><span class="pl hy">HY</span><span class="pl hn">HN</span>Dán tem NVL: NCC dán trước khi giao hay kho dán khi hàng về</b><select data-id="D01" aria-label="Trạng thái D01"><option value="">Chưa chốt</option><option value="ok">Đồng ý đề xuất</option><option value="chg">Điều chỉnh</option></select></summary><div class="in">Đề xuất: giữ như hiện tại, Hưng Yên NCC dán, Hà Nam kho dán. Cả hai dùng chung mẫu tem.</div></details><details class="dec"><summary><span class="id">D02</span><b>Dán tem thành phẩm theo thùng và gộp theo pallet</b><select data-id="D02" aria-label="Trạng thái D02"><option value="">Chưa chốt</option><option value="ok">Đồng ý đề xuất</option><option value="chg">Điều chỉnh</option></select></summary><div class="in">Đề xuất: dán theo thùng, gộp tem theo pallet, dùng một mẫu tem chung cho hai nhà máy.</div></details><details class="dec"><summary><span class="id">D03</span><b><span class="pl hn">HN</span>Danh mục đồng bộ từ SAP và map loại giao dịch</b><select data-id="D03" aria-label="Trạng thái D03"><option value="">Chưa chốt</option><option value="ok">Đồng ý đề xuất</option><option value="chg">Điều chỉnh</option></select></summary><div class="in">Cần chốt: SAP có tạo plant không, khách hàng và NCC dùng chung hay tách danh mục, khách có đơn ở cả 2000 và 2100 dùng một hay hai mã. Map MvT 101, 311 và các loại khác với nghiệp vụ WMS.</div></details><details class="dec"><summary><span class="id">D04</span><b><span class="pl hn">HN</span>Bộ phận tạo yêu cầu nhập NVL và yêu cầu trả NCC tại Hà Nam</b><select data-id="D04" aria-label="Trạng thái D04"><option value="">Chưa chốt</option><option value="ok">Đồng ý đề xuất</option><option value="chg">Điều chỉnh</option></select></summary><div class="in">Đề xuất: giống Hưng Yên, BP Mua tạo.</div></details><details class="dec"><summary><span class="id">D05</span><b><span class="pl hn">HN</span>Bộ phận tạo yêu cầu xuất đi gia công và nhập gia công về tại Hà Nam</b><select data-id="D05" aria-label="Trạng thái D05"><option value="">Chưa chốt</option><option value="ok">Đồng ý đề xuất</option><option value="chg">Điều chỉnh</option></select></summary><div class="in">Đề xuất: BP Mua tạo yêu cầu xuất đi gia công trên WMS, BP Sản xuất tạo yêu cầu nhập về trên SAP.</div></details><details class="dec"><summary><span class="id">D06</span><b>Bộ phận xác nhận điều chỉnh kiểm kê trên WMS</b><select data-id="D06" aria-label="Trạng thái D06"><option value="">Chưa chốt</option><option value="ok">Đồng ý đề xuất</option><option value="chg">Điều chỉnh</option></select></summary><div class="in">Cần khách chỉ định bộ phận và người có quyền duyệt.</div></details><details class="dec"><summary><span class="id">D07</span><b><span class="pl hn">HN</span>Quản lý vị trí giữa Hà Nam A và Hà Nam B</b><select data-id="D07" aria-label="Trạng thái D07"><option value="">Chưa chốt</option><option value="ok">Đồng ý đề xuất</option><option value="chg">Điều chỉnh</option></select></summary><div class="in">Đề xuất: Hà Nam A quản lý vị trí, Hà Nam B chỉ quản lý theo kho.</div></details><details class="dec"><summary><span class="id">D08</span><b><span class="pl hn">HN</span>Hàng chế xuất (miễn thuế)</b><select data-id="D08" aria-label="Trạng thái D08"><option value="">Chưa chốt</option><option value="ok">Đồng ý đề xuất</option><option value="chg">Điều chỉnh</option></select></summary><div class="in">Đề xuất: để khu vực riêng và có cờ phân biệt với hàng không miễn thuế.</div></details><details class="dec"><summary><span class="id">D09</span><b>Xuất hủy: cost center, phê duyệt và hàng tồn trên 6 tháng</b><select data-id="D09" aria-label="Trạng thái D09"><option value="">Chưa chốt</option><option value="ok">Đồng ý đề xuất</option><option value="chg">Điều chỉnh</option></select></summary><div class="in">Đề xuất: yêu cầu xuất hủy trên SAP kèm cost center. Báo cáo tồn lâu giúp thủ kho đề xuất hủy hàng quá 6 tháng.</div></details><details class="dec"><summary><span class="id">D10</span><b>FIFO gợi ý cho hàng không theo đơn</b><select data-id="D10" aria-label="Trạng thái D10"><option value="">Chưa chốt</option><option value="ok">Đồng ý đề xuất</option><option value="chg">Điều chỉnh</option></select></summary><div class="in">Đề xuất: WMS gợi ý lô xuất theo FIFO trên lệnh xuất cho hàng không theo đơn, nhất là bán thành phẩm.</div></details><details class="dec"><summary><span class="id">D11</span><b>Xuất nhiều hơn yêu cầu của sản xuất</b><select data-id="D11" aria-label="Trạng thái D11"><option value="">Chưa chốt</option><option value="ok">Đồng ý đề xuất</option><option value="chg">Điều chỉnh</option></select></summary><div class="in">Đề xuất: BP Sản xuất sửa yêu cầu trên SAP, đồng bộ lại sang WMS rồi kho mới xuất.</div></details><details class="dec"><summary><span class="id">D12</span><b>Kế hoạch giao hàng từ XNK và Kinh doanh</b><select data-id="D12" aria-label="Trạng thái D12"><option value="">Chưa chốt</option><option value="ok">Đồng ý đề xuất</option><option value="chg">Điều chỉnh</option></select></summary><div class="in">Đề xuất: gửi kế hoạch giao dạng file import vào WMS trước 1 đến 2 ngày để kho lập lệnh giao hàng.</div></details></section>
-<section class="doc" id="signoff">
-<h2>V. Phê duyệt</h2>
-<p class="lead">Bằng chữ ký bên dưới, hai bên xác nhận đã thống nhất giải pháp To-Be trong tài liệu này, cùng kết quả của các điểm ở mục IV.</p>
-<div class="tw"><table class="t sign">
-<thead><tr><th>Bên</th><th>Họ tên</th><th>Chức vụ</th><th>Chữ ký</th><th>Ngày</th></tr></thead>
-<tbody>
-<tr><td>Dorco</td><td></td><td></td><td></td><td></td></tr>
-<tr><td>Dorco</td><td></td><td></td><td></td><td></td></tr>
-<tr><td>Cyberlogitec Vietnam</td><td></td><td></td><td></td><td></td></tr>
-</tbody></table></div>
-<div class="btnrow"><button class="pb" id="print-btn" type="button">In hoặc lưu PDF</button></div>
 </section>
 <footer class="end">DORCO WMS – To-Be Solution Design (TSD), phiên bản 0.1. Dữ liệu trong mockup chỉ để minh họa.</footer>
 </main>
