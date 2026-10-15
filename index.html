@@ -22,6 +22,11 @@
     <a href="#arch">II. Kiến trúc và phân vai</a>
     <a href="#solution">III. Giải pháp hệ thống</a>
     <a class="s2" href="#master">1. Master data</a>
+    <a class="s3" href="#m-org-company">1.1 Danh mục tổ chức</a>
+    <a class="s3" href="#m-org-warehouse">1.2 Danh mục kho</a>
+    <a class="s3" href="#m-location">1.3 Danh mục vị trí</a>
+    <a class="s3" href="#m-partner">1.4 Đối tác kinh doanh</a>
+    <a class="s3" href="#m-label">1.5 Phát hành tem NVL</a>
     <a class="s2" href="#nvl">2. Quy trình nguyên vật liệu</a>
     <a class="s2" href="#giacong">3. Quy trình gia công</a>
     <a class="s2" href="#tp">4. Quy trình thành phẩm</a>
@@ -185,13 +190,6 @@
 <tr><td>Loại giao dịch, loại phiếu kho</td><td>SAP</td><td>Đồng bộ từ SAP và map với nghiệp vụ trên WMS</td></tr>
 </tbody></table></div>
 <div class="ask"><b>Cần xác nhận:</b> SAP có tạo plant không, khách hàng và NCC dùng chung một danh mục hay tách riêng, một khách có đơn ở cả 2000 và 2100 thì dùng một hay hai mã. Ngoài ra cần xác nhận cách quản lý vị trí giữa Hà Nam A và B, và khu riêng cho hàng chế xuất.</div>
-<h3>Màn hình</h3>
-<div class="tabset"><div class="tabs" role="tablist"><button role="tab">Tổ chức: công ty</button><button role="tab">Tổ chức: kho</button><button role="tab">Phát hành tem NVL</button></div><div class="pane"><div class="stage shotstage"><figure class="shot"><img src="images/1.png" alt="Màn hình Tổ chức: cây tổ chức và chi tiết công ty" loading="lazy"><i class="mk pin" style="left:16.7%;top:29.6%">1</i><i class="mk pin" style="left:46%;top:23.5%">2</i><i class="mk pin" style="left:47.8%;top:15.4%">3</i><i class="mk pin" style="left:36.6%;top:43.5%">4</i><i class="mk pin" style="left:39.7%;top:72%">5</i><i class="mk pin" style="left:59%;top:22.5%">6</i><i class="mk pin" style="left:89.6%;top:16%">7</i></figure></div><div class="cap"><ol><li><i class="mk">1</i><span>Vào Thiết lập chung › Thiết lập tổ chức › Tổ chức. Cùng nhóm có Mã chung, Danh mục vị trí, Danh mục tiền tệ, Quốc gia, Quy tắc sinh mã.</span></li><li><i class="mk">2</i><span>Cây tổ chức có hai công ty: Dorco Vina (2000) và Dorco Living (2100). Kho nằm dưới từng công ty. Ô tìm kiếm lọc theo mã hoặc tên.</span></li><li><i class="mk">3</i><span>Thêm tổ chức để thêm nút mới. Nút làm mới tải lại cây.</span></li><li><i class="mk">4</i><span>Kho của Dorco Vina: K01 Kho NVL, K02 Kho DD, K03 Kho TP, K04 Kho Phế liệu, và các kho 1003, 3013, 3903, 5003, 5900, 9300.</span></li><li><i class="mk">5</i><span>Kho của Dorco Living: 1004, 3004, 5004, 9004.</span></li><li><i class="mk">6</i><span>Chi tiết công ty đang chọn: mã công ty (không sửa được), tên công ty, loại tổ chức, cấp, địa chỉ và trạng thái Hoạt động hoặc Không hoạt động.</span></li><li><i class="mk">7</i><span>Lưu hoặc Hủy thay đổi vừa nhập.</span></li></ol></div></div><div class="pane"><div class="stage shotstage"><figure class="shot"><img src="images/2.png" alt="Màn hình Tổ chức: chi tiết một kho" loading="lazy"><i class="mk pin" style="left:47.5%;top:27.6%">1</i><i class="mk pin" style="left:59.1%;top:15.9%">2</i><i class="mk pin" style="left:83%;top:33.9%">3</i><i class="mk pin" style="left:57.5%;top:49.6%">4</i><i class="mk pin" style="left:90.7%;top:16%">5</i><i class="mk pin" style="left:47.8%;top:15.6%">6</i></figure></div><div class="cap"><ol><li><i class="mk">1</i><span>Chọn một kho trong cây để xem chi tiết, ví dụ [K01] Kho NVL.</span></li><li><i class="mk">2</i><span>Chi tiết kho gồm mã kho, tên kho và loại tổ chức là Kho.</span></li><li><i class="mk">3</i><span>Nút cha cho biết kho thuộc nhà máy nào, ví dụ [DC_FAC1] Hưng Yên. Cấp của kho là 3.</span></li><li><i class="mk">4</i><span>Loại nút phân nhóm kho, ví dụ Raw Material cho kho nguyên vật liệu.</span></li><li><i class="mk">5</i><span>Chỉnh sửa để sửa thông tin kho.</span></li><li><i class="mk">6</i><span>Khi đang xem chi tiết kho, nút Thêm tổ chức bị mờ.</span></li></ol></div></div><div class="pane"><div class="stage"><div class="win">
-<div class="bar"><i></i><i></i><i></i><span>DORCO WMS – Phát hành tem NVL</span></div>
-<div class="app"><div class="side"><a class="" href="#">Theo dõi</a><a class="cur" href="#">Master data</a><a class="" href="#">Nhập kho</a><a class="" href="#">Xuất kho</a><a class="" href="#">Chuyển kho</a><a class="" href="#">Kiểm kê</a><a class="" href="#">Tồn kho</a><a class="" href="#">Báo cáo</a></div><div class="body"><div class="ttl"><b>Phát hành tem QR nguyên vật liệu</b><span><span class="btn p">In tem</span> <i class="mk">4</i></span></div>
-<div class="tb"><span class="sm">Lệnh nhập</span><input value="PO-4500123 / SO-2610" aria-label="Lệnh nhập"> <i class="mk">1</i></div>
-<div class="tw"><table><thead><tr><th class="">Mã hàng</th><th class="">Tên hàng</th><th class="">Quy cách</th><th class="n">SL nhập</th><th class="n">Số tem cần in</th></tr></thead><tbody><tr><td class="">NVL-0412</td><td class="">Dải thép lưỡi dao</td><td class="">500 / pallet</td><td class="n">2.000</td><td class="n">4 <i class="mk">2</i></td></tr><tr><td class="">NVL-0877</td><td class="">Nhựa PP hạt</td><td class="">1.000 kg / pallet</td><td class="n">3.000</td><td class="n">3</td></tr><tr><td class="">NVL-1203</td><td class="">Hộp carton 3 lớp</td><td class="">800 / pallet</td><td class="n">2.400</td><td class="n">3</td></tr></tbody></table></div>
-<div class="nt">Thông tin trên tem <i class="mk">3</i>: ngày sản xuất, NCC, order, checklist, mã hàng, tên hàng, SO (nếu hàng nhập khẩu theo SO). Ngày nhập lưu theo định danh tem, không in.</div></div></div></div></div><div class="cap"><ol><li><i class="mk">1</i><span>Chọn lệnh nhập đã tạo. Lệnh nhập có SO thì tem NVL gắn SO.</span></li><li><i class="mk">2</i><span>Số tem tính từ số lượng nhập chia cho quy cách pallet. Một pallet chỉ một loại hàng.</span></li><li><i class="mk">3</i><span>Các thông tin hiển thị trên tem QR.</span></li><li><i class="mk">4</i><span>In tem để gửi NCC dán trước khi giao hoặc để kho dán khi hàng về. Có thể in lại khi hàng nhận khác lệnh.</span></li></ol></div></div></div>
 <h3>Tem QR</h3>
 <div class="grid2">
  <div class="box"><h4>Tem nguyên vật liệu</h4>
@@ -210,6 +208,48 @@
  </ul></div>
 </div>
 <div class="ask"><b>Cần xác nhận:</b> cách dán tem NVL giữa hai nhà máy và dán tem thành phẩm theo thùng gộp pallet.</div>
+</section>
+<section class="doc subdoc screen" id="m-org-company">
+<h2><span class="no">1.1</span>Danh mục tổ chức</h2>
+<p class="path">Thiết lập chung › Thiết lập tổ chức › Tổ chức</p>
+<div class="stage shotstage"><figure class="shot"><img src="images/1.png" alt="Màn hình Danh mục tổ chức: công ty"></figure></div>
+<p class="sumtxt">Danh mục tổ chức dùng thiết lập cơ cấu tổ chức công ty, được đồng bộ từ SAP qua WMS. Không cho phép thêm mới, sửa trên WMS.</p>
+
+</section>
+<section class="doc subdoc screen" id="m-org-warehouse">
+<h2><span class="no">1.2</span>Danh mục kho</h2>
+<p class="path">Thiết lập chung › Thiết lập tổ chức › Tổ chức</p>
+<div class="stage shotstage"><figure class="shot"><img src="images/2.png" alt="Màn hình Danh mục kho"></figure></div>
+<p class="sumtxt">Danh mục kho được đồng bộ từ SAP về WMS. Không cho phép thêm mới, sửa trên WMS.</p>
+
+</section>
+<section class="doc subdoc screen" id="m-location">
+<h2><span class="no">1.3</span>Danh mục vị trí</h2>
+<p class="path">Thiết lập chung › Thiết lập tổ chức › Danh mục vị trí</p>
+<div class="stage shotstage"><figure class="shot"><img src="images/3.png" alt="Màn hình Danh mục vị trí"></figure></div><div class="stage shotstage"><figure class="shot"><img src="images/4.png" alt="Màn hình Thêm vị trí"></figure></div>
+<p class="sumtxt">Danh mục vị trí dùng quản lý các vị trí lưu trữ trong kho (Bin, Shelf, Floor). Người dùng tìm kiếm theo bộ lọc, thêm vị trí mới (chọn kho, nhập tên, loại, giới hạn sức chứa), tạo và gán mã QR, in nhãn vị trí. Mã vị trí do hệ thống tự sinh.</p>
+<div class="biz"><b>Lưu ý nghiệp vụ</b><ul><li>Vị trí chỉ quản lý trên WMS, không đồng bộ từ SAP.</li><li>Mỗi vị trí có một mã QR để PDA quét khi nhập, xuất, chuyển vị trí.</li></ul></div>
+</section>
+<section class="doc subdoc screen" id="m-partner">
+<h2><span class="no">1.4</span>Đối tác kinh doanh</h2>
+<p class="path">Thiết lập chung › Đối tác kinh doanh</p>
+<div class="stage shotstage"><figure class="shot"><img src="images/5.png" alt="Màn hình Đối tác kinh doanh"><i class="mk pin" style="left:22.7%;top:15.4%">1</i><i class="mk pin" style="left:86%;top:29.4%">2</i><i class="mk pin" style="left:24.5%;top:43.1%">3</i><i class="mk pin" style="left:50.8%;top:57.2%">4</i><i class="mk pin" style="left:76.6%;top:39.5%">5</i><i class="mk pin" style="left:93.8%;top:39.5%">6</i></figure></div>
+<h4 class="acth">Hướng dẫn thao tác</h4>
+<div class="acts"><div class="act" data-pin="1"><span class="n">01</span><div><b>Bộ lọc</b><p>Lọc theo mã/tên đối tác, vai trò, quốc gia, trạng thái.</p><button type="button" class="loc">Định vị ↗</button></div></div><div class="act" data-pin="2"><span class="n">02</span><div><b>Thêm đối tác</b><p>Tạo đối tác mới.</p><button type="button" class="loc">Định vị ↗</button></div></div><div class="act" data-pin="3"><span class="n">03</span><div><b>Mã đối tác</b><p>Bấm vào mã để xem chi tiết đối tác.</p><button type="button" class="loc">Định vị ↗</button></div></div><div class="act" data-pin="4"><span class="n">04</span><div><b>Vai trò đối tác</b><p>Một đối tác có thể vừa là khách hàng vừa là nhà cung cấp.</p><button type="button" class="loc">Định vị ↗</button></div></div><div class="act" data-pin="5"><span class="n">05</span><div><b>Tiền tệ, điều khoản thanh toán, mã số thuế</b><p>Thông tin dùng cho chứng từ mua và bán.</p><button type="button" class="loc">Định vị ↗</button></div></div><div class="act" data-pin="6"><span class="n">06</span><div><b>Thao tác</b><p>Xem hoặc sửa đối tác.</p><button type="button" class="loc">Định vị ↗</button></div></div></div>
+<div class="biz"><b>Lưu ý nghiệp vụ</b><ul><li>Nhà cung cấp dùng cho nhập NVL, trả NCC. Khách hàng dùng cho giao hàng, hàng bán trả lại.</li></ul></div>
+</section>
+<section class="doc subdoc screen" id="m-label">
+<h2><span class="no">1.5</span>Phát hành tem QR nguyên vật liệu</h2>
+<p class="path">Phát hành nhãn</p>
+<div class="stage"><div class="win">
+<div class="bar"><i></i><i></i><i></i><span>DORCO WMS – Phát hành tem NVL</span></div>
+<div class="app"><div class="side"><a class="" href="#">Theo dõi</a><a class="cur" href="#">Master data</a><a class="" href="#">Nhập kho</a><a class="" href="#">Xuất kho</a><a class="" href="#">Chuyển kho</a><a class="" href="#">Kiểm kê</a><a class="" href="#">Tồn kho</a><a class="" href="#">Báo cáo</a></div><div class="body"><div class="ttl"><b>Phát hành tem QR nguyên vật liệu</b><span><span class="btn p">In tem</span> <i class="mk">4</i></span></div>
+<div class="tb"><span class="sm">Lệnh nhập</span><input value="PO-4500123 / SO-2610" aria-label="Lệnh nhập"> <i class="mk">1</i></div>
+<div class="tw"><table><thead><tr><th class="">Mã hàng</th><th class="">Tên hàng</th><th class="">Quy cách</th><th class="n">SL nhập</th><th class="n">Số tem cần in</th></tr></thead><tbody><tr><td class="">NVL-0412</td><td class="">Dải thép lưỡi dao</td><td class="">500 / pallet</td><td class="n">2.000</td><td class="n">4 <i class="mk">2</i></td></tr><tr><td class="">NVL-0877</td><td class="">Nhựa PP hạt</td><td class="">1.000 kg / pallet</td><td class="n">3.000</td><td class="n">3</td></tr><tr><td class="">NVL-1203</td><td class="">Hộp carton 3 lớp</td><td class="">800 / pallet</td><td class="n">2.400</td><td class="n">3</td></tr></tbody></table></div>
+<div class="nt">Thông tin trên tem <i class="mk">3</i>: ngày sản xuất, NCC, order, checklist, mã hàng, tên hàng, SO (nếu hàng nhập khẩu theo SO). Ngày nhập lưu theo định danh tem, không in.</div></div></div></div></div>
+<h4 class="acth">Hướng dẫn thao tác</h4>
+<div class="acts"><div class="act" data-pin="1"><span class="n">01</span><div><b>Chọn lệnh nhập</b><p>Chọn lệnh nhập cần in tem. Lệnh có SO thì tem gắn SO.</p><button type="button" class="loc">Định vị ↗</button></div></div><div class="act" data-pin="2"><span class="n">02</span><div><b>Số tem</b><p>Tính từ số lượng nhập chia quy cách pallet. Một pallet chỉ một loại hàng.</p><button type="button" class="loc">Định vị ↗</button></div></div><div class="act" data-pin="3"><span class="n">03</span><div><b>Thông tin trên tem</b><p>Ngày sản xuất, NCC, order, checklist, mã hàng, tên hàng.</p><button type="button" class="loc">Định vị ↗</button></div></div><div class="act" data-pin="4"><span class="n">04</span><div><b>In tem</b><p>In tem, có thể in lại khi hàng nhận khác lệnh.</p><button type="button" class="loc">Định vị ↗</button></div></div></div>
+<div class="biz"><b>Lưu ý nghiệp vụ</b><ul><li>HY: NCC dán tem trước khi giao. HN: kho dán tem khi hàng về.</li></ul></div>
 </section>
 <section class="doc subdoc" id="nvl">
 <h2>2. Quy trình nguyên vật liệu</h2>
