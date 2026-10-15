@@ -65,5 +65,16 @@
   });
   count();
 
+  /* Định vị: nháy số trên hình tương ứng với thẻ thao tác */
+  $$('.act .loc').forEach(function(b){
+    b.addEventListener('click',function(){
+      var sec=b.closest('section'),n=b.closest('.act').getAttribute('data-pin'),first=null;
+      $$('.stage .mk',sec).forEach(function(mk){
+        if(mk.textContent.trim()===n){mk.classList.remove('flash');void mk.offsetWidth;mk.classList.add('flash');first=first||mk}
+      });
+      if(first)first.scrollIntoView({block:'center',behavior:'smooth'});
+    });
+  });
+
   var pb=$('#print-btn');if(pb)pb.addEventListener('click',function(){window.print()});
 })();
