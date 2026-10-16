@@ -34,7 +34,7 @@
 .btn[aria-disabled=true]{opacity:.4;pointer-events:none}
 
 /* Nội dung */
-.content{padding:26px 28px 72px;max-width:1240px}
+.content{padding:26px 32px 72px;max-width:1720px}
 .page-head{margin-bottom:26px}
 .page-head small{color:var(--green);font-weight:600;font-size:13px}
 .page-head h1{font-size:30px;letter-spacing:-.01em;margin:2px 0 6px}
