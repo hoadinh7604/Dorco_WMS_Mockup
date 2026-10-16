@@ -6,20 +6,31 @@ Trang tài liệu giải pháp WMS cho Dorco. HTML tĩnh, không cần build. Ch
 
 | Đường dẫn | Nội dung | Ai sửa |
 |---|---|---|
-| `index.html` | Trang bìa, I. Mục tiêu và phạm vi, II. Kiến trúc và phân vai, thẻ dẫn vào các mục III | Hoa |
-| `pages/NN-*.html` | Nội dung từng mục (01 Master data … 07 Báo cáo) | Người phụ trách mục |
+| `index.html` | Trang bìa, A. Mục tiêu và phạm vi, B. Quy trình nghiệp vụ kho, thẻ dẫn vào các mục Giải pháp hệ thống | Người giữ phần chung |
+| `pages/NN-*.html` | Nội dung từng mục (01 Master data, 02–09 theo 8 quy trình của sơ đồ kho, 10 Báo cáo) | Người phụ trách mục |
 | `pages/_mau-trang-muc.html` | File mẫu để chép khi tạo mục mới | – |
 | `images/NN-*/` | Ảnh màn hình của từng mục | Người phụ trách mục |
 | `assets/js/menu.js` | **Mục lục chung** (thanh bên, Trước/Sau, thẻ trang chủ đều đọc từ đây) | Mỗi người sửa khối mục của mình |
-| `assets/js/layout.js` | Dựng khung trang, tìm kiếm, phóng to ảnh, In | Hoa |
-| `assets/css/*.css` | Giao diện (`tokens.css` chứa màu và chữ) | Hoa |
+| `assets/js/layout.js` | Dựng khung trang, tìm kiếm, phóng to ảnh, In | Người giữ phần chung |
+| `assets/data/processes.js` | Dữ liệu sơ đồ B. Quy trình nghiệp vụ kho, chép từ dự án Dorco_WMS (`content/data/processes.js`). Sửa quy trình bên Dorco_WMS rồi chép đè file này | Người giữ phần chung |
+| `assets/css/*.css` | Giao diện (`tokens.css` chứa màu và chữ) | Người giữ phần chung |
 
-## Phân công mục III
+## Phân công mục Giải pháp hệ thống
+
+Chưa chia. Khi chia việc, điền vào bảng dưới và ghi tên vào chú thích từng khối mục trong `assets/js/menu.js`.
 
 | Mục | Người phụ trách | Nhánh |
 |---|---|---|
-| 1, 2, 3 | Hoa | `hoa` |
-| 4, 5, 6 | Phương | `phuong` |
+| 1 Master data | | |
+| 2 Quy trình mua | | |
+| 3 Quy trình nhập xuất dùng | | |
+| 4 Quy trình gia công | | |
+| 5 Quy trình nhập kho thành phẩm | | |
+| 6 Quy trình bán hàng | | |
+| 7 Quy trình nhập xuất khác | | |
+| 8 Quy trình chuyển kho | | |
+| 9 Quy trình kiểm kê | | |
+| 10 Báo cáo | | |
 
 Mỗi người làm trên nhánh của mình, gộp vào `main` bằng Pull Request trên GitHub. Chỉ sửa file trong phần mình phụ trách để tránh xung đột.
 
