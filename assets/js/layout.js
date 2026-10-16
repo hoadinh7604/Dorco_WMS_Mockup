@@ -95,7 +95,7 @@
     main.appendChild(pg);
   }
 
-  /* Thẻ mục ở trang chủ: <div data-menu-cards="III. Giải pháp hệ thống"> */
+  /* Thẻ mục ở trang chủ: <div data-menu-cards="Giải pháp hệ thống"> */
   $$("[data-menu-cards]").forEach(function (box) {
     var name = box.getAttribute("data-menu-cards"), html = "";
     MENU.forEach(function (g) {
