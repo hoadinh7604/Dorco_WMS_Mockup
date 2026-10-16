@@ -7,7 +7,7 @@ Trang tài liệu giải pháp WMS cho Dorco. HTML tĩnh, không cần build. Ch
 | Đường dẫn | Nội dung | Ai sửa |
 |---|---|---|
 | `index.html` | Trang bìa, A. Mục tiêu và phạm vi, B. Quy trình nghiệp vụ kho, thẻ dẫn vào các mục Giải pháp hệ thống | Người giữ phần chung |
-| `pages/NN-*.html` | Nội dung từng mục (01 Master data, 02–09 theo 8 quy trình của sơ đồ kho, 10 Báo cáo) | Người phụ trách mục |
+| `pages/NN-*.html` | Nội dung từng mục (01 Master data, 02–09 theo 8 quy trình của sơ đồ kho, 10 Báo cáo, 11 Phát hành tem nhãn) | Người phụ trách mục |
 | `pages/_mau-trang-muc.html` | File mẫu để chép khi tạo mục mới | – |
 | `images/NN-*/` | Ảnh màn hình của từng mục | Người phụ trách mục |
 | `assets/js/menu.js` | **Mục lục chung** (thanh bên, Trước/Sau, thẻ trang chủ đều đọc từ đây) | Mỗi người sửa khối mục của mình |
@@ -31,6 +31,7 @@ Chưa chia. Khi chia việc, điền vào bảng dưới và ghi tên vào chú 
 | 8 Quy trình chuyển kho | | |
 | 9 Quy trình kiểm kê | | |
 | 10 Báo cáo | | |
+| 11 Phát hành tem nhãn | | |
 
 Mỗi người làm trên nhánh của mình, gộp vào `main` bằng Pull Request trên GitHub. Chỉ sửa file trong phần mình phụ trách để tránh xung đột.
 

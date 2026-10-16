@@ -28,13 +28,12 @@ window.TSD_MENU = [
 
     // ===== Mục 1 – (người phụ trách: chưa chia) =====
     { no: "1", title: "Master data", page: "01", href: "pages/01-master-data.html",
-      desc: "Tổ chức, kho, vị trí, đối tác kinh doanh, tem QR",
+      desc: "Tổ chức, kho, vị trí, đối tác kinh doanh",
       screens: [
         { no: "1.1", title: "Danh mục tổ chức",   id: "m-org" },
         { no: "1.2", title: "Danh mục kho",       id: "m-warehouse" },
         { no: "1.3", title: "Danh mục vị trí",    id: "m-location" },
-        { no: "1.4", title: "Đối tác kinh doanh", id: "m-partner" },
-        { no: "1.5", title: "Phát hành tem NVL",  id: "m-label" }
+        { no: "1.4", title: "Đối tác kinh doanh", id: "m-partner" }
       ]},
 
     // ===== Mục 2 – sơ đồ quy trình 1 – (người phụ trách: chưa chia) =====
@@ -71,6 +70,13 @@ window.TSD_MENU = [
 
     // ===== Mục 10 – (người phụ trách: chưa chia) =====
     { no: "10", title: "Báo cáo", page: "10", href: "pages/10-bao-cao.html", soon: true,
-      desc: "Tồn kho, tồn lâu, chứng từ" }
+      desc: "Tồn kho, tồn lâu, chứng từ" },
+
+    // ===== Mục 11 – (người phụ trách: chưa chia) =====
+    { no: "11", title: "Phát hành tem nhãn", page: "11", href: "pages/11-phat-hanh-tem-nhan.html",
+      desc: "In tem QR nguyên vật liệu, thành phẩm, vị trí",
+      screens: [
+        { no: "11.1", title: "Phát hành tem NVL", id: "t-nvl" }
+      ]}
   ]}
 ];
