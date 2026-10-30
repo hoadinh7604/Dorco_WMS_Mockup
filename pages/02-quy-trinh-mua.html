@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>2. Quy trình mua – Dorco WMS TSD</title>
+<title>2. Quy trình nhập mua – Dorco WMS TSD</title>
 <meta name="description" content="Dorco WMS – To-Be Solution Design: giải pháp quản lý kho cho Dorco Vina và Dorco Living.">
 <link rel="stylesheet" href="../assets/css/tokens.css">
 <link rel="stylesheet" href="../assets/css/base.css">
@@ -16,137 +16,114 @@
 
 <div class="page-head">
   <small>Giải pháp hệ thống</small>
-  <h1>2. Quy trình mua</h1>
+  <h1>2. Quy trình nhập mua</h1>
   <p>Inbound từ NCC: yêu cầu nhập mua, phiếu nhập mua và trả hàng cho nhà cung cấp. Các khung bên dưới là mockup tương tác: kéo ngang bảng để xem hết cột, bấm nút để mở popup; bấm ↗ Mở riêng để xem cỡ lớn.</p>
 </div>
 
-<!-- ===== BẮT ĐẦU: 2.1 Danh sách yêu cầu nhập mua ===== -->
-<section class="screen" id="p-yc-list">
-  <h2 class="screen__title"><span class="no">2.1</span>Danh sách yêu cầu nhập mua</h2>
+<!-- ===== BẮT ĐẦU: 2.1 Yêu cầu nhập mua ===== -->
+<section class="screen" id="p-yc">
+  <h2 class="screen__title"><span class="no">2.1</span>Yêu cầu nhập mua</h2>
   <p class="screen__path">Giao dịch kho › Nhập mua › tab Theo yêu cầu nhập mua</p>
   <div class="screen__body">
     <div class="screen__shots">
       <figure class="shot"><figcaption>Giao diện WMS · Danh sách yêu cầu nhập mua (kéo ngang bảng để xem hết cột; bấm Nhập Excel để mở menu)<a class="btn shot__zoom" href="../mockups/02-quy-trinh-mua/1.html" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption>
         <iframe class="shot__live" src="../mockups/02-quy-trinh-mua/1.html" title="Danh sách yêu cầu nhập mua" loading="lazy"></iframe></figure>
-    </div>
-    <aside class="screen__notes">
-      <div class="note"><h3>Mô tả</h3><p>Danh sách yêu cầu nhập mua. Trên cùng là thanh loại nhập (Tất cả, Nhập mua, Nhập lại từ sản xuất, Nhập khác) và 5 chỉ số: Tổng số yêu cầu, Tổng số phiếu nhập, Phiếu nhập tạo mới, Phiếu nhập đã duyệt, Tỷ lệ hoàn thành nhập mua. Bộ lọc theo ngày yêu cầu, trạng thái, giao dịch, số PO / SO / số tờ khai / mã hàng, nhà cung cấp, kho nhập.</p><p>Grid có 2 tab Theo yêu cầu nhập mua / Theo phiếu nhập mua. Bấm số yêu cầu để mở chi tiết yêu cầu. Nút Nhập Excel có 2 lựa chọn: Tải Template và Nhập từ Excel. Nút Tạo Yêu cầu nhập mua để tạo yêu cầu mới.</p></div>
-      <div class="note note--biz"><h3>Lưu ý nghiệp vụ</h3><ul><li>Số yêu cầu có dạng YCNK-YYMM-xxxxx, vd. YCNK-2610-00004.</li><li>Giao dịch: Trong nước hoặc Nhập khẩu. Yêu cầu nhập khẩu có số tờ khai, không có PO.</li><li>Trạng thái yêu cầu: Tạo mới, Hoàn thành.</li><li>Cột số lượng là tổng của cả yêu cầu nên chỉ hiện số, không kèm ĐVT (các dòng chi tiết có thể khác ĐVT).</li></ul></div>
-    </aside>
-  </div>
-</section>
-<!-- ===== KẾT THÚC: 2.1 Danh sách yêu cầu nhập mua ===== -->
-<!-- ===== BẮT ĐẦU: 2.2 Yêu cầu nhập mua ===== -->
-<section class="screen" id="p-yc">
-  <h2 class="screen__title"><span class="no">2.2</span>Yêu cầu nhập mua</h2>
-  <p class="screen__path">Giao dịch kho › Nhập mua › tab Theo yêu cầu nhập mua › bấm số yêu cầu</p>
-  <div class="screen__body">
-    <div class="screen__shots">
       <figure class="shot"><figcaption>Giao diện WMS · Yêu cầu nhập mua (kéo ngang bảng để xem hết cột)<a class="btn shot__zoom" href="../mockups/02-quy-trinh-mua/2.html" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption>
         <iframe class="shot__live" src="../mockups/02-quy-trinh-mua/2.html" title="Yêu cầu nhập mua" loading="lazy"></iframe></figure>
     </div>
     <aside class="screen__notes">
-      <div class="note"><h3>Mô tả</h3><p>Chi tiết một yêu cầu nhập mua. Tiêu đề ghi số yêu cầu, nhãn nguồn (WMS) và trạng thái (Đã lưu); nút Xóa, Chỉnh sửa, In. Tab Phiếu nhập mua hiện số phiếu đã lập từ yêu cầu này.</p><p>Thông tin chung: giao dịch, nhà cung cấp, số chứng từ, ngày tạo, thời gian dự kiến nhập, nhân viên, kho nhập, số tờ khai, ghi chú. Grid Hàng yêu cầu: Item No, Ref, mã hàng, tên hàng, quy cách, ĐVT, SL yêu cầu, SL đã nhận, SL còn lại, vị trí, SO, PO, check list, Batch No., Heat No., số pallet dự kiến, lô hàng, ghi chú. Thêm dòng bằng nút + Mặt hàng.</p></div>
-      <div class="note note--biz"><h3>Lưu ý nghiệp vụ</h3><ul><li>Nhãn WMS cho biết nguồn tạo yêu cầu.</li><li>SL còn lại = SL yêu cầu − SL đã nhận.</li><li>Check list ghi mã check list, vd. 2026-123.</li></ul></div>
+      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Tạo và theo dõi yêu cầu nhập mua; tạo trực tiếp trên WMS hoặc nhập từ Excel.</p><ul><li>Số yêu cầu dạng YCNK-YYMM-xxxxx.</li><li>Giao dịch Trong nước hoặc Nhập khẩu; yêu cầu nhập khẩu có số tờ khai, không có PO.</li><li>Trạng thái: Tạo mới, Hoàn thành. SL còn lại = SL yêu cầu − SL đã nhận.</li></ul></div>
     </aside>
   </div>
 </section>
-<!-- ===== KẾT THÚC: 2.2 Yêu cầu nhập mua ===== -->
-<!-- ===== BẮT ĐẦU: 2.3 Danh sách phiếu nhập mua ===== -->
-<section class="screen" id="p-pn-list">
-  <h2 class="screen__title"><span class="no">2.3</span>Danh sách phiếu nhập mua</h2>
+<!-- ===== KẾT THÚC: 2.1 Yêu cầu nhập mua ===== -->
+<!-- ===== BẮT ĐẦU: 2.2 Phát hành in tem ===== -->
+<section class="screen" id="p-tem">
+  <h2 class="screen__title"><span class="no">2.2</span>Phát hành in tem</h2>
+  <div class="note"><p>Chi tiết phát hành và in tem theo logic chung tại mục <a href="11-phat-hanh-tem-nhan.html#t-nvl">11.1 – Phát hành tem nguyên vật liệu</a>.</p></div>
+</section>
+<!-- ===== KẾT THÚC: 2.2 Phát hành in tem ===== -->
+<!-- ===== BẮT ĐẦU: 2.3 Nhập mua trên PDA ===== -->
+<section class="screen" id="p-pda-nm">
+  <h2 class="screen__title"><span class="no">2.3</span>Nhập mua trên PDA</h2>
+  <p class="screen__path">PDA › Nhóm công việc › Nhập kho › Nhập mua</p>
+  <div class="screen__body">
+    <div class="screen__shots">
+      <figure class="shot"><figcaption>Giao diện PDA · Nhập mua: 6 màn đánh số theo thứ tự thao tác<a class="btn shot__zoom" href="../mockups/02-quy-trinh-mua/pda-nhap-mua.html" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption>
+        <iframe class="shot__live" src="../mockups/02-quy-trinh-mua/pda-nhap-mua.html" title="Nhập mua trên PDA" loading="lazy" style="aspect-ratio:1467/1834"></iframe></figure>
+    </div>
+    <aside class="screen__notes">
+      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Kho nhận hàng mua trên PDA theo yêu cầu nhập mua: quét vị trí và mã tem, sửa số lượng nếu cần, rồi Lưu phiếu.</p><ul><li>Mỗi dòng là một tem; một mặt hàng cất vào nhiều vị trí thì hiện nhiều dòng.</li><li>Lý do sửa số lượng không bắt buộc; nếu có thì lưu vào cột Lý do sửa SL nhập của phiếu nhập (2.4).</li></ul></div>
+    </aside>
+  </div>
+</section>
+<!-- ===== KẾT THÚC: 2.3 Nhập mua trên PDA ===== -->
+<!-- ===== BẮT ĐẦU: 2.4 Phiếu nhập mua ===== -->
+<section class="screen" id="p-pn">
+  <h2 class="screen__title"><span class="no">2.4</span>Phiếu nhập mua</h2>
   <p class="screen__path">Giao dịch kho › Nhập mua › tab Theo phiếu nhập mua</p>
   <div class="screen__body">
     <div class="screen__shots">
       <figure class="shot"><figcaption>Giao diện WMS · Danh sách phiếu nhập mua (kéo ngang bảng để xem hết cột)<a class="btn shot__zoom" href="../mockups/02-quy-trinh-mua/3.html" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption>
         <iframe class="shot__live" src="../mockups/02-quy-trinh-mua/3.html" title="Danh sách phiếu nhập mua" loading="lazy"></iframe></figure>
-    </div>
-    <aside class="screen__notes">
-      <div class="note"><h3>Mô tả</h3><p>Danh sách phiếu nhập mua. Thanh loại nhập, 5 chỉ số và bộ lọc giống màn 2.1; bộ lọc ngày theo ngày nhập mua.</p><p>Grid: loại, giao dịch, trạng thái, số phiếu nhập, yêu cầu nhập mua, ngày nhập, thời gian dự kiến nhập, đối tác, kho nhập, số lượng nhập, số dòng chi tiết, số tờ khai, người phụ trách. Nút Nhập Excel, Xuất, Tạo Phiếu nhập mua.</p></div>
-      <div class="note note--biz"><h3>Lưu ý nghiệp vụ</h3><ul><li>Số phiếu nhập có dạng NK-NVL-YYMM-xxxxx, vd. NK-NVL-2609-00005.</li><li>Mỗi phiếu nhập gắn với một yêu cầu nhập mua (cột Yêu cầu nhập mua).</li><li>Trạng thái phiếu: Tạo mới, Đã duyệt.</li><li>Số lượng nhập chỉ hiện số, không kèm ĐVT.</li></ul></div>
-    </aside>
-  </div>
-</section>
-<!-- ===== KẾT THÚC: 2.3 Danh sách phiếu nhập mua ===== -->
-<!-- ===== BẮT ĐẦU: 2.4 Phiếu nhập mua ===== -->
-<section class="screen" id="p-pn">
-  <h2 class="screen__title"><span class="no">2.4</span>Phiếu nhập mua</h2>
-  <p class="screen__path">Giao dịch kho › Nhập mua › tab Theo phiếu nhập mua › bấm số phiếu nhập</p>
-  <div class="screen__body">
-    <div class="screen__shots">
       <figure class="shot"><figcaption>Giao diện WMS · Phiếu nhập mua (kéo ngang bảng để xem hết cột; bấm kính lúp ở cột Mã vạch/QR để mở chi tiết tem)<a class="btn shot__zoom" href="../mockups/02-quy-trinh-mua/4.html" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption>
         <iframe class="shot__live" src="../mockups/02-quy-trinh-mua/4.html" title="Phiếu nhập mua" loading="lazy"></iframe></figure>
     </div>
     <aside class="screen__notes">
-      <div class="note"><h3>Mô tả</h3><p>Chi tiết một phiếu nhập mua. Tiêu đề ghi số phiếu, nhãn WMS và trạng thái; nút Xóa, Chỉnh sửa, Duyệt, In.</p><p>Thông tin phiếu: giao dịch, đối tác, số phiếu nhập, ngày nhập, yêu cầu nhập mua (bấm để mở yêu cầu), kho nhập, nhân viên, trạng thái, thời gian dự kiến nhập, số tờ khai, ghi chú. Grid Hàng nhập mua: cột Mã vạch/QR hiện số tem đã gán, bấm kính lúp để xem danh sách tem; tiếp theo là Item No, Ref, mã hàng, tên hàng, quy cách, ĐVT, SL yêu cầu, SL nhập, SL còn lại, vị trí, SO, PO, check list, Batch No., Heat No., lô hàng, số tờ khai, ghi chú, lý do sửa SL nhập.</p></div>
-      <div class="note note--biz"><h3>Lưu ý nghiệp vụ</h3><ul><li>Khi SL nhập khác SL yêu cầu thì ghi Lý do sửa SL nhập (vd. dòng 1: nhập 1,980 / yêu cầu 2,000, lý do "Cân lại thực tế").</li></ul></div>
+      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Phiếu nhập mua sinh từ thao tác nhập trên PDA; văn phòng kho kiểm tra và duyệt.</p><ul><li>Số phiếu dạng NK-NVL-YYMM-xxxxx; mỗi phiếu gắn với một yêu cầu nhập mua.</li><li>Trạng thái: Tạo mới, Đã duyệt.</li><li>SL nhập khác SL yêu cầu thì ghi Lý do sửa SL nhập.</li></ul></div>
     </aside>
   </div>
 </section>
 <!-- ===== KẾT THÚC: 2.4 Phiếu nhập mua ===== -->
-<!-- ===== BẮT ĐẦU: 2.5 Danh sách yêu cầu xuất trả NCC ===== -->
-<section class="screen" id="p-yctl-list">
-  <h2 class="screen__title"><span class="no">2.5</span>Danh sách yêu cầu xuất trả NCC</h2>
+<!-- ===== BẮT ĐẦU: 2.5 Yêu cầu xuất trả nhà cung cấp ===== -->
+<section class="screen" id="p-yctl">
+  <h2 class="screen__title"><span class="no">2.5</span>Yêu cầu xuất trả nhà cung cấp</h2>
   <p class="screen__path">Giao dịch kho › Xuất kho › Xuất trả nhà cung cấp › tab Theo yêu cầu xuất</p>
   <div class="screen__body">
     <div class="screen__shots">
       <figure class="shot"><figcaption>Giao diện WMS · Danh sách yêu cầu xuất trả NCC (kéo ngang bảng để xem hết cột)<a class="btn shot__zoom" href="../mockups/02-quy-trinh-mua/5.html" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption>
         <iframe class="shot__live" src="../mockups/02-quy-trinh-mua/5.html" title="Danh sách yêu cầu xuất trả NCC" loading="lazy"></iframe></figure>
-    </div>
-    <aside class="screen__notes">
-      <div class="note"><h3>Mô tả</h3><p>Danh sách yêu cầu trả hàng cho nhà cung cấp. Thanh loại xuất (Tất cả, Xuất trả nhà cung cấp, Xuất vào sản xuất, Xuất khác) và 5 chỉ số: Tổng số yêu cầu, Tổng số phiếu xuất, Phiếu xuất tạo mới, Phiếu xuất đã duyệt, Tỷ lệ hoàn thành xuất trả. Bộ lọc theo ngày yêu cầu, trạng thái, loại, số PO / SO / số tờ khai / mã hàng, nhà cung cấp, kho xuất, lý do trả.</p><p>Grid: loại, giao dịch, số yêu cầu trả, trạng thái, ngày yêu cầu, đối tác, kho xuất, số PO, số tờ khai, lý do trả, SL yêu cầu, SL đã trả, số dòng chi tiết, tiến độ, phiếu xuất kho. Nút Xuất, Tạo Yêu cầu trả nhà cung cấp.</p></div>
-      <div class="note note--biz"><h3>Lưu ý nghiệp vụ</h3><ul><li>Số yêu cầu trả có dạng YCTL-YYMM-xxxxx, vd. YCTL-2610-00001.</li><li>Trạng thái yêu cầu: Tạo mới, Hoàn thành.</li><li>Số lượng chỉ hiện số, không kèm ĐVT.</li></ul></div>
-    </aside>
-  </div>
-</section>
-<!-- ===== KẾT THÚC: 2.5 Danh sách yêu cầu xuất trả NCC ===== -->
-<!-- ===== BẮT ĐẦU: 2.6 Tạo yêu cầu trả nhà cung cấp ===== -->
-<section class="screen" id="p-yctl">
-  <h2 class="screen__title"><span class="no">2.6</span>Tạo yêu cầu trả nhà cung cấp</h2>
-  <p class="screen__path">Giao dịch kho › Xuất kho › Xuất trả nhà cung cấp › Tạo Yêu cầu trả nhà cung cấp</p>
-  <div class="screen__body">
-    <div class="screen__shots">
       <figure class="shot"><figcaption>Giao diện WMS · Tạo yêu cầu trả nhà cung cấp (kéo ngang bảng để xem hết cột; bấm + Thêm từ phiếu nhập kho để mở popup chọn dòng)<a class="btn shot__zoom" href="../mockups/02-quy-trinh-mua/6.html" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption>
         <iframe class="shot__live" src="../mockups/02-quy-trinh-mua/6.html" title="Tạo yêu cầu trả nhà cung cấp" loading="lazy"></iframe></figure>
     </div>
     <aside class="screen__notes">
-      <div class="note"><h3>Mô tả</h3><p>Tạo yêu cầu trả hàng. Thông tin chung: giao dịch, đối tác, số yêu cầu trả (sinh khi lưu), ngày tạo, kho xuất, lý do trả, thời gian dự kiến xuất, nhân viên, số tờ khai, ghi chú.</p><p>Grid Hàng trả có 3 cách thêm dòng: + Thêm từ phiếu nhập kho, + Thêm từ mặt hàng, + Thêm từ tồn kho. Bấm + Thêm từ phiếu nhập kho mở popup Dòng phiếu nhập kho: lọc theo số phiếu nhập kho, ngày nhập kho, số PO, nhóm hàng, mã / tên mặt hàng; tích chọn dòng (hoặc chọn tất cả) rồi bấm Lấy dòng đã chọn. Cột Mã vạch/QR có kính lúp để xem tem đã gán.</p></div>
-      <div class="note note--biz"><h3>Lưu ý nghiệp vụ</h3><ul><li>Mỗi dòng hàng trả có lý do trả riêng (cột Lý do trả), ngoài lý do trả chung ở phần thông tin.</li><li>Dòng hàng trả ghi phiếu nhập kho và PO gốc của hàng.</li></ul></div>
+      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Tạo yêu cầu trả hàng cho nhà cung cấp, lấy dòng từ phiếu nhập kho, mặt hàng hoặc tồn kho.</p><ul><li>Số yêu cầu dạng YCTL-YYMM-xxxxx; trạng thái Tạo mới, Hoàn thành.</li><li>Mỗi dòng có lý do trả riêng, ngoài lý do trả chung của yêu cầu; dòng ghi phiếu nhập kho và PO gốc.</li></ul></div>
     </aside>
   </div>
 </section>
-<!-- ===== KẾT THÚC: 2.6 Tạo yêu cầu trả nhà cung cấp ===== -->
-<!-- ===== BẮT ĐẦU: 2.7 Danh sách phiếu xuất trả NCC ===== -->
-<section class="screen" id="p-xtl-list">
-  <h2 class="screen__title"><span class="no">2.7</span>Danh sách phiếu xuất trả NCC</h2>
+<!-- ===== KẾT THÚC: 2.5 Yêu cầu xuất trả nhà cung cấp ===== -->
+<!-- ===== BẮT ĐẦU: 2.6 Xuất trả nhà cung cấp trên PDA ===== -->
+<section class="screen" id="p-pda-xtl">
+  <h2 class="screen__title"><span class="no">2.6</span>Xuất trả nhà cung cấp trên PDA</h2>
+  <p class="screen__path">PDA › Nhóm công việc › Xuất kho › Xuất trả nhà cung cấp</p>
+  <div class="screen__body">
+    <div class="screen__shots">
+      <figure class="shot"><figcaption>Giao diện PDA · Xuất trả nhà cung cấp: 5 màn đánh số theo thứ tự thao tác<a class="btn shot__zoom" href="../mockups/02-quy-trinh-mua/pda-xuat-tra-ncc.html" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption>
+        <iframe class="shot__live" src="../mockups/02-quy-trinh-mua/pda-xuat-tra-ncc.html" title="Xuất trả nhà cung cấp trên PDA" loading="lazy" style="aspect-ratio:1467/1834"></iframe></figure>
+    </div>
+    <aside class="screen__notes">
+      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Kho xuất trả hàng cho nhà cung cấp trên PDA: chỉ quét mã tem, hệ thống tự lấy mặt hàng, kho và vị trí, rồi Lưu phiếu.</p><ul><li>Quét tem không thuộc mặt hàng trên phiếu, hoặc tem đã quét, thì báo lỗi ngay.</li></ul></div>
+    </aside>
+  </div>
+</section>
+<!-- ===== KẾT THÚC: 2.6 Xuất trả nhà cung cấp trên PDA ===== -->
+<!-- ===== BẮT ĐẦU: 2.7 Phiếu xuất trả nhà cung cấp ===== -->
+<section class="screen" id="p-xtl">
+  <h2 class="screen__title"><span class="no">2.7</span>Phiếu xuất trả nhà cung cấp</h2>
   <p class="screen__path">Giao dịch kho › Xuất kho › Xuất trả nhà cung cấp › tab Theo phiếu xuất</p>
   <div class="screen__body">
     <div class="screen__shots">
       <figure class="shot"><figcaption>Giao diện WMS · Danh sách phiếu xuất trả NCC (kéo ngang bảng để xem hết cột)<a class="btn shot__zoom" href="../mockups/02-quy-trinh-mua/7.html" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption>
         <iframe class="shot__live" src="../mockups/02-quy-trinh-mua/7.html" title="Danh sách phiếu xuất trả NCC" loading="lazy"></iframe></figure>
-    </div>
-    <aside class="screen__notes">
-      <div class="note"><h3>Mô tả</h3><p>Danh sách phiếu xuất trả nhà cung cấp. Thanh loại xuất, 5 chỉ số và bộ lọc giống màn 2.5; bộ lọc ngày theo ngày xuất kho.</p><p>Grid: loại, giao dịch, trạng thái, số phiếu xuất, yêu cầu trả NCC, ngày xuất, thời gian dự kiến xuất, đối tác, kho xuất, số lượng xuất, số dòng chi tiết, số tờ khai, người phụ trách. Nút Nhập Excel, Xuất, Tạo Phiếu xuất kho.</p></div>
-      <div class="note note--biz"><h3>Lưu ý nghiệp vụ</h3><ul><li>Số phiếu xuất có dạng XTL-YYMM-xxxxx, vd. XTL-2610-00003.</li><li>Mỗi phiếu xuất gắn với một yêu cầu trả NCC.</li><li>Trạng thái phiếu: Tạo mới, Đã duyệt.</li></ul></div>
-    </aside>
-  </div>
-</section>
-<!-- ===== KẾT THÚC: 2.7 Danh sách phiếu xuất trả NCC ===== -->
-<!-- ===== BẮT ĐẦU: 2.8 Phiếu xuất trả nhà cung cấp ===== -->
-<section class="screen" id="p-xtl">
-  <h2 class="screen__title"><span class="no">2.8</span>Phiếu xuất trả nhà cung cấp</h2>
-  <p class="screen__path">Giao dịch kho › Xuất kho › Xuất trả nhà cung cấp › tab Theo phiếu xuất › bấm số phiếu xuất</p>
-  <div class="screen__body">
-    <div class="screen__shots">
       <figure class="shot"><figcaption>Giao diện WMS · Phiếu xuất trả nhà cung cấp (kéo ngang bảng để xem hết cột; bấm kính lúp ở cột Mã vạch/QR để mở chi tiết tem)<a class="btn shot__zoom" href="../mockups/02-quy-trinh-mua/8.html" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption>
         <iframe class="shot__live" src="../mockups/02-quy-trinh-mua/8.html" title="Phiếu xuất trả nhà cung cấp" loading="lazy"></iframe></figure>
     </div>
     <aside class="screen__notes">
-      <div class="note"><h3>Mô tả</h3><p>Chi tiết một phiếu xuất trả nhà cung cấp. Tiêu đề ghi số phiếu, nhãn WMS và trạng thái; nút Xóa, Chỉnh sửa, Duyệt, In.</p><p>Thông tin phiếu: giao dịch, đối tác, số phiếu xuất, ngày xuất, yêu cầu trả NCC (bấm để mở yêu cầu), kho xuất, nhân viên, trạng thái, thời gian dự kiến xuất, lý do trả, số tờ khai, ghi chú. Grid Hàng xuất trả: mã vạch/QR (số tem đã gán, kính lúp xem chi tiết), Item No, Ref, mã hàng, tên hàng, quy cách, ĐVT, SL yêu cầu, SL xuất, vị trí, Batch No., lô hàng, phiếu nhập kho, PO, số tờ khai, ghi chú.</p></div>
+      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Phiếu xuất trả sinh từ thao tác xuất trên PDA; văn phòng kho kiểm tra và duyệt.</p><ul><li>Số phiếu dạng XTL-YYMM-xxxxx; mỗi phiếu gắn với một yêu cầu trả NCC.</li><li>Trạng thái: Tạo mới, Đã duyệt.</li></ul></div>
     </aside>
   </div>
 </section>
-<!-- ===== KẾT THÚC: 2.8 Phiếu xuất trả nhà cung cấp ===== -->
+<!-- ===== KẾT THÚC: 2.7 Phiếu xuất trả nhà cung cấp ===== -->
 
 </main>
 

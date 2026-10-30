@@ -17,7 +17,7 @@
 <div class="page-head">
   <small>Giải pháp hệ thống</small>
   <h1>1. Master data</h1>
-  <p>Danh mục nền dùng chung cho mọi quy trình kho: công ty, nhà máy, kho, vị trí lưu trữ và đối tác kinh doanh.</p>
+  <p>Danh mục nền dùng chung cho mọi quy trình kho: công ty, nhà máy, kho, vị trí lưu trữ, đối tác kinh doanh, mặt hàng, nhóm hàng và loại hàng.</p>
 </div>
 
 <!-- ===== BẮT ĐẦU: 1.1 Danh mục công ty ===== -->
@@ -32,8 +32,7 @@
         </div></figure>
     </div>
     <aside class="screen__notes">
-      <div class="note"><h3>Mô tả</h3><p>Danh mục công ty được đồng bộ từ SAP về WMS. Không cho phép thêm mới, sửa trên WMS. Bên trái là cây tổ chức (tìm nút theo mã hoặc tên), bên phải là chi tiết công ty đang chọn: mã, tên, loại tổ chức, nút cha, cấp, trạng thái, địa chỉ.</p></div>
-      <div class="note note--biz"><h3>Lưu ý nghiệp vụ</h3><ul><li>Hai công ty: 2000 – Công ty TNHH Dorco Vina và 2100 – Công ty TNHH Dorco Living.</li><li>Cây tổ chức gồm 3 cấp: Công ty › Nhà máy › Kho.</li></ul></div>
+      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Danh mục công ty đồng bộ từ SAP, không thêm mới hay sửa trên WMS.</p><ul><li>Hai công ty: 2000 – Công ty TNHH Dorco Vina và 2100 – Công ty TNHH Dorco Living.</li><li>Cây tổ chức gồm 3 cấp: Công ty › Nhà máy › Kho.</li></ul></div>
     </aside>
   </div>
 </section>
@@ -50,8 +49,7 @@
         </div></figure>
     </div>
     <aside class="screen__notes">
-      <div class="note"><h3>Mô tả</h3><p>Danh mục nhà máy được đồng bộ từ SAP về WMS. Không cho phép thêm mới, sửa trên WMS. Chọn nhà máy trên cây tổ chức để xem chi tiết: mã, tên, loại tổ chức, nút cha (công ty), cấp, trạng thái, địa chỉ.</p></div>
-      <div class="note note--biz"><h3>Lưu ý nghiệp vụ</h3><ul><li>Mỗi công ty có một nhà máy: 2000 – Dorco Vina (công ty 2000) và 2100 – Dorco Living (công ty 2100).</li></ul></div>
+      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Danh mục nhà máy đồng bộ từ SAP, không thêm mới hay sửa trên WMS.</p><ul><li>Mỗi công ty có một nhà máy: 2000 – Dorco Vina và 2100 – Dorco Living.</li></ul></div>
     </aside>
   </div>
 </section>
@@ -68,8 +66,7 @@
         </div></figure>
     </div>
     <aside class="screen__notes">
-      <div class="note"><h3>Mô tả</h3><p>Danh mục kho được đồng bộ từ SAP về WMS, không thêm mới trên WMS. Chọn kho trên cây tổ chức để xem chi tiết: mã kho, tên kho, loại tổ chức, nút cha (nhà máy), cấp, trạng thái, loại nút. Người dùng thiết lập thêm hai thông tin Theo dõi tồn kho và Quản lý vị trí cho từng kho.</p></div>
-      <div class="note note--biz"><h3>Lưu ý nghiệp vụ</h3><ul><li>Mã kho trên WMS = mã nhà máy + "_" + mã kho SAP, vd. 2000_1000, 2100_1002.</li><li>Nhà máy 2000 có 17 kho, nhà máy 2100 có 10 kho.</li></ul></div>
+      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Danh mục kho đồng bộ từ SAP, không thêm mới trên WMS; người dùng chỉ thiết lập Theo dõi tồn kho và Quản lý vị trí cho từng kho.</p><ul><li>Mã kho trên WMS = mã nhà máy + "_" + mã kho SAP, vd. 2000_1000.</li><li>Nhà máy 2000 có 17 kho, nhà máy 2100 có 10 kho.</li></ul></div>
     </aside>
   </div>
 </section>
@@ -86,8 +83,7 @@
         <img src="../images/01-master-data/5.png?v=2026-10-30" alt="Màn hình thêm vị trí"></figure>
     </div>
     <aside class="screen__notes">
-      <div class="note"><h3>Mô tả</h3><p>Danh mục vị trí dùng quản lý các vị trí lưu trữ trong kho (Bin, Shelf, Floor). Người dùng tìm kiếm theo bộ lọc, thêm vị trí mới (chọn kho, nhập tên, loại, giới hạn sức chứa), tạo và gán mã QR, in nhãn vị trí. Mã vị trí do hệ thống tự sinh.</p></div>
-      <div class="note note--biz"><h3>Lưu ý nghiệp vụ</h3><ul><li>Vị trí chỉ quản lý trên WMS, không đồng bộ từ SAP.</li><li>Mỗi vị trí có một mã QR để PDA quét khi nhập, xuất, chuyển vị trí.</li></ul></div>
+      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Quản lý vị trí lưu trữ trong kho (Bin, Shelf, Floor): thêm vị trí, tạo mã QR và in nhãn vị trí. Mã vị trí do hệ thống tự sinh.</p><ul><li>Vị trí chỉ quản lý trên WMS, không đồng bộ từ SAP.</li><li>Mỗi vị trí có một mã QR để PDA quét khi nhập, xuất, chuyển vị trí.</li></ul></div>
     </aside>
   </div>
 </section>
@@ -102,8 +98,7 @@
         <img src="../images/01-master-data/6.png?v=2026-10-30" alt="Màn hình danh sách đối tác kinh doanh"></figure>
     </div>
     <aside class="screen__notes">
-      <div class="note"><h3>Mô tả</h3><p>Danh mục đối tác kinh doanh quản lý khách hàng và nhà cung cấp (một đối tác có thể giữ cả hai vai trò), kèm quốc gia, tiền tệ, điều khoản thanh toán, mã số thuế. Người dùng tìm kiếm theo bộ lọc, xem chi tiết hoặc thêm đối tác mới.</p></div>
-      <div class="note note--biz"><h3>Lưu ý nghiệp vụ</h3><ul><li>Nhà cung cấp dùng cho nhập NVL, trả NCC. Khách hàng dùng cho giao hàng, hàng bán trả lại.</li></ul></div>
+      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Quản lý khách hàng và nhà cung cấp; một đối tác có thể giữ cả hai vai trò.</p><ul><li>Nhà cung cấp dùng cho nhập NVL, trả NCC. Khách hàng dùng cho giao hàng, hàng bán trả lại.</li></ul></div>
     </aside>
   </div>
 </section>

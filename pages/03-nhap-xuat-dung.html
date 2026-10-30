@@ -30,8 +30,7 @@
         <iframe class="shot__live" src="../mockups/03-nhap-xuat-dung/1.html" title="Danh sách yêu cầu xuất vào sản xuất" loading="lazy" style="aspect-ratio:2150/914"></iframe></figure>
     </div>
     <aside class="screen__notes">
-      <div class="note"><h3>Mô tả</h3><p>Danh sách các yêu cầu xuất nguyên vật liệu cho sản xuất. Đầu trang là các chỉ số: tổng số yêu cầu, tổng số phiếu xuất, phiếu xuất tạo mới, phiếu xuất hoàn thành và tỷ lệ hoàn thành xuất kho. Người dùng lọc theo ngày yêu cầu, trạng thái, kho xuất, kho nhận, số yêu cầu hoặc mã hàng; mở rộng từng dòng để xem mặt hàng; bấm số yêu cầu để xem chi tiết.</p></div>
-      <div class="note note--biz"><h3>Lưu ý nghiệp vụ</h3><ul><li>Trạng thái yêu cầu: Tạo mới, Đang xử lý, Hoàn thành.</li><li>Tiến độ = SL đã xuất / SL yêu cầu. Cột Phiếu liên kết ghi số phiếu đã duyệt trên tổng số phiếu của yêu cầu.</li><li>Số yêu cầu có tiền tố YCXK.</li></ul></div>
+      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Theo dõi các yêu cầu xuất nguyên vật liệu cho sản xuất và tiến độ xuất.</p><ul><li>Số yêu cầu dạng YCXK-…; trạng thái Tạo mới, Đang xử lý, Hoàn thành.</li><li>Tiến độ = SL đã xuất / SL yêu cầu.</li></ul></div>
     </aside>
   </div>
 </section>
@@ -46,15 +45,29 @@
         <iframe class="shot__live" src="../mockups/03-nhap-xuat-dung/2.html" title="Chi tiết yêu cầu xuất vào sản xuất" loading="lazy" style="aspect-ratio:1720/990"></iframe></figure>
     </div>
     <aside class="screen__notes">
-      <div class="note"><h3>Mô tả</h3><p>Màn xem lại một yêu cầu xuất vào sản xuất. Tab Yêu cầu xuất kho gồm thông tin chung và lưới hàng xuất; tab Phiếu xuất kho liệt kê các phiếu đã tạo từ yêu cầu. Bấm biểu tượng kính lúp ở cột Mã vạch/QR để xem các tem đã gán.</p></div>
-      <div class="note note--biz"><h3>Lưu ý nghiệp vụ</h3><ul><li>Yêu cầu được đồng bộ từ SAP (nhãn SAP), không thêm, sửa hay xóa trên WMS.</li><li>Kho nhận (PW) là kho sản xuất, ví dụ 2000_3903. Kho xuất nằm theo từng dòng hàng, ví dụ 2000_1003.</li><li>Hệ thống tự động gợi ý Mã vạch/QR, Vị trí và SO theo FIFO.</li></ul></div>
+      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Xem chi tiết yêu cầu xuất vào sản xuất và các phiếu xuất đã tạo từ yêu cầu.</p><ul><li>Yêu cầu đồng bộ từ SAP, không thêm, sửa, xóa trên WMS.</li><li>Kho nhận (PW) là kho sản xuất, vd. 2000_3903; kho xuất theo từng dòng, vd. 2000_1003.</li><li>Hệ thống gợi ý tem, vị trí và SO theo FIFO.</li></ul></div>
     </aside>
   </div>
 </section>
 <!-- ===== KẾT THÚC: 3.2 Chi tiết yêu cầu xuất vào sản xuất ===== -->
-<!-- ===== BẮT ĐẦU: 3.3 Danh sách phiếu xuất kho vào sản xuất ===== -->
+<!-- ===== BẮT ĐẦU: 3.3 Xuất kho vào sản xuất trên PDA ===== -->
+<section class="screen" id="xsx-pda">
+  <h2 class="screen__title"><span class="no">3.3</span>Xuất kho vào sản xuất trên PDA</h2>
+  <p class="screen__path">PDA › Nhóm công việc › Xuất kho › Xuất kho vào sản xuất</p>
+  <div class="screen__body">
+    <div class="screen__shots">
+      <figure class="shot"><figcaption>Giao diện PDA · Xuất kho vào sản xuất: 6 màn đánh số theo thứ tự thao tác<a class="btn shot__zoom" href="../mockups/03-nhap-xuat-dung/pda-xuat-vao-san-xuat.html" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption>
+        <iframe class="shot__live" src="../mockups/03-nhap-xuat-dung/pda-xuat-vao-san-xuat.html" title="Xuất kho vào sản xuất trên PDA" loading="lazy" style="aspect-ratio:1467/1834"></iframe></figure>
+    </div>
+    <aside class="screen__notes">
+      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Kho xuất nguyên vật liệu cho sản xuất trên PDA: chỉ quét mã tem, hệ thống tự lấy mặt hàng, kho và vị trí, rồi Lưu phiếu.</p><ul><li>Kho nhập (PW) cố định theo yêu cầu; kho xuất có thể gồm nhiều kho theo vị trí của tem.</li><li>SL xuất điền sẵn, sửa được nhưng không vượt SL tồn của tem.</li></ul></div>
+    </aside>
+  </div>
+</section>
+<!-- ===== KẾT THÚC: 3.3 Xuất kho vào sản xuất trên PDA ===== -->
+<!-- ===== BẮT ĐẦU: 3.4 Danh sách phiếu xuất kho vào sản xuất ===== -->
 <section class="screen" id="xsx-pds">
-  <h2 class="screen__title"><span class="no">3.3</span>Danh sách phiếu xuất kho vào sản xuất</h2>
+  <h2 class="screen__title"><span class="no">3.4</span>Danh sách phiếu xuất kho vào sản xuất</h2>
   <p class="screen__path">Giao dịch kho › Xuất kho › Xuất vào sản xuất</p>
   <div class="screen__body">
     <div class="screen__shots">
@@ -62,15 +75,14 @@
         <iframe class="shot__live" src="../mockups/03-nhap-xuat-dung/3.html" title="Danh sách phiếu xuất kho vào sản xuất" loading="lazy" style="aspect-ratio:2150/914"></iframe></figure>
     </div>
     <aside class="screen__notes">
-      <div class="note"><h3>Mô tả</h3><p>Danh sách các phiếu xuất kho vào sản xuất (tab Theo phiếu xuất). Đầu trang là các chỉ số: tổng số phiếu xuất, phiếu tạo mới, phiếu đã duyệt, phiếu đã hủy. Mỗi phiếu ghi yêu cầu xuất gốc, ngày xuất, kho nhận, số lượng và người phụ trách.</p></div>
-      <div class="note note--biz"><h3>Lưu ý nghiệp vụ</h3><ul><li>Trạng thái phiếu: Tạo mới, Đã duyệt.</li><li>Một yêu cầu có thể xuất bằng nhiều phiếu.</li><li>Số phiếu có tiền tố PXK.</li></ul></div>
+      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Theo dõi các phiếu xuất kho vào sản xuất.</p><ul><li>Số phiếu dạng PXK-…; trạng thái Tạo mới, Đã duyệt.</li><li>Một yêu cầu có thể xuất bằng nhiều phiếu.</li></ul></div>
     </aside>
   </div>
 </section>
-<!-- ===== KẾT THÚC: 3.3 Danh sách phiếu xuất kho vào sản xuất ===== -->
-<!-- ===== BẮT ĐẦU: 3.4 Phiếu xuất kho vào sản xuất ===== -->
+<!-- ===== KẾT THÚC: 3.4 Danh sách phiếu xuất kho vào sản xuất ===== -->
+<!-- ===== BẮT ĐẦU: 3.5 Phiếu xuất kho vào sản xuất ===== -->
 <section class="screen" id="xsx-phieu">
-  <h2 class="screen__title"><span class="no">3.4</span>Phiếu xuất kho vào sản xuất</h2>
+  <h2 class="screen__title"><span class="no">3.5</span>Phiếu xuất kho vào sản xuất</h2>
   <p class="screen__path">Giao dịch kho › Xuất kho › Xuất vào sản xuất</p>
   <div class="screen__body">
     <div class="screen__shots">
@@ -78,15 +90,14 @@
         <iframe class="shot__live" src="../mockups/03-nhap-xuat-dung/4.html" title="Phiếu xuất kho vào sản xuất" loading="lazy" style="aspect-ratio:1720/937"></iframe></figure>
     </div>
     <aside class="screen__notes">
-      <div class="note"><h3>Mô tả</h3><p>Chi tiết một phiếu xuất kho vào sản xuất: thông tin phiếu (yêu cầu xuất gốc, kho nhận, nhân viên, trạng thái) và lưới hàng xuất với SL yêu cầu, SL xuất, kho xuất, vị trí, batch. Người dùng in phiếu, chỉnh sửa, xóa hoặc duyệt phiếu.</p></div>
-      <div class="note note--biz"><h3>Lưu ý nghiệp vụ</h3><ul><li>Phiếu được tạo trên WMS (nhãn WMS).</li><li>Duyệt phiếu thì trừ tồn kho xuất và cập nhật tiến độ của yêu cầu.</li></ul></div>
+      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Phiếu xuất kho vào sản xuất tạo trên WMS; văn phòng kho kiểm tra và duyệt.</p><ul><li>Duyệt phiếu thì trừ tồn kho xuất và cập nhật tiến độ của yêu cầu.</li></ul></div>
     </aside>
   </div>
 </section>
-<!-- ===== KẾT THÚC: 3.4 Phiếu xuất kho vào sản xuất ===== -->
-<!-- ===== BẮT ĐẦU: 3.5 Danh sách yêu cầu nhập trả từ sản xuất ===== -->
+<!-- ===== KẾT THÚC: 3.5 Phiếu xuất kho vào sản xuất ===== -->
+<!-- ===== BẮT ĐẦU: 3.6 Danh sách yêu cầu nhập trả từ sản xuất ===== -->
 <section class="screen" id="ntsx-ds">
-  <h2 class="screen__title"><span class="no">3.5</span>Danh sách yêu cầu nhập trả từ sản xuất</h2>
+  <h2 class="screen__title"><span class="no">3.6</span>Danh sách yêu cầu nhập trả từ sản xuất</h2>
   <p class="screen__path">Giao dịch kho › Nhập kho › Nhập trả từ sản xuất</p>
   <div class="screen__body">
     <div class="screen__shots">
@@ -94,15 +105,14 @@
         <iframe class="shot__live" src="../mockups/03-nhap-xuat-dung/5.html" title="Danh sách yêu cầu nhập trả từ sản xuất" loading="lazy" style="aspect-ratio:2150/914"></iframe></figure>
     </div>
     <aside class="screen__notes">
-      <div class="note"><h3>Mô tả</h3><p>Danh sách các yêu cầu sản xuất trả nguyên vật liệu về kho. Đầu trang là các chỉ số: tổng số yêu cầu, tổng số phiếu nhập, phiếu nhập tạo mới, phiếu nhập đã duyệt và tỷ lệ hoàn thành. Người dùng lọc theo ngày yêu cầu, trạng thái, kho nhập, kho xuất, số yêu cầu hoặc mã hàng.</p></div>
-      <div class="note note--biz"><h3>Lưu ý nghiệp vụ</h3><ul><li>Phía sản xuất là xuất trả, phía kho là nhập: tên nghiệp vụ trên WMS là Nhập trả từ sản xuất.</li><li>Mỗi yêu cầu ghi lý do trả: Dư sau sản xuất, Lỗi / không đạt chất lượng, Đổi kế hoạch sản xuất, Sai quy cách.</li><li>Số yêu cầu có tiền tố YCTLSX.</li></ul></div>
+      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Theo dõi các yêu cầu sản xuất trả nguyên vật liệu về kho.</p><ul><li>Số yêu cầu dạng YCTLSX-….</li><li>Lý do trả: Dư sau sản xuất, Lỗi / không đạt chất lượng, Đổi kế hoạch sản xuất, Sai quy cách.</li></ul></div>
     </aside>
   </div>
 </section>
-<!-- ===== KẾT THÚC: 3.5 Danh sách yêu cầu nhập trả từ sản xuất ===== -->
-<!-- ===== BẮT ĐẦU: 3.6 Chi tiết yêu cầu nhập trả từ sản xuất ===== -->
+<!-- ===== KẾT THÚC: 3.6 Danh sách yêu cầu nhập trả từ sản xuất ===== -->
+<!-- ===== BẮT ĐẦU: 3.7 Chi tiết yêu cầu nhập trả từ sản xuất ===== -->
 <section class="screen" id="ntsx-yc">
-  <h2 class="screen__title"><span class="no">3.6</span>Chi tiết yêu cầu nhập trả từ sản xuất</h2>
+  <h2 class="screen__title"><span class="no">3.7</span>Chi tiết yêu cầu nhập trả từ sản xuất</h2>
   <p class="screen__path">Giao dịch kho › Nhập kho › Nhập trả từ sản xuất</p>
   <div class="screen__body">
     <div class="screen__shots">
@@ -110,15 +120,29 @@
         <iframe class="shot__live" src="../mockups/03-nhap-xuat-dung/6.html" title="Chi tiết yêu cầu nhập trả từ sản xuất" loading="lazy" style="aspect-ratio:1720/990"></iframe></figure>
     </div>
     <aside class="screen__notes">
-      <div class="note"><h3>Mô tả</h3><p>Màn xem lại một yêu cầu nhập trả từ sản xuất: thông tin chung (kho nhập, thời gian dự kiến nhập, ca sản xuất, lý do trả) và lưới hàng nhập trả. Tab Phiếu nhập kho liệt kê các phiếu đã tạo từ yêu cầu.</p></div>
-      <div class="note note--biz"><h3>Lưu ý nghiệp vụ</h3><ul><li>Yêu cầu được đồng bộ từ SAP (nhãn SAP).</li><li>Kho nhập (WMS) là kho nhận hàng trả, ví dụ 2000_1003. Kho xuất nằm theo từng dòng hàng, ví dụ 2000_3903.</li><li>Ca sản xuất gồm Ca sáng, Ca chiều, Ca đêm; mặc định Ca sáng.</li></ul></div>
+      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Xem chi tiết yêu cầu nhập trả từ sản xuất và các phiếu nhập đã tạo từ yêu cầu.</p><ul><li>Yêu cầu đồng bộ từ SAP.</li><li>Kho nhập (WMS) vd. 2000_1003; kho xuất theo từng dòng, vd. 2000_3903.</li><li>Ca sản xuất: Ca sáng, Ca chiều, Ca đêm; mặc định Ca sáng.</li></ul></div>
     </aside>
   </div>
 </section>
-<!-- ===== KẾT THÚC: 3.6 Chi tiết yêu cầu nhập trả từ sản xuất ===== -->
-<!-- ===== BẮT ĐẦU: 3.7 Danh sách phiếu nhập trả từ sản xuất ===== -->
+<!-- ===== KẾT THÚC: 3.7 Chi tiết yêu cầu nhập trả từ sản xuất ===== -->
+<!-- ===== BẮT ĐẦU: 3.8 Nhập trả từ sản xuất trên PDA ===== -->
+<section class="screen" id="ntsx-pda">
+  <h2 class="screen__title"><span class="no">3.8</span>Nhập trả từ sản xuất trên PDA</h2>
+  <p class="screen__path">PDA › Nhóm công việc › Nhập kho › Nhập trả từ sản xuất</p>
+  <div class="screen__body">
+    <div class="screen__shots">
+      <figure class="shot"><figcaption>Giao diện PDA · Nhập trả từ sản xuất: 5 màn đánh số theo thứ tự thao tác<a class="btn shot__zoom" href="../mockups/03-nhap-xuat-dung/pda-nhap-tra-tu-san-xuat.html" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption>
+        <iframe class="shot__live" src="../mockups/03-nhap-xuat-dung/pda-nhap-tra-tu-san-xuat.html" title="Nhập trả từ sản xuất trên PDA" loading="lazy" style="aspect-ratio:1467/1834"></iframe></figure>
+    </div>
+    <aside class="screen__notes">
+      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Kho nhận nguyên vật liệu sản xuất trả về trên PDA: quét vị trí và mã tem, rồi Lưu phiếu.</p><ul><li>Số lượng lấy theo tem, không sửa trên PDA.</li></ul></div>
+    </aside>
+  </div>
+</section>
+<!-- ===== KẾT THÚC: 3.8 Nhập trả từ sản xuất trên PDA ===== -->
+<!-- ===== BẮT ĐẦU: 3.9 Danh sách phiếu nhập trả từ sản xuất ===== -->
 <section class="screen" id="ntsx-pds">
-  <h2 class="screen__title"><span class="no">3.7</span>Danh sách phiếu nhập trả từ sản xuất</h2>
+  <h2 class="screen__title"><span class="no">3.9</span>Danh sách phiếu nhập trả từ sản xuất</h2>
   <p class="screen__path">Giao dịch kho › Nhập kho › Nhập trả từ sản xuất</p>
   <div class="screen__body">
     <div class="screen__shots">
@@ -126,15 +150,14 @@
         <iframe class="shot__live" src="../mockups/03-nhap-xuat-dung/7.html" title="Danh sách phiếu nhập trả từ sản xuất" loading="lazy" style="aspect-ratio:2150/914"></iframe></figure>
     </div>
     <aside class="screen__notes">
-      <div class="note"><h3>Mô tả</h3><p>Danh sách các phiếu nhập trả từ sản xuất (tab Theo phiếu nhập kho). Đầu trang là các chỉ số: tổng số phiếu nhập, phiếu tạo mới, phiếu đã duyệt, phiếu đã hủy. Mỗi phiếu ghi yêu cầu nhập gốc, ngày nhập, kho nhập, lý do trả, số lượng và người phụ trách.</p></div>
-      <div class="note note--biz"><h3>Lưu ý nghiệp vụ</h3><ul><li>Trạng thái phiếu: Tạo mới, Đã duyệt.</li><li>Số phiếu có tiền tố NTLSX.</li></ul></div>
+      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Theo dõi các phiếu nhập trả từ sản xuất.</p><ul><li>Số phiếu dạng NTLSX-…; trạng thái Tạo mới, Đã duyệt.</li></ul></div>
     </aside>
   </div>
 </section>
-<!-- ===== KẾT THÚC: 3.7 Danh sách phiếu nhập trả từ sản xuất ===== -->
-<!-- ===== BẮT ĐẦU: 3.8 Phiếu nhập trả từ sản xuất ===== -->
+<!-- ===== KẾT THÚC: 3.9 Danh sách phiếu nhập trả từ sản xuất ===== -->
+<!-- ===== BẮT ĐẦU: 3.10 Phiếu nhập trả từ sản xuất ===== -->
 <section class="screen" id="ntsx-phieu">
-  <h2 class="screen__title"><span class="no">3.8</span>Phiếu nhập trả từ sản xuất</h2>
+  <h2 class="screen__title"><span class="no">3.10</span>Phiếu nhập trả từ sản xuất</h2>
   <p class="screen__path">Giao dịch kho › Nhập kho › Nhập trả từ sản xuất</p>
   <div class="screen__body">
     <div class="screen__shots">
@@ -142,12 +165,11 @@
         <iframe class="shot__live" src="../mockups/03-nhap-xuat-dung/8.html" title="Phiếu nhập trả từ sản xuất" loading="lazy" style="aspect-ratio:1720/937"></iframe></figure>
     </div>
     <aside class="screen__notes">
-      <div class="note"><h3>Mô tả</h3><p>Chi tiết một phiếu nhập trả từ sản xuất: thông tin phiếu (kho nhập, ngày nhập, nhân viên, trạng thái, yêu cầu nhập trả, lý do trả) và lưới hàng nhập với SL yêu cầu, SL nhập, kho xuất, vị trí, batch. Người dùng in phiếu, chỉnh sửa, xóa hoặc duyệt phiếu.</p></div>
-      <div class="note note--biz"><h3>Lưu ý nghiệp vụ</h3><ul><li>Phiếu được tạo trên WMS (nhãn WMS).</li><li>Duyệt phiếu thì cộng tồn kho nhập và cập nhật tiến độ của yêu cầu.</li></ul></div>
+      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Phiếu nhập trả từ sản xuất tạo trên WMS; văn phòng kho kiểm tra và duyệt.</p><ul><li>Duyệt phiếu thì cộng tồn kho nhập và cập nhật tiến độ của yêu cầu.</li></ul></div>
     </aside>
   </div>
 </section>
-<!-- ===== KẾT THÚC: 3.8 Phiếu nhập trả từ sản xuất ===== -->
+<!-- ===== KẾT THÚC: 3.10 Phiếu nhập trả từ sản xuất ===== -->
 
 </main>
 
