@@ -1,0 +1,1334 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mockup Trả hàng · nhánh SAP</title>
+<style>
+/* Style đồng bộ với mockup 3010050 Phát hành tem thành phẩm: cùng token màu, khung nav, panel, nút, bảng, badge. */
+:root{
+  --bg:#f3f4f6; --surface:#ffffff; --ink:#111827; --muted:#6b7280; --line:#e5e7eb; --line-strong:#d1d5db;
+  --accent:#b7e233; --accent-ink:#1c2e05; --primary:#3f6212; --primary-ink:#ffffff;
+  --rail-bg:#10141b; --rail-ink:#aab2bf; --rail-pill:#232a22; --rail-active-bg:#b7e233; --rail-active-ink:#1c2e05;
+  --warn-bg:#fffbeb; --warn-ink:#92400e; --warn-line:#fde68a;
+  --info-bg:#eff6ff; --info-line:#bfdbfe; --info-ink:#1e40af;
+  --disabled-bg:#f3f4f6; --disabled-ink:#b5bac3; --disabled-line:#e1e4e9;
+  --b-issued-bg:#dbeafe; --b-issued-ink:#1d4ed8;
+  --b-printed-bg:#ecfeff; --b-printed-ink:#0e7490;
+  --b-reserved-bg:#fef3c7; --b-reserved-ink:#92400e;
+  --b-scanned-bg:#dcfce7; --b-scanned-ink:#15803d;
+  --b-closed-bg:#eef2f7; --b-closed-ink:#475569;
+  --b-cancelled-bg:#fee2e2; --b-cancelled-ink:#b91c1c;
+  --b-submitted-bg:#dbeafe; --b-submitted-ink:#1e40af;
+  --flag-bg:#fff1f0; --flag-ink:#cf1322; --flag-line:#ffccc7;
+  --overlay:rgba(17,24,39,.45); --shadow:0 20px 50px rgba(17,24,39,.22);
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f1115; --surface:#161a20; --ink:#e7e9ec; --muted:#9aa3b2; --line:#262c35; --line-strong:#333b46;
+  --accent:#c3ec55; --accent-ink:#0f1a05; --primary:#6b9a2a; --primary-ink:#0f1a05;
+  --rail-bg:#0a0c10; --rail-ink:#aab2bf; --rail-pill:#1c2118; --rail-active-bg:#c3ec55; --rail-active-ink:#12210a;
+  --warn-bg:#2d2208; --warn-ink:#f2c069; --warn-line:#5a4713;
+  --info-bg:#102038; --info-line:#28456f; --info-ink:#9cc0ff;
+  --disabled-bg:#1a1e25; --disabled-ink:#4b525e; --disabled-line:#2a2f38;
+  --b-issued-bg:#102038; --b-issued-ink:#8fb4ff;
+  --b-printed-bg:#0c2a30; --b-printed-ink:#5fd1e6;
+  --b-reserved-bg:#352a0c; --b-reserved-ink:#f2c069;
+  --b-scanned-bg:#0e2a18; --b-scanned-ink:#6fd3a0;
+  --b-closed-bg:#232a35; --b-closed-ink:#aab4c4;
+  --b-cancelled-bg:#331413; --b-cancelled-ink:#f2948c;
+  --b-submitted-bg:#102038; --b-submitted-ink:#8fb4ff;
+  --flag-bg:#331413; --flag-ink:#f2948c; --flag-line:#5a2422;
+  --overlay:rgba(0,0,0,.6); --shadow:0 20px 50px rgba(0,0,0,.5);
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#0f1115; --surface:#161a20; --ink:#e7e9ec; --muted:#9aa3b2; --line:#262c35; --line-strong:#333b46;
+  --accent:#c3ec55; --accent-ink:#0f1a05; --primary:#6b9a2a; --primary-ink:#0f1a05;
+  --rail-bg:#0a0c10; --rail-ink:#aab2bf; --rail-pill:#1c2118; --rail-active-bg:#c3ec55; --rail-active-ink:#12210a;
+  --warn-bg:#2d2208; --warn-ink:#f2c069; --warn-line:#5a4713;
+  --info-bg:#102038; --info-line:#28456f; --info-ink:#9cc0ff;
+  --disabled-bg:#1a1e25; --disabled-ink:#4b525e; --disabled-line:#2a2f38;
+  --b-issued-bg:#102038; --b-issued-ink:#8fb4ff;
+  --b-printed-bg:#0c2a30; --b-printed-ink:#5fd1e6;
+  --b-reserved-bg:#352a0c; --b-reserved-ink:#f2c069;
+  --b-scanned-bg:#0e2a18; --b-scanned-ink:#6fd3a0;
+  --b-closed-bg:#232a35; --b-closed-ink:#aab4c4;
+  --b-cancelled-bg:#331413; --b-cancelled-ink:#f2948c;
+  --b-submitted-bg:#102038; --b-submitted-ink:#8fb4ff;
+  --overlay:rgba(0,0,0,.6); --shadow:0 20px 50px rgba(0,0,0,.5);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;font-family:'Inter',system-ui,sans-serif;font-size:13px;line-height:1.5;background:var(--bg);color:var(--ink);display:flex}
+button,input,select{font-family:inherit;font-size:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--primary);outline-offset:2px;border-radius:4px}
+
+/* ---------- khung nav (giống 3010050) ---------- */
+.navzone{width:274px;flex:none;background:var(--rail-bg);height:100vh;position:sticky;top:0;display:flex;flex-direction:column;overflow:hidden}
+.navlogo{background:#ffffff;margin:12px;padding:12px 14px;border-radius:12px;display:flex;align-items:center;justify-content:center;gap:9px;flex:none}
+.navlogo .mark{width:24px;height:24px;flex:none;display:flex;align-items:center;justify-content:center;color:#2563eb}
+.navlogo span{font-weight:800;font-size:17px;color:#1f2937;letter-spacing:-.01em}
+.navlogo span b{color:#2563eb}
+.navbody{display:flex;flex:1;min-height:0}
+.rail{width:64px;flex:none;display:flex;flex-direction:column;align-items:center;padding:6px 0 10px;gap:2px}
+.rail-item{width:56px;display:flex;flex-direction:column;align-items:center;gap:5px;padding:7px 2px 9px;border-radius:10px;cursor:pointer}
+.rail-item .ic{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;color:var(--rail-ink)}
+.rail-item .ic svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.rail-item span{font-size:9.5px;color:var(--rail-ink);text-align:center;line-height:1.2}
+.rail-item.active .ic{background:var(--rail-active-bg);color:var(--rail-active-ink)}
+.rail-item.active span{color:#fff;font-weight:600}
+.subnav{flex:1;padding:14px 10px}
+.subnav h2{font-size:13px;font-weight:700;margin:4px 6px 10px;color:#fff}
+.subnav a{display:block;padding:10px 14px;border-radius:10px;font-size:13px;color:var(--rail-ink);text-decoration:none;margin-bottom:6px;cursor:pointer;font-weight:600;background:var(--rail-pill)}
+.subnav a.active{background:var(--rail-active-bg);color:var(--rail-active-ink)}
+
+.main{flex:1;min-width:0;height:100vh;overflow-y:auto;display:flex;flex-direction:column}
+.wrap{width:100%;padding:20px 24px 24px;display:flex;flex-direction:column;flex:1}
+.topbar{display:flex;justify-content:flex-end;align-items:center;gap:16px;font-size:13px;color:var(--muted);margin-bottom:6px}
+.avatar{width:26px;height:26px;border-radius:999px;background:var(--line-strong)}
+
+/* ---------- phần tử màn ---------- */
+.page-title{font-size:20px;font-weight:700;margin:0 0 16px}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:18px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 18px;display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.kpi .lb{font-size:12px;color:var(--muted);font-weight:500}
+.kpi .vl{font-size:24px;font-weight:700;margin-top:4px;font-variant-numeric:tabular-nums}
+.kpi .ic{flex:none;width:30px;height:30px;border-radius:8px;display:grid;place-items:center;font-size:14px;font-variant-emoji:text}
+.i-blue{background:var(--b-issued-bg);color:var(--b-issued-ink)}
+.i-amber{background:var(--b-reserved-bg);color:var(--b-reserved-ink)}
+.i-green{background:var(--b-scanned-bg);color:var(--b-scanned-ink)}
+.i-red{background:var(--b-cancelled-bg);color:var(--b-cancelled-ink)}
+
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 18px;margin-bottom:18px}
+.card-hd{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.card-hd h4{margin:0;font-size:14px;font-weight:700;display:flex;align-items:center;gap:7px}
+.card-hd .r{margin-left:auto;display:flex;gap:8px;align-items:center}
+.collapse{background:none;border:0;color:var(--muted);font-size:12px;padding:4px}
+.card.folded .card-bd{display:none}
+.card.folded .card-hd{margin-bottom:0}
+
+.fields{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+.fld label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fld label .req,.req{color:#dc2626}
+.ctl{height:36px;border:1px solid var(--line-strong);border-radius:6px;padding:0 10px;display:flex;align-items:center;gap:7px;font-size:13px;color:var(--muted);background:var(--surface);width:100%;text-align:left}
+div.ctl{background:var(--bg);font-style:italic}
+.ctl.ro{background:var(--bg);color:var(--ink);font-style:normal}
+.ctl .chev{margin-left:auto;color:var(--muted);font-size:10px}
+input.ctl,select.ctl,.ctl.val{color:var(--ink)}
+input.ctl::placeholder{color:var(--muted)}
+.ro-grid .v{font-size:13px;font-weight:600;word-break:break-word;min-height:20px}
+.ro-grid .v.dim{font-weight:400;color:var(--muted)}
+
+.btn{display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:13px;border-radius:6px;padding:8px 16px;border:1px solid var(--line-strong);background:var(--surface);color:var(--ink);white-space:nowrap}
+.btn.primary,.btn.ghost-g{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.danger{color:var(--flag-ink);border-color:var(--flag-line)}
+.btn.danger:hover{background:var(--flag-bg)}
+.btn.sm{padding:6px 12px;font-size:12.5px}
+.btn[disabled]{background:var(--disabled-bg)!important;color:var(--disabled-ink)!important;border-color:var(--disabled-line)!important;cursor:not-allowed}
+
+/* tab dạng segmented như Phát hành tem QR / Tra cứu tem */
+.tabs{display:inline-flex;background:var(--line);border-radius:8px;padding:4px;gap:4px;width:fit-content;margin-bottom:12px}
+.tabs button{display:inline-flex;align-items:center;gap:7px;padding:8px 18px;border-radius:6px;font-weight:600;font-size:13px;border:none;background:transparent;color:var(--muted)}
+.tabs button.on{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.1)}
+.cnt{display:inline-block;min-width:20px;padding:0 6px;border-radius:999px;background:var(--surface);color:var(--muted);font-size:11px;font-weight:700;text-align:center;line-height:18px}
+.tabs button.on .cnt{background:var(--accent);color:var(--accent-ink)}
+#pane-req,#pane-slip{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+.tbar{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.pill{font-size:13px;color:var(--muted);font-weight:500}
+.tbar .r{margin-left:auto;display:flex;gap:8px}
+
+/* bảng */
+.grid-wrap{border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--surface)}
+.scroller{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:12.5px;white-space:nowrap}
+thead th{text-align:left;font-weight:600;color:var(--muted);padding:9px 12px;background:var(--bg);border-bottom:1px solid var(--line-strong)}
+thead th .srt{color:var(--muted);font-size:10px;margin-left:5px}
+tbody td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:middle}
+tbody tr:last-child td{border-bottom:0}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.lnk{color:var(--primary);font-weight:600;background:none;border:none;padding:0;font-size:12.5px;text-decoration:underline;text-underline-offset:2px}
+.kebab{border:none;background:none;color:var(--muted);font-size:16px;padding:2px 6px;border-radius:4px;line-height:1}
+.kebab:hover{background:var(--bg)}
+.sub{color:var(--muted);font-size:12px}
+tfoot td{background:var(--bg);font-weight:700;border-top:1px solid var(--line-strong);padding:9px 12px}
+.empty{padding:34px 12px;text-align:center;color:var(--muted);white-space:normal}
+.exp{background:var(--surface);border:1px solid var(--line-strong);border-radius:4px;width:20px;height:20px;line-height:1;display:grid;place-items:center;color:var(--muted);font-size:12px;padding:0}
+.exp:hover{border-color:var(--primary);color:var(--primary)}
+tr.sub-row>td{padding:0;background:var(--bg)}
+.expbox{padding:12px 12px 14px 42px}
+.expbox h5{margin:0 0 8px;font-size:12.5px;font-weight:600;display:flex;align-items:center;gap:8px}
+
+/* badge dạng pill như trạng thái tem */
+.st{display:inline-flex;font-size:11px;font-weight:700;padding:2px 9px;border-radius:999px;line-height:16px}
+.st-save{background:var(--b-closed-bg);color:var(--b-closed-ink)}
+.st-sub{background:var(--b-submitted-bg);color:var(--b-submitted-ink)}
+.st-ok{background:var(--b-scanned-bg);color:var(--b-scanned-ink)}
+.st-cancel{background:var(--b-reserved-bg);color:var(--b-reserved-ink)}
+.st-err{background:var(--b-cancelled-bg);color:var(--b-cancelled-ink)}
+.flagfix{display:inline-flex;align-items:center;gap:4px;background:var(--flag-bg);color:var(--flag-ink);border:1px solid var(--flag-line);font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:999px}
+.src{display:inline-flex;font-size:11px;font-weight:600;padding:2px 9px;border-radius:999px;line-height:16px}
+.src-sap{background:var(--b-issued-bg);color:var(--b-issued-ink)}
+.src-wms{background:var(--b-closed-bg);color:var(--b-closed-ink)}
+.mapbtn{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:5px;border:1px dashed var(--line-strong);background:var(--surface);font-size:12px;color:var(--ink)}
+.mapbtn:hover{border-color:var(--primary);border-style:solid;color:var(--primary)}
+.mapbtn b{font-weight:700}
+.chip-map{display:inline-flex;align-items:center;border-radius:6px;padding:3px 10px;font-size:12px;font-weight:600;border:1px solid var(--line-strong);background:var(--surface);color:var(--ink)}
+button.chip-map:hover{border-color:var(--primary);color:var(--primary)}
+.chip-map.zero{background:var(--bg);color:var(--disabled-ink);border-color:var(--line);cursor:default}
+.qty{width:98px;border:1px solid var(--line-strong);border-radius:5px;padding:5px 7px;font-size:12.5px;background:var(--surface);color:var(--ink);text-align:right}
+.qty:focus{outline:2px solid var(--primary);outline-offset:-1px;border-color:var(--primary)}
+.qty.over{border-color:var(--flag-ink);background:var(--flag-bg);color:var(--flag-ink)}
+
+.prog{display:flex;align-items:center;gap:8px;min-width:150px}
+.prog .bar{flex:1;height:6px;border-radius:3px;background:var(--line);overflow:hidden}
+.prog .bar i{display:block;height:100%;background:var(--primary);border-radius:3px}
+.prog .pc{font-size:11.5px;color:var(--muted);width:46px;text-align:right;font-variant-numeric:tabular-nums}
+.prog.done .bar i{background:var(--b-scanned-ink)}
+
+.pager{display:flex;align-items:center;justify-content:flex-end;gap:8px;padding:12px 0 0;font-size:12px;color:var(--muted)}
+.pager .pg{width:28px;height:28px;border:1px solid var(--primary);background:var(--primary);color:#fff;border-radius:5px;display:grid;place-items:center;font-weight:600}
+.pager .sel{height:28px;border:1px solid var(--line-strong);border-radius:5px;padding:0 8px;display:inline-flex;align-items:center;gap:8px;background:var(--surface);color:var(--ink)}
+
+/* menu thao tác */
+.ctx{position:fixed;z-index:70;width:262px;background:var(--surface);border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow);overflow:hidden;font-size:13px;display:none}
+.ctx.open{display:block}
+.kcode{display:inline-block;margin-left:6px;padding:1px 5px;border-radius:4px;background:var(--accent);color:var(--accent-ink);font-size:10px;font-weight:700;vertical-align:middle}
+.ctx button{display:flex;width:100%;align-items:center;gap:8px;padding:9px 14px;border:0;background:none;text-align:left;white-space:normal;color:var(--ink)}
+.ctx button:hover{background:var(--bg)}
+
+/* hộp thoại */
+.scrim{position:fixed;inset:0;background:var(--overlay);z-index:80;display:none;align-items:center;justify-content:center;padding:16px}
+.scrim.open{display:flex}
+.modal{width:min(100%,980px);max-height:92vh;overflow:auto;background:var(--surface);border-radius:12px;box-shadow:var(--shadow)}
+.modal.sm{width:min(100%,660px)}
+.modal-hd{display:flex;align-items:center;gap:10px;padding:14px 20px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--surface);z-index:1}
+.modal-hd h4{margin:0;font-size:15px;font-weight:700}
+.modal-hd .x{margin-left:auto;background:none;border:0;color:var(--muted);font-size:18px;line-height:1;padding:3px 7px}
+.modal-bd{padding:16px 20px}
+.modal-ft{display:flex;justify-content:flex-end;gap:10px;padding:14px 20px;border-top:1px solid var(--line);background:var(--surface);position:sticky;bottom:0}
+.warnbox,.okbox{border-radius:8px;padding:12px 14px;margin-bottom:12px}
+.warnbox{border:1px solid var(--flag-line);background:var(--flag-bg)}
+.okbox{border:1px solid var(--line);background:var(--b-scanned-bg)}
+.warnbox h5,.okbox h5{margin:0 0 6px;font-size:13px;font-weight:700}
+.warnbox h5{color:var(--flag-ink)} .okbox h5{color:var(--b-scanned-ink)}
+.warnbox ul,.okbox ul{margin:0;padding-left:18px;font-size:13px}
+.warnbox li,.okbox li{margin-bottom:3px}
+.hole{border:1px dashed var(--line-strong);border-radius:8px;padding:12px 14px;background:var(--bg);font-size:12.5px;color:var(--muted)}
+.hole b{color:var(--ink)}
+
+.banner{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border-radius:6px;font-size:12.5px;margin-bottom:14px}
+.banner.amber{background:var(--warn-bg);border:1px solid var(--warn-line);color:var(--warn-ink)}
+.banner.blue{background:var(--info-bg);border:1px solid var(--info-line);color:var(--info-ink)}
+.banner b{font-weight:700}
+.banner .act{margin-left:auto;white-space:nowrap}
+
+.dethd{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+.dethd .back{width:32px;height:32px;border:1px solid var(--line-strong);background:var(--surface);color:var(--ink);font-size:15px;border-radius:6px;display:grid;place-items:center;padding:0}
+.dethd .back:hover{border-color:var(--primary);color:var(--primary)}
+.dethd h3{margin:0;font-size:20px;font-weight:700}
+.dethd .r{margin-left:auto;display:flex;gap:8px}
+
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(14px);z-index:90;background:#111827;color:#fff;padding:10px 16px;border-radius:8px;font-size:13px;max-width:min(92vw,640px);box-shadow:var(--shadow);opacity:0;pointer-events:none;transition:opacity .18s,transform .18s}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+.view{display:none}
+.view.on{display:block}
+.strike{text-decoration:line-through;color:var(--muted)}
+.foot-note{padding:6px 0 0;font-size:12px;color:var(--muted)}
+
+@media (prefers-reduced-motion:reduce){*{transition:none}}
+@media (max-width:1100px){
+  .navzone{display:none}
+  .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .fields{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+
+</style>
+</head>
+<body>
+
+<div class="navzone">
+  <div class="navlogo">
+    <div class="mark"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
+    <span>Dorco<b>WMS</b></span>
+  </div>
+  <div class="navbody">
+    <nav class="rail" aria-label="Phân hệ">
+      <div class="rail-item" data-nope="Tìm màn hình theo tên"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div><span>Search<br>Menu</span></div>
+      <div class="rail-item" data-nope="Phân hệ Thiết lập chung — ngoài phạm vi mockup"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></div><span>Thiết lập<br>chung</span></div>
+      <div class="rail-item" data-nope="Phân hệ Bán hàng — ngoài phạm vi mockup"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></div><span>Bán hàng</span></div>
+      <div class="rail-item" data-nope="Phân hệ Mua hàng — ngoài phạm vi mockup"><div class="ic"><svg viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></div><span>Mua hàng</span></div>
+      <div class="rail-item active"><div class="ic"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div><span>Quản lý<br>hàng hóa</span></div>
+      <div class="rail-item" data-nope="Phân hệ Giao dịch kho — ngoài phạm vi mockup"><div class="ic"><svg viewBox="0 0 24 24"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div><span>Giao dịch<br>kho</span></div>
+      <div class="rail-item" data-nope="Phân hệ Điều chỉnh tồn kho — ngoài phạm vi mockup"><div class="ic"><svg viewBox="0 0 24 24"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg></div><span>Điều chỉnh<br>tồn kho</span></div>
+      <div class="rail-item" data-nope="Phân hệ Cảnh báo tồn kho — ngoài phạm vi mockup"><div class="ic"><svg viewBox="0 0 24 24"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div><span>Cảnh báo<br>tồn kho</span></div>
+      <div class="rail-item" data-nope="Phân hệ Báo cáo — ngoài phạm vi mockup"><div class="ic"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div><span>Báo cáo</span></div>
+      <div class="rail-item" data-nope="Màn 3010050 Phát hành tem — xem mockup riêng"><div class="ic"><svg viewBox="0 0 24 24"><path d="M20.59 13.41 13.42 20.58a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg></div><span>Phát hành<br>tem</span></div>
+    </nav>
+    <nav class="subnav" aria-label="Màn hình">
+      <h2>Quản lý hàng hóa</h2>
+      <a data-nope="Màn Nhập kho thành phẩm — đã có mockup riêng">Nhập kho thành phẩm</a>
+      <a data-nope="Màn Giao hàng — đã có mockup riêng">Giao hàng</a>
+      <a class="active" data-go="list:req">Trả hàng</a>
+    </nav>
+  </div>
+</div>
+
+<div class="main">
+<div class="wrap">
+  <div class="topbar"><span>Tiếng Việt</span><span>admin</span><div class="avatar"></div></div>
+
+
+    <!-- ============ DANH SÁCH ============ -->
+    <section class="view on" id="v-list">
+      <h3 class="page-title">Trả hàng</h3>
+
+      <div class="kpis">
+        <div class="kpi"><div><div class="lb">Yêu cầu đã trình</div><div class="vl" id="kpi-req">0</div></div><span class="ic i-blue">▤</span></div>
+        <div class="kpi"><div><div class="lb">Phiếu chờ duyệt</div><div class="vl" id="kpi-pend">0</div></div><span class="ic i-amber">◷</span></div>
+        <div class="kpi"><div><div class="lb">Phiếu đồng bộ lỗi</div><div class="vl" id="kpi-err">0</div></div><span class="ic i-red">△</span></div>
+      </div>
+
+      <div class="card" id="filter-card">
+        <div class="card-hd"><h4>Bộ lọc</h4><div class="r">
+          <button class="btn sm" id="f-reset">↻ Đặt lại</button>
+          <button class="btn sm ghost-g" id="f-search">⌕ Tìm kiếm</button>
+          <button class="collapse" data-fold="filter-card" aria-label="Thu gọn bộ lọc">▲</button>
+        </div></div>
+        <div class="card-bd"><div class="fields">
+          <div class="fld"><label for="f-req">Số yêu cầu</label><input class="ctl" id="f-req" placeholder="Tìm số yêu cầu"></div>
+          <div class="fld"><label for="f-slip">Số phiếu</label><input class="ctl" id="f-slip" placeholder="Tìm số phiếu"></div>
+          <div class="fld"><label for="f-cust">Khách hàng</label><input class="ctl" id="f-cust" placeholder="Tìm khách hàng"></div>
+          <div class="fld"><label for="f-wh">Kho nhận</label><select class="ctl" id="f-wh"><option value="">Tất cả</option><option>5900 - Kho hàng trả lại</option><option>K01 - Kho NVL</option><option>K03 - Kho TP</option><option>K04 - Kho Phế liệu</option><option>KTESTWH</option></select></div>
+          <div class="fld"><label for="f-src">Nguồn</label><select class="ctl" id="f-src"><option value="">Tất cả</option><option value="sap">Đồng bộ SAP</option><option value="wms">Tạo tại WMS</option></select></div>
+          <div class="fld"><label for="f-sync">Đồng bộ SAP — yêu cầu</label><select class="ctl" id="f-sync"><option value="">Tất cả</option><option value="synced">Đã đồng bộ</option><option value="pending">Có thay đổi chưa nhận</option></select></div>
+          <div class="fld"><label for="f-sync2">Đồng bộ SAP — phiếu</label><select class="ctl" id="f-sync2"><option value="">Tất cả</option><option value="none">Chưa đồng bộ</option><option value="run">Đang đồng bộ</option><option value="synced">Đã đồng bộ</option><option value="error">Đồng bộ lỗi</option></select></div>
+          <div class="fld"><label for="f-st">Trạng thái yêu cầu hàng trả</label><select class="ctl" id="f-st"><option value="">Tất cả</option><option>Đã lưu</option><option>Đã trình</option><option>Đã đóng</option></select></div>
+          <div class="fld"><label for="f-stslip">Trạng thái phiếu hàng trả</label><select class="ctl" id="f-stslip"><option value="">Tất cả</option><option>Đã lưu</option><option>Đã trình</option><option>Đã duyệt</option><option>Đã hủy</option></select></div>
+          <div class="fld"><label>Ngày tạo yêu cầu</label><div class="ctl">Từ ngày — Đến ngày &nbsp;▦</div></div>
+          <div class="fld"><label>Ngày nhập kho dự kiến</label><div class="ctl">Từ ngày — Đến ngày &nbsp;▦</div></div>
+        </div></div>
+      </div>
+
+      <div class="tabs" role="tablist">
+        <button role="tab" class="on" id="tab-req" data-tab="req">Theo yêu cầu <span class="cnt" id="c-req">6</span></button>
+        <button role="tab" id="tab-slip" data-tab="slip">Theo phiếu <span class="cnt" id="c-slip">6</span></button>
+      </div>
+
+      <div id="pane-req">
+        <div class="tbar">
+          <span class="pill" id="found-req">6 bản ghi được tìm thấy</span>
+          <span class="r"><button class="btn sm" data-nope="Xuất danh sách ra Excel">⇩ Xuất</button><button class="btn sm primary" data-nope="Thêm yêu cầu tạo tay từ G/D Slip — chạy theo luồng mới như nguồn SAP. Ở mức yêu cầu cho chọn mọi kho; ràng buộc kho chỉ áp ở phiếu. Không vẽ trong mockup này">+ Thêm yêu cầu</button></span>
+        </div>
+        <div class="grid-wrap"><div class="scroller">
+        <table>
+          <thead><tr>
+            <th style="width:34px"></th>
+            <th>Số yêu cầu<span class="srt">⇅</span></th>
+            <th>Trạng thái<span class="srt">⇅</span></th>
+            <th>Nguồn</th>
+            <th>Đồng bộ SAP</th>
+            <th>Ngày tạo yêu cầu<span class="srt">⇅</span></th>
+            <th>Ngày nhập kho dự kiến</th>
+            <th>Khách hàng</th><th>Kho nhận</th><th>Lý do trả hàng</th><th>Mặt hàng</th>
+            <th>Đã dán tem</th>
+            <th>Tiến độ nhận</th>
+            <th style="width:52px">Thao tác</th>
+          </tr></thead>
+          <tbody id="tb-req"></tbody>
+        </table>
+        </div></div>
+        <div class="pager"><span>‹</span><span class="pg">1</span><span>›</span><span class="sel">20 / trang ▾</span><span>Đến</span><span class="sel" style="width:70px"></span><span>Trang</span></div>
+      </div>
+
+      <div id="pane-slip" hidden>
+        <div class="tbar">
+          <span class="pill" id="found-slip">6 bản ghi được tìm thấy</span>
+          <span class="r"><button class="btn sm" data-nope="Xuất danh sách ra Excel">⇩ Xuất</button><button class="btn sm primary" data-go="newslip">+ Thêm phiếu</button></span>
+        </div>
+        <div class="grid-wrap"><div class="scroller">
+        <table>
+          <thead><tr>
+            <th style="width:34px"></th>
+            <th>Số phiếu<span class="srt">⇅</span></th>
+            <th>Trạng thái<span class="srt">⇅</span></th>
+            <th>Đồng bộ SAP</th>
+            <th>Ngày nhận<span class="srt">⇅</span></th>
+            <th>Khách hàng</th><th>Kho nhận</th><th>Mặt hàng</th>
+            <th class="num">SL trả</th>
+            <th>Người tạo</th>
+            <th style="width:52px">Thao tác</th>
+          </tr></thead>
+          <tbody id="tb-slip"></tbody>
+        </table>
+        </div></div>
+        <div class="pager"><span>‹</span><span class="pg">1</span><span>›</span><span class="sel">20 / trang ▾</span><span>Đến</span><span class="sel" style="width:70px"></span><span>Trang</span></div>
+      </div>
+    </section>
+
+    <!-- ============ CHI TIẾT YÊU CẦU ============ -->
+    <section class="view" id="v-req">
+      <div class="dethd">
+        <button class="back" data-go="list:req" aria-label="Quay lại danh sách">←</button>
+        <h3 id="rq-title">Số yêu cầu</h3>
+        <span id="rq-st"></span>
+        <span id="rq-src"></span>
+        <span class="r" id="rq-acts"></span>
+      </div>
+
+      <div class="tabs" role="tablist" id="rq-tabs">
+        <button role="tab" class="on" data-rtab="info">Yêu cầu hàng trả</button>
+        <button role="tab" data-rtab="slips" id="rq-tab-slips">Phiếu hàng trả <span class="cnt" id="rq-nslip">0</span></button>
+      </div>
+
+      <div id="rpane-info">
+        <div class="card" id="reqinfo-card" style="margin-top:14px">
+          <div class="card-hd"><h4>Thông tin yêu cầu</h4><div class="r">
+            <span class="sub" id="rq-ro"></span>
+            <button class="collapse" data-fold="reqinfo-card" aria-label="Thu gọn">▲</button>
+          </div></div>
+          <div class="card-bd"><div class="fields ro-grid" id="rq-fields"></div></div>
+        </div>
+
+        <div class="card">
+          <div class="card-hd"><h4>Danh sách mặt hàng</h4><div class="r"><button class="btn sm" disabled>+ Thêm từ phiếu G/D</button></div></div>
+          <div class="card-bd"><div class="grid-wrap"><div class="scroller">
+          <table>
+            <thead><tr>
+              <th style="width:44px">STT</th><th>Mã vạch/QR</th>
+              <th>Mã mặt hàng</th><th>Tên mặt hàng</th><th>Checklist</th>
+              <th>Model</th><th>Màu</th><th>Size</th><th>Đơn vị</th>
+              <th class="num">SL trả</th>
+              <th id="rq-th-lot">Số lô</th><th id="rq-th-grade">Phân hạng</th><th id="rq-th-disp">Hướng xử lý</th>
+            </tr></thead>
+            <tbody id="rq-items"></tbody>
+            <tfoot id="rq-foot"></tfoot>
+          </table>
+          </div></div></div>
+        </div>
+      </div>
+
+      <div id="rpane-slips" hidden>
+        <div class="card" style="margin-top:14px">
+          <div class="card-hd"><h4>Phiếu trả hàng liên kết <span class="cnt" id="rq-nslip2">0</span></h4><div class="r" id="rq-slipacts"></div></div>
+          <div class="card-bd"><div class="grid-wrap"><div class="scroller">
+          <table>
+            <thead><tr><th style="width:44px">STT</th><th>Số phiếu</th><th>Trạng thái</th><th>Đồng bộ SAP</th><th>Ngày nhận</th><th class="num">SL</th><th>Người tạo</th><th style="width:52px">Thao tác</th></tr></thead>
+            <tbody id="rq-slips"></tbody>
+          </table>
+          </div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ THÊM PHIẾU ============ -->
+    <section class="view" id="v-newslip">
+      <div class="dethd">
+        <button class="back" data-go="list:slip" aria-label="Quay lại">←</button>
+        <h3>Thêm phiếu hàng trả</h3>
+        <span class="r"><button class="btn" id="n-save">⎙ Lưu</button><button class="btn primary" id="n-submit">✓ Trình</button></span>
+      </div>
+
+      <div class="card" id="newslip-card">
+        <div class="card-hd"><h4>Thông tin phiếu</h4><div class="r"><button class="collapse" data-fold="newslip-card" aria-label="Thu gọn">▲</button></div></div>
+        <div class="card-bd"><div class="fields" id="n-fields"></div></div>
+      </div>
+
+      <div class="card">
+        <div class="card-hd"><h4>Danh sách mặt hàng</h4><div class="r"><button class="btn sm ghost-g" id="n-add">+ Thêm từ yêu cầu hàng trả</button></div></div>
+        <div class="card-bd"><div class="grid-wrap"><div class="scroller">
+        <table>
+          <thead><tr>
+            <th style="width:44px">STT</th><th>Mã vạch/QR</th>
+            <th>Số đơn bán hàng</th>
+            <th>Mã mặt hàng</th><th>Tên mặt hàng</th>
+            <th>Model</th><th>Màu</th><th>Size</th><th>Đơn vị</th>
+            <th class="num">SL trên tem</th>
+            <th>Số lô</th><th>Phân hạng</th>
+            <th style="width:52px">Thao tác</th>
+          </tr></thead>
+          <tbody id="n-items"></tbody>
+          <tfoot id="n-foot"></tfoot>
+        </table>
+        </div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CHI TIẾT PHIẾU ============ -->
+    <section class="view" id="v-slip">
+      <div class="dethd">
+        <button class="back" data-go="list:slip" aria-label="Quay lại">←</button>
+        <h3 id="sl-title">Số phiếu</h3>
+        <span id="sl-st"></span>
+        <span class="r" id="sl-acts"></span>
+      </div>
+
+      <div class="card" id="slipinfo-card">
+        <div class="card-hd"><h4>Thông tin phiếu</h4><div class="r"><button class="collapse" data-fold="slipinfo-card" aria-label="Thu gọn">▲</button></div></div>
+        <div class="card-bd"><div class="fields ro-grid" id="sl-fields"></div></div>
+      </div>
+
+      <div class="card">
+        <div class="card-hd"><h4>Danh sách mặt hàng</h4></div>
+        <div class="card-bd"><div class="grid-wrap"><div class="scroller">
+        <table>
+          <thead><tr>
+            <th style="width:44px">STT</th><th>Mã vạch/QR</th><th>Mã mặt hàng</th><th>Tên mặt hàng</th>
+            <th>Model</th><th>Màu</th><th>Đơn vị</th><th class="num">SL trả</th>
+            <th>Trạng thái tem</th><th>Vị trí</th><th>Tình trạng bên ngoài</th>
+          </tr></thead>
+          <tbody id="sl-items"></tbody>
+          <tfoot id="sl-foot"></tfoot>
+        </table>
+        </div></div></div>
+      </div>
+    </section>
+
+  <div class="foot-note">Mockup màn 3010040 · nhánh yêu cầu từ SAP · 28/10/2026</div>
+</div>
+</div>
+
+<div class="ctx" id="ctx" role="menu"></div>
+
+<div class="scrim" id="sc-pick" role="dialog" aria-modal="true" aria-labelledby="pick-title">
+  <div class="modal" style="width:min(100%,1120px)">
+    <div class="modal-hd"><h4 id="pick-title">Thêm mặt hàng từ yêu cầu hàng trả</h4><button class="x" data-close aria-label="Đóng">×</button></div>
+    <div class="modal-bd">
+      <div class="fields" style="align-items:end">
+        <div class="fld"><label for="p-req">Số yêu cầu hàng trả</label><input class="ctl" id="p-req" placeholder="Tìm số yêu cầu"></div>
+        <div class="fld"><label for="p-wh">Kho</label><input class="ctl" id="p-wh" placeholder="Kho"></div>
+        <div class="fld"><label for="p-from">Ngày DO</label><input class="ctl" id="p-from" placeholder="Từ ngày"></div>
+        <div class="fld"><label>&nbsp;</label><input class="ctl" id="p-to" placeholder="Đến ngày"></div>
+        <div class="fld"><label>&nbsp;</label><div class="r" style="display:flex;gap:8px">
+          <button class="btn" id="p-reset">↺ Đặt lại</button>
+          <button class="btn primary" id="p-search">⌕ Tìm kiếm</button>
+        </div></div>
+      </div>
+      <h5 style="margin:16px 0 8px;font-size:13px">Mặt hàng từ yêu cầu hàng trả</h5>
+      <p class="foot-note" style="margin:0 0 8px">Mỗi dòng là một tem: chọn hoặc bỏ <b>nguyên tem</b>, nhận một phần nghĩa là chọn ít tem hơn. Tem đã thuộc phiếu trả khác không hiện ở đây.</p>
+      <div class="grid-wrap"><div class="scroller">
+      <table>
+        <thead><tr>
+          <th style="width:38px"><input type="checkbox" id="p-all" aria-label="Chọn tất cả"></th>
+          <th>Số yêu cầu hàng trả</th><th>Mã vạch/QR</th><th>Số đơn bán hàng</th>
+          <th>Mã mặt hàng</th><th>Tên mặt hàng</th><th>Model</th><th>Màu</th>
+          <th>Size</th><th>Đơn vị</th><th class="num">SL trả</th><th>Số lô</th><th>Phân hạng</th>
+        </tr></thead>
+        <tbody id="p-rows"></tbody>
+      </table>
+      </div></div>
+    </div>
+    <div class="modal-ft">
+      <span id="p-count" style="margin-right:auto;color:var(--muted);font-size:13px">Đã chọn 0 mặt hàng</span>
+      <button class="btn" data-close>Hủy</button>
+      <button class="btn primary" id="p-ok" disabled>Thêm mặt hàng đã chọn</button>
+    </div>
+  </div>
+</div>
+
+<div class="scrim" id="sc-map" role="dialog" aria-modal="true" aria-labelledby="map-title">
+  <div class="modal">
+    <div class="modal-hd"><h4 id="map-title">Barcode/QR đã ánh xạ</h4><button class="x" data-close aria-label="Đóng">×</button></div>
+    <div class="modal-bd">
+      <div class="grid-wrap"><div class="scroller">
+      <table>
+        <thead><tr>
+          <th style="width:44px">STT</th><th>Mã vạch/QR</th>
+          <th>Nguồn tem</th>
+          <th class="num">SL nhập</th>
+          <th class="num">SL còn lại</th>
+          <th>Trạng thái tem</th>
+          <th>Vị trí</th><th>Ghi chú</th>
+        </tr></thead>
+        <tbody id="map-rows"></tbody>
+        <tfoot><tr><td></td><td></td><td>Tổng</td><td class="num" id="map-t1"></td><td class="num" id="map-t2"></td><td></td><td></td><td></td></tr></tfoot>
+      </table>
+      </div></div>
+    </div>
+    <div class="modal-ft"><button class="btn" data-close>Đóng</button></div>
+  </div>
+</div>
+
+<div class="scrim" id="sc-cancel" role="dialog" aria-modal="true" aria-labelledby="cancel-title">
+  <div class="modal sm">
+    <div class="modal-hd"><h4 id="cancel-title">Hủy phiếu 5900-2610-00004</h4><button class="x" data-close aria-label="Đóng">×</button></div>
+    <div class="modal-bd">
+      <div class="warnbox">
+        <h5>Không hủy được 1 tem</h5>
+        <ul>
+          <li>FGL-261026-0035 — đã chuyển sang kho 5000, hủy sẽ lệch tồn giữa hai kho</li>
+        </ul>
+      </div>
+      <div class="okbox">
+        <h5>1 tem còn lại hủy được</h5>
+        <ul>
+          <li>FGL-261026-0031 — chưa có giao dịch nào sau phiếu này, trừ thẳng trên tem</li>
+        </ul>
+      </div>
+      <div class="hole"><b>Chờ chốt Q38</b> — hủy phiếu trả đã duyệt thì mockup <b>không đổi trạng thái tem</b>: tem giữ nguyên trạng thái đang có. Tem hàng trả sau khi hủy phiếu chuyển sang Đã hủy, hay về Đã in và giữ chỗ cho phiếu như cách hủy phiếu nhập? Câu trả lời quyết định dòng chữ ở đây và việc có sửa rồi duyệt lại phiếu được hay không.</div>
+    </div>
+    <div class="modal-ft"><button class="btn" data-close>Đóng</button><button class="btn danger" disabled>Hủy phiếu</button></div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+"use strict";
+var $=function(s,r){return (r||document).querySelector(s)};
+var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+
+var REQS=[
+ {no:'REQ-K03-2609-00002',src:'wms',sap:'',st:'Đã trình',stc:'st-sub',sync:'',syncT:'',syncC:'',tip:'',
+  d:'29/09/2026 14:12',eta:'',cust:'CUST-00000001',wh:'K03 - Kho thành phẩm',rsn:'Damaged / Defective Product',
+  typ:'Khách hàng trả',so:'SO-2026-000098',note:'Tạo từ G/D Slip DO-2026-000341',it:'1 mặt hàng',lbl:'',pc:0,
+  items:[{code:'SPNU010001',name:'LFRA2000',chk:'',uom:'PCS',qty:48,map:'k1',n:2,mdl:'Aurora',clr:'',sz:''}]},
+ {no:'REQ-K03-2610-00005',src:'wms',sap:'',st:'Đã trình',stc:'st-sub',sync:'',syncT:'',syncC:'',tip:'',
+  d:'08/10/2026 09:25',eta:'',cust:'CUST-00000001',wh:'K03 - Kho thành phẩm',rsn:'Packaging Damage',
+  typ:'Khách hàng trả',so:'SO-2026-000101',note:'Tạo từ G/D Slip DO-2026-000355',it:'2 mặt hàng',lbl:'',pc:0,
+  items:[{code:'SPNU010002',name:'LFRA2100',chk:'',uom:'PCS',qty:72,map:'k2',n:3,mdl:'Aurora',clr:'Đen',sz:'M'},
+         {code:'SPNU010003',name:'TNC210BE-BK',chk:'',uom:'SET',qty:30,map:'k3',n:1,mdl:'基本 BSC',clr:'Bạc',sz:'L'}]},
+ {no:'REQ-5900-2610-00007',src:'wms',sap:'',st:'Đã lưu',stc:'st-save',sync:'',syncT:'',syncC:'',tip:'',
+  d:'29/10/2026 08:40',eta:'',cust:'Công ty Ánh Dương',wh:'5900 - Kho hàng trả lại',rsn:'Wrong Product / Quantity',
+  typ:'Khách hàng trả',so:'SO-2026-000112',note:'Tạo từ G/D Slip, chưa trình',it:'1 mặt hàng',lbl:'',pc:0,
+  items:[{code:'1016604',name:'LFRA2100',chk:'',uom:'PCS',qty:24,tag:'FGL-261020-0009'}]},
+ {no:'REQ-5900-2610-00006',src:'sap',sap:'61801766 · dòng 10, 20',st:'Đã trình',stc:'st-sub',sync:'synced',syncT:'Đã đồng bộ',syncC:'st-ok',tip:'',
+  d:'27/10/2026 11:20',eta:'05/11/2026',cust:'GLOBAL RAZOR LTD.',wh:'5900 - Kho hàng trả lại',rsn:'Customer Order Cancelled',
+  typ:'Khách hàng trả',so:'',note:'',it:'2 mặt hàng',lbl:'3.240 / 3.240',pc:0,
+  items:[{code:'1014455',name:'TNC210BE-BK BSC 1000',chk:'2026-331',uom:'SET',qty:3000,map:'6',n:3},
+         {code:'1016531',name:'TNA4007-B PT.INN 24',chk:'2026-310',uom:'SET',qty:240,map:'7',n:1}]},
+ {no:'REQ-5900-2610-00005',src:'sap',sap:'61801790 · dòng 10',st:'Đã trình',stc:'st-sub',sync:'synced',syncT:'Đã đồng bộ',syncC:'st-ok',tip:'',
+  d:'28/10/2026 15:36',eta:'03/11/2026',cust:'PT INDOSARI NIAGA NUSANTARA',wh:'5900 - Kho hàng trả lại',rsn:'Expired / Near Expiry',
+  typ:'Khách hàng trả',so:'',note:'',it:'1 mặt hàng',lbl:'0 / 480',pc:0,
+  items:[{code:'1016531',name:'TNA4007-B PT.INN 24',chk:'2026-328',uom:'SET',qty:480,map:'',n:0}]},
+ {no:'REQ-5900-2610-00004',src:'sap',sap:'61801742 · dòng 10',st:'Đã trình',stc:'st-sub',sync:'synced',syncT:'Đã đồng bộ',syncC:'st-ok',tip:'',
+  d:'28/10/2026 09:12',eta:'30/10/2026',cust:'COSTCO WHOLESALE TAIWAN',wh:'5900 - Kho hàng trả lại',rsn:'Damaged / Defective Product',
+  typ:'Khách hàng trả',so:'',note:'',it:'2 mặt hàng',lbl:'120 / 120',pc:0,
+  items:[{code:'1016603',name:'LFRA2000',chk:'CHK-FG-02',uom:'PCS',qty:72,map:'3',n:3,mdl:'Aurora',clr:'Đen',sz:'M'},
+         {code:'1016604',name:'LFRA2100',chk:'CHK-FG-02',uom:'PCS',qty:48,map:'4',n:2,mdl:'Aurora',clr:'Bạc',sz:'M'}]},
+ {no:'REQ-5900-2610-00003',src:'sap',sap:'61801698 · dòng 10',st:'Đã trình',stc:'st-sub',sync:'pending',syncT:'Có thay đổi chưa nhận',syncC:'st-cancel',tip:'SAP đổi SL dòng 72 → 48, WMS chưa nhận thay đổi',
+  d:'26/10/2026 14:05',eta:'29/10/2026',cust:'CUST-00000001',wh:'5900 - Kho hàng trả lại',rsn:'Wrong Product / Quantity',
+  typ:'Khách hàng trả',so:'',note:'',it:'1 mặt hàng',lbl:'72 / 72',pc:66.7,
+  items:[{code:'1016603',name:'LFRA2000',chk:'CHK-FG-02',uom:'PCS',qty:72,map:'1',n:3,flag:'1 cần xử lý',mdl:'Aurora',clr:'Đen',sz:'M'}]},
+ {no:'REQ-5900-2610-00002',src:'wms',sap:'',st:'Đã đóng',stc:'st-ok',sync:'',syncT:'',syncC:'',tip:'',
+  d:'14/10/2026 10:30',eta:'',cust:'Công ty Ánh Dương',wh:'5900 - Kho hàng trả lại',rsn:'Damaged / Defective Product',
+  typ:'Khách hàng trả',so:'SO-2026-000104',note:'',it:'1 mặt hàng',lbl:'',pc:100,
+  items:[{code:'SPNU010001',name:'LFRA2000',chk:'',uom:'PCS',qty:40,tag:'FGL-261014-0003'}]},
+ {no:'REQ-5900-2610-00001',src:'sap',sap:'61801655 · dòng 10',st:'Đã đóng',stc:'st-ok',sync:'synced',syncT:'Đã đồng bộ',syncC:'st-ok',tip:'',
+  d:'12/10/2026 09:30',eta:'16/10/2026',cust:'COSTCO WHOLESALE TAIWAN',wh:'5900 - Kho hàng trả lại',rsn:'Packaging Damage',
+  typ:'Khách hàng trả',so:'',note:'',it:'1 mặt hàng',lbl:'120 / 120',pc:100,
+  items:[{code:'1016604',name:'LFRA2100',chk:'CHK-FG-02',uom:'PCS',qty:120,map:'8',n:5}]}
+];
+
+var SLIPS=[
+ {no:'5900-2610-00006',st:'Đã lưu',stc:'st-save',sync:'none',syncT:'Chưa đồng bộ',syncC:'st-save',d:'28/10/2026 17:05',
+  req:'REQ-5900-2610-00006',cust:'GLOBAL RAZOR LTD.',wh:'5900 - Kho hàng trả lại',typ:'Khách hàng trả',rsn:'Customer Order Cancelled',
+  it:'1 mặt hàng',qty:240,wait:'',days:null,by:'Super Admin',appr:'',apprBy:'',note:'Chờ chứng từ hải quan dòng 20',menu:'slip-saved',
+  items:[{code:'1016531',name:'TNA4007-B PT.INN 24',uom:'SET',qty:240,map:'7',n:1,loc:'5900-TEMP-01',cond:''}]},
+ {no:'5900-2610-00005',st:'Đã trình',stc:'st-sub',sync:'none',syncT:'Chưa đồng bộ',syncC:'st-save',d:'28/10/2026 10:15',
+  req:'REQ-5900-2610-00006',cust:'GLOBAL RAZOR LTD.',wh:'5900 - Kho hàng trả lại',typ:'Khách hàng trả',rsn:'Customer Order Cancelled',
+  it:'1 mặt hàng',qty:3000,wait:'',days:null,by:'Super Admin',appr:'',apprBy:'',note:'Tờ khai hải quan đã nộp, chờ thông quan',menu:'slip-submitted',
+  items:[{code:'1014455',name:'TNC210BE-BK BSC 1000',uom:'SET',qty:3000,map:'6',n:3,loc:'5900-TEMP-01',cond:'Nguyên đai'}]},
+ {no:'5900-2610-00002',st:'Đã hủy',stc:'st-cancel',sync:'',syncT:'',syncC:'',d:'27/10/2026 16:40',
+  req:'REQ-5900-2610-00006',cust:'GLOBAL RAZOR LTD.',wh:'5900 - Kho hàng trả lại',typ:'Khách hàng trả',rsn:'Customer Order Cancelled',
+  it:'1 mặt hàng',qty:3000,wait:'',days:null,by:'Super Admin',appr:'',apprBy:'',note:'Lập nhầm ngày nhận, hủy và lập phiếu 5900-2610-00005',menu:'slip-cancelled',
+  items:[{code:'1014455',name:'TNC210BE-BK BSC 1000',uom:'SET',qty:3000,map:'6',n:3,loc:'5900-TEMP-01',cond:''}]},
+ {no:'5900-2610-00004',st:'Đã duyệt',stc:'st-ok',sync:'synced',syncT:'Đã đồng bộ',syncC:'st-ok',d:'26/10/2026 08:30',
+  req:'REQ-5900-2610-00003',cust:'CUST-00000001',wh:'5900 - Kho hàng trả lại',typ:'Khách hàng trả',rsn:'Wrong Product / Quantity',
+  it:'1 mặt hàng',qty:48,wait:'',days:null,by:'Super Admin',appr:'26/10/2026 09:02',apprBy:'Super Admin',note:'Thông quan xong 26/10, hàng về sau',menu:'slip-approved',
+  items:[{code:'1016603',name:'LFRA2000',uom:'PCS',qty:48,map:'5',n:2,loc:'5900-TEMP-01',cond:'Hộp móp'}]},
+ {no:'5900-2610-00003',st:'Đã duyệt',stc:'st-ok',sync:'error',syncT:'Đồng bộ lỗi',syncC:'st-err',d:'24/10/2026 15:40',
+  req:'REQ-5900-2610-00002',cust:'Công ty Ánh Dương',wh:'5900 - Kho hàng trả lại',typ:'Khách hàng trả',rsn:'Damaged / Defective Product',
+  it:'1 mặt hàng',qty:40,wait:'',days:null,by:'Super Admin',appr:'24/10/2026 16:10',apprBy:'Super Admin',note:'',menu:'slip-approved-err',
+  items:[{code:'SPNU010001',name:'LFRA2000',uom:'PCS',qty:40,tag:'FGL-261014-0003',loc:'5900-A-01',cond:''}]},
+ {no:'5900-2610-00001',st:'Đã duyệt',stc:'st-ok',sync:'run',syncT:'Đang đồng bộ',syncC:'st-sub',d:'14/10/2026 14:20',
+  req:'REQ-5900-2610-00001',cust:'COSTCO WHOLESALE TAIWAN',wh:'5900 - Kho hàng trả lại',typ:'Khách hàng trả',rsn:'Packaging Damage',
+  it:'1 mặt hàng',qty:120,wait:'',days:null,by:'Super Admin',appr:'14/10/2026 15:05',apprBy:'Super Admin',note:'Hàng về đủ 17/10',menu:'slip-approved',
+  items:[{code:'1016604',name:'LFRA2100',uom:'PCS',qty:120,map:'8',n:5,loc:'5900-A-03',cond:'Hộp móp'}]}
+];
+
+/* Mỗi dòng tem: [số tem, Nguồn tem, SL nhập, SL còn lại, trạng thái, cờ, Vị trí, Ghi chú, nhãn dòng].
+   Nhãn dòng 'goc' = tem gốc lấy lại từ G/D Slip — chỉ là nhãn của dòng, Nguồn tem vẫn là nguồn cũ (YÊU CẦU). */
+var MAPS={
+ 'k1':{t:'Barcode/QR đã ánh xạ — REQ-K03-2609-00002 · SPNU010001 LFRA2000',rows:[
+  ['FGL-260929-0004','YÊU CẦU',24,24,'res','','K03-A-01','Dùng lại tem đã xuất','goc'],
+  ['FGL-260929-0005','YÊU CẦU',24,24,'res','','K03-A-01','Dùng lại tem đã xuất','goc']]},
+ 'k2':{t:'Barcode/QR đã ánh xạ — REQ-K03-2610-00005 · SPNU010002 LFRA2100',rows:[
+  ['FGL-261008-0011','YÊU CẦU',24,24,'res','','K03-A-02','Dùng lại tem đã xuất','goc'],
+  ['FGL-261008-0012','YÊU CẦU',24,24,'res','','K03-A-02','Dùng lại tem đã xuất','goc'],
+  ['FGL-261008-0013','YÊU CẦU',24,24,'res','','K03-A-02','Dùng lại tem đã xuất','goc']]},
+ 'k3':{t:'Barcode/QR đã ánh xạ — REQ-K03-2610-00005 · SPNU010003 TNC210BE-BK',rows:[
+  ['FGL-261008-0020','YÊU CẦU',30,30,'res','','K03-B-04','Dùng lại tem đã xuất','goc']]},
+ '8':{t:'Barcode/QR đã ánh xạ — REQ-5900-2610-00001 · 1016604 LFRA2100',rows:[
+  ['FGL-261012-0011','TRẢ HÀNG',24,24,'in','','5900-A-03','Hàng về 17/10'],
+  ['FGL-261012-0012','TRẢ HÀNG',24,24,'in','','5900-A-03','Hàng về 17/10'],
+  ['FGL-261012-0013','TRẢ HÀNG',24,0,'cls','','5000-B-02','Đã chuyển sang kho 5000 để tái xuất'],
+  ['FGL-261012-0014','TRẢ HÀNG',24,24,'in','','5900-A-03','Hàng về 17/10'],
+  ['FGL-261012-0015','TRẢ HÀNG',24,24,'in','','5900-A-03','Hàng về 17/10']]},
+ '6':{t:'Barcode/QR đã ánh xạ — REQ-5900-2610-00006 · 1014455 TNC210BE-BK BSC 1000',rows:[
+  ['FGL-261027-0021','TRẢ HÀNG',1000,1000,'res','','5900-TEMP-01','Giữ chỗ cho phiếu 5900-2610-00005'],
+  ['FGL-261027-0022','TRẢ HÀNG',1000,1000,'res','','5900-TEMP-01','Giữ chỗ cho phiếu 5900-2610-00005'],
+  ['FGL-261027-0023','TRẢ HÀNG',1000,1000,'res','','5900-TEMP-01','Giữ chỗ cho phiếu 5900-2610-00005']]},
+ '7':{t:'Barcode/QR đã ánh xạ — REQ-5900-2610-00006 · 1016531 TNA4007-B PT.INN 24',rows:[
+  ['FGL-261027-0024','TRẢ HÀNG',240,240,'res','','5900-TEMP-01','Giữ chỗ cho phiếu 5900-2610-00006']]},
+ '1':{t:'Barcode/QR đã ánh xạ — dòng 1 · 1016603 LFRA2000',rows:[
+   ['FGL-261026-0031','TRẢ HÀNG',24,24,'in','','5900-TEMP-01','Đã nhận bằng phiếu 5900-2610-00004'],
+   ['FGL-261026-0035','TRẢ HÀNG',24,24,'in','','5000-B-07','Đã nhận bằng phiếu 5900-2610-00004, sau đó chuyển sang kho 5000'],
+   ['FGL-261026-0032','TRẢ HÀNG',24,24,'res','fix','','SAP đổi SL dòng: 72 → 48. Hủy tem rồi phát hành lại']]},
+ '2':{t:'Barcode/QR đã ánh xạ — dòng 2 · 1016604 LFRA2100',rows:[
+   ['FGL-261026-0034','TRẢ HÀNG',24,24,'res','','',''],
+   ['FGL-261026-0036','TRẢ HÀNG',24,24,'res','','','Tem cuối của lần phát hành thứ nhất']]},
+ '3':{t:'Barcode/QR đã ánh xạ — dòng 1 · 1016603 LFRA2000',rows:[
+   ['FGL-261028-0012','TRẢ HÀNG',24,24,'res','','',''],
+   ['FGL-261028-0013','TRẢ HÀNG',24,24,'res','','',''],
+   ['FGL-261028-0014','TRẢ HÀNG',24,24,'res','','','']]},
+ '4':{t:'Barcode/QR đã ánh xạ — dòng 2 · 1016604 LFRA2100',rows:[
+   ['FGL-261028-0016','TRẢ HÀNG',24,24,'res','','',''],
+   ['FGL-261028-0017','TRẢ HÀNG',24,24,'res','','','']]},
+ '5':{t:'Barcode/QR đã ánh xạ — phiếu 5900-2610-00004, dòng 1',rows:[
+   ['FGL-261026-0031','TRẢ HÀNG',24,24,'in','','5900-TEMP-01',''],
+   ['FGL-261026-0035','TRẢ HÀNG',24,24,'in','','5000-B-07','Đã chuyển sang kho 5000']]}
+};
+var LBLST={'in':['Trong kho','st-ok'],res:['Đã in, giữ chỗ','st-sub'],cls:['Đã xuất hết','st-save'],cxl:['Đã hủy','st-cancel']};
+
+var MENUS={
+ 'req-sap':{items:[
+   ['Xem chi tiết','req'],['In yêu cầu','nope:In yêu cầu']]},
+ 'req-wms-saved':{items:[
+   ['Xem chi tiết','req'],['Sửa','nope:Sửa yêu cầu tạo tay'],['Trình','nope:Trình yêu cầu'],
+   ['In yêu cầu','nope:In yêu cầu'],['Xóa','nope:Xóa yêu cầu']]},
+ 'req-wms':{items:[
+   ['Xem chi tiết','req'],['In yêu cầu','nope:In yêu cầu']]},
+ 'req-closed':{items:[['Xem chi tiết','req'],['In yêu cầu','nope:In yêu cầu']]},
+ 'line':{items:[
+   ['Xem tem đã gắn','nope:Mở popup Barcode/QR của dòng'],['Xóa dòng','nope:Bỏ dòng khỏi phiếu, tem nhả giữ chỗ']]}
+};
+
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function key(code,title){
+  return ' <span class="kcode"'+(title?' title="'+esc(title)+'"':'')+'>'+esc(code)+'</span>';
+}
+function dash(){return '<span class="sub">—</span>'}
+function pct(n){return n===100?'100%':(n===0?'0%':String(n).replace('.',',')+'%')}
+
+var toastT;
+function toast(m){var t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(function(){t.classList.remove('show')},2800)}
+
+var EXP={},EXS={};
+function slipsOf(no){return SLIPS.filter(function(s){return s.req===no})}
+function reqOf(no){var r=null;REQS.forEach(function(x){if(x.no===no)r=x});return r}
+function subRowReq(s,r){
+  var body=r
+    ? '<tr><td>1</td><td><button class="lnk" data-req="'+esc(r.no)+'">'+esc(r.no)+'</button></td>'+
+      '<td><span class="st '+r.stc+'">'+esc(r.st)+'</span></td>'+
+      '<td><span class="src '+(r.src==='sap'?'src-sap':'src-wms')+'">'+(r.src==='sap'?'Đồng bộ SAP':'Tạo tại WMS')+'</span></td>'+
+      '<td>'+esc(r.d)+'</td>'+
+      '<td>'+(r.eta?esc(r.eta):dash())+'</td><td>'+esc(r.rsn)+'</td>'+
+      '<td><div class="prog'+(r.pc===100?' done':'')+'"><span class="bar"><i style="width:'+r.pc+'%"></i></span><span class="pc">'+pct(r.pc)+'</span></div></td>'+
+      '<td><button class="kebab" data-menu="'+reqMenu(r)+'" data-label="'+esc(r.no)+'">⋮</button></td></tr>'
+    : '<tr><td colspan="9"><span class="sub">'+esc(s.req)+' — không có trong danh sách đang lọc</span></td></tr>';
+  return '<tr class="sub-row"><td colspan="12"><div class="expbox">'+
+    '<h5>▤ Yêu cầu hàng trả liên kết</h5>'+
+    '<div class="grid-wrap"><div class="scroller"><table><thead><tr>'+
+    '<th style="width:44px">STT</th><th>Số yêu cầu</th><th>Trạng thái</th><th>Nguồn</th>'+
+    '<th>Ngày tạo yêu cầu</th><th>Ngày nhập kho dự kiến</th><th>Lý do trả hàng</th>'+
+    '<th>Tiến độ nhận</th><th style="width:52px">Thao tác</th></tr></thead><tbody>'+
+    body+'</tbody></table></div></div></div></td></tr>';
+}
+function subRow(kids){
+  return '<tr class="sub-row"><td colspan="14"><div class="expbox">'+
+    '<h5>▤ Phiếu trả hàng liên kết <span class="cnt">'+kids.length+'</span></h5>'+
+    '<div class="grid-wrap"><div class="scroller"><table><thead><tr>'+
+    '<th style="width:44px">STT</th><th>Số phiếu</th><th>Trạng thái</th><th>Ngày nhận</th>'+
+    '<th class="num">SL</th><th>Người tạo</th><th style="width:52px">Thao tác</th></tr></thead><tbody>'+
+    kids.map(function(s,i){
+      return '<tr><td>'+(i+1)+'</td>'+
+        '<td><button class="lnk" data-slip="'+esc(s.no)+'">'+esc(s.no)+'</button></td>'+
+        '<td><span class="st '+s.stc+'">'+esc(s.st)+'</span></td>'+
+        '<td>'+esc(s.d)+'</td><td class="num">'+s.qty+'</td><td>'+esc(s.by)+'</td>'+
+        '<td><button class="kebab" data-menu="slip:'+esc(s.no)+'" data-label="'+esc(s.no)+'">⋮</button></td></tr>';
+    }).join('')+'</tbody></table></div></div></div></td></tr>';
+}
+/* Nút Đồng bộ lại SAP bật khi Chưa đồng bộ hoặc Đồng bộ lỗi; ẩn Hủy phiếu khi Đang đồng bộ. */
+function canResync(s){return s.st==='Đã duyệt'&&(s.sync==='none'||s.sync==='error')}
+function slipMenu(no){
+  var s=null;SLIPS.forEach(function(x){if(x.no===no)s=x});
+  var it=[['Xem chi tiết','slip']];
+  if(!s)return {items:it};
+  if(s.st==='Đã duyệt'){
+    if(canResync(s))it.push(['Đồng bộ lại SAP','nope:Gửi lại kết quả sang SAP','E4']);
+    it.push(['In phiếu','nope:In phiếu']);
+    if(s.sync!=='run')it.push(['Hủy phiếu','cancel']);
+  }else if(s.st==='Đã trình'){
+    it.push(['Sửa — ghi chú, remark dòng, xóa dòng','nope:Amend: không thêm dòng, không đổi SL. Không có nút Trả lại','E2'],
+            ['Duyệt','nope:Duyệt phiếu — tăng tồn, đẩy kết quả sang SAP'],['In phiếu','nope:In phiếu']);
+  }else if(s.st==='Đã lưu'){
+    it.push(['Sửa','nope:Sửa phiếu'],['Trình','nope:Trình phiếu'],['Xóa','nope:Xóa phiếu']);
+  }else if(s.st==='Đã hủy'){
+    it.push(['Sửa','nope:Sửa tạo bản mới ở trạng thái Đã lưu'],['In phiếu','nope:In phiếu']);
+  }
+  return {items:it};
+}
+function reqMenu(r){
+  if(r.src==='sap')return 'req-sap';
+  if(r.st==='Đã lưu')return 'req-wms-saved';
+  if(r.st==='Đã đóng')return 'req-closed';
+  return 'req-wms';
+}
+
+function drawReqs(){
+  var f={src:$('#f-src').value,sync:$('#f-sync').value,st:$('#f-st').value,
+    no:$('#f-req').value.trim().toLowerCase(),cust:$('#f-cust').value.trim().toLowerCase(),
+    wh:$('#f-wh').value};
+  var rows=REQS.filter(function(r){
+    if(f.src&&r.src!==f.src)return false;
+    if(f.sync&&r.sync!==f.sync)return false;
+    if(f.st&&r.st!==f.st)return false;
+    if(f.no&&r.no.toLowerCase().indexOf(f.no)<0)return false;
+    if(f.cust&&r.cust.toLowerCase().indexOf(f.cust)<0)return false;
+    if(f.wh&&r.wh!==f.wh)return false;
+    return true;
+  });
+  $('#tb-req').innerHTML=rows.map(function(r){
+    var kids=slipsOf(r.no), open=EXP[r.no];
+    var main='<tr><td>'+(kids.length?'<button class="exp" data-exp="'+esc(r.no)+'" aria-expanded="'+(open?'true':'false')+'" aria-label="Xem phiếu liên kết">'+(open?'−':'+')+'</button>':'')+'</td>'+
+      '<td><button class="lnk" data-req="'+esc(r.no)+'">'+esc(r.no)+'</button></td>'+
+      '<td><span class="st '+r.stc+'">'+esc(r.st)+'</span></td>'+
+      '<td><span class="src '+(r.src==='sap'?'src-sap':'src-wms')+'">'+(r.src==='sap'?'Đồng bộ SAP':'Tạo tại WMS')+'</span></td>'+
+      '<td>'+(r.syncT?'<span class="st '+r.syncC+'"'+(r.tip?' title="'+esc(r.tip)+'"':'')+'>'+esc(r.syncT)+'</span>':dash())+'</td>'+
+      '<td>'+esc(r.d)+'</td><td>'+(r.eta?esc(r.eta):dash())+'</td>'+
+      '<td>'+esc(r.cust)+'</td><td>'+esc(r.wh)+'</td><td>'+esc(r.rsn)+'</td><td>'+esc(r.it)+'</td>'+
+      '<td>'+(r.lbl?esc(r.lbl):dash())+'</td>'+
+      '<td><div class="prog'+(r.pc===100?' done':'')+'"><span class="bar"><i style="width:'+r.pc+'%"></i></span><span class="pc">'+pct(r.pc)+'</span></div></td>'+
+      '<td><button class="kebab" data-menu="'+reqMenu(r)+'" data-label="'+esc(r.no)+'">⋮</button></td></tr>';
+    return main+(open?subRow(kids):'');
+  }).join('')||'<tr><td colspan="14"><div class="empty">Không có yêu cầu nào khớp bộ lọc.<br><button class="btn sm" data-resetf style="margin-top:10px">Đặt lại bộ lọc</button></div></td></tr>';
+  $('#c-req').textContent=rows.length;
+  $('#found-req').textContent=rows.length+' bản ghi được tìm thấy';
+}
+
+function drawSlips(){
+  var f={sync:$('#f-sync2').value,st:$('#f-stslip').value,no:$('#f-slip').value.trim().toLowerCase(),
+    cust:$('#f-cust').value.trim().toLowerCase(),wh:$('#f-wh').value};
+  var rows=SLIPS.filter(function(s){
+    if(f.sync&&s.sync!==f.sync)return false;
+    if(f.st&&s.st!==f.st)return false;
+    if(f.no&&s.no.toLowerCase().indexOf(f.no)<0)return false;
+    if(f.cust&&s.cust.toLowerCase().indexOf(f.cust)<0)return false;
+    if(f.wh&&s.wh!==f.wh)return false;
+    return true;
+  });
+  $('#tb-slip').innerHTML=rows.map(function(s){
+    var par=reqOf(s.req), open=EXS[s.no];
+    var main='<tr><td><button class="exp" data-exps="'+esc(s.no)+'" aria-expanded="'+(open?'true':'false')+'" aria-label="Xem yêu cầu liên kết">'+(open?'−':'+')+'</button></td>'+
+      '<td><button class="lnk" data-slip="'+esc(s.no)+'">'+esc(s.no)+'</button></td>'+
+      '<td><span class="st '+s.stc+'">'+esc(s.st)+'</span></td>'+
+      '<td>'+(s.syncT?'<span class="st '+s.syncC+'">'+esc(s.syncT)+'</span>':dash())+'</td>'+
+      '<td>'+esc(s.d)+'</td><td>'+esc(s.cust)+'</td><td>'+esc(s.wh)+'</td><td>'+esc(s.it)+'</td>'+
+      '<td class="num">'+s.qty+'</td>'+
+      '<td>'+esc(s.by)+'</td>'+
+      '<td><button class="kebab" data-menu="slip:'+esc(s.no)+'" data-label="'+esc(s.no)+'">⋮</button></td></tr>';
+    return main+(open?subRowReq(s,par):'');
+  }).join('')||'<tr><td colspan="11"><div class="empty">Không có phiếu nào khớp bộ lọc.<br><button class="btn sm" data-resetf style="margin-top:10px">Đặt lại bộ lọc</button></div></td></tr>';
+  $('#c-slip').textContent=rows.length;
+  $('#found-slip').textContent=rows.length+' bản ghi được tìm thấy';
+}
+
+function fld(l,v,dim){return '<div class="fld"><label>'+l+'</label><div class="v'+(dim?' dim':'')+'">'+(v||'—')+'</div></div>'}
+// Cột Mã vạch/QR: chip "Đã ánh xạ N" như màn Nhập kho thành phẩm. N = 0 thì chip xám, không bấm được.
+function mapChip(id,n){
+  return n>0
+    ? '<button class="chip-map" data-map="'+esc(id)+'" title="Xem Barcode/QR đã ánh xạ">Đã ánh xạ '+n+'</button>'
+    : '<span class="chip-map zero">Đã ánh xạ 0</span>';
+}
+function tagCell(it,ctx){
+  var flag=it.flag?' <span class="flagfix">'+esc(it.flag)+'</span>':'';
+  if(it.map)return mapChip(it.map,it.n)+flag;
+  if(it.tag){
+    // Yêu cầu tạo tại WMS từ G/D Slip: dùng lại tem gốc → 1 tem ánh xạ.
+    // Tem gốc giữ Nguồn tem cũ (YÊU CẦU); "TEM GỐC (G/D Slip)" chỉ là nhãn của dòng.
+    var id='tag:'+it.tag;
+    MAPS[id]={t:'Barcode/QR đã ánh xạ — '+esc(it.code)+' '+esc(it.name),
+      rows:[[it.tag,'YÊU CẦU',it.qty,it.qty,ctx==='closed'?'in':'res','',it.loc||'','Dùng lại tem đã xuất','goc']]};
+    return mapChip(id,1)+flag;
+  }
+  return mapChip('',0)+flag;
+}
+function setRTab(t){
+  $$('[data-rtab]').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-rtab')===t)});
+  $('#rpane-info').hidden=t!=='info';
+  $('#rpane-slips').hidden=t!=='slips';
+}
+function openReq(no){
+  var r=null;REQS.forEach(function(x){if(x.no===no)r=x});
+  if(!r)return;
+  $('#rq-title').textContent='Số yêu cầu '+r.no;
+  $('#rq-st').innerHTML='<span class="st '+r.stc+'">'+esc(r.st)+'</span>';
+  $('#rq-src').innerHTML='<span class="src '+(r.src==='sap'?'src-sap':'src-wms')+'">'+(r.src==='sap'?'Đồng bộ SAP':'Tạo tại WMS')+'</span>';
+  $('#rq-ro').textContent=r.src==='sap'?'Chỉ đọc — sửa trên SAP rồi đồng bộ lại':'';
+  var acts='';
+  if(r.src!=='sap'&&r.st==='Đã lưu'){
+    acts+='<button class="btn" data-nope="Sửa yêu cầu">Sửa</button>'+
+          '<button class="btn primary" data-nope="Trình yêu cầu">✓ Trình</button>'+
+          '<button class="btn danger" data-nope="Xóa yêu cầu">Xóa</button>';
+  }
+  acts+='<button class="btn" data-nope="In yêu cầu hàng trả">⎙</button>';
+  $('#rq-acts').innerHTML=acts;
+  $('#rq-fields').innerHTML=
+    fld('Số yêu cầu',esc(r.no))+
+    fld('Nguồn',r.src==='sap'?'Đồng bộ SAP':'Tạo tại WMS')+
+    fld('Trạng thái đồng bộ SAP',r.syncT?'<span class="st '+r.syncC+'">'+esc(r.syncT)+'</span>':'',!r.syncT)+
+    fld('Ngày tạo yêu cầu',esc(r.d))+
+    fld('Ngày nhập kho dự kiến',esc(r.eta),!r.eta)+
+    fld('Khách hàng',esc(r.cust))+
+    fld('Kho nhận',esc(r.wh))+
+    fld('Lý do trả hàng',esc(r.rsn))+
+    fld('Loại trả hàng',esc(r.typ))+
+    fld('Số đơn bán hàng',esc(r.so),!r.so)+
+    fld('Ghi chú',esc(r.note),!r.note);
+  var isSap=r.src==='sap';
+  $('#rq-th-lot').hidden=isSap;$('#rq-th-grade').hidden=isSap;$('#rq-th-disp').hidden=isSap;
+  var dispCells=isSap?'':'<td class="sub">—</td><td class="sub">—</td><td class="sub">—</td>';
+  var dispFoot=isSap?'':'<td></td><td></td><td></td>';
+  var tot=0;
+  $('#rq-items').innerHTML=r.items.map(function(it,i){
+    tot+=it.qty;
+    return '<tr><td>'+(i+1)+'</td><td>'+tagCell(it,r.st==='Đã đóng'?'closed':'')+'</td>'+
+      '<td>'+esc(it.code)+'</td><td>'+esc(it.name)+'</td><td>'+(it.chk?esc(it.chk):dash())+'</td>'+
+      '<td class="sub">—</td><td class="sub">—</td><td class="sub">—</td><td>'+esc(it.uom)+'</td>'+
+      '<td class="num">'+it.qty+'</td>'+dispCells+'</tr>';
+  }).join('');
+  $('#rq-foot').innerHTML='<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>Tổng</td><td class="num">'+tot+'</td>'+dispFoot+'</tr>';
+  var kids=slipsOf(no);
+  $('#rq-slipacts').innerHTML=r.st==='Đã trình'
+    ? '<button class="btn sm primary" data-go="newslip">+ Thêm phiếu</button>'
+    : '<span class="sub">'+(r.st==='Đã lưu'?'Yêu cầu chưa trình — chưa lập được phiếu':'Yêu cầu đã đóng — không lập thêm phiếu')+'</span>';
+  $('#rq-tab-slips').hidden=kids.length===0;
+  $('#rq-nslip').textContent=kids.length;
+  $('#rq-nslip2').textContent=kids.length;
+  $('#rq-slips').innerHTML=kids.map(function(x,i){
+    return '<tr><td>'+(i+1)+'</td><td><button class="lnk" data-slip="'+esc(x.no)+'">'+esc(x.no)+'</button></td>'+
+      '<td><span class="st '+x.stc+'">'+esc(x.st)+'</span></td>'+
+      '<td>'+(x.syncT?'<span class="st '+x.syncC+'">'+esc(x.syncT)+'</span>':dash())+'</td>'+
+      '<td>'+esc(x.d)+'</td><td class="num">'+x.qty+'</td><td>'+esc(x.by)+'</td>'+
+      '<td><button class="kebab" data-menu="slip:'+esc(x.no)+'" data-label="'+esc(x.no)+'">⋮</button></td></tr>';
+  }).join('');
+  setRTab('info');
+}
+function openSlip(no){
+  var p=null;SLIPS.forEach(function(x){if(x.no===no)p=x});
+  if(!p)return;
+  $('#sl-title').textContent='Số phiếu '+p.no;
+  $('#sl-st').innerHTML='<span class="st '+p.stc+'">'+esc(p.st)+'</span>';
+  var acts='';
+  if(p.st==='Đã duyệt'){
+    if(canResync(p))acts+='<button class="btn" data-nope="Gửi lại kết quả sang SAP">↻ Đồng bộ lại SAP</button>';
+    if(p.sync!=='run')acts+='<button class="btn danger" data-go="cancel">Hủy phiếu</button>';
+  }else if(p.st==='Đã trình'){
+    acts+='<button class="btn" data-nope="Sửa: ghi chú, remark dòng, xóa dòng">Sửa</button><button class="btn primary" data-nope="Duyệt phiếu — tăng tồn, đẩy kết quả sang SAP">✓ Duyệt</button>';
+  }else if(p.st==='Đã lưu'){
+    acts+='<button class="btn" data-nope="Sửa phiếu">Sửa</button><button class="btn primary" data-nope="Trình phiếu">✓ Trình</button><button class="btn danger" data-nope="Xóa phiếu">Xóa</button>';
+  }else if(p.st==='Đã hủy'){
+    acts+='<button class="btn" data-nope="Sửa tạo bản mới ở trạng thái Đã lưu">Sửa</button>';
+  }
+  acts+='<button class="btn" data-nope="In phiếu hàng trả">⎙</button>';
+  $('#sl-acts').innerHTML=acts;
+  $('#sl-fields').innerHTML=
+    fld('Số phiếu hàng trả',esc(p.no))+
+    fld('Ngày nhận',esc(p.d))+
+    fld('Khách hàng',esc(p.cust))+
+    fld('Kho nhận',esc(p.wh))+
+    fld('Loại trả hàng',esc(p.typ))+
+    fld('Lý do trả hàng',esc(p.rsn))+
+    fld('Grade kiểm định',esc(p.grade||''),!p.grade)+
+    fld('Số yêu cầu hàng trả liên kết','<button class="lnk" data-req="'+esc(p.req)+'">'+esc(p.req)+'</button>')+
+    fld('Trạng thái đồng bộ SAP',p.syncT?'<span class="st '+p.syncC+'">'+esc(p.syncT)+'</span>':'',!p.syncT)+
+    fld('Người tạo',esc(p.by))+
+    fld('Ngày duyệt',esc(p.appr),!p.appr)+
+    fld('Người duyệt',esc(p.apprBy),!p.apprBy)+
+    fld('Ghi chú',esc(p.note),!p.note);
+  var tot=0;
+  $('#sl-items').innerHTML=p.items.map(function(it,i){
+    tot+=it.qty;
+    var stt='<span class="st st-ok">Trong kho</span>';
+    if(p.st==='Đã trình'||p.st==='Đã lưu')stt='<span class="st st-sub">Đã in, giữ chỗ</span>';
+    // TH8: hủy phiếu trả đã duyệt KHÔNG đổi trạng thái tem — tem giữ nguyên, chỉ ghi chú Chờ chốt Q38
+    if(p.st==='Đã hủy')stt='<span class="st st-sub">Đã in, giữ chỗ</span> <span class="flagfix" title="Hủy phiếu trả đã duyệt chưa chốt có đổi trạng thái tem hay không">Chờ chốt Q38</span>';
+    return '<tr><td>'+(i+1)+'</td><td>'+tagCell(it,p.st==='Đã duyệt'?'closed':'')+'</td>'+
+      '<td>'+esc(it.code)+'</td><td>'+esc(it.name)+'</td>'+
+      '<td class="sub">—</td><td class="sub">—</td><td>'+esc(it.uom)+'</td>'+
+      '<td class="num">'+it.qty+'</td><td>'+stt+'</td><td>'+esc(it.loc)+'</td>'+
+      '<td>'+(it.cond?esc(it.cond):dash())+'</td></tr>';
+  }).join('');
+  $('#sl-foot').innerHTML='<tr><td></td><td></td><td></td><td></td><td></td><td></td><td>Tổng</td><td class="num">'+tot+'</td><td></td><td></td><td></td></tr>';
+}
+
+var VIEWS={list:'v-list',req:'v-req',newslip:'v-newslip',slip:'v-slip'};
+var NCUST='', NROWS=[];
+function custList(){
+  var seen={},out=[];
+  REQS.forEach(function(r){ if(!seen[r.cust]){seen[r.cust]=1;out.push(r.cust)} });
+  return out.sort();
+}
+function openNewSlip(){
+  NCUST=''; NROWS=[];
+  var opts=custList().map(function(c){return '<option>'+esc(c)+'</option>'}).join('');
+  $('#n-fields').innerHTML=
+    '<div class="fld"><label>Số phiếu hàng trả</label><div class="ctl dim">Tự động tạo</div></div>'+
+    '<div class="fld"><label for="n-date">Ngày nhận <span class="req">*</span></label><input class="ctl val" id="n-date" value="'+esc(now())+'"></div>'+
+    '<div class="fld"><label for="n-cust">Khách hàng <span class="req">*</span></label><select class="ctl" id="n-cust"><option value="">Chọn khách hàng</option>'+opts+'</select></div>'+
+    // TH4: kho lấy theo yêu cầu của các tem đã chọn, khóa không cho sửa
+    '<div class="fld"><label>Kho <span class="req">*</span></label><div class="ctl ro dim" id="n-wh" title="Lấy theo yêu cầu hàng trả của tem đã chọn, không sửa được">—</div></div>'+
+    '<div class="fld"><label for="n-type">Loại trả hàng</label><select class="ctl" id="n-type"><option>Khách hàng trả</option><option>Đại lý trả</option><option>Trả nội bộ</option></select></div>'+
+    '<div class="fld"><label for="n-rsn">Lý do trả hàng <span class="req">*</span></label><select class="ctl" id="n-rsn"><option value="">Chọn lý do trả hàng</option><option>Damaged / Defective Product</option><option>Wrong Product / Quantity</option><option>Expired / Near Expiry</option><option>Packaging Damage</option><option>Customer Order Cancelled</option></select></div>'+
+    '<div class="fld"><label>Số yêu cầu hàng trả</label><div class="ctl ro dim" id="n-req">—</div></div>'+
+    '<div class="fld"><label>Số đơn bán hàng</label><div class="ctl dim" id="n-so"></div></div>'+
+    '<div class="fld"><label for="n-own">Người phụ trách <span class="req">*</span></label><select class="ctl" id="n-own"><option value="">Chọn</option><option>Administrator</option><option>Dương Tăng Tài</option></select></div>'+
+    // TH3: thêm Grade kiểm định (không bắt buộc), Tình trạng bên ngoài và Vị trí vào form lập phiếu
+    '<div class="fld"><label for="n-grade">Grade kiểm định</label><select class="ctl" id="n-grade"><option value="">Chưa kiểm định</option><option>A - Bán lại được</option><option>B - Sửa chữa / đóng gói lại</option><option>C - Hủy</option></select></div>'+
+    '<div class="fld"><label for="n-cond">Tình trạng bên ngoài</label><input class="ctl" id="n-cond" placeholder="Nguyên đai, hộp móp…"></div>'+
+    '<div class="fld"><label for="n-loc">Vị trí</label><input class="ctl" id="n-loc" placeholder="Ví dụ 5900-TEMP-01"></div>'+
+    '<div class="fld"><label for="n-note">Ghi chú</label><input class="ctl" id="n-note" placeholder="Nhập ghi chú"></div>';
+  drawNewRows();
+}
+function now(){
+  var d=new Date(),z=function(n){return (n<10?'0':'')+n};
+  return z(d.getDate())+'/'+z(d.getMonth()+1)+'/'+d.getFullYear()+' '+z(d.getHours())+':'+z(d.getMinutes());
+}
+function drawNewRows(){
+  $('#n-add').disabled=!NCUST;
+  var reqs=[],so=[];
+  NROWS.forEach(function(x){
+    if(reqs.indexOf(x.req)<0)reqs.push(x.req);
+    if(x.so&&so.indexOf(x.so)<0)so.push(x.so);
+  });
+  var rq=$('#n-req'); if(rq){rq.textContent=reqs.length?reqs.join(', '):'—';rq.classList.toggle('dim',!reqs.length)}
+  var sp=$('#n-so'); if(sp)sp.textContent=so.join(', ');
+  // TH4: kho của phiếu luôn lấy theo yêu cầu của tem đã chọn
+  var wh=NROWS.length?NROWS[0].wh:'';
+  var we=$('#n-wh'); if(we){we.textContent=wh||'—';we.classList.toggle('dim',!wh)}
+  if(!NROWS.length){
+    $('#n-items').innerHTML='<tr><td colspan="13"><div class="empty">Chưa có mặt hàng nào<br>'+
+      '<span class="sub">Chọn khách hàng trước khi thêm mặt hàng từ yêu cầu hàng trả.<br>Chọn hoặc bỏ nguyên tem — nhận một phần nghĩa là chọn ít tem hơn.</span><br>'+
+      '<button class="btn sm" id="n-add2" style="margin-top:10px"'+(NCUST?'':' disabled')+'>+ Thêm từ yêu cầu hàng trả</button></div></td></tr>';
+    $('#n-foot').innerHTML='';
+    return;
+  }
+  var tot=0;
+  $('#n-items').innerHTML=NROWS.map(function(it,i){
+    tot+=it.qty;
+    return '<tr><td>'+(i+1)+'</td><td>'+esc(it.tag)+'</td>'+
+      '<td>'+(it.so?esc(it.so):dash())+'</td>'+
+      '<td>'+esc(it.code)+'</td><td>'+esc(it.name)+'</td>'+
+      '<td>'+(it.mdl?esc(it.mdl):dash())+'</td><td>'+(it.clr?esc(it.clr):dash())+'</td>'+
+      '<td>'+(it.sz?esc(it.sz):dash())+'</td><td>'+esc(it.uom)+'</td>'+
+      '<td class="num">'+it.qty+'</td>'+
+      '<td class="sub">—</td><td class="sub">—</td>'+
+      '<td><button class="kebab" data-menu="line" data-label="Dòng '+(i+1)+' · '+esc(it.code)+'">⋮</button></td></tr>';
+  }).join('');
+  $('#n-foot').innerHTML='<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>Tổng</td>'+
+    '<td class="num">'+tot+'</td><td></td><td></td><td></td></tr>';
+}
+/* Một dòng = một tem, đúng như popup trên DEV */
+function temRows(){
+  var out=[];
+  REQS.forEach(function(r){
+    if(r.st!=='Đã trình')return;
+    r.items.forEach(function(it){
+      var tems=[];
+      if(it.map&&MAPS[it.map]) tems=MAPS[it.map].rows.map(function(x){return {tag:x[0],qty:x[2]}});
+      else if(it.tag) tems=[{tag:it.tag,qty:it.qty}];
+      tems.forEach(function(t){
+        out.push({req:r.no,cust:r.cust,wh:r.wh,d:r.d,so:r.so||'',
+          tag:t.tag,code:it.code,name:it.name,uom:it.uom,qty:t.qty,
+          mdl:it.mdl||'',clr:it.clr||'',sz:it.sz||''});
+      });
+    });
+  });
+  return out;
+}
+var PICKED={};
+function openPick(){
+  if(!NCUST){toast('Chọn khách hàng trước khi thêm mặt hàng');return}
+  PICKED={};
+  $('#p-req').value='';
+  $('#p-wh').value=NROWS.length?NROWS[0].wh:'';
+  $('#p-from').value='';$('#p-to').value='';
+  drawPick();
+  $('#sc-pick').classList.add('open');
+}
+/* TH2: tem đã thuộc phiếu khác (đang giữ chỗ cho phiếu trả khác) thì ẩn khỏi popup chọn tem.
+   Phiếu Đã hủy không còn giữ chỗ nên tem của nó lại chọn được. */
+function temTrongPhieuKhac(tag){
+  var hit=false;
+  SLIPS.forEach(function(sp){
+    if(hit||sp.st==='Đã hủy')return;
+    (sp.items||[]).forEach(function(it){
+      if(it.tag===tag){hit=true;return}
+      if(it.map&&MAPS[it.map]&&MAPS[it.map].rows.some(function(x){return x[0]===tag}))hit=true;
+    });
+  });
+  return hit;
+}
+function pickRows(){
+  var q=$('#p-req').value.trim().toLowerCase(), wh=$('#p-wh').value.trim().toLowerCase();
+  // TH4: một phiếu một kho — đã có dòng thì chỉ cho chọn tem cùng kho với yêu cầu đầu tiên
+  var lockWh=NROWS.length?NROWS[0].wh:'';
+  return temRows().filter(function(x){
+    if(x.cust!==NCUST)return false;
+    if(NROWS.some(function(n){return n.tag===x.tag}))return false;
+    if(temTrongPhieuKhac(x.tag))return false;
+    if(lockWh&&x.wh!==lockWh)return false;
+    if(q&&x.req.toLowerCase().indexOf(q)<0)return false;
+    if(wh&&x.wh.toLowerCase().indexOf(wh)<0)return false;
+    return true;
+  });
+}
+function drawPick(){
+  var rows=pickRows();
+  $('#p-rows').innerHTML=rows.map(function(x){
+    return '<tr><td><input type="checkbox" class="p-ck" data-tag="'+esc(x.tag)+'"'+(PICKED[x.tag]?' checked':'')+' aria-label="Chọn '+esc(x.tag)+'"></td>'+
+      '<td>'+esc(x.req)+'</td><td>'+esc(x.tag)+'</td><td>'+(x.so?esc(x.so):dash())+'</td>'+
+      '<td>'+esc(x.code)+'</td><td>'+esc(x.name)+'</td>'+
+      '<td>'+(x.mdl?esc(x.mdl):dash())+'</td><td>'+(x.clr?esc(x.clr):dash())+'</td>'+
+      '<td>'+(x.sz?esc(x.sz):dash())+'</td><td>'+esc(x.uom)+'</td>'+
+      '<td class="num">'+x.qty+'</td><td class="sub">—</td><td class="sub">—</td></tr>';
+  }).join('')||'<tr><td colspan="13"><div class="empty">Không có mặt hàng nào khớp bộ lọc.</div></td></tr>';
+  var all=$('#p-all'); if(all)all.checked=rows.length>0&&rows.every(function(x){return PICKED[x.tag]});
+  pickCount();
+}
+function pickCount(){
+  var n=Object.keys(PICKED).filter(function(k){return PICKED[k]}).length;
+  $('#p-count').textContent='Đã chọn '+n+' mặt hàng';
+  $('#p-ok').disabled=n===0;
+}
+function nextSlipNo(wh){
+  var pre=wh.split(' - ')[0], d=new Date();
+  var ym=String(d.getFullYear()).slice(2)+(d.getMonth()<9?'0':'')+(d.getMonth()+1);
+  var max=0;
+  SLIPS.forEach(function(x){
+    var m=x.no.match(/^(.+)-(\d{4})-(\d+)$/);
+    if(m&&m[1]===pre){var n=parseInt(m[3],10);if(n>max)max=n}
+  });
+  return pre+'-'+ym+'-'+String(max+1).padStart(5,'0');
+}
+function saveNewSlip(status){
+  var v=function(id){var e=$('#'+id);return e?e.value.trim():''};
+  var miss=[];
+  if(!v('n-date'))miss.push('Ngày nhận');
+  if(!v('n-cust'))miss.push('Khách hàng');
+  if(!v('n-rsn'))miss.push('Lý do trả hàng');
+  if(!v('n-own'))miss.push('Người phụ trách');
+  if(miss.length){toast('Thiếu: '+miss.join(', '));return}
+  if(!NROWS.length){toast('Chưa có mặt hàng nào trong phiếu');return}
+
+  // TH1: nhận nguyên tem — SL của dòng phiếu chính là SL trên tem
+  var tot=0;NROWS.forEach(function(x){tot+=x.qty});
+  // TH4: kho lấy theo yêu cầu, không nhập tay
+  var wh=NROWS[0].wh, no=nextSlipNo(wh);
+  var loc=v('n-loc'), cond=v('n-cond');
+  var reqs=[];NROWS.forEach(function(x){if(reqs.indexOf(x.req)<0)reqs.push(x.req)});
+  var items=NROWS.map(function(x){
+    return {code:x.code,name:x.name,uom:x.uom,qty:x.qty,tag:x.tag,
+      mdl:x.mdl,clr:x.clr,sz:x.sz,loc:loc,cond:cond};
+  });
+
+  SLIPS.unshift({no:no,
+    st:status==='sub'?'Đã trình':'Đã lưu',
+    stc:status==='sub'?'st-sub':'st-save',
+    sync:'none',syncT:'Chưa đồng bộ',syncC:'st-save',d:v('n-date'),
+    req:reqs[0]||'',cust:v('n-cust'),wh:wh,typ:v('n-type'),rsn:v('n-rsn'),grade:v('n-grade'),
+    it:items.length+' mặt hàng',qty:tot,wait:'',days:null,
+    by:v('n-own'),appr:'',apprBy:'',note:v('n-note'),
+    menu:status==='sub'?'slip-submitted':'slip-saved',
+    items:items});
+
+  drawKpi();drawReqs();drawSlips();
+  show('list:slip');
+  toast('Đã tạo phiếu '+no+' — '+(status==='sub'?'Đã trình':'Đã lưu'));
+}
+function addPicked(){
+  var keep=temRows().filter(function(x){return PICKED[x.tag]});
+  if(!keep.length)return;
+  NROWS=NROWS.concat(keep);
+  $('#sc-pick').classList.remove('open');
+  drawNewRows();
+  toast('Đã thêm '+keep.length+' mặt hàng');
+}
+
+function show(target){
+  var parts=String(target).split(':'),v=parts[0];
+  if(v==='map'){openReq('REQ-5900-2610-00003');show('req');openMap('1');return}
+  if(v==='cancel'){$('#sc-cancel').classList.add('open');return}
+  if(v==='newslip')openNewSlip();
+  if(!VIEWS[v])return;
+  closeAll();
+  $$('.view').forEach(function(s){s.classList.toggle('on',s.id===VIEWS[v])});
+  if(v==='list')setTab(parts[1]||'req');
+  markJump(target);
+  window.scrollTo(0,0);var mn=document.querySelector('.main');if(mn)mn.scrollTop=0;
+}
+function markJump(){}
+function setTab(t){
+  $('#tab-req').classList.toggle('on',t==='req');
+  $('#tab-slip').classList.toggle('on',t==='slip');
+  $('#pane-req').hidden=t!=='req';
+  $('#pane-slip').hidden=t!=='slip';
+}
+
+function openMap(id){
+  var m=MAPS[id];if(!m)return;
+  $('#map-title').textContent=m.t;
+  var t1=0,t2=0;
+  $('#map-rows').innerHTML=m.rows.map(function(r,i){
+    t1+=r[2];t2+=r[3];
+    var s=LBLST[r[4]],flag='';
+    if(r[5]==='fix')flag=' <span class="flagfix">Cần xử lý</span>';
+    var goc=r[8]==='goc'?' <span class="src src-wms" title="Tem gốc lấy lại từ G/D Slip — chỉ là nhãn của dòng chọn tem, không phải một Nguồn tem">TEM GỐC (G/D Slip)</span>':'';
+    return '<tr><td>'+(i+1)+'</td>'+
+      '<td><button class="lnk" data-nope="Mở chi tiết và lịch sử tem '+esc(r[0])+'">'+esc(r[0])+'</button>'+goc+'</td>'+
+      '<td>'+esc(r[1])+'</td><td class="num">'+r[2]+'</td><td class="num">'+r[3]+'</td>'+
+      '<td><span class="st '+s[1]+'">'+s[0]+'</span>'+flag+'</td>'+
+      '<td>'+(r[6]?esc(r[6]):dash())+'</td><td>'+(r[7]?esc(r[7]):dash())+'</td></tr>';
+  }).join('');
+  $('#map-t1').textContent=t1;$('#map-t2').textContent=t2;
+  $('#sc-map').classList.add('open');
+}
+
+var CURLBL='';
+function openMenu(btn){
+  var mk=btn.getAttribute('data-menu');
+  var m=mk.indexOf('slip:')===0?slipMenu(mk.slice(5)):MENUS[mk];if(!m)return;
+  CURLBL=btn.getAttribute('data-label')||'';
+  var c=$('#ctx');
+  c.innerHTML=m.items.map(function(it){
+      return '<button data-act="'+esc(it[1])+'">'+esc(it[0])+(it[2]?key(it[2]):'')+'</button>';
+    }).join('');
+  c.classList.add('open');
+  var r=btn.getBoundingClientRect(),w=262;
+  var left=Math.max(10,Math.min(r.right-w,window.innerWidth-w-10));
+  var top=r.bottom+6;
+  if(top+c.offsetHeight>window.innerHeight-10)top=Math.max(10,r.top-c.offsetHeight-6);
+  c.style.left=left+'px';c.style.top=top+'px';
+  c.setAttribute('data-for',btn.getAttribute('data-label')||'');
+}
+function closeMenu(){$('#ctx').classList.remove('open');$('#ctx').removeAttribute('data-for')}
+function closeAll(){closeMenu();$$('.scrim').forEach(function(s){s.classList.remove('open')})}
+
+function resetFilter(){
+  ['f-req','f-slip','f-cust'].forEach(function(id){$('#'+id).value=''});
+  ['f-src','f-sync','f-sync2','f-st','f-stslip','f-wh'].forEach(function(id){$('#'+id).value=''});
+  drawReqs();drawSlips();toast('Đã đặt lại bộ lọc');
+}
+
+
+document.addEventListener('click',function(e){
+  var t=e.target;
+  if(!t.closest)return;
+
+  if(t.closest('[data-close]')){closeAll();return}
+  if(t.classList&&t.classList.contains('scrim')){closeAll();return}
+
+  var kb=t.closest('[data-menu]');
+  if(kb){
+    var open=$('#ctx').classList.contains('open');
+    var same=$('#ctx').getAttribute('data-for')===(kb.getAttribute('data-label')||'');
+    closeMenu();
+    if(!(open&&same))openMenu(kb);
+    return;
+  }
+
+  var act=t.closest('#ctx [data-act]');
+  if(act){
+    var a=act.getAttribute('data-act'),lbl=CURLBL;closeMenu();
+    if(a.indexOf('nope:')===0){toast(a.slice(5));return}
+    if(a==='req'){openReq(lbl);show('req');return}
+    if(a==='slip'){openSlip(lbl);show('slip');return}
+    show(a);
+    return;
+  }
+
+  var ex=t.closest('[data-exp]');
+  if(ex){var n=ex.getAttribute('data-exp');EXP[n]=!EXP[n];closeMenu();drawReqs();return}
+  var exs=t.closest('[data-exps]');
+  if(exs){var m2=exs.getAttribute('data-exps');EXS[m2]=!EXS[m2];closeMenu();drawSlips();return}
+
+  if(t.closest('#n-add')||t.closest('#n-add2')){openPick();return}
+  if(t.closest('#p-search')){drawPick();return}
+  if(t.closest('#p-reset')){$('#p-req').value='';$('#p-wh').value='';$('#p-from').value='';$('#p-to').value='';drawPick();return}
+  if(t.closest('#p-ok')){addPicked();return}
+  if(t.closest('#n-save')){saveNewSlip('save');return}
+  if(t.closest('#n-submit')){saveNewSlip('sub');return}
+  if(t.closest('[data-resetf]')){resetFilter();return}
+
+  var mp=t.closest('[data-map]');
+  if(mp){closeMenu();openMap(mp.getAttribute('data-map'));return}
+
+  var rq=t.closest('[data-req]');
+  if(rq){closeMenu();openReq(rq.getAttribute('data-req'));show('req');return}
+
+  var sp=t.closest('[data-slip]');
+  if(sp){closeMenu();openSlip(sp.getAttribute('data-slip'));show('slip');return}
+
+  var go=t.closest('[data-go]');
+  if(go){closeMenu();show(go.getAttribute('data-go'));return}
+
+  var np=t.closest('[data-nope]');
+  if(np){closeMenu();toast(np.getAttribute('data-nope'));return}
+
+  var fd=t.closest('[data-fold]');
+  if(fd){
+    var card=document.getElementById(fd.getAttribute('data-fold'));
+    card.classList.toggle('folded');
+    fd.textContent=card.classList.contains('folded')?'▼':'▲';
+    return;
+  }
+
+  var rt=t.closest('[data-rtab]');
+  if(rt){setRTab(rt.getAttribute('data-rtab'));return}
+
+  var tb=t.closest('[data-tab]');
+  if(tb){setTab(tb.getAttribute('data-tab'));return}
+
+  closeMenu();
+});
+
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAll()});
+window.addEventListener('resize',closeMenu);
+document.addEventListener('scroll',closeMenu,true);
+
+$('#f-reset').addEventListener('click',resetFilter);
+$('#f-search').addEventListener('click',function(){drawReqs();drawSlips();toast('Đã lọc lại danh sách')});
+document.addEventListener('change',function(e){
+  if(e.target&&e.target.classList&&e.target.classList.contains('p-ck')){
+    PICKED[e.target.getAttribute('data-tag')]=e.target.checked;pickCount();return;
+  }
+  if(e.target&&e.target.id==='p-all'){
+    pickRows().forEach(function(x){PICKED[x.tag]=e.target.checked});drawPick();return;
+  }
+  if(e.target&&e.target.id==='n-cust'){
+    NCUST=e.target.value;
+    if(NROWS.length){NROWS=[];toast('Đổi khách hàng — đã xóa các dòng đã thêm')}
+    drawNewRows();
+  }
+});
+$$('#filter-card select').forEach(function(s){s.addEventListener('change',function(){drawReqs();drawSlips()})});
+$$('#filter-card input.ctl').forEach(function(i){i.addEventListener('input',function(){drawReqs();drawSlips()})});
+function drawKpi(){
+  $('#kpi-req').textContent=REQS.filter(function(r){return r.st==='Đã trình'}).length;
+  $('#kpi-pend').textContent=SLIPS.filter(function(s){return s.st==='Đã trình'}).length;
+  $('#kpi-err').textContent=SLIPS.filter(function(s){return s.sync==='error'}).length;
+}
+drawKpi();drawReqs();drawSlips();
+})();
+</script>
+<script>
+window.addEventListener("load",function(){try{var p=new URLSearchParams(location.search),t=p.get("tab");if(!t){var m=(location.hash||"").match(/tab=([\w-]+)/);t=m&&m[1];}if(!t)return;var el=document.querySelector('[data-tab="'+t+'"]');if(el)el.click();}catch(e){}});
+</script>
+</body>
+</html>

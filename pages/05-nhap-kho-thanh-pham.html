@@ -16,12 +16,70 @@
 
 <div class="page-head">
   <small>Giải pháp hệ thống</small>
-  <h1>5. Quy trình nhập kho thành phẩm</h1>
-  <p>Từ sản xuất vào kho Thành phẩm.</p>
+  <h1>5. Quy trình nhập kho thành phẩm / bán thành phẩm</h1>
+  <p>Từ sản xuất vào kho thành phẩm, bán thành phẩm: tạo yêu cầu nhập kho, phát hành và dán tem, quét tem nhập kho bằng PDA và lập phiếu nhập kho.</p>
 </div>
 
-<!-- ===== Khi có nội dung: xóa khối "Sắp có" bên dưới, chép khối <section class="screen"> từ pages/_mau-trang-muc.html ===== -->
-<div class="soon"><b>Sắp có</b>Nội dung và màn hình của mục này sẽ được bổ sung khi có ảnh hệ thống thật.</div>
+<!-- ===== BẮT ĐẦU: 5.1 Yêu cầu nhập kho ===== -->
+<section class="screen" id="tp-yc">
+  <h2 class="screen__title"><span class="no">5.1</span>Yêu cầu nhập kho</h2>
+  <p class="screen__path">Kho vận › Nhập kho thành phẩm</p>
+  <div class="screen__body">
+    <div class="screen__shots">
+      <figure class="shot"><figcaption>Giao diện WMS · Nhập kho thành phẩm — kéo ngang bảng để xem hết cột, bấm một dòng để xem chi tiết, bấm “+ Thêm yêu cầu” để tạo mới<a class="btn shot__zoom" href="../mockups/05-nhap-kho-thanh-pham/1.html" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption>
+        <iframe class="shot__live" src="../mockups/05-nhap-kho-thanh-pham/1.html" title="Yêu cầu nhập kho thành phẩm" loading="lazy"></iframe></figure>
+    </div>
+    <aside class="screen__notes">
+      <div class="note"><h3>Mô tả</h3><p>Màn hình quản lý nhập kho thành phẩm / bán thành phẩm. Danh sách liệt kê các yêu cầu nhập kho đồng bộ từ sản xuất; bấm “+ Thêm yêu cầu” để tạo yêu cầu mới hoặc bấm một dòng để xem chi tiết. Từ chi tiết yêu cầu có thể phát hành tem và lập phiếu nhập kho.</p></div>
+      <div class="note note--biz"><h3>Lưu ý nghiệp vụ</h3><ul><li>Yêu cầu nhập kho thành phẩm tạo theo số lượng đã QC đạt, đồng bộ từ SAP sang WMS.</li></ul></div>
+    </aside>
+  </div>
+</section>
+<!-- ===== KẾT THÚC: 5.1 Yêu cầu nhập kho ===== -->
+<!-- ===== BẮT ĐẦU: 5.2 Phát hành và dán tem (tham chiếu 11.2) ===== -->
+<section class="screen" id="tp-tem">
+  <h2 class="screen__title"><span class="no">5.2</span>Phát hành và dán tem</h2>
+  <p class="screen__path">Phát hành nhãn › Phát hành tem thành phẩm / bán thành phẩm</p>
+  <div class="screen__body">
+    <aside class="screen__notes">
+      <div class="note"><h3>Mô tả</h3><p>Bước phát hành và dán tem thành phẩm / bán thành phẩm dùng chung màn hình <a href="11-phat-hanh-tem-nhan.html#t-tp">11.2 Phát hành tem thành phẩm / bán thành phẩm</a> (mục 11. Phát hành tem nhãn). Xem màn hình và mô tả chi tiết tại mục đó.</p></div>
+      <div class="note note--biz"><h3>Lưu ý nghiệp vụ</h3><ul><li>BP Sản xuất phát hành tem trên WMS rồi dán vào hàng trước khi kho quét nhập.</li></ul></div>
+    </aside>
+  </div>
+</section>
+<!-- ===== KẾT THÚC: 5.2 Phát hành và dán tem ===== -->
+<!-- ===== BẮT ĐẦU: 5.3 Quét tem nhập kho ===== -->
+<section class="screen" id="tp-quet">
+  <h2 class="screen__title"><span class="no">5.3</span>Quét tem nhập kho</h2>
+  <p class="screen__path">Ứng dụng PDA › Nhập kho thành phẩm</p>
+  <div class="screen__body">
+    <div class="screen__shots">
+      <figure class="shot"><figcaption>Giao diện PDA · Quét tem nhập kho thành phẩm — bấm các nút trên máy để chạy thử từng bước<a class="btn shot__zoom" href="../mockups/05-nhap-kho-thanh-pham/2.html" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption>
+        <iframe class="shot__live" src="../mockups/05-nhap-kho-thanh-pham/2.html" title="Quét tem nhập kho thành phẩm trên PDA" loading="lazy"></iframe></figure>
+    </div>
+    <aside class="screen__notes">
+      <div class="note"><h3>Mô tả</h3><p>Kho dùng PDA quét tem thành phẩm đã dán để nhập kho. WMS tự sinh phiếu nhập kho thành phẩm theo các tem đã quét; văn phòng kho xác nhận phiếu để tăng tồn và đồng bộ sang SAP.</p></div>
+      <div class="note note--biz"><h3>Lưu ý nghiệp vụ</h3><ul><li>Quét tem trên PDA là thao tác chính của kho; phiếu nhập sinh tự động từ kết quả quét.</li></ul></div>
+    </aside>
+  </div>
+</section>
+<!-- ===== KẾT THÚC: 5.3 Quét tem nhập kho ===== -->
+<!-- ===== BẮT ĐẦU: 5.4 Lập phiếu nhập kho ===== -->
+<section class="screen" id="tp-phieu">
+  <h2 class="screen__title"><span class="no">5.4</span>Lập phiếu nhập kho</h2>
+  <p class="screen__path">Kho vận › Nhập kho thành phẩm › Phiếu nhập kho</p>
+  <div class="screen__body">
+    <div class="screen__shots">
+      <figure class="shot"><figcaption>Giao diện WMS · Phiếu nhập kho thành phẩm — cùng màn hình 5.1: mở tab/nút “+ Thêm phiếu”, hoặc bấm một phiếu để xem chi tiết<a class="btn shot__zoom" href="../mockups/05-nhap-kho-thanh-pham/1.html?tab=phieu" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption>
+        <iframe class="shot__live" src="../mockups/05-nhap-kho-thanh-pham/1.html?tab=phieu" title="Lập phiếu nhập kho thành phẩm" loading="lazy"></iframe></figure>
+    </div>
+    <aside class="screen__notes">
+      <div class="note"><h3>Mô tả</h3><p>Phiếu nhập kho (GR) được lập ngay trên màn hình Nhập kho thành phẩm: bấm “+ Thêm phiếu” để lập phiếu mới, hoặc bấm một phiếu để xem chi tiết. Văn phòng kho xác nhận phiếu để tăng tồn thành phẩm và đồng bộ sang SAP.</p></div>
+      <div class="note note--biz"><h3>Lưu ý nghiệp vụ</h3><ul><li>Phiếu nhập kho do hệ thống sinh từ kết quả quét PDA; văn phòng kho kiểm tra và xác nhận.</li></ul></div>
+    </aside>
+  </div>
+</section>
+<!-- ===== KẾT THÚC: 5.4 Lập phiếu nhập kho ===== -->
 
 </main>
 

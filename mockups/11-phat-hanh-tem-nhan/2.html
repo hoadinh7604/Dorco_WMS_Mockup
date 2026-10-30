@@ -1,0 +1,1790 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Phát hành tem thành phẩm</title>
+<style>
+:root{
+  --bg:#f3f4f6; --surface:#ffffff; --ink:#111827; --muted:#6b7280; --line:#e5e7eb; --line-strong:#d1d5db;
+  --accent:#b7e233; --accent-ink:#1c2e05; --primary:#3f6212; --primary-ink:#ffffff;
+  --rail-bg:#10141b; --rail-ink:#aab2bf; --rail-pill:#232a22; --rail-active-bg:#b7e233; --rail-active-ink:#1c2e05;
+  --warn-bg:#fffbeb; --warn-ink:#92400e; --warn-line:#fde68a;
+  --info-bg:#eff6ff; --info-line:#bfdbfe; --info-ink:#1e40af;
+  --disabled-bg:#f3f4f6; --disabled-ink:#b5bac3; --disabled-line:#e1e4e9;
+  --b-issued-bg:#dbeafe; --b-issued-ink:#1d4ed8;
+  --b-printed-bg:#ecfeff; --b-printed-ink:#0e7490;
+  --b-reserved-bg:#fef3c7; --b-reserved-ink:#92400e;
+  --b-scanned-bg:#dcfce7; --b-scanned-ink:#15803d;
+  --b-closed-bg:#eef2f7; --b-closed-ink:#475569;
+  --b-cancelled-bg:#fee2e2; --b-cancelled-ink:#b91c1c;
+  --b-submitted-bg:#dbeafe; --b-submitted-ink:#1e40af;
+  --flag-bg:#fff1f0; --flag-ink:#cf1322; --flag-line:#ffccc7;
+  --overlay:rgba(17,24,39,.45); --shadow:0 20px 50px rgba(17,24,39,.22);
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f1115; --surface:#161a20; --ink:#e7e9ec; --muted:#9aa3b2; --line:#262c35; --line-strong:#333b46;
+  --accent:#c3ec55; --accent-ink:#0f1a05; --primary:#6b9a2a; --primary-ink:#0f1a05;
+  --rail-bg:#0a0c10; --rail-ink:#aab2bf; --rail-pill:#1c2118; --rail-active-bg:#c3ec55; --rail-active-ink:#12210a;
+  --warn-bg:#2d2208; --warn-ink:#f2c069; --warn-line:#5a4713;
+  --info-bg:#102038; --info-line:#28456f; --info-ink:#9cc0ff;
+  --disabled-bg:#1a1e25; --disabled-ink:#4b525e; --disabled-line:#2a2f38;
+  --b-issued-bg:#102038; --b-issued-ink:#8fb4ff;
+  --b-printed-bg:#0c2a30; --b-printed-ink:#5fd1e6;
+  --b-reserved-bg:#352a0c; --b-reserved-ink:#f2c069;
+  --b-scanned-bg:#0e2a18; --b-scanned-ink:#6fd3a0;
+  --b-closed-bg:#232a35; --b-closed-ink:#aab4c4;
+  --b-cancelled-bg:#331413; --b-cancelled-ink:#f2948c;
+  --b-submitted-bg:#102038; --b-submitted-ink:#8fb4ff;
+  --flag-bg:#331413; --flag-ink:#f2948c; --flag-line:#5a2422;
+  --overlay:rgba(0,0,0,.6); --shadow:0 20px 50px rgba(0,0,0,.5);
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#0f1115; --surface:#161a20; --ink:#e7e9ec; --muted:#9aa3b2; --line:#262c35; --line-strong:#333b46;
+  --accent:#c3ec55; --accent-ink:#0f1a05; --primary:#6b9a2a; --primary-ink:#0f1a05;
+  --rail-bg:#0a0c10; --rail-ink:#aab2bf; --rail-pill:#1c2118; --rail-active-bg:#c3ec55; --rail-active-ink:#12210a;
+  --warn-bg:#2d2208; --warn-ink:#f2c069; --warn-line:#5a4713;
+  --info-bg:#102038; --info-line:#28456f; --info-ink:#9cc0ff;
+  --disabled-bg:#1a1e25; --disabled-ink:#4b525e; --disabled-line:#2a2f38;
+  --b-issued-bg:#102038; --b-issued-ink:#8fb4ff;
+  --b-printed-bg:#0c2a30; --b-printed-ink:#5fd1e6;
+  --b-reserved-bg:#352a0c; --b-reserved-ink:#f2c069;
+  --b-scanned-bg:#0e2a18; --b-scanned-ink:#6fd3a0;
+  --b-closed-bg:#232a35; --b-closed-ink:#aab4c4;
+  --b-cancelled-bg:#331413; --b-cancelled-ink:#f2948c;
+  --b-submitted-bg:#102038; --b-submitted-ink:#8fb4ff;
+  --overlay:rgba(0,0,0,.6); --shadow:0 20px 50px rgba(0,0,0,.5);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--ink);display:flex;
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+
+/* ---------- nav zone (logo + rail + submenu, one dark block) ---------- */
+.navzone{width:274px;flex:none;background:var(--rail-bg);height:100vh;position:sticky;top:0;display:flex;flex-direction:column;overflow:hidden}
+.navlogo{background:#ffffff;margin:12px;padding:12px 14px;border-radius:12px;display:flex;align-items:center;justify-content:center;gap:9px;flex:none}
+.navlogo .mark{width:24px;height:24px;flex:none;display:flex;align-items:center;justify-content:center;color:#2563eb}
+.navlogo span{font-weight:800;font-size:17px;color:#1f2937;letter-spacing:-.01em}
+.navlogo span b{color:#2563eb}
+.navbody{display:flex;flex:1;min-height:0}
+.rail{width:64px;flex:none;display:flex;flex-direction:column;align-items:center;padding:6px 0 10px;gap:2px}
+.rail-item{width:56px;display:flex;flex-direction:column;align-items:center;gap:5px;padding:7px 2px 9px;border-radius:10px;cursor:pointer}
+.rail-item .ic{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;color:var(--rail-ink)}
+.rail-item .ic svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.rail-item span{font-size:9.5px;color:var(--rail-ink);text-align:center;line-height:1.2}
+.rail-item.active .ic{background:var(--rail-active-bg);color:var(--rail-active-ink)}
+.rail-item.active span{color:#fff;font-weight:600}
+.subnav{flex:1;padding:14px 10px}
+.subnav h2{font-size:13px;font-weight:700;margin:4px 6px 10px;color:#fff}
+.subnav a{display:block;padding:10px 14px;border-radius:10px;font-size:13px;color:var(--rail-ink);text-decoration:none;margin-bottom:6px;cursor:pointer;font-weight:600;background:var(--rail-pill)}
+.subnav a.active{background:var(--rail-active-bg);color:var(--rail-active-ink)}
+
+/* ---------- main ---------- */
+.main{flex:1;min-width:0;height:100vh;overflow-y:auto;display:flex;flex-direction:column}
+.wrap{width:100%;max-width:none;margin:0 auto;padding:20px 24px 24px;display:flex;flex-direction:column;gap:18px;flex:1}
+.topbar{display:flex;justify-content:flex-end;align-items:center;gap:16px;font-size:13px;color:var(--muted)}
+.avatar{width:26px;height:26px;border-radius:999px;background:var(--line-strong)}
+h1{font-size:20px;font-weight:700;margin:0 0 12px}
+
+.tabbar{display:inline-flex;background:var(--bg);border-radius:8px;padding:4px;gap:4px;width:fit-content}
+.tab{padding:8px 18px;border-radius:6px;font-weight:600;font-size:13px;border:none;cursor:pointer;background:transparent;color:var(--muted);font-family:inherit}
+.tab.active{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.1)}
+
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 18px;display:flex;flex-direction:column;gap:12px}
+.panel-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.panel-title{display:flex;align-items:center;gap:7px;font-weight:700;font-size:14px}
+.info-ic{width:15px;height:15px;border:1.4px solid var(--muted);border-radius:999px;display:inline-flex;align-items:center;justify-content:center;font-size:10px;color:var(--muted);font-style:italic;font-family:Georgia,serif}
+.chev{color:var(--muted);font-size:12px;cursor:pointer}
+.head-actions{display:flex;align-items:center;gap:8px}
+
+.grid5{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+@media (max-width:980px){.grid5{grid-template-columns:1fr 1fr}}
+.field label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px;font-weight:500;height:16px;line-height:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.req{color:#dc2626}
+.field input, .field select{width:100%;font-family:inherit;font-size:13px;padding:0 10px;height:36px;border:1px solid var(--line-strong);border-radius:6px;background:var(--surface);color:var(--ink)}
+.field input[readonly]{background:var(--bg);color:var(--muted)}
+.field input.placeholder-style{background:var(--bg);color:var(--muted);font-style:italic}
+.helpfield{display:flex;gap:6px;align-items:center}
+.helpfield input{flex:1}
+.helpbtn{flex:none;width:36px;height:36px;border:1px solid var(--line-strong);border-radius:6px;background:var(--surface);color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center}
+.helpbtn:hover{color:var(--primary);border-color:var(--primary)}
+.reqdd{flex:1;position:relative}
+.reqdd-display{height:36px;border:1px solid var(--line-strong);border-radius:6px;background:var(--surface);padding:0 28px 0 10px;font-size:13px;cursor:pointer;display:flex;align-items:center;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.reqdd-display.is-empty{color:var(--muted);font-style:italic}
+.reqdd-arrow{position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:10px;color:var(--muted);pointer-events:none}
+.reqdd-list{position:absolute;left:0;right:0;top:100%;margin-top:2px;background:var(--surface);border:1px solid var(--line-strong);border-radius:6px;box-shadow:0 6px 20px rgba(17,24,39,.12);z-index:30;max-height:200px;overflow-y:auto;display:none}
+.reqdd-list.open{display:block}
+.reqdd-item{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;font-size:13px;border-bottom:1px solid var(--line)}
+.reqdd-item:last-child{border-bottom:0}
+.reqdd-item span{color:var(--primary);font-weight:600}
+.reqdd-remove{border:none;background:none;color:var(--muted);cursor:pointer;font-size:14px;padding:0 2px}
+.reqdd-remove:hover{color:var(--flag-ink)}
+
+.search-ic{width:13px;height:13px;border:1.6px solid currentColor;border-radius:999px;position:relative}
+.search-ic::after{content:"";position:absolute;width:5px;height:1.6px;background:currentColor;right:-4px;bottom:-1px;transform:rotate(45deg)}
+
+.hint-warn{font-size:12px;color:var(--warn-ink);background:var(--warn-bg);border:1px solid var(--warn-line);border-radius:6px;padding:8px 12px}
+.hint-info{font-size:12px;background:var(--info-bg);border:1px solid var(--info-line);border-radius:6px;padding:10px 12px;color:var(--info-ink)}
+.btn{font-family:inherit;font-weight:600;font-size:13px;border-radius:6px;padding:8px 16px;border:1px solid transparent;cursor:pointer}
+.btn-primary{background:var(--primary);color:var(--primary-ink)}
+.btn-accent{background:var(--accent);color:var(--accent-ink)}
+.btn-ghost{background:var(--surface);border-color:var(--line-strong);color:var(--ink)}
+.btn-sm{padding:6px 12px;font-size:12.5px}
+.btn[disabled]{background:var(--disabled-bg)!important;color:var(--disabled-ink)!important;border-color:var(--disabled-line)!important;cursor:not-allowed}
+
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:8px}
+table{border-collapse:collapse;width:100%;font-size:12.5px}
+th{text-align:left;font-weight:600;color:var(--muted);padding:9px 12px;background:var(--bg);border-bottom:1px solid var(--line-strong);white-space:nowrap}
+td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+.mono{font-family:'JetBrains Mono',monospace}
+.numin{width:68px;border:1px solid var(--line-strong);border-radius:4px;padding:4px 6px;font-size:12px;font-family:inherit;background:var(--surface);color:var(--ink)}
+.row-sel>td{background:var(--bg)}
+.g-row>td{padding:0!important;background:var(--bg)}
+.g-wrap{padding:12px 12px 14px 42px}
+.g-head{font-size:12.5px;font-weight:600;margin-bottom:8px}
+.g-tb{width:auto;max-width:560px;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:var(--surface)}
+.g-tb th,.g-tb td{padding:7px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+.g-tb tbody tr:last-child td{border-bottom:0}
+.g-tb th{background:var(--bg);color:var(--muted);font-weight:600;border-bottom:1px solid var(--line-strong)}
+.g-total{font-variant-numeric:tabular-nums;font-weight:600;color:var(--ink)}
+.num-cell{font-variant-numeric:tabular-nums}
+.needin{width:98px;border:1px solid var(--line-strong);border-radius:5px;padding:5px 7px;font-size:12.5px;background:var(--surface);color:var(--ink);text-align:right}
+.needin.in-bad{border-color:var(--flag-ink);background:var(--flag-bg)}
+.g-in{width:100%;max-width:92px;border:1px solid var(--line-strong);border-radius:5px;padding:4px 7px;font:inherit;font-size:12.5px;background:var(--surface);color:var(--ink);text-align:right}
+.g-in:focus{outline:2px solid var(--primary);outline-offset:-1px;border-color:var(--primary)}
+.g-del{border:0;background:none;color:var(--muted);cursor:pointer;font-size:13px;padding:2px 4px;border-radius:4px}
+.g-del:hover{color:var(--flag-ink);background:var(--surface)}
+.g-foot{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:8px;font-size:12.5px;color:var(--muted)}
+.g-sum{display:contents}
+.g-foot b{color:var(--ink);font-variant-numeric:tabular-nums}
+.g-ok{color:var(--b-scanned-ink);font-weight:600}
+.g-bad{color:var(--flag-ink);font-weight:600}
+.note-info{margin-top:8px;font-size:12.5px;color:var(--muted);line-height:1.5}
+.lotin{border:1px dashed var(--line-strong);border-radius:4px;padding:3px 6px;width:148px;font-size:12px;background:var(--surface);color:var(--ink)}
+.progress-txt{font-size:11.5px;color:var(--muted)}
+
+.cols2{display:grid;grid-template-columns:360px minmax(0,1fr);gap:18px}
+@media (max-width:860px){.cols2{grid-template-columns:1fr}}
+.preview-split{display:grid;grid-template-columns:minmax(420px,1.2fr) minmax(0,1fr);gap:28px;align-items:start}
+@media (max-width:980px){.preview-split{grid-template-columns:1fr}}
+.tplcard{border:1px solid var(--line-strong);border-radius:8px;padding:18px;display:flex;flex-direction:column;gap:4px;min-width:420px}
+.tplcard .tplhead{display:flex;justify-content:space-between;align-items:center;padding-bottom:10px;margin-bottom:6px;border-bottom:1px solid var(--line)}
+.tplcard .tplhead b{font-size:13px}
+.tplbody{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:start}
+.tplbody .tplfields{display:flex;flex-direction:column;gap:0;min-width:0}
+.tplbody .tplqrbox{display:flex;flex-direction:column;align-items:center;gap:4px;padding-top:2px}
+.tplrow{display:flex;gap:10px;font-size:12px;padding:3px 0;white-space:nowrap}
+.tplrow span:first-child{color:var(--muted);flex:none;width:118px;white-space:normal;line-height:1.3}
+.tplrow span:last-child{white-space:normal;min-width:0;flex:1;overflow-wrap:anywhere;line-height:1.3;font-weight:600}
+.tplrow-wrap{white-space:normal}
+.tplrow-wrap span:last-child{font-weight:500;min-width:0;flex:1;overflow-wrap:anywhere}
+.tplfields{min-width:0;flex:1}
+.tplqty{display:flex;justify-content:space-between;align-items:center;gap:12px;background:var(--bg);
+  border-radius:6px;padding:9px 12px;margin-top:10px;font-size:13px;font-weight:600}
+.tplqty b{font-size:15px;font-weight:700}
+.tplinv{display:flex;justify-content:space-between;align-items:center;gap:12px;background:var(--bg);
+  border-radius:6px;padding:9px 12px;font-size:13px;font-weight:600;margin-top:6px}
+.tplinv b{font-size:15px;font-weight:700}
+.qr{width:72px;height:72px;background:repeating-linear-gradient(45deg,var(--ink),var(--ink) 3px,var(--surface) 3px,var(--surface) 6px)}
+.qrlabel{font-size:10px;font-weight:700;text-align:center}
+.sumbox{border:1px solid var(--line-strong);border-radius:10px;background:var(--surface);padding:16px 18px}
+.summary-row{display:flex;justify-content:space-between;font-size:13px}
+.summary-row span:first-child{color:var(--muted)}
+.summary-row strong{font-weight:700}
+
+.badge{display:inline-flex;font-size:11px;font-weight:700;padding:2px 9px;border-radius:999px}
+.b-issued{background:var(--b-issued-bg);color:var(--b-issued-ink)}
+.b-printed{background:var(--b-printed-bg);color:var(--b-printed-ink)}
+.b-reserved{background:var(--b-reserved-bg);color:var(--b-reserved-ink)}
+.b-scanned{background:var(--b-scanned-bg);color:var(--b-scanned-ink)}
+.b-closed{background:var(--b-closed-bg);color:var(--b-closed-ink)}
+.b-cancelled{background:var(--b-cancelled-bg);color:var(--b-cancelled-ink)}
+.b-submitted{background:var(--b-submitted-bg);color:var(--b-submitted-ink)}
+.b-flag{display:inline-flex;align-items:center;gap:4px;background:var(--flag-bg);color:var(--flag-ink);border:1px solid var(--flag-line);font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:999px;margin-top:4px}
+.row-flag{background:color-mix(in srgb, var(--flag-bg) 35%, transparent)}
+.lbl-link{color:var(--primary);font-weight:600;background:none;border:none;padding:0;font:inherit;cursor:pointer;text-decoration:underline}
+
+.actionbar{position:sticky;bottom:0;background:var(--surface);border-top:1px solid var(--line);padding:12px 28px calc(12px + env(safe-area-inset-bottom,0px));display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;box-shadow:0 -4px 14px rgba(17,24,39,.05);z-index:20}
+.actionbar-info{font-size:12.5px;color:var(--muted)}
+.actionbar-btns{display:flex;gap:10px;flex-wrap:wrap}
+
+.empty{display:flex;flex-direction:column;align-items:center;gap:10px;padding:40px 20px;color:var(--muted);text-align:center}
+.empty .bot{width:48px;height:40px;border:2px solid var(--line-strong);border-radius:10px;position:relative}
+.empty .bot::before,.empty .bot::after{content:"";position:absolute;width:6px;height:6px;border-radius:999px;background:var(--line-strong);top:14px}
+.empty .bot::before{left:11px}.empty .bot::after{right:11px}
+.empty b{color:var(--ink);font-size:13px}
+.empty p{margin:0;font-size:12.5px;max-width:320px}
+
+.overlay{position:fixed;inset:0;background:var(--overlay);display:flex;align-items:center;justify-content:center;z-index:50;padding:16px}
+.overlay[hidden]{display:none}
+.modal{background:var(--surface);border-radius:12px;box-shadow:var(--shadow);overflow:hidden;max-width:100%;max-height:92vh}
+.modal-head{padding:14px 20px;border-bottom:1px solid var(--line);font-size:15px;font-weight:700;display:flex;justify-content:space-between;align-items:center}
+.modal-foot{padding:14px 20px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.closebtn{border:none;background:none;color:var(--muted);font-size:18px;cursor:pointer}
+
+/* print modal — new layout matching reference */
+.modal-print{width:920px;display:flex;flex-direction:column}
+.print-fields{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;padding:18px 20px 0}
+@media (max-width:760px){.print-fields{grid-template-columns:1fr 1fr}}
+.print-note{padding:10px 20px 0;font-size:12px;color:var(--muted)}
+.print-previewlbl{padding:14px 20px 0;font-size:13px;font-weight:600}
+.print-body{padding:16px 20px;display:flex;justify-content:center}
+.print-footnote{font-size:12px;color:var(--muted)}
+
+.sheetmap{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:4px;width:250px;border:1px solid var(--line-strong);padding:4px;border-radius:4px}
+.sheetcell{border:1px dashed var(--line-strong);border-radius:3px;padding:8px 9px;min-height:66px;font-size:11px;line-height:1.5}
+.sheetcell b{display:block;font-size:11.5px;font-weight:700;text-decoration:underline}
+.sheetcell span{color:var(--muted)}
+.sheetcell.blank{color:var(--disabled-ink);display:flex;align-items:flex-start;font-style:normal}
+
+.labelgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;width:100%;max-width:520px}
+.label-card{border:1px solid var(--line-strong);border-radius:6px;padding:10px;display:flex;flex-direction:column;gap:5px;background:var(--surface)}
+.qtybound{background:var(--ink);color:var(--accent);font-size:7px;font-weight:700;padding:1px 5px;border-radius:4px}
+.detailrow{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--line);font-size:13px}
+.detailrow span:first-child{color:var(--muted)}
+.detailrow span:last-child{font-weight:600;text-align:right}
+
+.modal-doc{width:1040px;display:flex;flex-direction:column}
+.doc-body{padding:0 20px 18px;display:flex;flex-direction:column;gap:14px}
+.doc-filters{display:grid;grid-template-columns:1fr 1fr 220px;gap:10px;align-items:end;padding-top:14px}
+.pager{display:flex;justify-content:space-between;align-items:center;padding:12px 20px;border-top:1px solid var(--line);font-size:12px;color:var(--muted);flex-wrap:wrap;gap:8px}
+.pageno{display:flex;gap:4px;align-items:center}
+.pageno button{width:28px;height:28px;border:1px solid var(--line-strong);background:var(--surface);color:var(--ink);border-radius:5px;font-size:12px;cursor:pointer}
+.pageno button.cur{background:var(--primary);color:#fff;border-color:var(--primary)}
+
+.confirm{width:420px;padding:22px;display:flex;flex-direction:column;gap:14px}
+.confirm-head{display:flex;justify-content:space-between;align-items:center}
+.confirm p{margin:0;font-size:13px;color:var(--ink);line-height:1.5}
+.confirm-foot{display:flex;justify-content:flex-end;gap:10px}
+
+.menu{position:absolute;background:var(--surface);border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow);min-width:140px;z-index:40;overflow:hidden}
+.menu button{display:block;width:100%;text-align:left;padding:9px 14px;border:none;background:none;font:inherit;font-size:13px;color:var(--ink);cursor:pointer}
+.menu button:hover{background:var(--bg)}
+.menu button[disabled]{color:var(--disabled-ink);cursor:not-allowed}
+.dotsbtn{border:none;background:none;color:var(--muted);font-size:16px;cursor:pointer;padding:2px 6px;border-radius:4px}
+.dotsbtn:hover{background:var(--bg)}
+.flag-note{font-size:12px;color:var(--flag-ink);font-weight:600}
+.menu-note{padding:7px 14px;font-size:11.5px;color:var(--flag-ink);border-top:1px solid var(--line);line-height:1.35}
+.field-err{font-size:12px;color:var(--flag-ink);font-weight:600;margin-top:4px;display:none}
+.field-err.show{display:block}
+input.in-bad{border-color:var(--flag-ink);background:var(--flag-bg)}
+body.mode-tr .col-batch{display:none}
+</style>
+</head>
+<body>
+
+<div class="navzone">
+  <div class="navlogo">
+    <div class="mark"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
+    <span>Dorco<b>WMS</b></span>
+  </div>
+  <div class="navbody">
+    <nav class="rail">
+      <div class="rail-item"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div><span>Search<br>Menu</span></div>
+      <div class="rail-item"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></div><span>Thiết lập<br>chung</span></div>
+      <div class="rail-item"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></div><span>Bán hàng</span></div>
+      <div class="rail-item"><div class="ic"><svg viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></div><span>Mua hàng</span></div>
+      <div class="rail-item"><div class="ic"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div><span>Quản lý<br>hàng hóa</span></div>
+      <div class="rail-item"><div class="ic"><svg viewBox="0 0 24 24"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div><span>Giao dịch<br>kho</span></div>
+      <div class="rail-item"><div class="ic"><svg viewBox="0 0 24 24"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg></div><span>Điều chỉnh<br>tồn kho</span></div>
+      <div class="rail-item"><div class="ic"><svg viewBox="0 0 24 24"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div><span>Cảnh báo<br>tồn kho</span></div>
+      <div class="rail-item"><div class="ic"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div><span>Báo cáo</span></div>
+      <div class="rail-item active"><div class="ic"><svg viewBox="0 0 24 24"><path d="M20.59 13.41 13.42 20.58a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg></div><span>Phát hành<br>tem</span></div>
+    </nav>
+    <nav class="subnav">
+      <h2>Phát hành tem</h2>
+      <a>Phát hành tem nguyên liệu</a>
+      <a class="active">Phát hành tem thành phẩm</a>
+    </nav>
+  </div>
+</div>
+
+<div class="main">
+<div class="wrap">
+
+  <div class="topbar">
+    <span>Tiếng Việt</span>
+    <div class="avatar"></div>
+  </div>
+
+  <div>
+    <h1>Phát hành tem thành phẩm</h1>
+    <div class="tabbar">
+      <button class="tab active" id="tabIssueBtn">Phát hành tem QR</button>
+      <button class="tab" id="tabLookupBtn">Tra cứu tem</button>
+    </div>
+  </div>
+
+  <!-- ================= TAB: PHÁT HÀNH TEM QR ================= -->
+  <div id="viewIssue" style="display:flex;flex-direction:column;gap:18px">
+
+    <div class="panel">
+      <div class="panel-head">
+        <div class="panel-title"><span id="reqPanelTitle">Chọn yêu cầu nhập kho</span> <span class="info-ic">i</span></div>
+        <span class="chev">⌃</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:12px;align-items:start">
+        <div class="field">
+          <label>Loại nguồn <span class="req">*</span></label>
+          <select id="srcType">
+            <option value="tp">Nhập kho thành phẩm, bán thành phẩm từ sản xuất</option>
+            <option value="tr">Thành phẩm trả lại</option>
+          </select>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:12px;align-items:start">
+        <div class="field">
+          <label><span id="lblReqNo">Số yêu cầu nhập kho</span> <span class="req">*</span></label>
+          <div class="helpfield">
+            <div class="reqdd" id="reqDD">
+              <div class="reqdd-display is-empty" id="reqDDDisplay">Chọn số yêu cầu</div>
+              <span class="reqdd-arrow">▼</span>
+              <div class="reqdd-list" id="reqDDList"></div>
+            </div>
+            <button class="helpbtn" type="button" id="openChungTuBtn" title="Chọn chứng từ"><span class="search-ic"></span></button>
+          </div>
+        </div>
+        <div class="field"><label id="lblLenh">Số lệnh sản xuất</label><input class="placeholder-style" readonly id="fLenh" value="Tự động điền"></div>
+        <div class="field"><label id="lblDong">Dòng nguồn</label><input class="placeholder-style" readonly id="fDong" value="Tự động điền"></div>
+        <div class="field"><label id="lblKho">Kho đích</label><input class="placeholder-style" readonly id="fKho" value="Tự động điền"></div>
+        <div class="field"><label>Ngày yêu cầu</label><input class="placeholder-style" readonly id="fNgay" value="Tự động điền"></div>
+        <div class="field"><label>Ngày nhập kho dự kiến</label><input class="placeholder-style" readonly id="fNgayNhap" value="Tự động điền"></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr auto auto 1fr 1fr;gap:12px;align-items:end">
+        <div class="field">
+          <label>Tìm theo Mã hàng / Tên hàng</label>
+          <input placeholder="Tìm mã hoặc tên hàng">
+        </div>
+        <button class="btn btn-accent btn-sm" type="button">Tìm kiếm</button>
+        <button class="btn btn-ghost btn-sm" type="button">Đặt lại</button>
+        <div></div><div></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <span class="panel-title">Số lượng tem <span class="info-ic">i</span></span>
+      <div id="bulkToolbar" style="display:none;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+          <label style="font-size:12px;color:var(--muted)">Điền SL mỗi pallet (các dòng đã chọn)</label>
+          <input id="bulkPerLabel" type="number" min="1" style="width:130px;padding:7px 9px;border:1px solid var(--line-strong);border-radius:6px;background:var(--surface);color:var(--ink);font-size:13px" placeholder="Nhập số lượng">
+          <button class="btn btn-ghost btn-sm" type="button" id="bulkApplyBtn">Áp dụng</button>
+          <button class="btn btn-ghost btn-sm" type="button" id="bulkClearBtn">Xóa giá trị đã nhập</button>
+        </div>
+      </div>
+      <div id="issueEmpty" class="empty">
+        <div class="bot"></div>
+        <b>Chưa chọn chứng từ nguồn</b>
+        <p>Chọn chứng từ nguồn phía trên để tải hàng hóa cần dán tem.</p>
+        <button class="btn btn-ghost" type="button" id="emptyOpenChungTuBtn">🔍 Chọn chứng từ</button>
+      </div>
+      <div id="issueTableWrap" class="tablewrap" style="display:none">
+        <table>
+          <thead><tr>
+            <th style="width:30px"><input type="checkbox" id="rowsAllChk"></th>
+            <th>Số yêu cầu</th>
+            <th>Mã hàng</th><th>Tên hàng</th><th>Quy cách hàng</th><th class="col-batch">Batch no</th>
+            <th>Đã dán tem / SL nguồn</th><th>SL thùng nguồn</th><th>SL cần dán tem</th><th>Chia pallet</th>
+          </tr></thead>
+          <tbody id="rowsBody"></tbody>
+        </table>
+      </div>
+      <div id="rowsFoot" style="display:none">
+        <span id="selectedCountLbl" style="font-size:12.5px;color:var(--muted)">Đã chọn 0 dòng</span>
+      </div>
+    </div>
+
+    <div class="panel">
+      <span class="panel-title">Xem trước tem</span>
+      <div class="preview-split">
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;align-items:center;gap:8px">
+            <span style="font-size:12px;color:var(--muted);flex:none">Chọn hàng</span>
+            <select id="previewPick" style="flex:1;font-size:13px;border:1px solid var(--line-strong);border-radius:6px;padding:6px 10px;background:var(--surface);color:var(--ink)"><option>Chọn hàng hóa</option></select>
+            <button class="btn btn-ghost btn-sm" type="button" id="previewRefreshBtn">↻ Làm mới</button>
+          </div>
+          <div id="previewCard" class="tplcard"></div>
+        </div>
+        <div class="sumbox">
+          <span class="panel-title" style="margin-bottom:14px;display:block">Tóm tắt phát hành</span>
+          <div style="display:flex;flex-direction:column;gap:11px">
+            <div class="summary-row"><span>Số dòng đã chọn</span><strong id="sumSelected">0</strong></div>
+            <div class="summary-row"><span>SL cam kết trong lần phát hành</span><strong id="sumQty">—</strong></div>
+            <div class="summary-row"><span>Dòng hoàn thành trong lần phát hành</span><strong id="sumDone">0/0</strong></div>
+            <div class="summary-row"><span>SL còn chưa dán tem</span><strong id="sumRemain">—</strong></div>
+            <div class="summary-row"><span>Dải số sê-ri</span><strong id="sumSerial">—</strong></div>
+            <div class="summary-row"><span>Số tem sẽ tạo</span><strong id="sumLabels">0</strong></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= TAB: TRA CỨU TEM ================= -->
+  <div id="viewLookup" style="display:none;flex-direction:column;gap:18px">
+
+    <div class="panel">
+      <div class="panel-head">
+        <span class="panel-title">Bộ lọc</span>
+        <div class="head-actions">
+          <button class="btn btn-ghost btn-sm" type="button" id="lkResetBtn">↻ Đặt lại</button>
+          <button class="btn btn-accent btn-sm" type="button">🔍 Tìm kiếm</button>
+        </div>
+      </div>
+      <div class="grid5">
+        <div class="field"><label>Số tem / QR</label><input placeholder="Tìm số tem hoặc QR"></div>
+        <div class="field"><label>Mã hàng</label><input placeholder="Tìm mã hoặc tên hàng"></div>
+        <div class="field"><label>Số yêu cầu</label><input placeholder="Tìm số yêu cầu nhập kho / trả hàng"></div>
+        <div class="field"><label>Người phát hành</label>
+          <select><option>Tất cả</option><option>admin</option><option>Bởi Sâu Tìm Bug</option></select>
+        </div>
+        <div class="field">
+          <label>Nguồn tem</label>
+          <select id="srcFilter">
+            <option value="all">Tất cả</option>
+            <option value="tp">Nhập kho TP/ BTP</option>
+            <option value="tr">Thành phẩm trả lại</option>
+          </select>
+        </div>
+      </div>
+      <div class="grid5">
+        <div class="field"><label>Ngày phát hành — Từ ngày</label><input type="date"></div>
+        <div class="field"><label>Đến ngày</label><input type="date"></div>
+        <div class="field"><label>Kho</label><select id="lkKho"></select></div>
+        <div class="field">
+          <label>Trạng thái</label>
+          <select id="statusFilter">
+            <option value="all">Tất cả</option>
+            <option value="issued">Đã phát hành</option>
+            <option value="printed">Đã in, chưa giữ chỗ</option>
+            <option value="reserved">Đã in, giữ chỗ</option>
+            <option value="scanned">Trong kho</option>
+            <option value="closed">Đã xuất hết</option>
+            <option value="cancelled">Đã hủy</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Cờ xử lý</label>
+          <select id="flagFilter">
+            <option value="all">Tất cả</option>
+            <option value="flag">Cần xử lý</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <span class="panel-title">Danh sách tem <span id="lookupCountLbl" style="color:var(--muted);font-weight:500">7 bản ghi được tìm thấy</span></span>
+        <div class="head-actions">
+          <button class="btn btn-ghost btn-sm" type="button" id="lkPrintBtn" disabled>Tạo và in</button>
+          <button class="btn btn-ghost btn-sm" type="button" id="lkReprintBtn" disabled>In lại</button>
+          <button class="btn btn-ghost btn-sm" type="button" id="lkCancelBtn" disabled>Hủy tem</button>
+          <button class="btn btn-ghost btn-sm" type="button">↓ Xuất</button>
+        </div>
+      </div>
+      <div class="flag-note" id="lkFlagNote" style="display:none">Tem cần hủy và phát hành lại</div>
+      <div class="tablewrap">
+        <table>
+          <thead><tr>
+            <th style="width:30px"><input type="checkbox" id="lkAllChk"></th>
+            <th>Số tem</th><th>Trạng thái</th><th>Mã hàng</th><th>Tên hàng</th><th>Quy cách hàng</th><th>Số lượng</th><th>Số lượng còn lại</th>
+            <th>Nguồn tem</th><th>Số yêu cầu</th><th>Lệnh sản xuất</th><th>Ghi chú</th><th>Người phát hành</th><th>Thời gian phát hành</th><th>Số lần in</th><th>Thao tác</th>
+          </tr></thead>
+          <tbody id="lookupBody"></tbody>
+        </table>
+      </div>
+      <div class="pager">
+        <div class="pageno"><button class="cur">1</button><button>2</button><button>3</button><button>4</button><button>5</button><span>…</span><button>10</button></div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <select style="border:1px solid var(--line-strong);border-radius:5px;padding:4px 6px;background:var(--surface);color:var(--ink);font-size:12px"><option>20 / trang</option></select>
+          <span>Đến</span><input style="width:48px;border:1px solid var(--line-strong);border-radius:5px;padding:4px 6px;background:var(--surface);color:var(--ink)"><span>Trang</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="actionbar" id="actionBar">
+  <span class="actionbar-info" id="actionBarInfo">Chưa chọn dòng nào</span>
+  <div class="actionbar-btns">
+    <button class="btn btn-accent" type="button" id="draftBtn" disabled>Lưu nháp</button>
+    <button class="btn btn-ghost" type="button" id="generateBtn" disabled>Tạo tem</button>
+    <button class="btn btn-ghost" type="button" id="openPrintBtn" disabled>Tạo và in</button>
+  </div>
+</div>
+</div>
+
+<!-- ================= MODAL: CHỌN CHỨNG TỪ ================= -->
+<div class="overlay" id="chungTuOverlay" hidden>
+  <div class="modal modal-doc">
+    <div class="modal-head">
+      <span>Chọn chứng từ</span>
+      <button class="closebtn" type="button" data-close="chungTuOverlay">✕</button>
+    </div>
+    <div class="doc-body">
+      <div class="doc-filters">
+        <div class="field"><label id="ctLblReq">Số yêu cầu nhập kho</label><input id="ctReqInput" placeholder="Tìm số yêu cầu nhập kho"></div>
+        <div class="field"><label>Tìm theo Mã hàng / Tên hàng</label><input placeholder="Tìm mã hoặc tên hàng"></div>
+        <div class="field"><label><span id="ctLblKho">Kho</span> <span class="req">*</span></label><select id="ctKho" required></select></div>
+      </div>
+      <div style="display:flex;justify-content:flex-end;gap:8px">
+        <button class="btn btn-ghost btn-sm" type="button">Reset</button>
+        <button class="btn btn-accent btn-sm" type="button">Search</button>
+      </div>
+      <div class="tablewrap">
+        <table>
+          <thead id="chungTuHead"></thead>
+          <tbody id="chungTuBody"></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="pager">
+      <div class="pageno"><button class="cur">1</button></div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <select style="border:1px solid var(--line-strong);border-radius:5px;padding:4px 6px;background:var(--surface);color:var(--ink);font-size:12px"><option>20 / trang</option></select>
+        <span>Đến</span><input style="width:48px;border:1px solid var(--line-strong);border-radius:5px;padding:4px 6px;background:var(--surface);color:var(--ink)"><span>Trang</span>
+      </div>
+    </div>
+    <div class="modal-foot" style="justify-content:flex-end">
+      <button class="btn btn-ghost" type="button" data-close="chungTuOverlay">Hủy</button>
+      <button class="btn btn-accent" type="button" id="confirmChungTuBtn">Chọn</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================= CONFIRM: TẠO TEM ================= -->
+<div class="overlay" id="genConfirmOverlay" hidden>
+  <div class="modal confirm">
+    <div class="confirm-head"><span style="font-weight:700;font-size:15px">⚠ Tạo tem</span><button class="closebtn" type="button" data-close="genConfirmOverlay">✕</button></div>
+    <p id="genConfirmText">Tạo 0 serial tem QR vĩnh viễn? Serial đã tạo không thể tái sử dụng.</p>
+    <div class="confirm-foot">
+      <button class="btn btn-ghost" type="button" data-close="genConfirmOverlay">Hủy</button>
+      <button class="btn btn-accent" type="button" id="confirmGenBtn">Xác nhận</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================= CONFIRM: ĐỔI LOẠI NGUỒN ================= -->
+<div class="overlay" id="srcConfirmOverlay" hidden>
+  <div class="modal confirm">
+    <div class="confirm-head"><span style="font-weight:700;font-size:15px">⚠ Đổi loại nguồn</span><button class="closebtn" type="button" id="srcCancelX">✕</button></div>
+    <p id="srcConfirmText">Đổi loại nguồn sẽ xóa các yêu cầu đã chọn và số lượng đang nhập dở. Tiếp tục?</p>
+    <div class="confirm-foot">
+      <button class="btn btn-ghost" type="button" id="srcCancelBtn">Hủy</button>
+      <button class="btn btn-accent" type="button" id="srcOkBtn">Đổi nguồn</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================= CONFIRM: XÁC NHẬN ĐÃ IN ================= -->
+<div class="overlay" id="printConfirmOverlay" hidden>
+  <div class="modal confirm">
+    <div class="confirm-head"><span style="font-weight:700;font-size:15px">⚠ Xác nhận đã in</span><button class="closebtn" type="button" data-close="printConfirmOverlay">✕</button></div>
+    <p id="printConfirmText">Xác nhận tem đã in thành công.</p>
+    <div class="confirm-foot">
+      <button class="btn btn-ghost" type="button" data-close="printConfirmOverlay">Hủy</button>
+      <button class="btn btn-accent" type="button" id="confirmPrintedBtn">Xác nhận</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================= MODAL: TẠO VÀ IN (layout theo mẫu tham chiếu) ================= -->
+<div class="overlay" id="printOverlay" hidden>
+  <div class="modal modal-print">
+    <div class="modal-head">
+      <span>Tạo và in tem</span>
+      <button class="closebtn" type="button" data-close="printOverlay">✕</button>
+    </div>
+    <div style="flex:1;overflow-y:auto">
+      <div class="print-fields">
+        <div class="field"><label>Máy in</label>
+          <select id="printerSel">
+            <option value="k01">Máy in kho K01</option>
+            <option value="k02">Máy in kho K02</option>
+            <option value="pdf">Xuất PDF (xem trước)</option>
+          </select>
+        </div>
+        <div class="field"><label>Khổ giấy</label>
+          <select id="paperSel">
+            <option value="a4">A4 decal 4 tem (2 × 2)</option>
+            <option value="roll">Tem cuộn 100 × 70 mm</option>
+          </select>
+        </div>
+        <div class="field"><label>Mẫu in</label>
+          <select id="mauInSel">
+            <option value="tp">Thành phẩm</option>
+            <option value="btp">Bán thành phẩm nhập từ sản xuất</option>
+          </select>
+        </div>
+        <div class="field"><label>Số bản mỗi tem</label><input id="banMoiTem" type="number" min="1" value="1"></div>
+      </div>
+      <div class="print-note" id="printNote">3 tem: 3 in lần đầu &nbsp; Tổng 3 tem · 1 tờ A4. In một lần hết tờ; lần sau in tờ trắng mới.</div>
+      <div class="print-previewlbl" id="previewTitle">Xem trước mẫu tem FGL-261026-0002 (in lần đầu)</div>
+      <div class="print-body" id="printPreview"></div>
+      <div id="sheetMapWrap" style="padding:0 20px 16px">
+        <div style="font-size:12px;color:var(--muted);margin-bottom:6px" id="sheetLbl">Tờ 1</div>
+        <div class="sheetmap" id="sheetMap"></div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <span class="print-footnote" id="paperFootnote">Khổ A4 decal: 3 tem · 1 tờ (4 tem/tờ).</span>
+      <div style="display:flex;gap:10px">
+        <button class="btn btn-ghost" type="button" data-close="printOverlay">Hủy</button>
+        <button class="btn btn-accent" type="button" id="printFooterBtn">In</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= CONFIRM: HỦY TEM (theo từng tem) ================= -->
+<div class="overlay" id="cancelLabelOverlay" hidden>
+  <div class="modal confirm">
+    <div class="confirm-head"><span style="font-weight:700;font-size:15px">⚠ Hủy tem</span><button class="closebtn" type="button" data-close="cancelLabelOverlay">✕</button></div>
+    <p id="cancelLabelText">Hủy tem? Số lượng sẽ trả về dòng yêu cầu.</p>
+    <div class="field">
+      <label>Lý do hủy <span class="req">*</span></label>
+      <input id="cancelReason" placeholder="Nhập lý do hủy">
+      <div class="field-err" id="cancelReasonErr">Bắt buộc nhập lý do hủy.</div>
+    </div>
+    <div class="confirm-foot">
+      <button class="btn btn-ghost" type="button" data-close="cancelLabelOverlay">Đóng</button>
+      <button class="btn btn-accent" type="button" id="confirmCancelBtn">Xác nhận hủy</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================= MODAL: CHI TIẾT TEM ================= -->
+<div class="overlay" id="detailOverlay" hidden>
+  <div class="modal" style="width:1060px;display:flex;flex-direction:column">
+    <div class="modal-head">
+      <span id="detailTitle">Tem</span>
+      <button class="closebtn" type="button" data-close="detailOverlay">✕</button>
+    </div>
+    <div style="flex:1;overflow:auto;padding:22px 24px;display:grid;grid-template-columns:minmax(0,1fr) 460px;gap:28px;align-items:start">
+      <div style="min-width:0">
+        <div id="detailRows"></div>
+        <div style="margin-top:16px">
+          <div style="font-weight:700;font-size:13px;margin-bottom:8px">Lịch sử thao tác</div>
+          <table style="font-size:12.5px">
+            <thead><tr><th>Thời gian</th><th>Thao tác</th><th>Người thực hiện</th><th>Chi tiết</th></tr></thead>
+            <tbody id="detailHist"></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="tplcard" id="detailCard" style="align-self:start"></div>
+    </div>
+    <div class="modal-foot">
+      <span class="flag-note" id="detailFlagNote" style="display:none">Tem cần hủy và phát hành lại</span>
+      <div style="display:flex;gap:10px;margin-left:auto">
+        <button class="btn btn-ghost" type="button" data-close="detailOverlay">Đóng</button>
+        <button class="btn btn-accent" type="button" id="detailPrintBtn">In lại</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  function fmt(n){ return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.'); }
+  function pad(n, w){ n = String(n); while (n.length < w) n = '0' + n; return n; }
+  function addMin(ts, m){
+    var p = ts.split(/[- :]/).map(Number);
+    var d = new Date(Date.UTC(p[0], p[1] - 1, p[2], p[3], p[4]) + m * 60000);
+    return d.getUTCFullYear() + '-' + pad(d.getUTCMonth() + 1, 2) + '-' + pad(d.getUTCDate(), 2) + ' ' + pad(d.getUTCHours(), 2) + ':' + pad(d.getUTCMinutes(), 2);
+  }
+  function viDate(ts){ var p = ts.split(' ')[0].split('-'); return p[2] + '/' + p[1] + '/' + p[0]; }
+  function $(id){ return document.getElementById(id); }
+
+  var NOW = '2026-10-26 23:45';
+  var SERIAL_PREFIX = 'FGL-261026-';
+
+  // ---------- kho list (dùng chung) ----------
+  var khoList = ['K03 - Kho TP','1000 - Kho 1000 (NVL, BTP)','1003 - Kho 1003 (NVL, BTP, NPL)','1004 - Kho 1004 (NVL,BTP)','3000 - Kho SX_NVLTPBTP','5000 - Kho 5000 (TP)','5900 - Kho hàng trả lại'];
+  function reqKho(req){ return req.indexOf('REQ-5900') === 0 ? khoList[6] : (req.indexOf('REQ-5000') === 0 ? khoList[5] : khoList[0]); }
+
+  // ---------- loại nguồn: 'tp' = Nhập kho TP/BTP từ SX, 'tr' = Trả hàng ----------
+  var mode = 'tp';
+  function isReturnReq(req){ return !!returnCatalog[req]; }
+
+  // ---------- danh mục hàng (theo Delivery Note DORCO, Plant 2000) ----------
+  var products = {
+    '1016531': {name:'TNA4007-B PT.INN 24', mau:'LIMEGREEN', packing:'1 / 6 / 24', perBox:24, print:'DORCO'},
+    '1014455': {name:'TNC210BE-BK BSC 1000', mau:'BEIGE/GRAY/Y.GREEN', packing:'1 / 10 / 1000', perBox:1000, print:'DORCO'},
+    '1016603': {name:'LFRA2000', mau:'—', packing:'1 / 12 / 24', perBox:24, print:'DORCO'},
+    '1016604': {name:'LFRA2100', mau:'—', packing:'1 / 12 / 24', perBox:24, print:'DORCO'}
+  };
+  function specOf(code){ return products[code].mau; }
+
+  // ---------- catalog yêu cầu nhập kho ----------
+  var catalog = {
+    'REQ-5000-2610-00001': {
+      lenh:'1349169', dong:'2', kho:'5000 - Kho 5000 (TP)', ngay:'14/10/2026', ngayNhapKho:'27/10/2026',
+      lines:[
+        {code:'1016531', slYeuCau:5472, soThung:228, unit:'SET', soDonHang:'11754800 / 40', soDonHangGoc:'11753848',
+         checkList:'2026-328', custBatch:'MFG: 01/10/2026  EXP: 01/10/2036',
+         khach:'PT INDOSARI NIAGA NUSANTARA', ngaySX:'01/10/2026'},
+        {code:'1014455', slYeuCau:64000, soThung:64, unit:'SET', soDonHang:'11754812 / 10', soDonHangGoc:'11753860',
+         checkList:'2026-331', custBatch:'MFG: 02/10/2026  EXP: 02/10/2036',
+         khach:'GLOBAL RAZOR LTD.', ngaySX:'02/10/2026'}
+      ]
+    },
+    'REQ-K03-2610-00002': {
+      lenh:'1349170', dong:'1', kho:'K03 - Kho TP', ngay:'05/10/2026', ngayNhapKho:'20/10/2026',
+      lines:[ {code:'1016531', slYeuCau:576, soThung:24, unit:'SET', soDonHang:'11754655 / 20', soDonHangGoc:'11753702',
+               checkList:'2026-310', custBatch:'MFG: 03/10/2026  EXP: 03/10/2036',
+               khach:'PT INDOSARI NIAGA NUSANTARA', ngaySX:'03/10/2026'} ]
+    },
+    'REQ-K03-2610-00003': {
+      lenh:'1349171', dong:'1', kho:'K03 - Kho TP', ngay:'05/10/2026', ngayNhapKho:'16/10/2026',
+      lines:[ {code:'1014455', slYeuCau:3000, soThung:3, unit:'SET', soDonHang:'11754661 / 10', soDonHangGoc:'11753715',
+               checkList:'2026-312', custBatch:'MFG: 03/10/2026  EXP: 03/10/2036',
+               khach:'GLOBAL RAZOR LTD.', ngaySX:'03/10/2026'} ]
+    }
+  };
+
+  // ---------- catalog yêu cầu trả hàng (đồng bộ từ SAP, không SO, không Cust Batch) ----------
+  var returnCatalog = {
+    'REQ-5900-2610-00004': {
+      khach:'COSTCO WHOLESALE TAIWAN', lyDo:'Damaged / Defective Product', kho:'5900 - Kho hàng trả lại',
+      ngay:'28/10/2026', ngayNhapKho:'30/10/2026',
+      lines:[ {code:'1016603', slYeuCau:150, soThung:7, unit:'PCS', checkList:'CHK-FG-02'},
+              {code:'1016604', slYeuCau:90,  soThung:4, unit:'PCS', checkList:'CHK-FG-02'} ]
+    },
+    'REQ-5900-2610-00003': {
+      khach:'CUST-00000001', lyDo:'Wrong Product / Quantity', kho:'5900 - Kho hàng trả lại',
+      ngay:'26/10/2026', ngayNhapKho:'29/10/2026',
+      lines:[ {code:'1016603', slYeuCau:60, soThung:3, unit:'PCS', checkList:'CHK-FG-02'} ]
+    },
+    'REQ-5900-2610-00005': {
+      khach:'PT INDOSARI NIAGA NUSANTARA', lyDo:'Expired / Near Expiry', kho:'5900 - Kho hàng trả lại',
+      ngay:'28/10/2026', ngayNhapKho:'03/11/2026',
+      lines:[ {code:'1016531', slYeuCau:480, soThung:20, unit:'SET', checkList:'2026-328'} ]
+    },
+    'REQ-5900-2610-00006': {
+      khach:'GLOBAL RAZOR LTD.', lyDo:'Customer Order Cancelled', kho:'5900 - Kho hàng trả lại',
+      ngay:'27/10/2026', ngayNhapKho:'05/11/2026',
+      lines:[ {code:'1014455', slYeuCau:3000, soThung:3,  unit:'SET', checkList:'2026-331'},
+              {code:'1016531', slYeuCau:240,  soThung:10, unit:'SET', checkList:'2026-310'} ]
+    },
+    'REQ-5900-2610-00007': {
+      khach:'COSTCO WHOLESALE TAIWAN', lyDo:'Packaging Damage', kho:'5900 - Kho hàng trả lại',
+      ngay:'25/10/2026', ngayNhapKho:'31/10/2026',
+      lines:[ {code:'1016604', slYeuCau:48, soThung:2, unit:'PCS', checkList:'CHK-FG-03'},
+              {code:'1016603', slYeuCau:36, soThung:2, unit:'PCS', checkList:'CHK-FG-03'} ]
+    },
+    'REQ-5900-2610-00008': {
+      khach:'Công ty Ánh Dương', lyDo:'Wrong Product / Quantity', kho:'5900 - Kho hàng trả lại',
+      ngay:'29/10/2026', ngayNhapKho:'06/11/2026',
+      lines:[ {code:'1016604', slYeuCau:120, soThung:5, unit:'PCS', checkList:'CHK-FG-02'} ]
+    }
+  };
+  var returnChungTu = [
+    {req:'REQ-5900-2610-00003', date:'26/10/2026 14:05', status:'Đã trình'},
+    {req:'REQ-5900-2610-00004', date:'28/10/2026 09:12', status:'Đã trình'},
+    {req:'REQ-5900-2610-00007', date:'25/10/2026 16:48', status:'Đã trình'},
+    {req:'REQ-5900-2610-00006', date:'27/10/2026 11:20', status:'Đã trình'},
+    {req:'REQ-5900-2610-00005', date:'28/10/2026 15:36', status:'Đã trình'},
+    {req:'REQ-5900-2610-00008', date:'29/10/2026 08:02', status:'Đã trình'}
+  ];
+
+  var chungTuData = [
+    {req:'REQ-K03-2610-00002', date:'05/10/2026 00:32', lenh:'1349170', kho:'K03 - Kho TP', dong:'1', status:'Đã trình'},
+    {req:'REQ-K03-2610-00003', date:'05/10/2026 00:35', lenh:'1349171', kho:'K03 - Kho TP', dong:'1', status:'Đã trình'},
+    {req:'REQ-5000-2610-00001', date:'14/10/2026 15:52', lenh:'1349169', kho:'5000 - Kho 5000 (TP)', dong:'2', status:'Đã trình'}
+  ];
+
+  function getCatalog(req){ return catalog[req] || returnCatalog[req] || null; }
+
+  // Thông tin in trên tem cho 1 mã hàng thuộc 1 yêu cầu
+  function lineInfo(req, code){
+    var p = products[code] || {name:'—', mau:'—', packing:'—'};
+    var c = getCatalog(req);
+    var l = c ? c.lines.find(function(x){ return x.code === code; }) : null;
+    var base = {name:p.name, spec:specOf(code), packing:p.packing, mau:p.mau,
+                ngayNhapKho: c ? c.ngayNhapKho : '—'};
+    if (l){
+      base.soDonHang = l.soDonHang; base.soDonHangGoc = l.soDonHangGoc; base.checkList = l.checkList;
+      base.custBatch = l.custBatch || '—'; base.khach = l.khach || c.khach || '—'; base.ngaySX = l.ngaySX || null; base.unit = l.unit;
+      base.soDonHang = l.soDonHang || '—'; base.soDonHangGoc = l.soDonHangGoc || '—';
+    } else {
+      base.soDonHang = '—'; base.soDonHangGoc = '—'; base.checkList = '—';
+      base.custBatch = '—'; base.khach = '—'; base.ngaySX = null; base.unit = 'SET';
+    }
+    return base;
+  }
+
+  var statusMeta = {
+    issued:   {label:'Đã phát hành',         cls:'b-issued'},
+    printed:  {label:'Đã in, chưa giữ chỗ',  cls:'b-printed'},
+    reserved: {label:'Đã in, giữ chỗ',       cls:'b-reserved'},
+    scanned:  {label:'Trong kho',            cls:'b-scanned'},
+    closed:   {label:'Đã xuất hết',          cls:'b-closed'},
+    cancelled:{label:'Đã hủy',               cls:'b-cancelled'}
+  };
+
+  // ---------- dữ liệu tem (nguồn duy nhất cho Tra cứu / Chi tiết / In / Số lượng đã dán) ----------
+  var lookupData = [
+    {no:'FGL-261026-0006', batch:'MFG: 01/10/2026  EXP: 01/10/2036', status:'reserved', flag:false, code:'1016531', qty:24, conLai:24, req:'REQ-5000-2610-00001', lenh:'1349169', note:'', by:'admin', time:'2026-10-26 07:52', prints:1},
+    {no:'FGL-261026-0005', batch:'MFG: 02/10/2026  EXP: 02/10/2036', status:'reserved', flag:true, flagTime:'2026-10-26 10:15', code:'1014455', qty:1000, conLai:1000, req:'REQ-5000-2610-00001', lenh:'1349169', note:'SAP đổi Buyer: GLOBAL RAZOR LTD. → PT INDOSARI NIAGA NUSANTARA — hủy và phát hành lại', by:'admin', time:'2026-10-26 07:52', prints:1},
+    {no:'FGL-261020-0004', batch:'MFG: 03/10/2026  EXP: 03/10/2036', status:'scanned', flag:false, code:'1016531', qty:300, conLai:150, req:'REQ-K03-2610-00002', lenh:'1349170', note:'', by:'admin', time:'2026-10-20 04:13', prints:1, ngayNhapThuc:'20/10/2026',
+      extra:[
+        ['2026-10-21 08:30','Xuất kho','Xuất 120 SET → GDN-K03-2610-00003 (còn 180 SET)'],
+        ['2026-10-22 14:22','Tách tem','SPL-K03-2610-00003 · tách 60 SET → FGL-261022-0012 (còn 120 SET)'],
+        ['2026-10-23 10:05','Gộp tem','MRG-K03-2610-00002 · gộp FGL-261023-0005 (30 SET) vào tem này (còn 150 SET)']
+      ]},
+    {no:'FGL-261026-0029', src:'tr', status:'printed', flag:false, code:'1016604', qty:24, conLai:24, req:'REQ-5900-2610-00007', lenh:'', note:'', by:'admin', time:'2026-10-26 09:40', prints:1},
+    {no:'FGL-261026-0030', src:'tr', status:'issued', flag:false, code:'1016603', qty:36, conLai:36, req:'REQ-5900-2610-00007', lenh:'', note:'', by:'admin', time:'2026-10-26 09:40', prints:0},
+    {no:'FGL-261028-0012', src:'tr', status:'reserved', flag:false, code:'1016603', qty:24, conLai:24, req:'REQ-5900-2610-00004', lenh:'', note:'', by:'admin', time:'2026-10-28 10:05', prints:1},
+    {no:'FGL-261026-0033', src:'tr', status:'reserved', flag:true, flagTime:'2026-10-27 16:40', code:'1016603', qty:12, conLai:12, req:'REQ-5900-2610-00003', lenh:'', note:'SAP đổi SL dòng: 60 → 48 — hủy tem rồi phát hành lại', by:'admin', time:'2026-10-26 15:10', prints:1},
+    {no:'FGL-261026-0032', src:'tr', status:'scanned', flag:false, code:'1016603', qty:24, conLai:24, req:'REQ-5900-2610-00003', lenh:'', note:'', by:'admin', time:'2026-10-26 15:10', prints:1, ngayNhapThuc:'28/10/2026'},
+    {no:'FGL-261026-0031', src:'tr', status:'scanned', arrived:'2026-10-28 09:20', flag:false, code:'1016603', qty:24, conLai:24, req:'REQ-5900-2610-00003', lenh:'', note:'', by:'admin', time:'2026-10-26 15:10', prints:1, ngayNhapThuc:'28/10/2026'},
+    {no:'FGL-261016-0005', batch:'MFG: 03/10/2026  EXP: 03/10/2036', status:'printed', flag:false, code:'1014455', qty:1000, conLai:1000, req:'REQ-K03-2610-00003', lenh:'1349171', note:'', by:'admin', time:'2026-10-16 09:57', prints:1},
+    {no:'FGL-261014-0003', batch:'MFG: 28/09/2026  EXP: 28/09/2036', status:'cancelled', flag:false, code:'1016531', qty:240, conLai:0, req:'REQ-K03-2610-00007', lenh:'1349175', mergedInto:'FGL-261014-0006', note:'Lý do: GỘP · Gộp vào FGL-261014-0006', by:'admin', time:'2026-10-14 08:56', prints:1, ngayNhapThuc:'14/10/2026'},
+    {no:'FGL-261012-0002', status:'cancelled', flag:false, code:'1014455', qty:1000, conLai:0, req:'REQ-K03-2610-00006', lenh:'1349174', note:'Lý do: THAY TEM', by:'admin', time:'2026-10-12 11:02', prints:0},
+    {no:'FGL-261011-0001', status:'issued', flag:false, code:'1016531', qty:240, conLai:240, req:'REQ-K03-2610-00005', lenh:'1349173', note:'', by:'admin', time:'2026-10-11 09:30', prints:0}
+  ];
+  lookupData.forEach(function(r){ r.basePrints = r.prints; r.log = []; r.src = r.src || 'tp'; });
+
+  function recordView(rec){
+    var li = lineInfo(rec.req, rec.code);
+    var inKho = rec.status === 'scanned' || rec.status === 'closed';
+    // Ngày nhập kho in trên tem: tem đã nhập kho in ngày nhập THỰC TẾ, tem chưa nhập kho in ngày DỰ KIẾN
+    var ngayNhapThuc = rec.ngayNhapThuc || (inKho ? viDate(addMin(rec.time, rec.src === 'tr' ? 2880 : 18)) : null);
+    return {
+      no:rec.no, code:rec.code, name:li.name, spec:li.spec, lenh:rec.lenh, soDonHang:li.soDonHang, khach:li.khach,
+      ngaySX: li.ngaySX || viDate(addMin(rec.time, -1440)),
+      ngayNhap: inKho ? ngayNhapThuc : li.ngayNhapKho,
+      ngayNhapKho: li.ngayNhapKho, ngayNhapThuc: ngayNhapThuc, inKho: inKho,
+      unit:li.unit, qty:rec.qty, box:rec.box, prints:rec.prints, note:rec.note,
+      soDonHangGoc:li.soDonHangGoc, packing:li.packing, mau:li.mau,
+      checkList:rec.checkList || li.checkList, batch:rec.batch || li.custBatch,
+      tonKho: rec.status === 'cancelled' ? '—' : (inKho ? fmt(rec.conLai) + ' ' + li.unit : 'Chưa nhập kho'),
+      src:rec.src, rec:rec
+    };
+  }
+
+  function daDanOf(req, code){
+    return lookupData.reduce(function(s, r){
+      return (r.req === req && r.code === code && r.status !== 'cancelled') ? s + r.qty : s;
+    }, 0);
+  }
+  function nextSeq(){
+    var max = 0;
+    lookupData.forEach(function(r){ if (r.no.indexOf(SERIAL_PREFIX) === 0) max = Math.max(max, parseInt(r.no.slice(SERIAL_PREFIX.length), 10)); });
+    return max + 1;
+  }
+
+  // ---------- app state ----------
+  var chungTuSelected = {};
+  var chungTuPending = {};
+  var rows = [];
+  var lastGenerated = [];
+
+  function conLai(r){ return Math.max(0, r.slYeuCau - r.daDan); }        // còn có thể dán
+  function need(r){ return (+r.need > 0) ? +r.need : 0; }                 // SL cần dán tem (người dùng điền)
+  function needOk(r){ return need(r) > 0 && need(r) <= conLai(r); }
+  // Chia pallet: mỗi nhóm = {n: số pallet, per: SL mỗi pallet}; mỗi pallet = 1 tem
+  function autoGroups(nCan, per){
+    nCan = +nCan; per = +per;
+    if (!(nCan > 0) || !(per > 0)) return [];
+    var full = Math.floor(nCan / per), rem = nCan - full * per, g = [];
+    if (full > 0) g.push({n:full, per:per, box:''});
+    if (rem > 0) g.push({n:1, per:rem, box:''});
+    return g;
+  }
+  function groupSum(r){ return (r.groups || []).reduce(function(s, g){ return s + (+g.n || 0) * (+g.per || 0); }, 0); }
+  function labelCount(r){ return (r.groups || []).reduce(function(s, g){ return s + (+g.n || 0); }, 0); }
+  function groupsValid(r){
+    return (r.groups || []).length > 0
+      && r.groups.every(function(g){ return (+g.n > 0) && (+g.per > 0); })
+      && needOk(r) && groupSum(r) === need(r);
+  }
+
+  function rebuildRows(){
+    rows = [];
+    Object.keys(chungTuSelected).forEach(function(req){
+      var c = getCatalog(req);
+      if (!c) return;
+      c.lines.forEach(function(l){
+        var p = products[l.code];
+        var r = {
+          src: isReturnReq(req) ? 'tr' : 'tp',
+          req:req, lenh:c.lenh || '', code:l.code, name:p.name, spec:specOf(l.code), unit:l.unit,
+          packing:p.packing, mau:p.mau, soDonHang:l.soDonHang, soDonHangGoc:l.soDonHangGoc,
+          checkList:l.checkList, batch:l.custBatch || '', khach:l.khach || c.khach, ngaySX:l.ngaySX || '', ngayNhapKho:c.ngayNhapKho,
+          slYeuCau:l.slYeuCau, soThung:l.soThung, daDan:daDanOf(req, l.code), perBox:p.perBox,
+          need:'', groups:[], open:false, selected:true
+        };
+        // Dòng đã phát hành đủ tem thì không nạp vào bảng
+        if (!conLai(r)) return;
+        rows.push(r);
+      });
+    });
+  }
+  function refreshDaDan(){
+    rows.forEach(function(r){
+      r.daDan = daDanOf(r.req, r.code);
+      if (!conLai(r)) { r.selected = false; r.need = ''; r.groups = []; r.open = false; }
+    });
+  }
+
+  // Danh sách tem dự kiến tạo từ các dòng đã chọn + đã điền SL mỗi tem
+  function plannedLabels(){
+    var out = [], seq = nextSeq();
+    rows.forEach(function(r){
+      if (!r.selected || !groupsValid(r)) return;
+      var qtys = [];
+      r.groups.forEach(function(g){ for (var k = 0; k < (+g.n); k++) qtys.push(+g.per); });
+      var boxes = [];
+      r.groups.forEach(function(g){ for (var k = 0; k < (+g.n); k++) boxes.push(+g.box || null); });
+      for (var i = 0; i < qtys.length; i++){
+        out.push({
+          no: SERIAL_PREFIX + pad(seq++, 4), code:r.code, name:r.name, spec:r.spec, lenh:r.lenh,
+          soDonHang:r.soDonHang, soDonHangGoc:r.soDonHangGoc, checkList:r.checkList, packing:r.packing,
+          khach:r.khach, ngaySX:r.ngaySX, ngayNhap:r.ngayNhapKho, unit:r.unit, batch:r.batch, note:'',
+          qty: qtys[i], box: boxes[i], prints:0, tonKho:'Chưa nhập kho', src:r.src, row:r
+        });
+      }
+    });
+    return out;
+  }
+
+  function commitLabels(list){
+    var recs = list.map(function(l){
+      return {no:l.no, src:l.src, status:'issued', flag:false, code:l.code, batch:l.batch, checkList:l.checkList, qty:l.qty, box:l.box, conLai:l.qty, req:l.row.req, lenh:l.lenh, note:'', by:'admin', time:NOW, prints:0, basePrints:0, log:[]};
+    });
+    lookupData = recs.slice().reverse().concat(lookupData);
+    lastGenerated = recs;
+    rows.forEach(function(r){ r.need = ''; r.groups = []; r.open = false; });
+    refreshDaDan();
+    $('bulkPerLabel').value = '';
+    return recs;
+  }
+
+  function headerFields(){
+    var keys = Object.keys(chungTuSelected);
+    if (keys.length === 0){
+      ['fLenh','fDong','fKho','fNgay','fNgayNhap'].forEach(function(id){ $(id).value = 'Tự động điền'; });
+      return;
+    }
+    if (keys.length === 1){
+      var c = getCatalog(keys[0]);
+      if (mode === 'tr'){ $('fLenh').value = c.khach; $('fDong').value = c.lyDo; }
+      else { $('fLenh').value = c.lenh; $('fDong').value = c.dong; }
+      $('fKho').value = c.kho;
+      $('fNgay').value = c.ngay; $('fNgayNhap').value = c.ngayNhapKho;
+    } else {
+      var khos = keys.map(function(k){ return getCatalog(k).kho; });
+      $('fLenh').value = 'Nhiều yêu cầu';
+      $('fDong').value = 'Nhiều yêu cầu';
+      $('fKho').value = khos.every(function(k){ return k === khos[0]; }) ? khos[0] : 'Nhiều kho';
+      $('fNgay').value = 'Nhiều yêu cầu';
+      $('fNgayNhap').value = 'Nhiều yêu cầu';
+    }
+  }
+
+  // ---------- render: issue screen ----------
+  function groupSumHtml(r){
+    var sum = groupSum(r), diff = need(r) - sum;
+    if (!needOk(r)) {
+      return '<span>Tổng nhóm <b>' + fmt(sum) + ' ' + r.unit + '</b></span>' +
+        '<span class="g-bad">' + (need(r) > conLai(r) ? 'SL cần dán vượt SL còn lại' : 'Chưa nhập SL cần dán tem') + '</span>';
+    }
+    return '<span>Tổng nhóm <b>' + fmt(sum) + ' ' + r.unit + '</b></span>' +
+      '<span>Cần dán <b>' + fmt(need(r)) + ' ' + r.unit + '</b></span>' +
+      ((diff === 0 && sum > 0)
+        ? '<span class="g-ok">Chênh lệch 0 ✓</span>'
+        : '<span class="g-bad">' + (diff > 0 ? 'Thiếu ' + fmt(diff) : 'Dư ' + fmt(-diff)) + ' ' + r.unit + '</span>');
+  }
+  function groupEditorHtml(r, i){
+    var body = r.groups.length
+      ? r.groups.map(function(g, k){
+          return '<tr><td>' + (k + 1) + '</td>' +
+            '<td><input type="number" min="1" class="g-in" value="' + g.n + '" data-i="' + i + '" data-g="' + k + '" data-f="n"></td>' +
+            '<td><input type="number" min="1" class="g-in" value="' + g.per + '" data-i="' + i + '" data-g="' + k + '" data-f="per"></td>' +
+            '<td><input type="number" min="1" class="g-in" value="' + (g.box || '') + '" data-i="' + i + '" data-g="' + k + '" data-f="box"></td>' +
+            '<td class="g-total">' + fmt((+g.n || 0) * (+g.per || 0)) + ' ' + r.unit + '</td>' +
+            '<td><button class="g-del" type="button" data-i="' + i + '" data-g="' + k + '" title="Xóa nhóm">✕</button></td></tr>';
+        }).join('')
+      : '<tr><td colspan="6" style="color:var(--muted)">Chưa có nhóm. Bấm “+ Thêm nhóm”.</td></tr>';
+    return '<tr class="g-row"><td colspan="' + (mode === 'tr' ? 9 : 10) + '"><div class="g-wrap">' +
+      '<div class="g-head"><b>Chia pallet</b></div>' +
+      '<table class="g-tb"><thead><tr><th style="width:52px">Nhóm</th><th style="width:104px">Số pallet</th>' +
+      '<th style="width:110px">SL / pallet</th><th style="width:116px">Số box / pallet</th>' +
+      '<th style="width:116px">Tổng</th><th style="width:40px"></th></tr></thead>' +
+      '<tbody>' + body + '</tbody></table>' +
+      '<div class="g-foot"><button class="btn btn-ghost btn-sm" type="button" data-gadd="' + i + '">+ Thêm nhóm</button>' +
+      '<span class="g-sum" data-i="' + i + '">' + groupSumHtml(r) + '</span></div>' +
+      '</div></td></tr>';
+  }
+
+  function renderIssue(){
+    var keys = Object.keys(chungTuSelected);
+    var dd = $('reqDDDisplay');
+    var list = $('reqDDList');
+    if (keys.length === 0) {
+      dd.textContent = 'Chọn số yêu cầu';
+      dd.className = 'reqdd-display is-empty';
+      list.innerHTML = '';
+    } else {
+      dd.textContent = keys[0] + (keys.length > 1 ? ' (+ ' + (keys.length - 1) + ' yêu cầu khác)' : '');
+      dd.className = 'reqdd-display';
+      list.innerHTML = '';
+      keys.forEach(function(k){
+        var item = document.createElement('div');
+        item.className = 'reqdd-item';
+        item.innerHTML = '<span>' + k + '</span><button class="reqdd-remove" data-req="' + k + '" type="button">×</button>';
+        list.appendChild(item);
+      });
+      list.querySelectorAll('.reqdd-remove').forEach(function(x){
+        x.addEventListener('click', function(e){
+          e.stopPropagation();
+          delete chungTuSelected[x.dataset.req];
+          rebuildRows();
+          renderIssue();
+        });
+      });
+    }
+    headerFields();
+
+    var has = rows.length > 0;
+    $('issueEmpty').style.display = has ? 'none' : 'flex';
+    $('issueTableWrap').style.display = has ? 'block' : 'none';
+    $('rowsFoot').style.display = has ? 'block' : 'none';
+    $('bulkToolbar').style.display = has ? 'flex' : 'none';
+
+    var body = $('rowsBody');
+    body.innerHTML = '';
+    rows.forEach(function(r, i){
+      var done = !conLai(r);
+      var tr = document.createElement('tr');
+      if (r.selected && !done) tr.className = 'row-sel';
+      var btn = done
+        ? '<span style="color:var(--b-scanned-ink);font-weight:600">Đã đủ tem</span>'
+        : '<button class="btn btn-ghost btn-sm" type="button" data-gtog="' + i + '">' +
+          (r.open ? 'Thu gọn' : 'Chia pallet') + ' · ' + labelCount(r) + ' tem</button>';
+      tr.innerHTML =
+        '<td><input type="checkbox" ' + (r.selected ? 'checked' : '') + (done ? ' disabled' : '') + ' data-idx="' + i + '" class="rowchk"></td>' +
+        '<td style="color:var(--primary);font-weight:600">' + r.req + '</td>' +
+        '<td>' + r.code + '</td><td>' + r.name + '</td><td>' + r.spec + '</td>' +
+        '<td class="col-batch">' + (r.batch || '') + '</td>' +
+        '<td class="progress-txt">' + fmt(r.daDan) + ' / ' + fmt(r.slYeuCau) + ' ' + r.unit + '</td>' +
+        '<td class="num-cell">' + fmt(r.soThung) + '</td>' +
+        '<td><input type="number" min="1" max="' + conLai(r) + '" class="needin' + (r.need !== '' && !needOk(r) ? ' in-bad' : '') +
+          '" value="' + r.need + '" placeholder="0" data-idx="' + i + '"' + (done ? ' disabled' : '') + '></td>' +
+        '<td>' + btn + '</td>';
+      body.appendChild(tr);
+      if (r.open && !done) body.insertAdjacentHTML('beforeend', groupEditorHtml(r, i));
+    });
+
+    body.querySelectorAll('.rowchk').forEach(function(cb){
+      cb.addEventListener('change', function(){ rows[parseInt(cb.dataset.idx, 10)].selected = cb.checked; renderIssue(); });
+    });
+    body.querySelectorAll('.needin').forEach(function(inp){
+      inp.addEventListener('input', function(){
+        var r = rows[parseInt(inp.dataset.idx, 10)];
+        r.need = inp.value === '' ? '' : (parseInt(inp.value, 10) || 0);
+        inp.classList.toggle('in-bad', r.need !== '' && !needOk(r));
+        var wrap = body.querySelector('.g-sum[data-i="' + inp.dataset.idx + '"]');
+        if (wrap) wrap.innerHTML = groupSumHtml(r);
+        renderSummary();
+      });
+    });
+    body.querySelectorAll('[data-gtog]').forEach(function(b){
+      b.addEventListener('click', function(){
+        var r = rows[parseInt(b.dataset.gtog, 10)];
+        r.open = !r.open;
+        if (r.open && !r.groups.length) r.groups = [{n:1, per:'', box:''}];
+        renderIssue();
+      });
+    });
+    body.querySelectorAll('[data-gadd]').forEach(function(b){
+      b.addEventListener('click', function(){
+        var r = rows[parseInt(b.dataset.gadd, 10)];
+        r.groups.push({n:1, per:'', box:''});
+        renderIssue();
+      });
+    });
+    body.querySelectorAll('.g-del').forEach(function(b){
+      b.addEventListener('click', function(){
+        rows[parseInt(b.dataset.i, 10)].groups.splice(parseInt(b.dataset.g, 10), 1);
+        renderIssue();
+      });
+    });
+    body.querySelectorAll('.g-in').forEach(function(inp){
+      inp.addEventListener('input', function(){
+        var g = rows[parseInt(inp.dataset.i, 10)].groups[parseInt(inp.dataset.g, 10)];
+        g[inp.dataset.f] = parseInt(inp.value, 10) || 0;
+        var i = parseInt(inp.dataset.i, 10);
+        var cell = inp.closest('tr').querySelector('.g-total');
+        if (cell) cell.textContent = fmt((+g.n || 0) * (+g.per || 0)) + ' ' + rows[i].unit;
+        var r = rows[i];
+        inp.closest('.g-wrap').querySelector('.g-sum').innerHTML = groupSumHtml(r);
+        var tog = body.querySelector('[data-gtog="' + i + '"]');
+        if (tog) tog.textContent = 'Thu gọn · ' + labelCount(r) + ' tem';
+        renderSummary();
+        renderPreviewPicker();
+      });
+    });
+
+    var selectable = rows.filter(function(r){ return conLai(r) > 0; });
+    $('rowsAllChk').checked = selectable.length > 0 && selectable.every(function(r){ return r.selected; });
+
+    renderSummary();
+    renderPreviewPicker();
+  }
+
+  function pendingPrint(){ return lastGenerated.filter(function(r){ return r.status === 'issued' && r.prints === 0; }); }
+
+  function renderSummary(){
+    var selected = rows.filter(function(r){ return r.selected && conLai(r) > 0; });
+    var planned = plannedLabels();
+    var committed = {}, remain = {}, doneCount = 0;
+    selected.forEach(function(r){
+      if (groupsValid(r)){ committed[r.unit] = (committed[r.unit] || 0) + need(r); doneCount++; }
+      else { remain[r.unit] = (remain[r.unit] || 0) + need(r); }
+    });
+    function parts(o){ var k = Object.keys(o); return k.length ? k.map(function(u){ return fmt(o[u]) + ' ' + u; }).join(' · ') : '0'; }
+
+    $('sumSelected').textContent = selected.length;
+    $('sumQty').textContent = selected.length ? parts(committed) : '—';
+    $('sumDone').textContent = doneCount + '/' + selected.length;
+    $('sumRemain').textContent = selected.length ? parts(remain) : '—';
+    if (planned.length){
+      $('sumSerial').textContent = planned[0].no + (planned.length > 1 ? ' — ' + planned[planned.length - 1].no : '');
+    } else if (lastGenerated.length){
+      $('sumSerial').textContent = 'Đã tạo ' + lastGenerated[0].no + (lastGenerated.length > 1 ? ' — ' + lastGenerated[lastGenerated.length - 1].no : '');
+    } else {
+      $('sumSerial').textContent = '—';
+    }
+    $('sumLabels').textContent = planned.length;
+    $('selectedCountLbl').textContent = 'Đã chọn ' + selected.length + ' dòng';
+
+    var pend = pendingPrint();
+    var info;
+    if (planned.length) info = 'Đã chọn ' + selected.length + ' dòng · ' + planned.length + ' tem sẽ tạo';
+    else if (pend.length) info = 'Đã tạo ' + pend.length + ' tem chưa in · bấm Tạo và in để in';
+    else info = selected.length ? 'Đã chọn ' + selected.length + ' dòng · chưa chia pallet hợp lệ' : 'Chưa chọn dòng nào';
+    $('actionBarInfo').textContent = info;
+
+    $('draftBtn').disabled = selected.length === 0;
+    $('generateBtn').disabled = planned.length === 0;
+    $('openPrintBtn').disabled = planned.length === 0 && pend.length === 0;
+  }
+
+  function renderPreviewPicker(){
+    var sel = $('previewPick');
+    var selected = rows.filter(function(r){ return r.selected && conLai(r) > 0; });
+    var prev = sel.value;
+    sel.innerHTML = '';
+    if (!selected.length){ sel.innerHTML = '<option>Chọn hàng hóa</option>'; renderPreviewCard(null); return; }
+    selected.forEach(function(r, i){
+      var opt = document.createElement('option');
+      opt.value = i;
+      opt.textContent = r.code + ' · ' + r.req + ' · ' + (labelCount(r) ? labelCount(r) + ' tem' : 'chưa chia pallet');
+      sel.appendChild(opt);
+    });
+    if (prev && sel.querySelector('option[value="' + prev + '"]')) sel.value = prev;
+    sel.onchange = function(){ renderPreviewCard(selected[parseInt(sel.value, 10)]); };
+    renderPreviewCard(selected[parseInt(sel.value, 10) || 0]);
+  }
+
+  // Nội dung in trên tem — đúng thứ tự bảng chỉ tiêu (Excel mẫu tem)
+  // 4. Thành phẩm : Inter SO/Vina SO/Lệnh SX · Code/Tên TP · Ngày nhập kho · Checklist · Số lượng (set/thùng) · Ngày SX · Buyer · Batch no · Ghi chú
+  // 3. BTP từ SX  : Inter SO/Vina SO/Lệnh SX · Code/Tên BTP · Ngày nhập kho · Số lượng (pcs/thùng) · Ngày SX · Buyer · Ghi chú
+  // 5. TP trả về  : Code/Tên TP · Ngày nhập kho · Checklist · Số lượng (set/thùng) · Ghi chú
+  function tplRow(k, v, cls){ return '<div class="tplrow' + (cls ? ' ' + cls : '') + '"><span>' + k + '</span><span>' + (v || '—') + '</span></div>'; }
+  function tplNote(v){ return '<div class="tplrow tplrow-wrap"><span>Ghi chú</span><span>' + (v || '') + '</span></div>'; }
+  // Số lượng và Tồn kho: hai dải nền xám ở cuối tem
+  function tplFoot(d, opts, unit){
+    var q = (d.qty ? fmt(d.qty) + ' ' + unit : '—') + (d.box ? ' / ' + fmt(d.box) + ' thùng' : '');
+    var inv = (opts.tonKho && opts.tonKho !== 'Chưa nhập kho' && opts.tonKho !== '—') ? opts.tonKho : '';
+    return '</div><div class="tplqrbox"><div class="qr"></div><div class="qrlabel">' + (opts.serial || 'Cấp khi Tạo tem') + '</div></div></div>' +
+      '<div class="tplqty"><span>Số lượng</span><b>' + q + '</b></div>' +
+      '<div class="tplinv"><span>Tồn kho</span><b>' + inv + '</b></div>';
+  }
+  function soText(d){
+    var vina = (d.soDonHang && d.soDonHang !== '—') ? d.soDonHang.split('/')[0].trim() : '—';
+    var inter = (d.soDonHangGoc && d.soDonHangGoc !== '—') ? d.soDonHangGoc : '—';
+    return inter + ' / ' + vina + ' / ' + (d.lenh || '—');
+  }
+
+  function returnCardHtml(d, opts){
+    return '<div class="tplhead"><b>Dorco · Thành phẩm trả về</b></div>' +
+      '<div class="tplbody"><div class="tplfields">' +
+      tplRow('Code thành phẩm / Tên thành phẩm', d.code + ' / ' + d.name) +
+      tplRow('Ngày nhập kho', d.ngayNhap) +
+      tplRow('Checklist', d.checkList) +
+      tplNote(d.note) +
+      tplFoot(d, opts, d.unit || 'SET');
+  }
+
+  function templateCardHtml(d, opts){
+    opts = opts || {};
+    if (opts.mau === 'tr' || (!opts.mau && d.src === 'tr')) return returnCardHtml(d, opts);
+    var tp = (opts.mau || 'tp') === 'tp';
+    // Đơn vị lấy từ dòng hàng, không suy ra từ lựa chọn mẫu in
+    var unit = d.unit || (tp ? 'SET' : 'PCS');
+    return '<div class="tplhead"><b>Dorco · Tem ' + (tp ? 'thành phẩm' : 'bán thành phẩm') + '</b></div>' +
+      '<div class="tplbody"><div class="tplfields">' +
+      tplRow('Inter SO / Vina SO / Lệnh sản xuất', soText(d)) +
+      tplRow(tp ? 'Code thành phẩm / Tên thành phẩm' : 'Code BTP / Tên BTP', d.code + ' / ' + d.name) +
+      tplRow('Ngày nhập kho', d.ngayNhap) +
+      (tp ? tplRow('Checklist', d.checkList) : '') +
+      tplRow('Ngày sản xuất', d.ngaySX) +
+      tplRow('Buyer', d.khach) +
+      (tp ? tplRow('Batch no', d.batch) : '') +
+      tplNote(d.note) +
+      tplFoot(d, opts, unit);
+  }
+
+  function renderPreviewCard(r){
+    var box = $('previewCard');
+    if (!r){ box.innerHTML = '<div class="empty" style="padding:20px"><div class="bot"></div><p>Chưa có dòng nào được chọn để xem trước.</p></div>'; return; }
+    var first = plannedLabels().find(function(l){ return l.row === r; });
+    box.innerHTML = templateCardHtml({
+      code:r.code, name:r.name, soDonHang:r.soDonHang, soDonHangGoc:r.soDonHangGoc, lenh:r.lenh, ngaySX:r.ngaySX, khach:r.khach,
+      checkList:r.checkList, unit:r.unit, ngayNhap:r.ngayNhapKho, batch:r.batch, note:'',
+      qty: (r.groups[0] && +r.groups[0].per) || null,
+      box: (r.groups[0] && +r.groups[0].box) || null
+    }, {mau: r.src === 'tr' ? 'tr' : 'tp', serial: first ? first.no : null});
+  }
+
+  // ---------- render: lookup table ----------
+  var LOOKUP_PAGE = 50;
+  var shownLookup = [];
+  // Tem có cờ Cần xử lý: chặn cả in lần đầu lẫn in lại — phải hủy và phát hành lại
+  var FLAG_BLOCK_MSG = 'Tem cần hủy và phát hành lại';
+  function canFirstPrint(r){ return r.status === 'issued' && r.prints === 0 && !r.flag; }
+  function canReprint(r){ return r.prints > 0 && r.status !== 'cancelled' && r.status !== 'closed' && !r.flag; }
+  function canCancel(r){ return r.status === 'issued' || r.status === 'printed' || r.status === 'reserved'; }
+
+  function renderLookup(){
+    var statusFilter = $('statusFilter').value;
+    var flagFilter = $('flagFilter').value;
+    var srcFilter = $('srcFilter').value;
+    var filtered = lookupData.filter(function(r){
+      if (statusFilter !== 'all' && r.status !== statusFilter) return false;
+      if (flagFilter === 'flag' && !r.flag) return false;
+      if (srcFilter !== 'all' && r.src !== srcFilter) return false;
+      return true;
+    });
+    shownLookup = filtered.slice(0, LOOKUP_PAGE);
+    $('lookupCountLbl').textContent = filtered.length + ' bản ghi được tìm thấy';
+    var body = $('lookupBody');
+    body.innerHTML = '';
+    shownLookup.forEach(function(r, idx){
+      var meta = statusMeta[r.status];
+      var v = recordView(r);
+      var tr = document.createElement('tr');
+      if (r.flag) tr.className = 'row-flag';
+      tr.innerHTML =
+        '<td><input type="checkbox" class="lkchk" data-idx="' + idx + '"></td>' +
+        '<td><button class="lbl-link open-detail" type="button" data-idx="' + idx + '">' + r.no + '</button></td>' +
+        '<td><span class="badge ' + meta.cls + '">' + meta.label + '</span>' + (r.flag ? '<br><span class="b-flag">⚠ Cần xử lý</span>' : '') + '</td>' +
+        '<td>' + r.code + '</td><td>' + v.name + '</td><td>' + v.spec + '</td><td>' + fmt(r.qty) + '</td><td>' + fmt(r.conLai) + '</td>' +
+        '<td>' + (r.src === 'tr' ? 'Thành phẩm trả lại' : 'Nhập kho TP/ BTP') + '</td>' +
+        '<td>' + r.req + '</td><td>' + (r.lenh || '—') + '</td>' +
+        '<td style="white-space:normal;min-width:240px;max-width:320px;color:' + (r.note ? 'var(--ink)' : 'var(--muted)') + '">' + (r.note || '—') + '</td>' +
+        '<td>' + r.by + '</td><td>' + r.time + '</td><td>' + r.prints + '</td>' +
+        '<td style="position:relative"><button class="dotsbtn open-menu" type="button" data-idx="' + idx + '">⋮</button></td>';
+      body.appendChild(tr);
+    });
+    body.querySelectorAll('.open-detail').forEach(function(btn){
+      btn.addEventListener('click', function(){ openDetail(shownLookup[parseInt(btn.dataset.idx, 10)]); });
+    });
+    body.querySelectorAll('.open-menu').forEach(function(btn){
+      btn.addEventListener('click', function(e){ e.stopPropagation(); toggleRowMenu(btn, shownLookup[parseInt(btn.dataset.idx, 10)]); });
+    });
+    body.querySelectorAll('.lkchk').forEach(function(cb){ cb.addEventListener('change', syncLookupButtons); });
+    $('lkAllChk').checked = false;
+    syncLookupButtons();
+  }
+
+  function checkedLookup(){
+    return Array.prototype.map.call(document.querySelectorAll('#lookupBody .lkchk:checked'), function(cb){ return shownLookup[parseInt(cb.dataset.idx, 10)]; });
+  }
+  function syncLookupButtons(){
+    var sel = checkedLookup();
+    $('lkPrintBtn').disabled = !sel.some(canFirstPrint);
+    $('lkReprintBtn').disabled = !sel.some(canReprint);
+    $('lkCancelBtn').disabled = !sel.some(canCancel);
+    var flagged = sel.filter(function(r){ return r.flag; });
+    var note = $('lkFlagNote');
+    note.style.display = flagged.length ? 'block' : 'none';
+    note.textContent = flagged.length
+      ? FLAG_BLOCK_MSG + ' — ' + flagged.length + ' tem có cờ Cần xử lý, không in lần đầu và không in lại được: '
+        + flagged.map(function(r){ return r.no; }).join(', ')
+      : FLAG_BLOCK_MSG;
+  }
+
+  var openMenuRow = null;
+  function toggleRowMenu(btn, record){
+    closeRowMenu();
+    var menu = document.createElement('div');
+    menu.className = 'menu';
+    var cc = canCancel(record);
+    menu.innerHTML =
+      '<button type="button" data-act="detail">Chi tiết</button>' +
+      '<button type="button" data-act="print" ' + (canFirstPrint(record) ? '' : 'disabled') + '>Tạo và in</button>' +
+      '<button type="button" data-act="cancel" ' + (cc ? '' : 'disabled') + ' style="color:' + (cc ? 'var(--flag-ink)' : 'var(--disabled-ink)') + '">Hủy tem</button>' +
+      '<button type="button" data-act="reprint" ' + (canReprint(record) ? '' : 'disabled') + '>In lại</button>' +
+      (record.flag ? '<div class="menu-note">' + FLAG_BLOCK_MSG + '</div>' : '');
+    var rect = btn.getBoundingClientRect();
+    menu.style.top = (rect.bottom + window.scrollY + 4) + 'px';
+    menu.style.left = (rect.right - 140 + window.scrollX) + 'px';
+    document.body.appendChild(menu);
+    menu.querySelector('[data-act="detail"]').addEventListener('click', function(){ closeRowMenu(); openDetail(record); });
+    menu.querySelectorAll('[data-act="print"],[data-act="reprint"]').forEach(function(b){
+      b.addEventListener('click', function(){ if (!b.disabled){ closeRowMenu(); openPrint([recordView(record)], 'records'); } });
+    });
+    var cancelBtn = menu.querySelector('[data-act="cancel"]');
+    cancelBtn.addEventListener('click', function(){ if (!cancelBtn.disabled){ closeRowMenu(); openCancel([record], 0); } });
+    openMenuRow = menu;
+  }
+  function closeRowMenu(){ if (openMenuRow){ openMenuRow.remove(); openMenuRow = null; } }
+  document.addEventListener('click', closeRowMenu);
+
+  // ---------- Chi tiết tem ----------
+  function historyOf(r){
+    var h = [], t = r.time;
+    var khoCode = reqKho(r.req).split(' - ')[0];
+    var u = r.src === 'tr' ? 'PCS' : 'SET';
+    h.push([t, 'Phát hành', 'Cam kết ' + fmt(r.qty) + ' ' + u + ' từ ' + r.req]);
+    if (r.status === 'cancelled' && !r.cancelLogged && !r.mergedInto){
+      h.push([addMin(t, 25), 'Hủy tem', (r.note || 'Lý do: —') + ' · trả ' + fmt(r.qty) + ' SET về ' + r.req]);
+    }
+    var tp = addMin(t, 2);
+    for (var i = 1; i <= r.basePrints; i++){
+      h.push([i === 1 ? tp : addMin(tp, i * 30), i === 1 ? 'In' : 'In lại lần ' + (i - 1), 'Máy in kho K01 · A4 decal 4 tem (2 × 2) · 1 bản']);
+    }
+    if (r.status === 'reserved' || r.status === 'scanned' || r.status === 'closed'){
+      h.push([tp, 'Giữ chỗ', 'Giữ chỗ cho ' + r.req]);
+    }
+    if (r.src === 'tr' && (r.status === 'scanned' || r.status === 'closed')){
+      h.push([addMin(t, 2880), 'Nhập kho hàng trả', 'Duyệt phiếu trả 5900-2610-00004 · vị trí tạm 5900-TEMP-01']);
+      if (r.arrived) h.push([r.arrived, 'Chuyển vị trí theo tem', 'Quét QR tem trên PDA · 5900-TEMP-01 → 5900-A-03']);
+    } else if (r.status === 'scanned' || r.status === 'closed' || r.mergedInto){
+      h.push([addMin(t, 18), 'Nhập kho', 'Quét nhập kho ' + khoCode + ' — ' + fmt(r.qty) + ' SET']);
+    }
+    (r.extra || []).forEach(function(e){ h.push(e); });
+    // Tem nguồn sau khi gộp: chuyển sang Đã hủy, lý do GỘP (không phải Đã xuất hết)
+    if (r.mergedInto){
+      h.push([addMin(t, 1470), 'Gộp tem', 'Gộp toàn bộ ' + fmt(r.qty) + ' SET vào ' + r.mergedInto +
+        ' · tem nguồn chuyển sang Đã hủy, lý do GỘP']);
+    }
+    if (r.flag){
+      h.push([r.flagTime, 'Gắn cờ Cần xử lý', r.note.split(' — ')[0]]);
+    }
+    (r.log || []).forEach(function(e){ h.push(e); });
+    return h.sort(function(a, b){ return a[0] < b[0] ? -1 : (a[0] > b[0] ? 1 : 0); });
+  }
+
+  var detailRec = null;
+  function openDetail(rec){
+    detailRec = rec;
+    var v = recordView(rec);
+    var meta = statusMeta[rec.status];
+    function dr(k, val, last){ return '<div class="detailrow"' + (last ? ' style="border-bottom:0"' : '') + '><span>' + k + '</span><span>' + val + '</span></div>'; }
+    $('detailTitle').textContent = 'Tem ' + rec.no;
+    var stHtml = '<span class="badge ' + meta.cls + '">' + meta.label + '</span>' +
+      (rec.flag ? ' <span class="b-flag" style="margin-top:0">⚠ Cần xử lý</span>' : '');
+    // Ngày nhập kho: thực tế khi tem đã nhập kho, dự kiến khi chưa nhập kho
+    var ngayNhapRow = v.inKho ? dr('Ngày nhập kho thực tế', v.ngayNhapThuc) : dr('Ngày nhập kho dự kiến', v.ngayNhapKho);
+    if (rec.src === 'tr'){
+      var rc = returnCatalog[rec.req] || {};
+      $('detailRows').innerHTML =
+        dr('Số tem', rec.no) +
+        dr('Nguồn tem', 'Thành phẩm trả lại') +
+        dr('Trạng thái', stHtml) +
+        dr('Mã hàng', rec.code) +
+        dr('Tên hàng', v.name) +
+        dr('Số lượng trên tem', fmt(rec.qty) + ' ' + v.unit) +
+        dr('Số lượng còn lại', fmt(rec.conLai) + ' ' + v.unit) +
+        dr('Số yêu cầu trả hàng', rec.req) +
+        dr('Khách hàng', rc.khach || '—') +
+        dr('Lý do trả hàng', rc.lyDo || '—') +
+        dr('Checklist', v.checkList) +
+        dr('Kho nhận', reqKho(rec.req)) +
+        ngayNhapRow +
+        dr('Người phát hành', rec.time + ' · ' + rec.by) +
+        dr('Số lần in', rec.prints) +
+        dr('Ghi chú', rec.note || '', true);
+    } else
+    $('detailRows').innerHTML =
+      dr('Số tem', rec.no) +
+      dr('Nguồn tem', 'Nhập kho TP/ BTP') +
+      dr('Trạng thái', stHtml) +
+      dr('Mã hàng', rec.code) +
+      dr('Tên hàng', v.name) +
+      dr('Quy cách hàng', v.spec) +
+      dr('Số lượng trên tem', fmt(rec.qty) + ' ' + v.unit) +
+      dr('Số lượng còn lại', fmt(rec.conLai) + ' ' + v.unit) +
+      dr('Số yêu cầu nhập kho', rec.req) +
+      dr('Số lệnh sản xuất', rec.lenh) +
+      dr('Số đơn hàng', v.soDonHang) +
+      dr('Đơn hàng gốc', v.soDonHangGoc) +
+      dr('Checklist', v.checkList) +
+      dr('Batch no', v.batch) +
+      dr('Kho', reqKho(rec.req)) +
+      ngayNhapRow +
+      dr('Người phát hành', rec.time + ' · ' + rec.by) +
+      dr('Số lần in', rec.prints) +
+      dr('Ghi chú', rec.note || '', true);
+    $('detailHist').innerHTML = historyOf(rec).map(function(e){
+      return '<tr><td>' + e[0] + '</td><td>' + e[1] + '</td><td>admin</td><td style="white-space:normal">' + e[2] + '</td></tr>';
+    }).join('');
+    $('detailCard').innerHTML = templateCardHtml(v, {mau: rec.src === 'tr' ? 'tr' : 'tp', serial:rec.no, tonKho:v.tonKho});
+    var btn = $('detailPrintBtn');
+    btn.textContent = (rec.status === 'issued' && rec.prints === 0) ? 'Tạo và in' : 'In lại';
+    btn.disabled = !(canFirstPrint(rec) || canReprint(rec));
+    $('detailFlagNote').style.display = rec.flag ? 'block' : 'none';
+    $('detailFlagNote').textContent = FLAG_BLOCK_MSG;
+    openOverlay('detailOverlay');
+  }
+  $('detailPrintBtn').addEventListener('click', function(){
+    if (!detailRec) return;
+    closeOverlay('detailOverlay');
+    openPrint([recordView(detailRec)], 'records');
+  });
+
+  // ---------- Hủy tem ----------
+  var cancelTargets = [];
+  function openCancel(recs, skipped){
+    cancelTargets = recs;
+    var qty = recs.reduce(function(s, r){ return s + r.qty; }, 0);
+    var head = recs.length === 1 ? ('Hủy tem ' + recs[0].no + '?') : ('Hủy ' + recs.length + ' tem đã chọn?');
+    $('cancelLabelText').textContent = head + ' ' + fmt(qty) + ' ' + (recs[0].src === 'tr' ? 'PCS' : 'SET') + ' sẽ trả về dòng yêu cầu. Thao tác này không thể hoàn tác.' +
+      (skipped ? ' Bỏ qua ' + skipped + ' tem đã vào kho, đã xuất hết hoặc đã hủy.' : '');
+    $('cancelReason').value = '';
+    $('cancelReason').classList.remove('in-bad');
+    $('cancelReasonErr').classList.remove('show');
+    openOverlay('cancelLabelOverlay');
+  }
+  $('cancelReason').addEventListener('input', function(){
+    if ($('cancelReason').value.trim()){
+      $('cancelReason').classList.remove('in-bad');
+      $('cancelReasonErr').classList.remove('show');
+    }
+  });
+  $('confirmCancelBtn').addEventListener('click', function(){
+    // Lý do hủy là bắt buộc: không nhập thì không cho hủy
+    var reason = $('cancelReason').value.trim();
+    if (!reason){
+      $('cancelReason').classList.add('in-bad');
+      $('cancelReasonErr').classList.add('show');
+      $('cancelReason').focus();
+      return;
+    }
+    cancelTargets.forEach(function(r){
+      r.log.push([NOW, 'Hủy tem', 'Lý do: ' + reason + ' · trả ' + fmt(r.qty) + ' ' + (r.src === 'tr' ? 'PCS' : 'SET') + ' về ' + r.req]);
+      r.status = 'cancelled'; r.conLai = 0; r.flag = false; r.note = 'Lý do: ' + reason; r.cancelLogged = true;
+    });
+    cancelTargets = [];
+    closeOverlay('cancelLabelOverlay');
+    refreshDaDan();
+    renderIssue();
+    renderLookup();
+  });
+
+  // ---------- Chọn chứng từ modal ----------
+  function populateKhoSelects(){
+    var opts = khoList.map(function(k){ return '<option value="' + k + '">' + k + '</option>'; }).join('');
+    $('ctKho').innerHTML = opts;
+    $('lkKho').innerHTML = '<option>Tất cả</option>' + opts;
+    $('ctKho').value = khoList[0];
+  }
+
+  function renderChungTu(){
+    chungTuPending = Object.assign({}, chungTuSelected);
+    var khoSel = $('ctKho').value;
+    var body = $('chungTuBody');
+    body.innerHTML = '';
+    var tr0 = mode === 'tr';
+    $('chungTuHead').innerHTML = tr0
+      ? '<tr><th style="width:30px"></th><th>Số yêu cầu trả hàng</th><th>Ngày yêu cầu</th><th>Ngày nhập kho dự kiến</th><th>Khách hàng</th><th>Lý do trả hàng</th><th>Kho nhận</th><th>Trạng thái</th></tr>'
+      : '<tr><th style="width:30px"></th><th>Số yêu cầu nhập kho</th><th>Ngày yêu cầu</th><th>Ngày nhập kho dự kiến</th><th>Số lệnh sản xuất</th><th>Kho đích</th><th>Dòng nguồn</th><th>Trạng thái</th></tr>';
+    // Yêu cầu mà mọi dòng đã phát hành đủ tem thì không hiện nữa
+    function fullyLabelled(req){
+      var c = getCatalog(req);
+      return !!c && c.lines.every(function(l){ return daDanOf(req, l.code) >= l.slYeuCau; });
+    }
+    var matches = (tr0
+      ? returnChungTu.filter(function(c){ return returnCatalog[c.req].kho === khoSel; })
+      : chungTuData.filter(function(c){ return c.kho === khoSel; })
+    ).filter(function(c){ return !fullyLabelled(c.req); });
+    if (!matches.length){
+      body.innerHTML = '<tr><td colspan="8" style="text-align:center;color:var(--muted);padding:24px">Không có yêu cầu "Đã trình" nào còn cần phát hành tem trong kho này.</td></tr>';
+      return;
+    }
+    matches.forEach(function(c){
+      var tr = document.createElement('tr');
+      if (tr0){
+        var rc = returnCatalog[c.req];
+        tr.innerHTML =
+          '<td><input type="checkbox" class="ctchk" data-req="' + c.req + '" ' + (chungTuPending[c.req] ? 'checked' : '') + '></td>' +
+          '<td style="color:var(--primary);font-weight:600">' + c.req + '</td>' +
+          '<td>' + c.date + '</td><td>' + rc.ngayNhapKho + '</td><td>' + rc.khach + '</td><td>' + rc.lyDo + '</td><td>' + rc.kho + '</td>' +
+          '<td><span class="badge b-submitted">' + c.status + '</span></td>';
+        body.appendChild(tr);
+        return;
+      }
+      tr.innerHTML =
+        '<td><input type="checkbox" class="ctchk" data-req="' + c.req + '" ' + (chungTuPending[c.req] ? 'checked' : '') + '></td>' +
+        '<td style="color:var(--primary);font-weight:600">' + c.req + '</td>' +
+        '<td>' + c.date + '</td><td>' + (getCatalog(c.req) || {}).ngayNhapKho + '</td><td>' + c.lenh + '</td><td>' + c.kho + '</td><td>' + c.dong + '</td>' +
+        '<td><span class="badge b-submitted">' + c.status + '</span></td>';
+      body.appendChild(tr);
+    });
+    body.querySelectorAll('.ctchk').forEach(function(cb){
+      cb.addEventListener('change', function(){
+        if (cb.checked) chungTuPending[cb.dataset.req] = true; else delete chungTuPending[cb.dataset.req];
+      });
+    });
+  }
+  $('ctKho').addEventListener('change', renderChungTu);
+
+  // ---------- tabs ----------
+  function showIssue(){ $('tabIssueBtn').classList.add('active'); $('tabLookupBtn').classList.remove('active'); $('viewIssue').style.display = 'flex'; $('viewLookup').style.display = 'none'; $('actionBar').style.display = 'flex'; }
+  function showLookup(){ $('tabLookupBtn').classList.add('active'); $('tabIssueBtn').classList.remove('active'); $('viewLookup').style.display = 'flex'; $('viewIssue').style.display = 'none'; $('actionBar').style.display = 'none'; }
+  $('tabIssueBtn').addEventListener('click', showIssue);
+  $('tabLookupBtn').addEventListener('click', showLookup);
+
+  // ---------- overlays ----------
+  function openOverlay(id){ $(id).hidden = false; }
+  function closeOverlay(id){ $(id).hidden = true; }
+  document.querySelectorAll('[data-close]').forEach(function(btn){ btn.addEventListener('click', function(){ closeOverlay(btn.dataset.close); }); });
+  document.querySelectorAll('.overlay').forEach(function(ov){ ov.addEventListener('click', function(e){ if (e.target === ov) closeOverlay(ov.id); }); });
+
+  $('reqDDDisplay').addEventListener('click', function(){
+    var list = $('reqDDList');
+    if (list.children.length > 0) list.classList.toggle('open');
+  });
+  document.addEventListener('click', function(e){
+    if (!$('reqDD').contains(e.target)) $('reqDDList').classList.remove('open');
+  });
+  $('openChungTuBtn').addEventListener('click', function(){ renderChungTu(); openOverlay('chungTuOverlay'); });
+  $('emptyOpenChungTuBtn').addEventListener('click', function(){ renderChungTu(); openOverlay('chungTuOverlay'); });
+  $('confirmChungTuBtn').addEventListener('click', function(){
+    chungTuSelected = Object.assign({}, chungTuPending);
+    lastGenerated = [];
+    rebuildRows();
+    renderIssue();
+    closeOverlay('chungTuOverlay');
+  });
+
+  // bulk fill
+  $('bulkApplyBtn').addEventListener('click', function(){
+    var v = parseInt($('bulkPerLabel').value, 10);
+    if (!v || v < 1) return;
+    rows.forEach(function(r){
+      if (!r.selected || !conLai(r)) return;
+      if (!r.groups.length) r.groups = [{n:1, per:'', box:''}];
+      r.groups.forEach(function(g){ g.per = v; });
+      r.open = true;
+    });
+    renderIssue();
+  });
+  $('bulkClearBtn').addEventListener('click', function(){
+    rows.forEach(function(r){ if (r.selected) r.groups.forEach(function(g){ g.per = ''; }); });
+    $('bulkPerLabel').value = '';
+    renderIssue();
+  });
+  $('rowsAllChk').addEventListener('change', function(e){
+    rows.forEach(function(r){ if (conLai(r)) r.selected = e.target.checked; });
+    renderIssue();
+  });
+
+  // ---------- Tạo tem ----------
+  $('generateBtn').addEventListener('click', function(){
+    var planned = plannedLabels();
+    if (!planned.length) return;
+    $('genConfirmText').textContent = 'Tạo ' + planned.length + ' serial tem QR vĩnh viễn (' + planned[0].no +
+      (planned.length > 1 ? ' — ' + planned[planned.length - 1].no : '') + ')? Serial đã tạo không thể tái sử dụng.';
+    openOverlay('genConfirmOverlay');
+  });
+  $('confirmGenBtn').addEventListener('click', function(){
+    commitLabels(plannedLabels());
+    closeOverlay('genConfirmOverlay');
+    renderIssue();
+    renderLookup();
+  });
+
+  // ---------- Tạo và in ----------
+  var printCtx = null;
+  function openPrint(items, source){
+    printCtx = {items:items, source:source};
+    renderPrintModal();
+    openOverlay('printOverlay');
+  }
+
+  $('openPrintBtn').addEventListener('click', function(){
+    var planned = plannedLabels();
+    if (planned.length) openPrint(planned, 'issue-new');
+    else openPrint(pendingPrint().map(recordView), 'records');
+  });
+
+  function selText(id){ var s = $(id); return s.options[s.selectedIndex].text; }
+
+  function renderPrintModal(){
+    if (!printCtx || !printCtx.items.length) return;
+    var items = printCtx.items, n = items.length;
+    var printer = $('printerSel').value;
+    var paper = $('paperSel').value;
+    var mau = mode === 'tr' ? 'tr' : $('mauInSel').value;
+    var copies = Math.max(1, parseInt($('banMoiTem').value, 10) || 1);
+    var firstCount = items.filter(function(i){ return i.prints === 0; }).length;
+    var reCount = n - firstCount;
+    var total = n * copies;
+    var breakdown = n + ' tem: ' + (firstCount ? firstCount + ' in lần đầu' : '') + (firstCount && reCount ? ' · ' : '') + (reCount ? reCount + ' in lại' : '') +
+      (copies > 1 ? ' · ' + copies + ' bản mỗi tem' : '');
+
+    var f = items[0];
+    $('previewTitle').textContent = 'Xem trước mẫu tem ' + f.no + ' (' + (f.prints ? 'in lại lần ' + f.prints : 'in lần đầu') + ')';
+    $('printPreview').innerHTML = '<div class="tplcard" style="width:440px;max-width:100%">' + templateCardHtml(f, {mau:mau, serial:f.no}) + '</div>';
+
+    if (paper === 'a4'){
+      var sheets = Math.ceil(total / 4);
+      $('printNote').textContent = breakdown + ' · Tổng ' + total + ' tem in · ' + sheets + ' tờ A4. In một lần hết tờ; lần sau in tờ trắng mới.';
+      $('paperFootnote').textContent = 'Khổ A4 decal: ' + total + ' tem · ' + sheets + ' tờ (4 tem/tờ).';
+      $('sheetMapWrap').style.display = 'block';
+      $('sheetLbl').textContent = sheets > 1 ? 'Tờ 1 / ' + sheets : 'Tờ 1';
+      var seq = [];
+      items.forEach(function(it){ for (var c = 0; c < copies && seq.length < 4; c++) seq.push(it); });
+      var cells = '';
+      for (var i = 0; i < 4; i++){
+        var it = seq[i];
+        cells += it
+          ? '<div class="sheetcell"><b>' + it.no.replace('FGL-', '') + '</b><span>' + it.code + '</span><br><span>' + fmt(it.qty) + ' ' + it.unit + '</span></div>'
+          : '<div class="sheetcell blank">ô trống</div>';
+      }
+      $('sheetMap').innerHTML = cells;
+    } else {
+      $('printNote').textContent = breakdown + ' · Tổng ' + total + ' tem cuộn. Mỗi tem in trên 1 tem rời.';
+      $('paperFootnote').textContent = 'Khổ tem cuộn: ' + total + ' tem (100 × 70 mm).';
+      $('sheetMapWrap').style.display = 'none';
+    }
+    $('printFooterBtn').textContent = printer === 'pdf' ? 'Xuất PDF' : 'In';
+
+    var msg = 'Xác nhận ' + n + ' tem (' + total + ' bản in) đã in thành công.';
+    if (firstCount) msg += ' ' + firstCount + ' tem chuyển từ "Đã phát hành" sang "Đã in, giữ chỗ".';
+    if (reCount) msg += ' ' + reCount + ' tem in lại: số lần in tăng thêm 1, trạng thái giữ nguyên.';
+    $('printConfirmText').textContent = msg;
+  }
+  ['printerSel','paperSel','mauInSel'].forEach(function(id){ $(id).addEventListener('change', renderPrintModal); });
+  $('banMoiTem').addEventListener('input', renderPrintModal);
+
+  $('printFooterBtn').addEventListener('click', function(){
+    closeOverlay('printOverlay');
+    if ($('printerSel').value !== 'pdf') openOverlay('printConfirmOverlay');
+  });
+
+  $('confirmPrintedBtn').addEventListener('click', function(){
+    if (!printCtx) return;
+    var copies = Math.max(1, parseInt($('banMoiTem').value, 10) || 1);
+    var detail = selText('printerSel') + ' · ' + selText('paperSel') + ' · ' + copies + ' bản';
+    var recs = printCtx.source === 'issue-new' ? commitLabels(printCtx.items) : printCtx.items.map(function(i){ return i.rec; });
+    recs.forEach(function(r){
+      r.prints++;
+      // Xác nhận đã in: tem chuyển thẳng sang Đã in, giữ chỗ (RESERVED)
+      if (r.status === 'issued') r.status = 'reserved';
+      r.log.push([NOW, r.prints === 1 ? 'In' : 'In lại lần ' + (r.prints - 1), detail]);
+    });
+    printCtx = null;
+    closeOverlay('printConfirmOverlay');
+    renderIssue();
+    renderLookup();
+  });
+
+  // ---------- lookup bulk actions ----------
+  $('lkAllChk').addEventListener('change', function(e){
+    document.querySelectorAll('#lookupBody .lkchk').forEach(function(cb){ cb.checked = e.target.checked; });
+    syncLookupButtons();
+  });
+  $('lkPrintBtn').addEventListener('click', function(){
+    var recs = checkedLookup().filter(canFirstPrint);
+    if (recs.length) openPrint(recs.map(recordView), 'records');
+  });
+  $('lkReprintBtn').addEventListener('click', function(){
+    var recs = checkedLookup().filter(canReprint);
+    if (recs.length) openPrint(recs.map(recordView), 'records');
+  });
+  $('lkCancelBtn').addEventListener('click', function(){
+    var sel = checkedLookup();
+    var recs = sel.filter(canCancel);
+    if (recs.length) openCancel(recs, sel.length - recs.length);
+  });
+
+  $('statusFilter').addEventListener('change', renderLookup);
+  $('flagFilter').addEventListener('change', renderLookup);
+  $('srcFilter').addEventListener('change', renderLookup);
+  $('lkResetBtn').addEventListener('click', function(){
+    $('statusFilter').value = 'all';
+    $('flagFilter').value = 'all';
+    $('srcFilter').value = 'all';
+    renderLookup();
+  });
+  $('previewRefreshBtn').addEventListener('click', renderPreviewPicker);
+
+  // ---------- Loại nguồn ----------
+  var MODE_TXT = {
+    tp:{title:'Chọn yêu cầu nhập kho', req:'Số yêu cầu nhập kho', a:'Số lệnh sản xuất', b:'Dòng nguồn', kho:'Kho đích', ctKho:'Kho', ctPh:'Tìm số yêu cầu nhập kho'},
+    tr:{title:'Chọn yêu cầu trả hàng', req:'Số yêu cầu trả hàng', a:'Khách hàng', b:'Lý do trả hàng', kho:'Kho nhận', ctKho:'Kho nhận', ctPh:'Tìm số yêu cầu trả hàng'}
+  };
+  function applyMode(m){
+    mode = m;
+    var t = MODE_TXT[m];
+    document.body.classList.toggle('mode-tr', m === 'tr');
+    $('reqPanelTitle').textContent = t.title;
+    $('lblReqNo').textContent = t.req;
+    $('lblLenh').textContent = t.a;
+    $('lblDong').textContent = t.b;
+    $('lblKho').textContent = t.kho;
+    $('ctLblReq').textContent = t.req;
+    $('ctLblKho').textContent = t.ctKho;
+    $('ctReqInput').placeholder = t.ctPh;
+    $('ctKho').value = m === 'tr' ? khoList[6] : khoList[0];
+    var ms = $('mauInSel');
+    ms.innerHTML = m === 'tr'
+      ? '<option value="tr">Thành phẩm trả về</option>'
+      : '<option value="tp">Thành phẩm</option><option value="btp">Bán thành phẩm nhập từ sản xuất</option>';
+    ms.disabled = m === 'tr';
+    chungTuSelected = {}; chungTuPending = {}; lastGenerated = [];
+    $('bulkPerLabel').value = '';
+    rebuildRows();
+    renderIssue();
+  }
+  var pendingMode = null;
+  $('srcType').addEventListener('change', function(e){
+    var m = e.target.value;
+    var dirty = Object.keys(chungTuSelected).length > 0;
+    if (!dirty){ applyMode(m); return; }
+    pendingMode = m;
+    e.target.value = mode;
+    $('srcConfirmText').textContent = 'Đổi sang "' + (m === 'tr' ? 'Thành phẩm trả lại' : 'Nhập kho thành phẩm, bán thành phẩm từ sản xuất') +
+      '" sẽ xóa ' + Object.keys(chungTuSelected).length + ' yêu cầu đã chọn và số lượng đang nhập dở. Tiếp tục?';
+    openOverlay('srcConfirmOverlay');
+  });
+  function closeSrc(){ pendingMode = null; closeOverlay('srcConfirmOverlay'); }
+  $('srcCancelBtn').addEventListener('click', closeSrc);
+  $('srcCancelX').addEventListener('click', closeSrc);
+  $('srcOkBtn').addEventListener('click', function(){
+    var m = pendingMode; closeOverlay('srcConfirmOverlay'); pendingMode = null;
+    $('srcType').value = m; applyMode(m);
+  });
+
+  // ---------- init ----------
+  populateKhoSelects();
+  rebuildRows();
+  renderIssue();
+  renderLookup();
+})();
+</script>
+</body>
+</html>

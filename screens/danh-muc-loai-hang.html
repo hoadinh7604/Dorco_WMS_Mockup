@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Danh mục loại hàng — DorcoWMS</title>
+<style>
+  :root{
+    --lime:#a4ce4c;
+    --lime-strong:#95c23a;
+    --lime-pale:#f3fae1;
+    --lime-pale2:#e9f6cf;
+    --rail:#0d0d10;
+    --rail-hover:#1c1d22;
+    --ink:#1b2430;
+    --muted:#6b7483;
+    --muted2:#95a0ad;
+    --line:#e6e9ee;
+    --line2:#eef1f5;
+    --bg:#f6f7f9;
+    --panel:#ffffff;
+    --badge-green-bg:#e7f6d2;
+    --badge-green-tx:#4e7a12;
+    box-sizing:border-box;
+  }
+  *,*::before,*::after{box-sizing:border-box;}
+  html,body{height:100%;margin:0;}
+  body{
+    font-family:"Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,"Noto Sans",sans-serif;
+    color:var(--ink);
+    background:var(--bg);
+    font-size:13.5px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .app{display:flex;height:100%;min-width:1180px;}
+
+  /* ---------- Dark icon rail ---------- */
+  .rail{
+    width:72px;flex:0 0 72px;background:var(--rail);
+    display:flex;flex-direction:column;align-items:stretch;
+    padding-top:64px;
+  }
+  .rail-item{
+    display:flex;flex-direction:column;align-items:center;gap:5px;
+    padding:11px 4px;color:#b9bcc4;cursor:pointer;font-size:10px;line-height:1.15;text-align:center;
+    border-left:3px solid transparent;
+  }
+  .rail-item svg{width:21px;height:21px;stroke:#c7cad2;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;}
+  .rail-item:hover{background:var(--rail-hover);color:#fff;}
+  .rail-item.active{color:#fff;background:#1f2127;}
+  .rail-item.active svg{stroke:#fff;}
+
+  /* ---------- Secondary menu ---------- */
+  .submenu{
+    width:224px;flex:0 0 224px;background:#0f1014;border-right:1px solid #05060a;
+    padding-top:64px;overflow-y:auto;
+  }
+  .submenu h2{
+    font-size:14px;font-weight:600;text-align:center;color:#eef1f5;
+    margin:4px 0 14px;padding:0 16px;
+  }
+  .mi{
+    display:flex;align-items:center;gap:10px;padding:9px 18px;color:#c3c8d0;cursor:pointer;font-size:13px;
+  }
+  .mi:hover{background:#1b1c22;color:#fff;}
+  .mi .chev{margin-left:auto;color:#6d737d;font-size:11px;transition:transform .15s;}
+  .mi.grp{font-weight:600;color:#e7eaf0;}
+  .mi .gi{width:16px;height:16px;flex:0 0 16px;stroke:#aab2bd;fill:none;stroke-width:1.7;}
+  .mi.open .chev{transform:rotate(90deg);}
+  .sub{display:none;}
+  .sub.open{display:block;}
+  .si{padding:8px 18px 8px 44px;color:#b6bcc6;cursor:pointer;font-size:12.5px;border-radius:0;}
+  .si:hover{background:#1b1c22;color:#fff;}
+  .si.active{background:var(--lime);color:#1d2a05;font-weight:600;}
+
+  /* ---------- Top bar ---------- */
+  .topbar{
+    position:fixed;top:0;left:0;right:0;height:56px;z-index:30;
+    display:flex;align-items:stretch;background:#fff;border-bottom:1px solid var(--line);
+  }
+  .brand{
+    width:296px;flex:0 0 296px;display:flex;align-items:center;justify-content:center;
+    background:#0d0d10;padding:8px 14px;
+  }
+  .brand .logo{
+    display:flex;align-items:center;gap:7px;font-weight:800;letter-spacing:.2px;font-size:17px;
+    background:#fff;border-radius:10px;padding:8px 0;flex:1;justify-content:center;
+  }
+  .brand .logo .mark{width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;}
+  .brand .logo .mark svg{width:24px;height:24px;}
+  .brand .logo .d{color:#15294d;font-weight:800;}
+  .brand .logo .w{color:#1fa2e6;font-weight:800;}
+  .topbar-right{margin-left:auto;display:flex;align-items:center;gap:18px;padding-right:26px;}
+  .tb-ico{width:20px;height:20px;stroke:#5b6572;fill:none;stroke-width:1.7;cursor:pointer;}
+  .lang{display:flex;align-items:center;gap:6px;color:#3a424e;font-size:13px;cursor:pointer;}
+  .lang svg{width:17px;height:17px;stroke:#5b6572;fill:none;stroke-width:1.7;}
+  .user{display:flex;align-items:center;gap:8px;color:#2b3340;font-size:13px;cursor:pointer;}
+  .avatar{width:26px;height:26px;border-radius:50%;background:#dff0bd;color:#486a16;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;}
+  .caret{color:#9aa3af;font-size:10px;}
+
+  /* ---------- Content ---------- */
+  .content{flex:1;display:flex;flex-direction:column;padding-top:56px;min-width:0;}
+  .tabstrip{display:flex;background:#fff;border-bottom:1px solid var(--line);padding:0 18px;}
+  .tab{
+    display:flex;align-items:center;gap:10px;padding:10px 16px;font-size:13px;color:#2b3340;
+    border:1px solid var(--line);border-bottom:none;border-radius:6px 6px 0 0;margin-top:7px;background:#fff;
+  }
+  .tab .x{color:#9aa3af;cursor:pointer;font-size:13px;}
+  .page-head{padding:16px 22px 6px;}
+  .page-head h1{margin:0;font-size:20px;font-weight:700;color:#1b2430;}
+
+  .cols{display:flex;gap:18px;padding:12px 22px 22px;flex:1;min-height:0;}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:10px;display:flex;flex-direction:column;min-height:0;}
+  .tree-card{flex:0 0 560px;max-width:560px;}
+  .detail-card{flex:1;min-width:0;}
+
+  .card-head{display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--line2);}
+  .card-head .t{font-size:15px;font-weight:600;}
+  .head-actions{margin-left:auto;display:flex;gap:9px;}
+  .btn{
+    display:inline-flex;align-items:center;gap:6px;border:none;border-radius:7px;cursor:pointer;
+    font-size:12.5px;font-weight:600;padding:8px 13px;
+  }
+  .btn svg{width:14px;height:14px;stroke:#1d2a05;fill:none;stroke-width:2;}
+  .btn.lime{background:var(--lime);color:#1d2a05;}
+  .btn.lime:hover{background:var(--lime-strong);}
+  .btn.ghost{background:#fff;border:1px solid var(--line);color:#2b3340;}
+  .btn.ghost svg{stroke:#2b3340;}
+  .btn.ghost:hover{background:#f6f8fa;}
+  .collapse-ico{margin-left:6px;color:#9aa3af;cursor:pointer;}
+
+  .search{padding:12px 16px;}
+  .search input{
+    width:100%;padding:9px 12px;border:1px solid var(--line);border-radius:8px;font-size:12.5px;color:#2b3340;
+    background:#fff;outline:none;
+  }
+  .search input::placeholder{color:#aab2bd;}
+  .search input:focus{border-color:var(--lime-strong);box-shadow:0 0 0 3px rgba(164,206,76,.18);}
+
+  .tree{overflow-y:auto;padding:0 10px 14px;flex:1;min-height:0;}
+  .node{border-radius:8px;}
+  .row{
+    display:flex;align-items:center;gap:7px;padding:9px 10px;cursor:pointer;border-radius:8px;
+    font-size:13px;color:#2f3845;
+  }
+  .row:hover{background:#f6f8fa;}
+  .row.sel{background:var(--lime-pale);outline:1px solid #d6ea9f;}
+  .row.sel .tw{color:#5f7d16;}
+  .tw{width:16px;flex:0 0 16px;color:#9aa3af;font-size:11px;display:inline-flex;justify-content:center;}
+  .tw.leaf{visibility:hidden;}
+  .code{color:#6b7483;font-weight:600;}
+  .nm{color:#2f3845;}
+  .row.top{border:1px solid var(--line);border-radius:9px;margin:6px 0;padding:11px 12px;}
+  .row.top:hover{background:#fafbfc;}
+  .row.top.sel{background:var(--lime-pale);border-color:#d6ea9f;}
+  .children{padding-left:18px;display:none;}
+  .children.open{display:block;}
+
+  /* ---------- Detail panel ---------- */
+  .detail-body{padding:22px 26px;overflow-y:auto;}
+  .chip{
+    display:inline-flex;align-items:center;padding:3px 10px;border-radius:6px;background:#eef1f5;color:#53606f;
+    font-size:12px;font-weight:600;margin-left:10px;
+  }
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:26px 40px;max-width:760px;margin-top:4px;}
+  .field .lbl{color:var(--muted);font-size:12.5px;margin-bottom:7px;}
+  .field .val{color:#1b2430;font-size:14px;font-weight:500;}
+  .status{
+    display:inline-flex;align-items:center;gap:6px;background:var(--badge-green-bg);color:var(--badge-green-tx);
+    padding:4px 11px;border-radius:7px;font-size:12.5px;font-weight:600;
+  }
+  .status .dot{width:7px;height:7px;border-radius:50%;background:#7fae2c;}
+  .full{grid-column:1 / -1;}
+  .desc{color:#2f3845;font-size:13.5px;line-height:1.55;max-width:720px;}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- Top bar -->
+  <div class="topbar">
+    <div class="brand">
+      <div class="logo">
+        <span class="mark"><svg viewBox="0 0 24 24"><polygon points="12,2.5 21,7.5 12,12.5 3,7.5" fill="#1c7fc9"/><polygon points="3,7.5 12,12.5 12,21.5 3,16.5" fill="#142f56"/><polygon points="21,7.5 12,12.5 12,21.5 21,16.5" fill="#1fa2e6"/></svg></span>
+        <span class="d">Dorco</span><span class="w">WMS</span>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <svg class="tb-ico" viewBox="0 0 24 24"><path d="M6 9h12l-1 10H7z"/><path d="M9 9V7a3 3 0 0 1 6 0v2"/></svg>
+      <div class="lang"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg>Tiếng Việt <span class="caret">▾</span></div>
+      <div class="user"><span class="avatar">A</span>admin <span class="caret">▾</span></div>
+    </div>
+  </div>
+
+  <!-- Dark icon rail -->
+  <nav class="rail">
+    <div class="rail-item"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>Search<br>Menu</div>
+    <div class="rail-item active"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1l2-1.6-2-3.4-2.3 1a7 7 0 0 0-1.7-1l-.3-2.5H9.4l-.3 2.5a7 7 0 0 0-1.7 1l-2.3-1-2 3.4 2 1.6a7 7 0 0 0 0 2l-2 1.6 2 3.4 2.3-1a7 7 0 0 0 1.7 1l.3 2.5h5.2l.3-2.5a7 7 0 0 0 1.7-1l2.3 1 2-3.4-2-1.6a7 7 0 0 0 .1-1z"/></svg>Thiết lập<br>chung</div>
+    <div class="rail-item"><svg viewBox="0 0 24 24"><path d="M6 6h15l-1.5 9h-12z"/><circle cx="9" cy="20" r="1.3"/><circle cx="18" cy="20" r="1.3"/><path d="M6 6L5 3H3"/></svg>Bán hàng</div>
+    <div class="rail-item"><svg viewBox="0 0 24 24"><path d="M6 8h12l1 12H5z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>Mua hàng</div>
+    <div class="rail-item"><svg viewBox="0 0 24 24"><path d="M4 7h7v7H4z"/><path d="M14 10l6 3-6 3z"/></svg>Gia công<br>ngoài</div>
+    <div class="rail-item"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7"/><rect x="13" y="4" width="7" height="7"/><rect x="4" y="13" width="7" height="7"/><rect x="13" y="13" width="7" height="7"/></svg>Gói MES</div>
+    <div class="rail-item"><svg viewBox="0 0 24 24"><path d="M3 9l9-5 9 5v8l-9 5-9-5z"/><path d="M3 9l9 5 9-5"/></svg>WMS</div>
+    <div class="rail-item"><svg viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 9h6v6H9z"/></svg>Quản lý<br>khuôn</div>
+    <div class="rail-item"><svg viewBox="0 0 24 24"><path d="M14 7a4 4 0 0 1-5 5l-6 6 2 2 6-6a4 4 0 0 1 5-5z"/></svg>Bảo trì<br>máy móc</div>
+    <div class="rail-item"><svg viewBox="0 0 24 24"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 2 3h10a2 2 0 0 0 2-3l-5-9V3"/></svg>Quản lý<br>phòng lab</div>
+    <div class="rail-item"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Báo cáo<br>quản lý</div>
+  </nav>
+
+  <!-- Secondary menu -->
+  <aside class="submenu">
+    <h2>Thiết lập chung</h2>
+    <div class="mi">Danh mục tiền tệ</div>
+    <div class="mi">Quốc gia</div>
+    <div class="mi">Quy tắc sinh mã</div>
+    <div class="mi grp" data-grp="partner"><svg class="gi" viewBox="0 0 24 24"><rect x="3" y="4" width="8" height="6"/><rect x="13" y="4" width="8" height="6"/><rect x="3" y="14" width="18" height="6"/></svg>Đối tác kinh doanh<span class="chev">›</span></div>
+    <div class="mi grp open" data-grp="item"><svg class="gi" viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7"/><rect x="13" y="4" width="7" height="7"/><rect x="4" y="13" width="7" height="7"/><rect x="13" y="13" width="7" height="7"/></svg>Quản lý mặt hàng<span class="chev">›</span></div>
+    <div class="sub open" data-sub="item">
+      <div class="si active">Danh mục loại hàng</div>
+      <div class="si">Từ điển thuộc tính</div>
+      <div class="si">Nhóm hàng / Mẫu sản ...</div>
+      <div class="si">Danh mục mặt hàng / ...</div>
+      <div class="si">Đơn vị tính &amp; quy đổi đ...</div>
+      <div class="si">Tra cứu mặt hàng</div>
+    </div>
+    <div class="mi grp" data-grp="prod"><svg class="gi" viewBox="0 0 24 24"><path d="M4 8h4l2-3h4l2 3h4v11H4z"/></svg>Sản xuất<span class="chev">›</span></div>
+    <div class="mi grp" data-grp="bom"><svg class="gi" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="4"/><path d="M8 8v4h8V8M12 12v4"/></svg>Quản lý BOM<span class="chev">›</span></div>
+    <div class="mi grp" data-grp="qc"><svg class="gi" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-4 8-8 9-4-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg>Quản lý chất lượng<span class="chev">›</span></div>
+    <div class="mi grp" data-grp="imp"><svg class="gi" viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg>Nhập dữ liệu<span class="chev">›</span></div>
+  </aside>
+
+  <!-- Main content -->
+  <main class="content">
+    <div class="tabstrip">
+      <div class="tab">Danh mục loại hàng <span class="x">✕</span></div>
+    </div>
+    <div class="page-head"><h1>Danh mục loại hàng</h1></div>
+
+    <div class="cols">
+      <!-- Tree -->
+      <section class="card tree-card">
+        <div class="card-head">
+          <span class="t">Cây danh mục</span>
+          <div class="head-actions">
+            <button class="btn lime"><svg viewBox="0 0 24 24"><path d="M12 3v12M8 11l4 4 4-4"/><path d="M4 19h16"/></svg>Nhập Excel</button>
+            <button class="btn lime"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Thêm danh mục</button>
+          </div>
+          <span class="collapse-ico">⌃</span>
+        </div>
+        <div class="search">
+          <input type="text" placeholder="Tìm theo mã hoặc tên danh mục">
+        </div>
+        <div class="tree" id="tree"></div>
+      </section>
+
+      <!-- Detail -->
+      <section class="card detail-card">
+        <div class="card-head">
+          <span class="t">Chi tiết danh mục</span>
+          <span class="chip" id="d-chip">ROH1</span>
+          <div class="head-actions">
+            <button class="btn lime"><svg viewBox="0 0 24 24"><path d="M4 20h16"/><path d="M14 4l6 6-9 9H5v-6z"/></svg>Sửa</button>
+          </div>
+        </div>
+        <div class="detail-body">
+          <div class="grid">
+            <div class="field"><div class="lbl">Mã danh mục</div><div class="val" id="d-code">ROH1</div></div>
+            <div class="field"><div class="lbl">Tên danh mục</div><div class="val" id="d-name">Raw materials</div></div>
+            <div class="field"><div class="lbl">Danh mục cha</div><div class="val" id="d-parent">Không có danh mục cha (cấp cao nhất)</div></div>
+            <div class="field"><div class="lbl">Cấp phân cấp</div><div class="val" id="d-level">1</div></div>
+            <div class="field"><div class="lbl">Trạng thái</div><div class="val"><span class="status"><span class="dot"></span><span id="d-status">Hoạt động</span></span></div></div>
+            <div class="field full"><div class="lbl">Mô tả</div><div class="desc" id="d-desc">Raw materials requiring warehouse storage and issue to production orders.</div></div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>
+
+<script>
+// Data sample: SAP Material Types (MTyp) from the reference screen
+const DATA = [
+  ["IBAU","Maintenance assemblies","Maintenance assembly items used in equipment servicing and spare-part management."],
+  ["INTR","Intra materials","Intra materials used for internal movements within the plant."],
+  ["KMAT","Configurable materials","Configurable materials with variant configuration for made-to-order production."],
+  ["LEER","Empties","Empty containers and returnable load carriers tracked in the warehouse."],
+  ["LEIH","Returnable packaging","Returnable packaging managed with deposit and return cycles."],
+  ["LGUT","Empties (retail)","Retail empties handled through return and deposit processing."],
+  ["MACH","Machinery","Machinery and capital equipment managed as physical assets."],
+  ["MCFE","Mill Cable Finished Prdts","Finished cable products from mill production, ready for delivery."],
+  ["MCHA","Mill Cable Trading Goods","Mill cable trading goods purchased for resale."],
+  ["MCHF","MillCab. Semifinishd Prodt","Semi-finished mill cable products in intermediate production stages."],
+  ["MCRO","Mill Cable Raw Material","Raw materials consumed in mill cable manufacturing."],
+  ["MODE","Apparel (seasonal)","Seasonal apparel items managed with fashion and season attributes."],
+  ["MPO","Material Planning Object","Planning object used for demand and supply planning scenarios."],
+  ["MRM1","Mill Reel","Mill reels used as carriers in cable and wire production."],
+  ["MRM3","Mill Returnable Reel","Returnable mill reels tracked through return and reuse cycles."],
+  ["MRO1","Mill Reel Without t. Data","Mill reels maintained without technical master data."],
+  ["NLAG","Non-stock materials","Non-stock materials procured directly without inventory management."],
+  ["NOF1","Nonfoods","Non-food goods managed in general warehouse operations."],
+  ["PIPE","Pipeline materials","Pipeline materials supplied through a continuous feed without stock."],
+  ["PLAN","Trading goods (planned)","Planned trading goods included in procurement planning."],
+  ["PROC","Process materials","Process materials used in process-industry production."],
+  ["PROD","Product groups","Product groups used for aggregated planning and reporting."],
+  ["ROH","Raw materials","Raw materials procured externally and consumed in production."],
+  ["ROH1","Raw materials","Raw materials requiring warehouse storage and issue to production orders."],
+  ["ROH2","Raw Materials (Packaging)","Packaging raw materials used to pack and protect finished goods."],
+  ["SERV","Service Materials","Service materials representing externally procured services."],
+  ["UNBW","Nonvaluated materials","Nonvaluated materials managed by quantity without value tracking."],
+  ["VBRA","ETM consumption material","Consumption materials for equipment and tooling management."],
+  ["VEHI","Vehicle config.","Configurable vehicle materials used in vehicle management."],
+  ["VERP","Packaging","Packaging materials used for shipping and storage of goods."],
+  ["VKHM","Additionals","Additional items and in-store display materials for retail."],
+  ["VOLL","Full products","Full products (filled returnables) ready for sale and delivery."],
+  ["VVGR","Competitor Product","Competitor products tracked for market comparison."],
+  ["WERB","Product catalogs","Product catalog items used in retail assortment management."],
+  ["WERT","Value-only materials","Value-only materials managed at group level without quantity."],
+  ["WETT","Competitor products","Competitor products recorded for benchmarking and analysis."]
+];
+const DEFAULT = "ROH1";
+
+const tree = document.getElementById('tree');
+DATA.forEach(([code,name])=>{
+  const row = document.createElement('div');
+  row.className = 'row top' + (code===DEFAULT ? ' sel' : '');
+  row.dataset.code = code;
+  row.innerHTML = '<span class="tw leaf">›</span><span class="code">['+code+']</span><span class="nm">'+name+'</span>';
+  row.addEventListener('click', ()=>select(code, row));
+  tree.appendChild(row);
+});
+
+function select(code, row){
+  document.querySelectorAll('.row.top.sel').forEach(r=>r.classList.remove('sel'));
+  row.classList.add('sel');
+  const item = DATA.find(d=>d[0]===code);
+  document.getElementById('d-chip').textContent = code;
+  document.getElementById('d-code').textContent = code;
+  document.getElementById('d-name').textContent = item[1];
+  document.getElementById('d-parent').textContent = 'Không có danh mục cha (cấp cao nhất)';
+  document.getElementById('d-level').textContent = '1';
+  document.getElementById('d-desc').textContent = item[2];
+}
+
+// Submenu group toggle
+document.querySelectorAll('.mi.grp').forEach(g=>{
+  g.addEventListener('click', ()=>{
+    const key = g.dataset.grp;
+    const sub = document.querySelector('.sub[data-sub="'+key+'"]');
+    g.classList.toggle('open');
+    if(sub) sub.classList.toggle('open');
+  });
+});
+</script>
+</body>
+</html>

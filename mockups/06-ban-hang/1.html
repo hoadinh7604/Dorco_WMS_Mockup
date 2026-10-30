@@ -1,0 +1,1149 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DorcoWMS - Giao hàng (mockup To-be)</title>
+<style>
+
+/* DorcoWMS mockup shared theme */
+* { box-sizing: border-box; }
+body { margin: 0; font-family: "IBM Plex Sans", "Noto Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 14px; color: #0d121c; background: #f8fafc; }
+
+.app-shell { display: flex; min-height: 100vh; width: 100%; }
+
+/* Sidebar */
+:root{ --rail-bg:#10141b; --rail-ink:#aab2bf; --rail-pill:#232a22; --rail-active-bg:#b7e233; --rail-active-ink:#1c2e05; }
+/* ---------- nav zone (logo + rail + submenu, one dark block) ---------- */
+.navzone{width:274px;flex:none;background:var(--rail-bg);height:100vh;position:sticky;top:0;display:flex;flex-direction:column;overflow:hidden}
+.navlogo{background:#ffffff;margin:12px;padding:12px 14px;border-radius:12px;display:flex;align-items:center;justify-content:center;gap:9px;flex:none}
+.navlogo .mark{width:24px;height:24px;flex:none;display:flex;align-items:center;justify-content:center;color:#2563eb}
+.navlogo span{font-weight:800;font-size:17px;color:#1f2937;letter-spacing:-.01em}
+.navlogo span b{color:#2563eb}
+.navbody{display:flex;flex:1;min-height:0}
+.rail{width:64px;flex:none;display:flex;flex-direction:column;align-items:center;padding:6px 0 10px;gap:2px}
+.rail-item{width:56px;display:flex;flex-direction:column;align-items:center;gap:5px;padding:7px 2px 9px;border-radius:10px;cursor:pointer}
+.rail-item .ic{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;color:var(--rail-ink)}
+.rail-item .ic svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.rail-item span{font-size:9.5px;color:var(--rail-ink);text-align:center;line-height:1.2}
+.rail-item.active .ic{background:var(--rail-active-bg);color:var(--rail-active-ink)}
+.rail-item.active span{color:#fff;font-weight:600}
+.subnav{flex:1;padding:14px 10px}
+.subnav h2{font-size:13px;font-weight:700;margin:4px 6px 10px;color:#fff}
+.subnav a{display:block;padding:10px 14px;border-radius:10px;font-size:13px;color:var(--rail-ink);text-decoration:none;margin-bottom:6px;cursor:pointer;font-weight:600;background:var(--rail-pill)}
+.subnav a.active{background:var(--rail-active-bg);color:var(--rail-active-ink)}
+
+/* Main column */
+.main-col { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; }
+
+/* Topbar */
+.topbar { height: 56px; flex: 0 0 56px; background: #fff; border-bottom: 1px solid #ebf0f4; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; }
+.breadcrumb { font-size: 13px; color: #6b7280; }
+.breadcrumb b { color: #1f2937; }
+.topbar-right { display: flex; align-items: center; gap: 14px; }
+.avatar { width: 32px; height: 32px; border-radius: 50%; background: #d7dde7; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; color: #4b5563; }
+
+/* Content */
+.content { flex: 1 1 auto; padding: 20px 24px 40px; overflow-x: auto; background: #f8fafc; }
+.page-title-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; flex-wrap: wrap; gap: 12px; }
+.page-title { font-size: 20px; font-weight: 700; color: #0d121c; margin: 0; }
+
+/* Tabs */
+.tabs { display: flex; gap: 4px; border-bottom: 1px solid #ebf0f4; margin-bottom: 16px; }
+.tab { padding: 10px 18px; font-size: 14px; font-weight: 600; color: #67707f; border-bottom: 2px solid transparent; cursor: pointer; }
+.tab.active { color: #0d121c; font-weight: 700; border-bottom-color: #0d121c; }
+
+/* Card / filter bar */
+.card { background: #fff; border: 1px solid #ebf0f4; border-radius: 6px; }
+.filter-bar { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 12px; padding: 14px 16px; margin-bottom: 14px; }
+.field { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.filter-grid .field input, .filter-grid .field select { min-width: 0; width: 100%; }
+.field label { font-size: 12px; color: #6b7280; font-weight: 600; }
+.field select, .field input { height: 32px; border: 1px solid #e3e8ef; border-radius: 6px; padding: 0 10px; font-size: 14px; background: #fff; color: #0d121c; }
+.field label { color: #67707f; font-weight: 500; font-size: 13px; }
+.filter-spacer { flex: 1 1 auto; }
+
+/* Buttons */
+.btn { height: 32px; padding: 0 14px; border-radius: 6px; font-size: 14px; font-weight: 500; border: 1px solid transparent; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; font-family: inherit; }
+.btn-primary { background: #c8fb5b; color: #1c3102; }
+.btn-primary:hover { background: #bcf141; }
+.btn-secondary { background: #fff; color: #0d121c; border-color: #e3e8ef; }
+.btn-secondary:hover { background: #f8fafc; }
+.btn-success { background: #c8fb5b; color: #1c3102; }
+.btn-sm { height: 28px; padding: 0 10px; font-size: 13px; }
+.btn-link { background: transparent; color: #0d121c; border: none; padding: 0 6px; font-size: 13px; font-weight: 600; text-decoration: underline; }
+
+/* Table */
+.table-wrap { overflow-x: auto; }
+table.grid { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 920px; }
+table.grid th { background: #f8fafc; color: #0d121c; font-weight: 600; text-align: left; padding: 10px 10px; border-bottom: 1px solid #ebf0f4; white-space: nowrap; }
+table.grid td { padding: 9px 10px; border-bottom: 1px solid #ebf0f4; color: #0d121c; white-space: nowrap; }
+table.grid tr:hover td { background: #f8fafc; }
+table.grid th.new-col, table.grid td.new-col { background: #fff7e6; }
+table.grid th.new-col { color: #92610b; }
+
+.badge { display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 6px; font-size: 12px; font-weight: 500; border: 1px solid transparent; }
+.badge-new { background: #fde68a; color: #92400e; }
+.badge-wait { background: #fef3c7; color: #92400e; }
+.badge-done { background: #ecfdf3; color: #067647; border-color: #abefc6; }
+.badge-sync { background: #dbeafe; color: #1e40af; }
+
+.legend { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #92610b; background: #fff7e6; border: 1px solid #fde68a; border-radius: 8px; padding: 8px 12px; margin-bottom: 12px; }
+.legend .dot { width: 10px; height: 10px; border-radius: 3px; background: #fde68a; border: 1px solid #f3c74b; }
+
+.pagination { display: flex; align-items: center; justify-content: flex-end; gap: 6px; padding: 12px 16px; font-size: 12px; color: #6b7280; }
+.page-btn { width: 26px; height: 26px; border-radius: 6px; border: 1px solid #d5dae3; background: #fff; display: flex; align-items: center; justify-content: center; font-size: 12px; }
+.page-btn.active { background: #c8fb5b; color: #1c3102; border-color: #c8fb5b; }
+
+/* Real-UI page shell (list screens) */
+.wms-page { min-height: 100vh; background: #f3f5f8; }
+.wms-topbar { height: 48px; background: #fff; border-bottom: 1px solid #ebf0f4; display: flex; align-items: center; justify-content: space-between; padding: 0 16px; }
+.wms-tab-chip { font-size: 13px; color: #374151; background: #f3f5f8; border: 1px solid #e3e7ee; border-radius: 6px 6px 0 0; padding: 8px 14px; display: flex; align-items: center; gap: 10px; }
+.chip-x { color: #9ca3af; font-size: 12px; }
+.lang-select { font-size: 13px; color: #374151; }
+.icon-btn { width: 30px; height: 30px; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #4b5563; border: 1px solid #e3e7ee; background: #fff; font-size: 13px; }
+
+.stat-row { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; margin: 18px 0 20px; }
+.stat-card { background: #fff; border: 1px solid #ebf0f4; border-radius: 6px; padding: 16px; }
+.stat-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 14px; }
+.stat-label { font-size: 13px; color: #6b7280; }
+.stat-icon { width: 30px; height: 30px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+.icon-blue { background: #e6f4ff; color: #1677ff; }
+.icon-amber { background: #fef3c7; color: #b45309; }
+.icon-green { background: #ecfdf3; color: #067647; }
+.icon-teal { background: #ccfbf1; color: #0d9488; }
+.icon-purple { background: #ede9fe; color: #7c3aed; }
+.stat-value { font-size: 26px; font-weight: 700; color: #0d121c; }
+
+.filter-card { padding: 0; margin-bottom: 16px; }
+.filter-head { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-bottom: 1px solid #ebf0f4; }
+.filter-title { font-size: 14px; font-weight: 700; color: #0d121c; }
+.filter-head-actions { display: flex; align-items: center; gap: 10px; }
+.btn-find { background: #f8ffe5; color: #0d121c; border-color: #c8fb5b; }
+.chevron { color: #9ca3af; font-size: 13px; }
+.filter-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px 16px; padding: 16px; }
+
+.tab-count { display: inline-flex; align-items: center; justify-content: center; min-width: 20px; height: 20px; padding: 0 6px; border-radius: 999px; background: #eef1f5; color: #67707f; font-size: 12px; font-weight: 600; margin-left: 6px; }
+.tab-count.active { background: #c8fb5b; color: #1c3102; }
+
+.table-toolbar { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; }
+.result-count { font-size: 13px; color: #6b7280; }
+.col-checkbox { width: 36px; text-align: center; }
+.row-expand { color: #9ca3af; font-size: 13px; }
+.sort { color: #9ca3af; font-size: 11px; }
+.colmenu { color: #c3c9d3; font-size: 12px; margin-left: 2px; }
+.progress { width: 100px; height: 6px; border-radius: 999px; background: #e5e7eb; overflow: hidden; }
+.progress-fill { height: 100%; background: #12b76a; }
+.badge-submitted { background: #e6f4ff; color: #1677ff; border-color: #91caff; }
+.badge-saved { background: #f8fafc; color: #0d121c; border-color: #ebf0f4; }
+.badge-closed { background: #ecfdf3; color: #067647; border-color: #abefc6; }
+.badge-src-sap { background: #f4f3ff; color: #5925dc; border-color: #d9d6fe; }
+.badge-src-wms { background: #f8fafc; color: #67707f; border-color: #ebf0f4; }
+.chip-map { display: inline-flex; align-items: center; background: #f3f4f6; color: #6b7280; border: 1px solid #e5e7eb; border-radius: 6px; padding: 3px 10px; font-size: 12px; font-weight: 600; }
+
+.section-title { font-size: 14px; font-weight: 700; color: #0d121c; margin: 18px 0 10px; }
+.info-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px 16px; padding: 16px; }
+.info-grid .field { min-width: 0; }
+.modal-footer { display: flex; justify-content: flex-end; gap: 10px; padding: 14px 16px; border-top: 1px solid #e3e7ee; }
+
+/* single-file router */
+.view { display: none; }
+.view.active { display: block; }
+a.nav-link { cursor: pointer; color: #0d121c; font-weight: 500; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: #c3cad3; }
+a.nav-link:hover { text-decoration-color: #0d121c; }
+a.nav-link:hover { color: #000; }
+.btn-disabled { background: #f3f4f6; color: #9ca3af; border-color: #e5e7eb; cursor: not-allowed; }
+.empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 48px 20px; text-align: center; }
+.empty-state .empty-icon { width: 56px; height: 56px; border-radius: 50%; background: #eef1f5; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 14px; }
+.empty-state .empty-title { font-size: 14px; font-weight: 700; color: #374151; margin-bottom: 4px; }
+.empty-state .empty-sub { font-size: 12px; color: #9ca3af; margin-bottom: 16px; max-width: 360px; }
+.badge-sync-none { background:#f8fafc; color:#67707f; border-color:#ebf0f4; }
+.badge-sync-ok { background:#ecfdf3; color:#067647; border-color:#abefc6; }
+.badge-sync-err { background:#fef3f2; color:#b42318; border-color:#fecdca; }
+.badge-sync-run { background:#e6f4ff; color:#1677ff; border-color:#91caff; }
+.badge-sync-pending { background:#fffaeb; color:#b54708; border-color:#fedf89; }
+.badge-cancelled { background:#fffaeb; color:#b54708; border-color:#fedf89; }
+.badge-deleted { background:#fef3f2; color:#b42318; border-color:#fecdca; }
+.badge-src-so { background:#e0f2fe; color:#0369a1; border:1px solid #bae6fd; }
+.act-cell { cursor:pointer; user-select:none; }
+.act-cell:hover, .act-cell.open { background:#f1f5f9; border-radius:6px; }
+.act-cell.none { cursor:not-allowed; color:#cbd5e1; }
+.act-menu { position:absolute; z-index:60; min-width:184px; background:#fff; border:1px solid #e5e7eb; border-radius:10px; box-shadow:0 10px 28px rgba(15,23,42,.14); padding:6px; }
+.act-menu button { display:flex; align-items:center; gap:10px; width:100%; padding:8px 10px; border:0; background:none; border-radius:6px; font:inherit; font-size:13px; color:#111827; text-align:left; cursor:pointer; }
+.act-menu button:hover, .act-menu button:focus-visible { background:#f3f4f6; outline:none; }
+.act-menu button.danger { color:#b91c1c; }
+.act-menu button.warn { color:#92400e; }
+.act-menu button svg { width:15px; height:15px; flex:none; }
+.act-menu .act-hint { font-size:11px; color:#6b7280; padding:2px 10px 6px 35px; margin-top:-6px; }
+.act-menu hr { border:0; border-top:1px solid #eef0f4; margin:4px 2px; }
+
+.sync-err { font-size:11px; color:#b91c1c; margin-top:3px; white-space:normal; max-width:220px; }
+.spin { display:inline-block; animation:spin 1s linear infinite; margin-right:3px; }
+@keyframes spin { to { transform:rotate(360deg); } }
+.btn:disabled { opacity:.5; cursor:not-allowed; }
+#toast { position:fixed; top:18px; left:50%; transform:translateX(-50%); background:#111827; color:#fff; padding:10px 16px; border-radius:8px; font-size:13px; display:none; z-index:99; }
+.more-chip { display:inline-block; margin-left:4px; padding:0 6px; border-radius:10px; background:#eef2ff; color:#3730a3; font-size:11px; font-weight:600; cursor:help; }
+.new-mark { outline:2px dashed #f59e0b; outline-offset:2px; border-radius:6px; }
+
+/* ---- bổ sung cho màn Giao hàng ---- */
+.scan-box { display:flex; gap:10px; align-items:center; padding:14px 16px; background:#f8fafc; border:1px solid #e3e7ee; border-radius:10px; }
+.scan-box input { flex:1; height:40px; border:1px solid #d5dae3; border-radius:8px; padding:0 12px; font-size:15px; font-weight:600; }
+.sim-row { display:flex; flex-wrap:wrap; gap:7px; align-items:center; margin-top:10px; }
+.sim-row b { font-size:12px; color:#6b7280; font-weight:600; }
+.sim-btn { border:1px dashed #d5dae3; background:#fff; border-radius:999px; padding:4px 11px; font-size:12px; font-family:ui-monospace,Menlo,monospace; cursor:pointer; color:#374151; }
+.sim-btn:hover { border-style:solid; border-color:#2563eb; color:#2563eb; }
+.note { display:flex; gap:9px; align-items:flex-start; padding:10px 13px; border-radius:8px; font-size:13px; margin:12px 0; }
+.note-bad { background:#fee2e2; color:#991b1b; }
+.note-ok { background:#dcfce7; color:#166534; }
+.note-warn { background:#fef3c7; color:#92400e; }
+.tem-chip { display:inline-flex; align-items:center; gap:6px; background:#f3f4f6; border:1px solid #e5e7eb; border-radius:6px; padding:2px 4px 2px 8px; font-size:11.5px; font-family:ui-monospace,Menlo,monospace; margin:2px 3px 2px 0; }
+.tem-chip b { font-family:inherit; font-weight:700; }
+.tem-chip .tem-q { width:62px; border:1px solid #d7dde7; border-radius:5px; padding:1px 5px; font:600 11.5px ui-monospace,Menlo,monospace; color:#0d121c; text-align:right; background:#fff; }
+.tem-chip small { color:#67707f; font-size:10.5px; font-family:inherit; }
+.tem-chip button { border:0; background:none; cursor:pointer; color:#9ca3af; font-size:13px; line-height:1; padding:2px 4px; border-radius:4px; }
+.tem-chip button:hover { background:#e5e7eb; color:#b91c1c; }
+.scrim { position:fixed; inset:0; background:rgba(17,24,39,.45); display:none; align-items:center; justify-content:center; padding:20px; z-index:80; }
+.scrim.on { display:flex; }
+.modal-box { background:#fff; border-radius:12px; width:min(960px,100%); max-height:86vh; display:flex; flex-direction:column; box-shadow:0 24px 60px rgba(15,23,42,.3); position:relative; }
+.modal-head { padding:16px 18px 12px; border-bottom:1px solid #e3e7ee; }
+.modal-head h4 { margin:0; font-size:16px; color:#111827; }
+.modal-head p { margin:4px 0 0; font-size:12.5px; color:#6b7280; }
+.modal-body { padding:16px 18px; overflow:auto; }
+.modal-x { position:absolute; top:12px; right:14px; border:0; background:none; font-size:20px; color:#9ca3af; cursor:pointer; }
+.hint { font-size:12px; color:#6b7280; margin:10px 0 0; }
+.expbtn { width:18px; height:18px; margin-right:6px; border:1px solid #d5dae3; background:#fff; border-radius:4px; color:#6b7280; font-size:12px; line-height:1; cursor:pointer; padding:0; vertical-align:middle; }
+.expbtn:hover { border-color:#2563eb; color:#2563eb; }
+.expbtn-sp { display:inline-block; width:24px; }
+table.grid tr.subrow:hover td { background:#f8fafc; }
+.mono { font-family:ui-monospace,Menlo,monospace; font-size:12px; }
+table.grid td.blank { color:#cbd5e1; }
+.sub { font-size:11px; color:#9ca3af; }
+
+</style>
+</head>
+<body>
+<div id="view"></div>
+<div class="scrim" id="scrim"><div class="modal-box" id="modal"></div></div>
+<div id="toast"></div>
+<script>
+
+/* ======================= dữ liệu mẫu =======================
+   Lấy từ plan_of_release_2026.10.03.xlsx (sheet VINA) của khách hàng:
+   Delivery, 수주번호(SO), Inter SO, Sales Item, Ship-To, Planned GI,
+   Material, Material Description, Dlv.Qty, Unit, PO Detail, Check List.      */
+
+const CUST = { 'MERCADONA':'212462', 'DORCO EUROPE GMBH':'7300', '':'' };
+const WH_HY = '5000 - Kho TP Hưng Yên';
+const WH_NB = '5003 - Kho TP Ninh Bình';
+
+const DO_LIST = [
+  {id:'DO-SAP-81692474', src:'sap', sap:'81692474', st:'sub',    sync:'ok',  created:'02/01/2026 08:14', gi:'02/01/2026', so:'11662399', cust:'MERCADONA', wh:WH_HY, done:68},
+  {id:'DO-SAP-81692475', src:'sap', sap:'81692475', st:'sub',    sync:'chg', created:'03/01/2026 08:20', gi:'03/01/2026', so:'11662401', cust:'MERCADONA', wh:WH_HY, done:24, block:'GI-2601-00004, GI-2601-00009'},
+  {id:'DO-SAP-81692487', src:'sap', sap:'81692487', st:'closed', sync:'ok',  created:'03/01/2026 09:05', gi:'03/01/2026', so:'11662404', cust:'MERCADONA', wh:WH_NB, done:100},
+  {id:'DO-SAP-81698791', src:'sap', sap:'81698791', st:'sub',    sync:'ok',  created:'02/01/2026 10:41', gi:'02/01/2026', so:'11657575', cust:'DORCO EUROPE GMBH', wh:WH_NB, done:8},
+  {id:'DO-SAP-81698792', src:'sap', sap:'81698792', st:'sub',    sync:'ok',  created:'02/01/2026 10:41', gi:'02/01/2026', so:'11659877', cust:'DORCO EUROPE GMBH', wh:WH_NB, done:50},
+  {id:'DO-5000-2601-00001', src:'wms', sap:'', st:'sub',    sync:'', created:'05/01/2026 14:02', gi:'09/01/2026', so:'', cust:'MERCADONA', wh:WH_HY, done:0},
+  {id:'DO-5003-2601-00003', src:'wms', sap:'', st:'save',   sync:'', created:'06/01/2026 15:48', gi:'10/01/2026', so:'', cust:'DORCO EUROPE GMBH', wh:WH_NB, done:0},
+  {id:'DO-5000-2601-00002', src:'wms', sap:'', st:'closed', sync:'', created:'04/01/2026 09:30', gi:'06/01/2026', so:'11662404', cust:'MERCADONA', wh:WH_HY, done:100}
+];
+
+/* dòng lệnh giao hàng */
+const DO_LINES = [
+  {k:'L1', doId:'DO-SAP-81692474', item:'10', iso:'11664455', so:'11662399', gi:'02/01/2026', cust:'MERCADONA', wh:WH_HY, code:'1015472', name:'TNB200-10MP MERCADONA 10*20 (DELIPLUS)', uom:'EA', req:99000, done:67200, po:'DRC9'},
+  {k:'L2', doId:'DO-SAP-81692475', item:'10', iso:'11664456', so:'11662401', gi:'03/01/2026', cust:'MERCADONA', wh:WH_HY, code:'1015472', name:'TNB200-10MP MERCADONA 10*20 (DELIPLUS)', uom:'EA', req:6600,  done:0, po:'DRC10'},
+  {k:'L3', doId:'DO-SAP-81692475', item:'20', iso:'11662431', so:'11662402', gi:'03/01/2026', cust:'MERCADONA', wh:WH_HY, code:'1014360', name:'TRA700-4P MERCADONA 4*40', uom:'EA', req:141120, done:35280, po:'DRC10'},
+  /* cùng một DO nhưng khác khách hàng, khác kho: khách hàng và kho nằm trên dòng */
+  {k:'L10', doId:'DO-SAP-81692475', item:'30', iso:'11658420', so:'11657580', gi:'03/01/2026', cust:'DORCO EUROPE GMBH', wh:WH_NB, code:'1015423', name:'TRC110-8MP (M) (A) MTC-LIDL 8X12', uom:'EA', req:15960, done:0, po:'PO1250031'},
+  {k:'L4', doId:'DO-SAP-81692487', item:'10', iso:'11664458', so:'11662404', gi:'03/01/2026', cust:'MERCADONA', wh:WH_NB, code:'1014358', name:'TNC100-10MP MERCADONA 10*24', uom:'EA', req:90720, done:90720, po:'DRC12'},
+  {k:'L5', doId:'DO-SAP-81698791', item:'10', iso:'11658410', so:'11657575', gi:'02/01/2026', cust:'DORCO EUROPE GMBH', wh:WH_NB, code:'1015423', name:'TRC110-8MP (M) (A) MTC-LIDL 8X12', uom:'EA', req:95760, done:7980, po:'PO1250006'},
+  {k:'L6', doId:'DO-SAP-81698792', item:'10', iso:'11661257', so:'11659877', gi:'02/01/2026', cust:'DORCO EUROPE GMBH', wh:WH_NB, code:'1015421', name:'TNC210-10MP(M) MTC-ALDI 20', uom:'EA', req:62400, done:31200, po:'PO1250029'},
+  {k:'L7',  doId:'DO-5000-2601-00001', item:'10', iso:'', so:'', gi:'09/01/2026', cust:'MERCADONA', wh:WH_HY, code:'1014358', name:'TNC100-10MP MERCADONA 10*24', uom:'EA', req:11340, done:0, po:''},
+  {k:'L11', doId:'DO-5000-2601-00001', item:'20', iso:'', so:'', gi:'09/01/2026', cust:'MERCADONA', wh:WH_HY, code:'1015472', name:'TNB200-10MP MERCADONA 10*20 (DELIPLUS)', uom:'EA', req:16800, done:0, po:''},
+  {k:'L9', doId:'DO-5003-2601-00003', item:'10', iso:'', so:'', gi:'10/01/2026', cust:'DORCO EUROPE GMBH', wh:WH_NB, code:'1015421', name:'TNC210-10MP(M) MTC-ALDI 20', uom:'EA', req:15600, done:0, po:''},
+  {k:'L8', doId:'DO-5000-2601-00002', item:'10', iso:'', so:'11662404', gi:'06/01/2026', cust:'MERCADONA', wh:WH_HY, code:'1014358', name:'TNC100-10MP MERCADONA 10*24', uom:'EA', req:7560, done:7560, po:'DRC12'}
+];
+const linesOf  = id => DO_LINES.filter(l => l.doId === id);
+/* tem được gán vào dòng lệnh ngay lúc tạo lệnh tại WMS */
+const temGan   = l  => TEMS.filter(t => t.gan && t.gan.doId === l.doId && t.gan.item === l.item);
+const temGanFree = l => temGan(l).filter(t => t.avail > 0);
+const remainOf = l  => l.req - (l.done || 0);
+
+const SLIPS = [
+  {id:'GI-2601-00009', st:'sub',  sync:'none', out:'07/01/2026 09:12', by:'admin',    items:3, qty:'31380'},
+  {id:'GI-2601-00008', st:'appr', sync:'ok',   out:'06/01/2026 17:35', by:'admin',    items:3, qty:'100080'},
+  {id:'GI-2601-00007', st:'appr', sync:'err',  out:'06/01/2026 14:02', by:'admin',    items:2, qty:'24780'},
+  {id:'GI-2601-00006', st:'appr', sync:'ing',  out:'05/01/2026 16:40', by:'admin',    items:1, qty:'8400'},
+  {id:'GI-2601-00005', st:'sub',  sync:'none', out:'05/01/2026 10:18', by:'pda.5000', items:1, qty:'7980'},
+  {id:'GI-2601-00004', st:'save', sync:'none', out:'05/01/2026 08:30', by:'pda.5000', items:1, qty:'2520'},
+  {id:'GI-2601-00003', st:'appr', sync:'ok',   out:'03/01/2026 11:27', by:'admin',    items:1, qty:'90720'},
+  {id:'GI-2601-00002', st:'cxl',  sync:'ok',   out:'02/01/2026 16:36', by:'admin',    items:1, qty:'7560'}
+];
+
+/* dòng phiếu giao: mỗi tem một dòng, một vị trí */
+const SLIP_LINES = {
+  /* phiếu gom nhiều lệnh giao hàng: 3 DO · 2 khách hàng · 2 kho · 5 tem, dòng để phẳng không gộp nhóm */
+  'GI-2601-00008':[
+    {doId:'DO-SAP-81692474', cust:'MERCADONA', wh:WH_HY, bin:'A-01-04', tems:'c1', n:2, iso:'11664455', so:'11662399', item:'10', code:'1015472', name:'TNB200-10MP MERCADONA 10*20 (DELIPLUS)', uom:'EA', qty:33600, po:'DRC9'},
+    {doId:'DO-SAP-81692475', cust:'MERCADONA', wh:WH_HY, bin:'A-03-01', tems:'c2', n:1, iso:'11662431', so:'11662402', item:'20', code:'1014360', name:'TRA700-4P MERCADONA 4*40', uom:'EA', qty:35280, po:'DRC10'},
+    {doId:'DO-SAP-81698792', cust:'DORCO EUROPE GMBH', wh:WH_NB, bin:'C-04-01', tems:'c3', n:1, iso:'11661257', so:'11659877', item:'10', code:'1015421', name:'TNC210-10MP(M) MTC-ALDI 20', uom:'EA', qty:15600, po:'PO1250029'},
+    {doId:'DO-SAP-81698792', cust:'DORCO EUROPE GMBH', wh:WH_NB, bin:'C-04-02', tems:'c4', n:1, iso:'11661257', so:'11659877', item:'10', code:'1015421', name:'TNC210-10MP(M) MTC-ALDI 20', uom:'EA', qty:15600, po:'PO1250029'}],
+  /* phiếu gom 2 lệnh, trong đó có 1 lệnh tạo tại WMS; xuất lẻ nên SL dòng nhỏ hơn SL tem */
+  'GI-2601-00009':[
+    {doId:'DO-5000-2601-00001', cust:'MERCADONA', wh:WH_HY, bin:'A-06-02', tems:'c5', n:1, iso:'', so:'', item:'10', code:'1014358', name:'TNC100-10MP MERCADONA 10*24', uom:'EA', qty:3780, po:''},
+    {doId:'DO-SAP-81692474', cust:'MERCADONA', wh:WH_HY, bin:'A-01-07', tems:'c8', n:1, iso:'11664455', so:'11662399', item:'10', code:'1015472', name:'TNB200-10MP MERCADONA 10*20 (DELIPLUS)', uom:'EA', qty:16800, po:'DRC9'},
+    {doId:'DO-SAP-81692475', cust:'MERCADONA', wh:WH_HY, bin:'A-02-03', tems:'c6', n:1, iso:'11664456', so:'11662401', item:'10', code:'1015472', name:'TNB200-10MP MERCADONA 10*20 (DELIPLUS)', uom:'EA', qty:6600, po:'DRC10'},
+    {doId:'DO-SAP-81692475', cust:'MERCADONA', wh:WH_HY, bin:'A-03-02', tems:'c7', n:1, iso:'11662431', so:'11662402', item:'20', code:'1014360', name:'TRA700-4P MERCADONA 4*40', uom:'EA', qty:4200, po:'DRC10'}],
+  'GI-2601-00007':[
+    {doId:'DO-SAP-81692474', cust:'MERCADONA', wh:WH_HY, bin:'A-01-02', tems:'a1', n:1, iso:'11664455', so:'11662399', item:'10', code:'1015472', name:'TNB200-10MP MERCADONA 10*20 (DELIPLUS)', uom:'EA', qty:16800, po:'DRC9'},
+    {doId:'DO-SAP-81698791', cust:'DORCO EUROPE GMBH', wh:WH_NB, bin:'C-03-01', tems:'a2', n:1, iso:'11658410', so:'11657575', item:'10', code:'1015423', name:'TRC110-8MP (M) (A) MTC-LIDL 8X12', uom:'EA', qty:7980, po:'PO1250006'}],
+  'GI-2601-00006':[
+    {doId:'DO-SAP-81692474', cust:'MERCADONA', wh:WH_HY, bin:'A-01-06', tems:'b6', n:1, iso:'11664455', so:'11662399', item:'10', code:'1015472', name:'TNB200-10MP MERCADONA 10*20 (DELIPLUS)', uom:'EA', qty:8400, po:'DRC9'}],
+  'GI-2601-00005':[
+    {doId:'DO-SAP-81698791', cust:'DORCO EUROPE GMBH', wh:WH_NB, bin:'C-03-02', tems:'b5', n:1, iso:'11658410', so:'11657575', item:'10', code:'1015423', name:'TRC110-8MP (M) (A) MTC-LIDL 8X12', uom:'EA', qty:7980, po:'PO1250006'}],
+  'GI-2601-00004':[
+    {doId:'DO-SAP-81692475', cust:'MERCADONA', wh:WH_HY, bin:'A-02-01', tems:'b4', n:1, iso:'11664456', so:'11662401', item:'10', code:'1015472', name:'TNB200-10MP MERCADONA 10*20 (DELIPLUS)', uom:'EA', qty:2520, po:'DRC10'}],
+  'GI-2601-00003':[
+    {doId:'DO-SAP-81692487', cust:'MERCADONA', wh:WH_NB, bin:'B-01-01', tems:'b3', n:1, iso:'11664458', so:'11662404', item:'10', code:'1014358', name:'TNC100-10MP MERCADONA 10*24', uom:'EA', qty:90720, po:'DRC12'}],
+  'GI-2601-00002':[
+    {doId:'DO-5000-2601-00002', cust:'MERCADONA', wh:WH_HY, bin:'B-02-01', tems:'b2', n:1, iso:'', so:'11662404', item:'10', code:'1014358', name:'TNC100-10MP MERCADONA 10*24', uom:'EA', qty:7560, po:'DRC12'}]
+};
+const slipDOs   = id => [...new Set((SLIP_LINES[id]||[]).map(r=>r.doId))];
+/* SL phiếu đã xuất cho riêng một lệnh — bảng con "Phiếu giao hàng liên kết" */
+const slipQtyForDO = (sid, doId) => {
+  const rs = (SLIP_LINES[sid]||[]).filter(r=>r.doId===doId);
+  return new Set(rs.map(r=>r.uom)).size>1 ? '' : rs.reduce((t,r)=>t+r.qty,0);
+};
+const slipCusts = id => [...new Set((SLIP_LINES[id]||[]).map(r=>r.cust||'—'))];
+const slipWhs   = id => [...new Set((SLIP_LINES[id]||[]).map(r=>r.wh))];
+const slipSOs   = id => [...new Set((SLIP_LINES[id]||[]).map(r=>r.so).filter(Boolean))];
+
+const TEMS = [
+  {id:'FGL-260102-0011', code:'1015472', so:'11662399', uom:'EA', wh:WH_HY, bin:'A-01-04', avail:16800, rest:16800, flag:''},
+  {id:'FGL-260102-0012', code:'1015472', so:'11662399', uom:'EA', wh:WH_HY, bin:'A-01-05', avail:16800, rest:16800, flag:''},
+  {id:'FGL-260102-0013', code:'1015472', so:'11662399', uom:'EA', wh:WH_HY, bin:'A-01-06', avail:8400,  rest:8400,  flag:'', note:'đã xuất lẻ 8.400 bằng phiếu GI-2601-00006 (đã duyệt)'},
+  {id:'FGL-260102-0014', code:'1015472', so:'11662399', uom:'EA', wh:WH_HY, bin:'A-01-02', avail:0,     rest:0,     flag:'out',  note:'đã xuất hết bằng phiếu GI-2601-00007'},
+  {id:'FGL-260102-0016', code:'1015472', so:'11662399', uom:'EA', wh:WH_HY, bin:'A-01-07', avail:0,     rest:16800, flag:'held', note:'16.800 đang bị phiếu GI-2601-00009 giữ'},
+  {id:'FGL-260102-0017', code:'1015472', so:'11662401', uom:'EA', wh:WH_HY, bin:'A-02-03', avail:0,     rest:6600,  flag:'held', note:'6.600 đang bị phiếu GI-2601-00009 giữ'},
+  {id:'FGL-260103-0022', code:'1015472', so:'11662401', uom:'EA', wh:WH_HY, bin:'A-02-02', avail:6600,  rest:6600,  flag:''},
+  {id:'FGL-260103-0021', code:'1014360', so:'11662402', uom:'EA', wh:WH_HY, bin:'A-03-01', avail:35280, rest:35280, flag:''},
+  {id:'FGL-260103-0023', code:'1014360', so:'11662402', uom:'EA', wh:WH_HY, bin:'A-03-02', avail:31080, rest:35280, flag:'', note:'4.200 đang bị phiếu GI-2601-00009 giữ'},
+  {id:'FGL-260102-0031', code:'1015423', so:'11657575', uom:'EA', wh:WH_NB, bin:'C-03-03', avail:7980,  rest:7980,  flag:''},
+  {id:'FGL-260102-0032', code:'1015423', so:'11657580', uom:'EA', wh:WH_NB, bin:'C-03-04', avail:7980,  rest:7980,  flag:''},
+  {id:'FGL-260102-0041', code:'1015421', so:'11659877', uom:'EA', wh:WH_NB, bin:'C-04-01', avail:15600, rest:15600, flag:''},
+  {id:'FGL-260102-0042', code:'1015421', so:'11659877', uom:'EA', wh:WH_NB, bin:'C-04-02', avail:15600, rest:15600, flag:''},
+  {id:'FGL-251220-0007', code:'1015472', so:'11640012', uom:'EA', wh:WH_HY, bin:'A-05-01', avail:16800, rest:16800, flag:''},
+  /* tem gán sẵn vào dòng lúc tạo lệnh tại WMS: không mang Vina SO */
+  {id:'FGL-260105-0081', code:'1014358', so:'', uom:'EA', wh:WH_HY, bin:'A-06-01', avail:7560, rest:7560, flag:'', gan:{doId:'DO-5000-2601-00001', item:'10'}},
+  {id:'FGL-260105-0082', code:'1014358', so:'', uom:'EA', wh:WH_HY, bin:'A-06-02', avail:0,    rest:3780, flag:'held', gan:{doId:'DO-5000-2601-00001', item:'10'}, note:'3.780 đang bị phiếu GI-2601-00009 giữ'},
+  {id:'FGL-260105-0083', code:'1015472', so:'', uom:'EA', wh:WH_HY, bin:'A-02-04', avail:16800, rest:16800, flag:'', gan:{doId:'DO-5000-2601-00001', item:'20'}}
+];
+
+const SO_POOL = [
+  {k:'S1', iso:'11664460', so:'11662410', item:'10', code:'1015472', name:'TNB200-10MP MERCADONA 10*20 (DELIPLUS)', uom:'EA', qty:33000, po:'DRC14'},
+  {k:'S2', iso:'11664460', so:'11662410', item:'20', code:'1014360', name:'TRA700-4P MERCADONA 4*40', uom:'EA', qty:17640, po:'DRC14'},
+  {k:'S3', iso:'',         so:'11662412', item:'10', code:'1014358', name:'TNC100-10MP MERCADONA 10*24', uom:'EA', qty:7560, po:'DRC15'}
+];
+
+const ST = {save:['Đã lưu','badge-saved'], sub:['Đã trình','badge-submitted'], appr:['Đã duyệt','badge-done'],
+            closed:['Đã đóng','badge-closed'], cxl:['Đã hủy','badge-cancelled'], del:['Đã xoá','badge-deleted']};
+const SY = {ok:['Đã đồng bộ','badge-sync-ok'], chg:['Có thay đổi chưa nhận','badge-sync-pending'],
+            none:['Chưa đồng bộ','badge-sync-none'], ing:['Đang đồng bộ','badge-sync-run'], err:['Đồng bộ lỗi','badge-sync-err']};
+
+/* ======================= helpers ======================= */
+const $  = s => document.querySelector(s);
+const esc = s => String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const num = n => Number(n).toLocaleString('vi-VN');
+const bd  = k => { const [t,c]=ST[k]; return `<span class="badge ${c}">${t}</span>`; };
+const sy  = k => { if(!k) return ''; const [t,c]=SY[k]; return `<span class="badge ${c}">${t}</span>`; };
+const more = arr => !arr.length ? '' : arr.length===1 ? esc(arr[0])
+  : `${esc(arr[0])}<span class="more-chip" title="${esc(arr.join(' · '))}">+${arr.length-1}</span>`;
+
+let state = {screen:'list', tab:'do', arg:null, dotab:'main', cart:[], seeded:false, msg:null, nd:{cust:'',wh:'',rows:[]}, open:{}};
+
+function toast(t){ const el=$('#toast'); el.textContent=t; el.style.display='block'; clearTimeout(el._t); el._t=setTimeout(()=>el.style.display='none',2600); }
+function openModal(h){ $('#modal').innerHTML=h; $('#scrim').classList.add('on'); }
+function closeModal(){ $('#scrim').classList.remove('on'); }
+function go(screen, arg){
+  if(screen==='newdo') state.nd={cust:'',wh:'',rows:[]};
+  if(screen==='do') state.dotab='main';
+  if(screen==='build' && !arg){ state.cart=[]; state.seeded=true; }
+  state.screen=screen; state.arg=arg; state.msg=null; render(); scrollTo(0,0);
+}
+
+/* kebab */
+let menuEl=null;
+function killMenu(){ if(menuEl){ menuEl.remove(); menuEl=null; } document.querySelectorAll('.act-cell.open').forEach(e=>e.classList.remove('open')); }
+function showMenu(cell, items){
+  killMenu(); cell.classList.add('open');
+  const m=document.createElement('div'); m.className='act-menu';
+  m.innerHTML = items.map(i=> i==='-' ? '<hr>' :
+    `<button data-a="${i.a||''}" class="${i.cls||''}" ${i.off?'disabled':''}>${esc(i.t)}</button>`).join('');
+  document.body.appendChild(m);
+  const r=cell.getBoundingClientRect();
+  m.style.top = Math.min(r.bottom+4, innerHeight-m.offsetHeight-10)+'px';
+  m.style.left = Math.max(10, r.right-m.offsetWidth)+'px';
+  m.addEventListener('click', e=>{ const b=e.target.closest('button'); if(!b||b.disabled) return; killMenu(); act(b.dataset.a); });
+  menuEl=m;
+}
+document.addEventListener('click', e=>{ if(menuEl && !menuEl.contains(e.target) && !e.target.closest('.act-cell')) killMenu(); });
+document.addEventListener('keydown', e=>{ if(e.key==='Escape'){ killMenu(); closeModal(); } });
+
+function act(a){
+  if(!a) return;
+  const i=a.indexOf(':'), cmd=i<0?a:a.slice(0,i), arg=i<0?'':a.slice(i+1);
+  if(cmd==='openDO')   return go('do', arg);
+  if(cmd==='openSlip') return go('slip', arg);
+  if(cmd==='build'){ state.cart=[]; state.seeded=false; return go('build', arg); }
+  if(cmd==='resync')   return toast('Đã gửi lại kết quả sang SAP — phiếu chuyển Đang đồng bộ');
+  if(cmd==='cancel')   return cancelModal(arg);
+  if(cmd==='cxlok'){ closeModal(); return toast(`Đã hủy phiếu ${arg} — SL đã cộng lại về các tem của phiếu`); }
+  if(cmd==='amend')    return toast('Amend: chỉ sửa Ghi chú, remark dòng và xoá dòng');
+  toast('Thao tác mẫu: '+cmd);
+}
+
+/* ======================= shells ======================= */
+const SIDEBAR = `<div class="navzone">
+  <div class="navlogo">
+    <div class="mark"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
+    <span>Dorco<b>WMS</b></span>
+  </div>
+  <div class="navbody">
+    <nav class="rail">
+      <div class="rail-item"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div><span>Search<br>Menu</span></div>
+      <div class="rail-item"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></div><span>Thiết lập<br>chung</span></div>
+      <div class="rail-item"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></div><span>Bán hàng</span></div>
+      <div class="rail-item"><div class="ic"><svg viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></div><span>Mua hàng</span></div>
+      <div class="rail-item active"><div class="ic"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div><span>Quản lý<br>hàng hóa</span></div>
+      <div class="rail-item"><div class="ic"><svg viewBox="0 0 24 24"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div><span>Giao dịch<br>kho</span></div>
+      <div class="rail-item"><div class="ic"><svg viewBox="0 0 24 24"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg></div><span>Điều chỉnh<br>tồn kho</span></div>
+      <div class="rail-item"><div class="ic"><svg viewBox="0 0 24 24"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div><span>Cảnh báo<br>tồn kho</span></div>
+      <div class="rail-item"><div class="ic"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div><span>Báo cáo</span></div>
+      <div class="rail-item"><div class="ic"><svg viewBox="0 0 24 24"><path d="M20.59 13.41 13.42 20.58a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg></div><span>Phát hành<br>tem</span></div>
+    </nav>
+    <nav class="subnav">
+      <h2>Quản lý hàng hóa</h2>
+      <a>Nhập kho thành phẩm</a>
+      <a class="active">Giao hàng</a>
+      <a>Trả hàng</a>
+    </nav>
+  </div>
+</div>`;
+const shell = (crumb, body) => `<div class="app-shell">${SIDEBAR}<div class="main-col">
+  <div class="topbar"><div class="breadcrumb">Kho vận &nbsp;/&nbsp; Giao hàng &nbsp;/&nbsp; <b>${crumb}</b></div>
+  <div class="topbar-right"><div class="btn btn-secondary btn-sm">🔔</div><div class="avatar">AD</div></div></div>
+  <div class="content">${body}</div></div></div>`;
+const titleRow = (left,right='') => `<div class="page-title-row"><div style="display:flex;align-items:center;gap:10px;">${left}</div><div style="display:flex;gap:10px;">${right}</div></div>`;
+const back = `<span class="nav-link" data-go="list" style="font-size:18px;color:#6b7280;">←</span>`;
+
+/* ======================= màn 1: danh sách ======================= */
+function screenList(){
+  return `<div class="app-shell">${SIDEBAR}<div class="main-col">
+    <div class="wms-topbar">
+      <div class="wms-tab-chip">Giao hàng <span class="chip-x">×</span></div>
+      <div class="topbar-right">
+        <div class="icon-btn">🗎</div><div class="lang-select">🌐 Tiếng Việt ⌄</div>
+        <div class="avatar">A</div><span style="font-size:13px;color:#374151;font-weight:600;">admin</span>
+      </div>
+    </div>
+    <div class="content">
+      <h1 class="page-title">Giao hàng</h1>
+            <div class="stat-row">
+        ${stat('DO đã trình','5','icon-blue','🗎')}
+        ${stat('Phiếu chờ duyệt','2','icon-amber','🕐')}
+        ${stat('Phiếu đã duyệt','4','icon-green','✓')}
+        ${stat('DO hoàn tất','2','icon-teal','☑')}
+        ${stat('Đồng bộ SAP lỗi','1','icon-purple','⚠', true)}
+      </div>
+
+      <div class="card filter-card">
+        <div class="filter-head"><span class="filter-title">Bộ lọc</span>
+          <div class="filter-head-actions">
+            <button class="btn btn-secondary btn-sm">↻ Đặt lại</button>
+            <button class="btn btn-find btn-sm">🔍 Tìm kiếm</button><span class="chevron">⌃</span>
+          </div>
+        </div>
+        <div class="filter-grid">
+          ${fld('Số lệnh giao hàng','<input type="text" placeholder="🔍 Tìm số lệnh giao hàng">')}
+          ${fld('Số phiếu giao hàng','<input type="text" placeholder="🔍 Tìm số phiếu giao hàng">')}
+          ${fld('Số đơn bán hàng','<input type="text" placeholder="🔍 Tìm Inter SO / Vina SO">')}
+          ${fld('Hàng hóa','<input type="text" placeholder="🔍 Tìm mã hoặc tên hàng">')}
+          ${fld('Khách hàng', sel(['Tất cả','COSTCO WHOLESALE TAIWAN','Alpha Textile Co., Ltd.','CUST-00000001']))}
+          ${fld('Kho', sel(['Tất cả','K03 - Kho TP','5900 - Kho hàng trả lại','WCOD_03_FTW_FG - Dorco FGoods']))}
+          ${fld('Nguồn', sel(['Tất cả','Đồng bộ SAP','Tạo tại WMS']), true)}
+          ${fld('Số chứng từ SAP','<input type="text" placeholder="Outbound Delivery">', true)}
+          ${fld('Trạng thái lệnh giao hàng', sel(['Tất cả','Đã lưu','Đã trình','Đã đóng','Đã xoá']))}
+          ${fld('Trạng thái phiếu giao hàng', sel(['Tất cả','Đã lưu','Đã trình','Đã duyệt','Đã hủy','Đã xoá']))}
+          ${fld('Đồng bộ SAP của lệnh giao hàng', sel(['Tất cả','Đã đồng bộ','Có thay đổi chưa nhận']), true)}
+          ${fld('Đồng bộ SAP của phiếu giao hàng', sel(['Tất cả','Chưa đồng bộ','Đang đồng bộ','Đã đồng bộ','Đồng bộ lỗi']), true)}
+          ${fld('Ngày tạo','<div style="display:flex;gap:8px;min-width:0"><input type="text" value="01/01/2026" style="min-width:0;flex:1 1 0"><input type="text" value="31/01/2026" style="min-width:0;flex:1 1 0"></div>')}
+          ${fld('Ngày DO','<div style="display:flex;gap:8px;min-width:0"><input type="text" value="01/01/2026" style="min-width:0;flex:1 1 0"><input type="text" value="31/01/2026" style="min-width:0;flex:1 1 0"></div>')}
+        </div>
+      </div>
+
+      <div class="tabs">
+        <div class="tab ${state.tab==='do'?'active':''}" data-tab="do">Theo lệnh giao hàng <span class="tab-count ${state.tab==='do'?'active':''}">${DO_LIST.length}</span></div>
+        <div class="tab ${state.tab==='slip'?'active':''}" data-tab="slip">Theo phiếu <span class="tab-count ${state.tab==='slip'?'active':''}">${SLIPS.length}</span></div>
+      </div>
+
+      <div class="card">
+        <div class="table-toolbar">
+          <span class="result-count">${state.tab==='do'?DO_LIST.length:SLIPS.length} bản ghi được tìm thấy</span>
+          <div style="display:flex;gap:10px;">
+            <button class="btn btn-secondary btn-sm">⭳ Xuất</button>
+            ${state.tab==='do'
+              ? `<button class="btn btn-primary btn-sm" data-go="newdo">+ Thêm lệnh giao hàng</button>`
+              : `<button class="btn btn-primary btn-sm" data-go="build">+ Thêm phiếu giao hàng</button>`}
+          </div>
+        </div>
+        <div class="table-wrap">${state.tab==='do'?gridDO():gridSlip()}</div>
+        <div class="pagination"><span class="page-btn">‹</span><span class="page-btn active">1</span><span class="page-btn">›</span><span>20 / trang</span></div>
+      </div>
+    </div>
+  </div></div>`;
+}
+const stat = (l,v,ic,em,warn) => `<div class="stat-card">
+  <div class="stat-top"><span class="stat-label">${l}</span><span class="stat-icon ${ic}">${em}</span></div>
+  <div class="stat-value" ${warn?'style="color:#b91c1c"':''}>${v}</div></div>`;
+const fld = (l,c,isNew) => `<div class="field"><label>${l}</label>${c}</div>`;
+const sel = o => `<select>${o.map(x=>`<option>${x}</option>`).join('')}</select>`;
+
+function gridDO(){
+  return `<table class="grid" style="min-width:1500px"><thead><tr>
+    <th>Số DO</th><th>Trạng thái</th><th>Nguồn</th><th>Đồng bộ SAP</th><th>Ngày tạo</th><th>Vina SO</th>
+    <th>Khách hàng</th><th>Kho</th><th>Ngày DO</th><th>Tiến độ</th><th>Phiếu giao hàng</th><th style="width:40px"></th>
+  </tr></thead><tbody>
+  ${DO_LIST.map((d,i)=>{
+    const ss = SLIPS.filter(x=>slipDOs(x.id).includes(d.id));
+    const ok = ss.filter(x=>x.st==='appr').length;
+    const op = !!state.open[d.id];
+    return `<tr>
+    <td>${ss.length?`<button class="expbtn" data-exp="${esc(d.id)}">${op?'−':'+'}</button>`:'<span class="expbtn-sp"></span>'}<a class="nav-link" data-go="do" data-id="${esc(d.id)}">${esc(d.id)}</a></td>
+    <td>${bd(d.st)}</td>
+    <td><span class="badge ${d.src==='sap'?'badge-src-sap':'badge-src-wms'}">${d.src==='sap'?'Đồng bộ SAP':'Tạo tại WMS'}</span></td>
+    <td>${d.sync?(d.block?`<span title="Phiếu đang chặn: ${esc(d.block)}">${sy(d.sync)}</span>`:sy(d.sync)):''}</td>
+    <td>${d.created}</td><td>${esc(d.so)}</td><td>${more([...new Set((linesOf(d.id).length?linesOf(d.id):[d]).map(l=>l.cust))])}</td>
+    <td>${more([...new Set((linesOf(d.id).length?linesOf(d.id):[d]).map(l=>l.wh))])}</td><td>${d.gi}</td>
+    <td><div style="display:flex;align-items:center;gap:8px"><div class="progress"><div class="progress-fill" style="width:${d.done}%"></div></div>${d.done===100?'<span style="color:#16a34a">✓</span>':`<span style="font-size:11px;color:#6b7280">${d.done}%</span>`}</div></td>
+    <td>${ss.length?`<b>${ok}</b> Đã duyệt/${ss.length}`:'—'}</td>
+    <td class="act-cell" data-menu="do" data-i="${i}" style="text-align:center">⋮</td>
+  </tr>${op?subSlipRow(ss, d.id):''}`;}).join('')}
+  </tbody></table>`;
+}
+function subSlipRow(ss, doId){
+  return `<tr class="subrow"><td colspan="12" style="padding:0;background:#f8fafc">
+    <div style="padding:12px 16px 14px">
+      <div style="font-size:13px;font-weight:700;color:#111827;margin-bottom:8px">🗎 Phiếu giao hàng liên kết <span class="tab-count">${ss.length}</span></div>
+      <div style="background:#fff;border:1px solid #e3e7ee;border-radius:8px;overflow:hidden">
+      <table class="grid" style="min-width:0"><thead><tr>
+        <th style="width:52px">STT</th><th>Số phiếu giao hàng</th><th>Trạng thái</th><th>Đồng bộ SAP</th>
+        <th>Ngày tạo</th><th>SL đã xuất</th><th>Người tạo</th><th style="width:40px">Thao tác</th>
+      </tr></thead><tbody>
+      ${ss.map((x,i)=>`<tr>
+        <td>${i+1}</td>
+        <td><a class="nav-link" data-go="slip" data-id="${esc(x.id)}">${esc(x.id)}</a></td>
+        <td>${bd(x.st)}</td><td>${sy(x.sync)}</td><td>${x.out}</td>
+        <td>${(q=>q?num(q):'nhiều ĐVT')(slipQtyForDO(x.id, doId))}</td><td>${x.by}</td>
+        <td class="act-cell" data-menu="slip" data-i="${SLIPS.indexOf(x)}" style="text-align:center">⋮</td>
+      </tr>`).join('')}
+      </tbody></table></div>
+    </div></td></tr>`;
+}
+function gridSlip(){
+  return `<table class="grid" style="min-width:1500px"><thead><tr>
+    <th>Số phiếu giao hàng</th><th>Trạng thái</th><th>Đồng bộ SAP</th><th>Ngày xuất</th>
+    <th>Vina SO</th><th>Khách hàng</th><th>Số lượng mặt hàng</th><th>Kho</th><th>SL đã giao</th><th>Người tạo</th>
+    <th style="width:40px"></th>
+  </tr></thead><tbody>
+  ${SLIPS.map((s,i)=>{
+    const ds = slipDOs(s.id), op = !!state.open[s.id];
+    return `<tr>
+    <td>${ds.length?`<button class="expbtn" data-exp="${esc(s.id)}">${op?'−':'+'}</button>`:'<span class="expbtn-sp"></span>'}<a class="nav-link" data-go="slip" data-id="${esc(s.id)}">${esc(s.id)}</a></td>
+    <td>${bd(s.st)}</td><td>${sy(s.sync)}</td><td>${s.out}</td>
+    <td>${more(slipSOs(s.id))}</td><td>${more(slipCusts(s.id))}</td><td>${s.items}</td><td>${more(slipWhs(s.id))}</td>
+    <td>${s.qty?num(s.qty):`<span title="Phiếu có nhiều ĐVT nên không cộng tổng" style="color:#9ca3af">nhiều ĐVT</span>`}</td>
+    <td>${s.by}</td>
+    <td class="act-cell" data-menu="slip" data-i="${i}" style="text-align:center">⋮</td>
+  </tr>${op?subDORow(ds, s.id):''}`;}).join('')}
+  </tbody></table>`;
+}
+
+/* bảng con của tab Theo phiếu: các lệnh giao hàng mà phiếu này lấy hàng */
+function subDORow(ds, slipId){
+  const rows = ds.map(id => DO_LIST.find(x=>x.id===id)).filter(Boolean);
+  return `<tr class="subrow"><td colspan="11" style="padding:0;background:#f8fafc">
+    <div style="padding:12px 16px 14px">
+      <div style="font-size:13px;font-weight:700;color:#111827;margin-bottom:8px">🗎 Lệnh giao hàng liên kết <span class="tab-count">${rows.length}</span></div>
+      <div style="background:#fff;border:1px solid #e3e7ee;border-radius:8px;overflow:hidden">
+      <table class="grid" style="min-width:0"><thead><tr>
+        <th style="width:52px">STT</th><th>Số DO</th><th>Trạng thái</th><th>Nguồn</th><th>Đồng bộ SAP</th>
+        <th>Khách hàng</th><th>Kho</th><th>Ngày DO</th><th>SL lấy cho phiếu này</th><th style="width:40px">Thao tác</th>
+      </tr></thead><tbody>
+      ${rows.map((d,i)=>`<tr>
+        <td>${i+1}</td>
+        <td><a class="nav-link" data-go="do" data-id="${esc(d.id)}">${esc(d.id)}</a></td>
+        <td>${bd(d.st)}</td>
+        <td><span class="badge ${d.src==='sap'?'badge-src-sap':'badge-src-wms'}">${d.src==='sap'?'Đồng bộ SAP':'Tạo tại WMS'}</span></td>
+        <td>${d.sync?sy(d.sync):''}</td>
+        <td>${esc(d.cust)}</td><td>${esc(d.wh)}</td><td>${d.gi}</td>
+        <td>${(q=>q?num(q):'nhiều ĐVT')(slipQtyForDO(slipId, d.id))}</td>
+        <td class="act-cell" data-menu="do" data-i="${DO_LIST.indexOf(d)}" style="text-align:center">⋮</td>
+      </tr>`).join('')}
+      </tbody></table></div>
+    </div></td></tr>`;
+}
+/* GH2: xét trạng thái trước, rồi mới xét nguồn.
+   Đã đóng và Đã xoá chỉ còn Xem · In DO — không tạo phiếu từ DO nữa. */
+function menuDO(d){
+  const see={t:'Xem', a:'openDO:'+d.id};
+  if(d.st==='closed'||d.st==='del') return [see,{t:'In DO'}];
+  if(d.st==='save') return d.src==='sap' ? [see,{t:'In DO'}] : [see,{t:'Sửa'},{t:'Trình'},{t:'In DO'}];
+  if(d.st==='sub')  return [see,{t:'Tạo phiếu từ DO này',a:'build:'+d.id},{t:'In DO'}];
+  return [see,{t:'In DO'}];
+}
+function menuSlip(s){
+  const see={t:'Xem', a:'openSlip:'+s.id};
+  if(s.st==='save') return [see,{t:'Sửa'},{t:'Trình'},'-',{t:'Xoá',cls:'danger'}];
+  if(s.st==='sub')  return [see,{t:'Sửa (Amend)',a:'amend'},{t:'Phê duyệt'}];
+  if(s.st==='appr'){
+    const m=[see];
+    /* điểm 7: Đồng bộ lại SAP chỉ bật khi Chưa đồng bộ hoặc Đồng bộ lỗi */
+    if(s.sync==='none'||s.sync==='err') m.push({t:'Đồng bộ lại SAP',a:'resync',cls:'warn'});
+    /* GH12: phiếu Đang đồng bộ thì ẩn hẳn Hủy phiếu, không để mờ */
+    if(s.sync!=='ing'){ m.push('-'); m.push({t:'Hủy phiếu',a:'cancel:'+s.id,cls:'danger'}); }
+    return m;
+  }
+  return [see,{t:'Sửa'}];
+}
+
+/* ======================= màn 2: chi tiết lệnh giao hàng ======================= */
+function doButtons(d){
+  const sap = d.src==='sap', edit = !sap ? '<button class="btn btn-secondary">Sửa</button>' : '';
+  const print = '<button class="btn btn-secondary" title="In DO">🖶</button>';
+  const del = '<button class="btn btn-secondary" style="color:#b91c1c;border-color:#fca5a5">Xóa</button>';
+  if(d.st==='save')   return print + del + edit + '<button class="btn btn-primary">Trình</button>';
+  if(d.st==='sub')    return edit + print + `<button class="btn btn-primary" data-act="build:${esc(d.id)}">Thêm phiếu</button>`;
+  return print;   /* Đã đóng, Đã xoá: chỉ In DO, như As-is */
+}
+function screenDO(){
+  const d = DO_LIST.find(x=>x.id===state.arg) || DO_LIST[0];
+  const sap = d.src==='sap', lines = linesOf(d.id), slips = SLIPS.filter(s=>slipDOs(s.id).includes(d.id));
+  const t = state.dotab;
+  const body = `
+  ${titleRow(`${back}<h1 class="page-title" style="margin:0;">Số DO ${esc(d.id)}</h1>${bd(d.st)}
+    <span class="badge ${sap?'badge-src-sap':'badge-src-wms'}">${sap?'Đồng bộ SAP':'Tạo tại WMS'}</span>`,
+ doButtons(d))}
+    <div class="tabs">
+    <div class="tab ${t==='main'?'active':''}" data-dotab="main">Lệnh giao hàng</div>
+    <div class="tab ${t==='slip'?'active':''}" data-dotab="slip">Phiếu giao hàng <span class="tab-count ${t==='slip'?'active':''}">${slips.length}</span></div>
+  </div>
+  ${t==='main' ? `
+  <div class="card" style="margin-bottom:16px;">
+    <div class="section-title" style="padding:14px 16px 0;">Thông tin lệnh giao hàng</div>
+    <div class="info-grid">
+      ${ro('Số lệnh giao hàng', d.id)}
+      ${ro('Nguồn', sap?'Đồng bộ SAP':'Tạo tại WMS', true)}
+      ${ro('Số Outbound Delivery', d.sap||'', true)}
+      ${ro('Ngày tạo', d.created)}
+      ${ro('Ngày DO', d.gi)}
+      ${ro('Người phụ trách', 'Super Administrator')}
+      ${ro('Độ ưu tiên', 'Thường')}
+      ${ro('Trạng thái đồng bộ SAP', '', true, sy(d.sync))}
+      ${ro('Ghi chú', '')}
+    </div>
+  </div>
+  <div class="card">
+    <div class="section-title" style="padding:14px 16px 0;">Danh sách hàng</div>
+    <div class="table-wrap"><table class="grid" style="min-width:2100px"><thead><tr>
+      <th>STT</th><th>Mã vạch/QR</th>
+      <th>Inter SO</th><th>Vina SO</th><th>Item</th>
+      <th>Mã hàng</th><th>Tên hàng</th>
+      <th>Khách hàng</th><th>Kho</th><th>Ngày DO</th>
+      <th>Model</th><th>Màu</th><th>Kích cỡ</th>
+      <th>ĐVT</th><th>SL yêu cầu</th><th>Đã giao</th><th>Còn lại</th>
+      <th>Phẩm cấp</th><th>Số lô</th><th>Số PO khách hàng</th><th>Số giao hàng</th><th>Đơn giá</th>
+    </tr></thead><tbody>
+    ${lines.map((l,i)=>`<tr>
+      <td>${i+1}</td>
+      <td>${sap?'':`<span class="chip-map" data-tems="gan:${esc(l.k)}">${temGan(l).length} đã gắn</span>`}</td>
+      <td>${esc(l.iso)}</td><td>${esc(l.so)}</td><td>${l.item}</td>
+      <td>${l.code}</td><td>${l.name}</td>
+      <td>${esc(l.cust)}</td><td>${esc(l.wh)}</td><td>${l.gi}</td>
+      <td>${esc(l.model||'')}</td><td>${esc(l.color||'')}</td><td>${esc(l.size||'')}</td>
+      <td>${l.uom}</td><td>${num(l.req)}</td><td>${num(l.done||0)}</td><td>${num(remainOf(l))}</td>
+      <td></td><td></td><td></td><td></td><td>${l.price?num(l.price):''}</td>
+    </tr>`).join('')}
+    </tbody></table></div>
+  </div>` : `
+  <div class="card">
+    <div class="section-title" style="padding:14px 16px 0;">Phiếu giao hàng liên kết <span class="tab-count">${slips.length}</span></div>
+    <div class="table-wrap"><table class="grid" style="min-width:900px"><thead><tr>
+    <th style="width:52px">STT</th><th>Số phiếu giao hàng</th><th>Trạng thái</th><th>Đồng bộ SAP</th>
+    <th>Ngày tạo</th><th>SL đã xuất</th><th>Người tạo</th><th style="width:70px">Thao tác</th>
+  </tr></thead><tbody>
+  ${slips.length?slips.map((x,i)=>`<tr>
+    <td>${i+1}</td>
+    <td><a class="nav-link" data-go="slip" data-id="${esc(x.id)}">${esc(x.id)}</a></td>
+    <td>${bd(x.st)}</td><td>${sy(x.sync)}</td><td>${x.out}</td>
+    <td>${(q=>q?num(q):'nhiều ĐVT')(slipQtyForDO(x.id, d.id))}</td><td>${x.by}</td>
+    <td class="act-cell" data-menu="slip" data-i="${SLIPS.indexOf(x)}" style="text-align:center">⋮</td></tr>`).join('')
+   :'<tr><td colspan="8" style="padding:30px;text-align:center;color:#9ca3af">Lệnh này chưa có phiếu giao hàng nào</td></tr>'}
+  </tbody></table></div></div>`}`;
+  return shell(`Chi tiết lệnh giao hàng ${esc(d.id)}`, body);
+}
+const ro = (label, val, _ignore, html) => `<div class="field"><label>${label}</label>${
+  html!==undefined ? `<div style="height:34px;display:flex;align-items:center">${html}</div>`
+                   : `<input type="text" value="${esc(val)}" readonly>`}</div>`;
+
+/* ======================= màn 3: thêm lệnh giao hàng ======================= */
+function screenNewDO(){
+  const nd = state.nd, ready = nd.cust && nd.wh;
+  const body = `
+  ${titleRow(`${back}<h1 class="page-title" style="margin:0;">Thêm lệnh giao hàng</h1><span class="badge badge-saved">Chưa lưu</span>`,
+    `<button class="btn btn-secondary" data-act="ndsave">Lưu</button><button class="btn btn-primary" data-act="ndsubmit">✓ Trình</button>`)}
+  <div class="card" style="margin-bottom:16px;">
+    <div class="section-title" style="padding:14px 16px 0;">Thông tin lệnh giao hàng</div>
+    <div class="info-grid">
+      <div class="field"><label>Số lệnh giao hàng</label><input type="text" value="Tự động tạo" readonly></div>
+      <div class="field"><label>Ngày tạo *</label><input type="text" value="28/10/2026 17:10"></div>
+      <div class="field"><label>Khách hàng *</label><select data-nd="cust"><option value="">Chọn khách hàng</option>
+        ${['COSTCO WHOLESALE TAIWAN','Alpha Textile Co., Ltd.','CUST-00000001'].map(c=>`<option ${nd.cust===c?'selected':''}>${c}</option>`).join('')}</select></div>
+      <div class="field"><label>Kho *</label><select data-nd="wh"><option value="">Chọn kho</option>
+        ${['K03 - Kho TP','5900 - Kho hàng trả lại','WCOD_03_FTW_FG - Dorco FGoods'].map(c=>`<option ${nd.wh===c?'selected':''}>${c}</option>`).join('')}</select></div>
+      <div class="field"><label>Ngày DO *</label><input type="text" placeholder="Chọn thời điểm"></div>
+      <div class="field"><label>Người phụ trách *</label><input type="text" value="Super Administrator" readonly></div>
+      <div class="field"><label>Độ ưu tiên</label><select><option>Thường</option><option>Cao</option></select></div>
+      <div class="field"><label>Incoterms</label><select><option>Chọn Incoterms</option><option>FOB</option><option>CIF</option></select></div>
+      <div class="field" style="grid-column:span 2"><label>Ghi chú nội bộ</label><input type="text" placeholder="Nhập ghi chú nội bộ"></div>
+    </div>
+    <p class="hint" style="padding:0 16px 14px">Khách hàng và Kho của hàng hóa nằm trên từng dòng ở Danh sách hàng, không phải ở header — một lệnh giao hàng mang được nhiều khách hàng, nhiều kho. Hai ô Khách hàng và Kho phía trên chỉ là bộ lọc để thêm hàng, giữ nguyên As-is của luồng tạo tại WMS. Tài xế, Nhà xe và Địa chỉ giao hàng ẩn trên UI.</p>
+  </div>
+  <div class="card">
+    <div class="table-toolbar">
+      <span class="section-title" style="margin:0">Danh sách hàng</span>
+      <div style="display:flex;gap:10px;">
+        <button class="btn btn-secondary btn-sm ${ready?'':'btn-disabled'}" ${ready?'':'disabled'} data-act="ndstock">+ Thêm từ tồn kho</button>
+        <button class="btn btn-secondary btn-sm ${ready?'':'btn-disabled'}" ${ready?'':'disabled'} data-act="ndso">+ Thêm từ SO / Kế hoạch giao</button>
+      </div>
+    </div>
+    ${nd.rows.length ? `<div class="table-wrap"><table class="grid" style="min-width:1200px"><thead><tr>
+      <th>STT</th><th>Inter SO</th><th>Vina SO</th><th>Item</th>
+      <th>Mã hàng</th><th>Tên hàng</th><th>ĐVT</th><th>SL yêu cầu</th>
+      <th>Phẩm cấp</th><th>Số lô</th><th>Số PO khách hàng</th><th style="width:70px"></th>
+    </tr></thead><tbody>
+    ${nd.rows.map((r,i)=>`<tr>
+      <td>${i+1}</td><td>${esc(r.iso)}</td><td>${r.so}</td><td>${r.item}</td>
+      <td>${r.code}</td><td>${r.name}</td><td>${r.uom}</td><td>${num(r.qty)}</td>
+      <td></td><td></td><td></td>
+      <td style="text-align:right"><button class="btn btn-link" data-ndrm="${r.k}">Xoá</button></td>
+    </tr>`).join('')}
+    </tbody></table></div>` : `
+    <div class="empty-state"><div class="empty-icon">📦</div>
+      <div class="empty-title">Chưa thêm hàng hóa</div>
+      <div class="empty-sub">${ready?'Thêm hàng từ tồn kho hoặc từ SO / kế hoạch giao hàng.':'Chọn khách hàng và kho trước để thêm hàng từ tồn kho hoặc từ SO / kế hoạch giao hàng.'}</div>
+      <button class="btn btn-secondary ${ready?'':'btn-disabled'}" ${ready?'':'disabled'} data-act="ndso">+ Thêm từ SO / Kế hoạch giao</button>
+    </div>`}
+  </div>`;
+  return shell('Thêm lệnh giao hàng', body);
+}
+function ndPicker(){
+  openModal(`<button class="modal-x" data-close>×</button>
+    <div class="modal-head"><h4>Thêm từ SO / Kế hoạch giao</h4><p>${esc(state.nd.cust)} · ${esc(state.nd.wh)}</p></div>
+    <div class="modal-body">
+      <div class="table-wrap"><table class="grid" style="min-width:760px"><thead><tr>
+        <th style="width:36px"></th><th>Inter SO</th><th>Vina SO</th><th>Item</th>
+        <th>Mã hàng</th><th>Tên hàng</th><th>ĐVT</th><th>SL còn giao</th></tr></thead><tbody>
+      ${SO_POOL.map(r=>`<tr><td style="text-align:center"><input type="checkbox" data-ndpick="${r.k}" ${state.nd.rows.some(x=>x.k===r.k)?'checked':''}></td>
+        <td>${esc(r.iso)}</td><td>${r.so}</td><td>${r.item}</td>
+        <td>${r.code}</td><td>${r.name}</td><td>${r.uom}</td><td>${num(r.qty)}</td></tr>`).join('')}
+      </tbody></table></div>
+      <p class="hint">Số lô và Phẩm cấp không bắt buộc (điểm chốt #32).</p>
+    </div>
+    <div class="modal-footer"><button class="btn btn-secondary" data-close>Đóng</button>
+      <button class="btn btn-primary" data-act="ndadd">Thêm vào lệnh</button></div>`);
+}
+
+/* ======================= màn 4: lập phiếu giao hàng ======================= */
+function screenBuild(){
+  if(state.arg && !state.seeded){ state.seeded=true;
+    linesOf(state.arg).forEach(l=>{ if(remainOf(l)>0) state.cart.push({...l, need:remainOf(l), tems:[]}); }); }
+  const picked = state.cart;
+  const pool = DO_LINES.filter(l => (DO_LIST.find(d=>d.id===l.doId)||{}).st==='sub' && remainOf(l)>0);
+  const body = `
+  ${titleRow(`${back}<h1 class="page-title" style="margin:0;">Lập phiếu giao hàng</h1><span class="badge badge-saved">Chưa lưu</span>`,
+    `<button class="btn btn-secondary">Lưu</button><button class="btn btn-primary" data-act="bsubmit">✓ Trình</button>`)}
+    <div class="card" style="margin-bottom:16px;">
+    <div class="section-title" style="padding:14px 16px 0;">Thông tin phiếu giao hàng</div>
+    <div class="info-grid">
+      ${ro('Số phiếu giao hàng','Tự động tạo · GI-2610-xxxxx', true)}
+      ${ro('Ngày lập','28/10/2026 17:10')}
+      ${ro('Người phụ trách','Super Administrator')}
+      <div class="field"><label>Ca làm việc</label><select><option>Ca 1 (06:00-14:00)</option><option>Ca 2 (14:00-22:00)</option></select></div>
+      <div class="field" style="grid-column:span 2"><label>Ghi chú</label><input type="text" placeholder="Nhập ghi chú"></div>
+    </div>
+    <p class="hint" style="padding:0 16px 14px">Phiếu không có Khách hàng, Kho, Tài xế, Nhà xe và Địa chỉ giao hàng ở header — kho và khách hàng nằm trên từng dòng.</p>
+  </div>
+
+  <div class="card" style="margin-bottom:16px;">
+    <div class="table-toolbar"><span class="section-title" style="margin:0">1 · Chọn dòng lệnh giao hàng</span>
+      <span class="result-count">Gom được nhiều DO, nhiều kho, nhiều khách hàng · đã chọn <b>${picked.length}</b> dòng</span></div>
+    <div class="table-wrap"><table class="grid" style="min-width:1440px"><thead><tr>
+      <th style="width:36px"></th><th>Số DO</th><th>Nguồn</th>
+      <th>Inter SO</th><th>Vina SO</th><th>Item</th>
+      <th>Mã hàng</th><th>Tên hàng</th><th>Khách hàng</th><th>Kho</th><th>ĐVT</th><th>SL còn cần giao</th><th>Tem gán sẵn</th>
+    </tr></thead><tbody>
+    ${pool.map(l=>{ const d=DO_LIST.find(x=>x.id===l.doId)||{}; return `<tr>
+      <td style="text-align:center"><input type="checkbox" data-pick="${l.k}" ${picked.some(p=>p.k===l.k)?'checked':''}></td>
+      <td>${esc(l.doId)}</td>
+      <td><span class="badge ${d.src==='sap'?'badge-src-sap':'badge-src-wms'}">${d.src==='sap'?'Đồng bộ SAP':'Tạo tại WMS'}</span></td>
+      <td>${esc(l.iso)}</td><td>${esc(l.so)}</td><td>${l.item}</td>
+      <td>${l.code}</td><td>${l.name}</td><td>${esc(l.cust)}</td><td>${esc(l.wh)}</td><td>${l.uom}</td><td>${num(remainOf(l))}</td>
+      <td>${temGan(l).length ? `<span class="badge badge-src-sap">${temGanFree(l).length}/${temGan(l).length} tem</span>` : '<span class="muted">—</span>'}</td>
+    </tr>`;}).join('')}
+    </tbody></table></div>
+  </div>
+
+  <div class="card">
+    <div class="section-title" style="padding:14px 16px 10px;">2 · Gán tem</div>
+    <div style="padding:0 16px 16px">
+    ${picked.length===0 ? `<p class="hint" style="margin:0 0 6px">Chọn ít nhất một dòng ở bước 1 rồi quét tem.</p>` : `
+      <div class="scan-box">
+        <input id="scan" placeholder="Quét hoặc nhập số tem rồi Enter…" autocomplete="off">
+        <button class="btn btn-primary" data-act="scan">Gán tem</button>
+      </div>
+      <div class="sim-row"><b>Mô phỏng quét:</b>${TEMS.map(t=>`<button class="sim-btn" data-tem="${t.id}">${t.id}</button>`).join('')}</div>
+      ${state.msg?`<div class="note note-${state.msg.k}">${state.msg.k==='bad'?'⛔':state.msg.k==='ok'?'✓':'⚠'}<div>${state.msg.t}</div></div>`:''}
+      <div class="table-wrap" style="border:1px solid #e3e7ee;border-radius:8px;margin-top:12px">
+      <table class="grid" style="min-width:1200px"><thead><tr>
+        <th>STT</th><th>Số DO</th><th>Inter SO</th><th>Vina SO</th><th>Item</th>
+        <th>Mã hàng</th><th>Khách hàng</th><th>Kho</th><th>ĐVT</th><th>Còn cần giao</th><th>Đã gán</th><th>Tem đã gắn</th>
+      </tr></thead><tbody>
+      ${picked.map((c,i)=>{ const got=c.tems.reduce((s,t)=>s+t.q,0); return `<tr>
+        <td>${i+1}</td><td>${esc(c.doId)}</td><td>${esc(c.iso)}</td><td>${esc(c.so)}</td><td>${c.item}</td>
+        <td>${c.code}</td><td>${esc(c.cust)}</td><td>${esc(c.wh)}</td><td>${c.uom}</td><td>${num(c.need)}</td>
+        <td style="font-weight:700;color:${got>=c.need?'#16a34a':'#1f2937'}">${num(got)}</td>
+        <td style="white-space:normal">${c.tems.map(t=>{ const src=TEMS.find(x=>x.id===t.id)||{avail:t.q};
+          return `<span class="tem-chip">${t.id} <input class="tem-q" type="text" inputmode="numeric" data-q="${c.k}|${t.id}" value="${t.q}"><small>/ khả dụng ${num(src.avail)}</small><button data-rm="${c.k}|${t.id}">×</button></span>`;}).join('')}</td>
+      </tr>`;}).join('')}
+      </tbody></table></div>
+      <p class="hint">Tem tự vào dòng theo khóa <b>mã hàng + Vina SO + ĐVT</b>. Nhiều dòng cùng khớp thì vào dòng số thứ tự nhỏ nhất còn thiếu SL.
+        SL điền sẵn bằng số nhỏ hơn giữa SL khả dụng của tem và SL còn cần giao của dòng; <b>sửa giảm được để xuất lẻ</b>, phần còn lại vẫn nằm trên pallet đó.
+        Dòng của lệnh tạo tại WMS đã gán tem thì tem theo dòng sang phiếu ngay khi chọn ở bước 1; dòng của lệnh đồng bộ SAP chưa có tem nên phải quét gán ở đây.</p>`}
+    </div>
+  </div>`;
+  return shell('Lập phiếu giao hàng', body);
+}
+function doScan(code){
+  code=(code||'').trim().toUpperCase(); if(!code) return;
+  const t = TEMS.find(x=>x.id===code);
+  if(!t){ state.msg={k:'bad',t:`Không tìm thấy tem <b>${esc(code)}</b> trong hệ thống.`}; return render(); }
+  if(t.flag==='out'){ state.msg={k:'bad',t:`Tem <b>${t.id}</b> ${esc(t.note||'đã xuất hết')} — không còn hàng để giao.`}; return render(); }
+  if(t.flag==='held'){ state.msg={k:'bad',t:`Tem <b>${t.id}</b> không còn SL khả dụng — ${esc(t.note||'đang bị phiếu khác giữ')}.`}; return render(); }
+  /* GH9: quét lại tem đã có trong phiếu thì chặn, không nhận lần quét này */
+  if(state.cart.some(c=>c.tems.some(x=>x.id===t.id))){
+    state.msg={k:'bad',t:`Tem <b>${t.id}</b> đã quét rồi, đang nằm trong phiếu này — mỗi tem chỉ quét một lần (X08). Sửa SL ngay trên dòng hoặc bỏ tem rồi quét lại.`};
+    return render();
+  }
+  /* tầng 1 — tem đã gán vào dòng lúc tạo lệnh: chỉ vào đúng dòng đó, không xét SO.
+     tầng 2 — tem chưa gán: khóa mã hàng + Vina SO + ĐVT, dòng phải có Vina SO. */
+  let cand;
+  if(t.gan){
+    cand = state.cart.filter(c=>c.doId===t.gan.doId && c.item===t.gan.item);
+    if(!cand.length){
+      state.msg={k:'bad', t:`Tem <b>${t.id}</b> đã được gán cho <b>${t.gan.doId} · Item ${t.gan.item}</b> lúc tạo lệnh, không dùng cho dòng khác. Chọn dòng đó ở bước 1 rồi quét lại.`};
+      return render();
+    }
+  } else {
+    cand = state.cart.filter(c=>c.code===t.code && !!c.so && c.so===t.so && c.uom===t.uom);
+    if(!cand.length){
+      const same = state.cart.find(c=>c.code===t.code);
+      const noSo = state.cart.find(c=>c.code===t.code && !c.so);
+      state.msg={k:'bad', t: noSo
+        ? `Dòng <b>${noSo.doId} · Item ${noSo.item}</b> không có Vina SO nên chỉ nhận tem đã gán sẵn lúc tạo lệnh. Tem <b>${t.id}</b> chưa được gán cho dòng nào.`
+        : same
+        ? `Tem <b>${t.id}</b> thuộc Vina SO <b>${t.so}</b>, không khớp SO nào đang giao — xuất đích danh theo SO nên bị chặn (X17).`
+        : `Tem <b>${t.id}</b> (mã hàng ${t.code}) không khớp dòng nào trong phiếu (X06).`};
+      return render();
+    }
+  }
+  const line = cand.find(c=>c.tems.reduce((s,x)=>s+x.q,0) < c.need);
+  if(!line){ state.msg={k:'warn',t:`Các dòng của ${t.so} đã gán đủ SL — tem <b>${t.id}</b> không cần nữa (X03).`}; return render(); }
+  const got = line.tems.reduce((s,x)=>s+x.q,0), q = Math.min(t.avail, line.need-got);
+  line.tems.push({id:t.id, q});
+  state.msg={k:'ok', t:`Đã gán <b>${t.id}</b> — lấy <b>${q} ${t.uom}</b> tại ${t.wh}/${t.bin}.`
+    + (q<t.avail?` Còn ${t.avail-q} trên tem, vẫn nằm ở pallet đó.`:'')
+    + (t.note?` (${t.note})`:'')};
+  render();
+}
+
+/* ======================= màn 5: chi tiết phiếu giao hàng ======================= */
+function slipButtons(s, canCancel){
+  if(s.st==='save') return '<button class="btn btn-secondary">Sửa</button><button class="btn btn-primary">Trình</button>';
+  if(s.st==='sub')  return '<button class="btn btn-secondary" data-act="amend">Sửa</button><button class="btn btn-primary">Duyệt</button>';
+  if(s.st==='appr'){
+    /* điểm 7: Đồng bộ lại SAP bật khi Chưa đồng bộ hoặc Đồng bộ lỗi.
+       GH12: phiếu Đang đồng bộ thì ẩn hẳn nút Hủy phiếu (canCancel=false). */
+    const rs = (s.sync==='none'||s.sync==='err') ? '<button class="btn btn-secondary" data-act="resync">↻ Đồng bộ lại SAP</button>' : '';
+    return rs + (canCancel ? `<button class="btn btn-secondary" style="color:#b91c1c;border-color:#fca5a5" data-act="cancel:${esc(s.id)}">Hủy phiếu</button>` : '');
+  }
+  if(s.st==='cxl')  return '<button class="btn btn-secondary">Sửa</button>';
+  return '';
+}
+function screenSlip(){
+  const s = SLIPS.find(x=>x.id===state.arg) || SLIPS[0];
+  const rows = SLIP_LINES[s.id] || [];
+  const canCancel = s.st==='appr' && s.sync!=='ing';
+  const body = `
+  ${titleRow(`${back}<h1 class="page-title" style="margin:0;">Phiếu giao hàng ${esc(s.id)}</h1>${bd(s.st)}${sy(s.sync)}`,
+ slipButtons(s, canCancel))}
+    <div class="card" style="margin-bottom:16px;">
+    <div class="section-title" style="padding:14px 16px 0;">Thông tin phiếu giao hàng</div>
+    <div class="info-grid">
+      ${ro('Số phiếu giao hàng', s.id)}
+      ${ro('Ngày lập', s.out)}
+      ${ro('Người phụ trách','Super Administrator')}
+      ${ro('Ca làm việc','Ca 1 (06:00-14:00)')}
+      <div class="field" style="grid-column:span 2"><label>Ghi chú</label><input type="text" value="" readonly></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="section-title" style="padding:14px 16px 0;">Danh sách hàng</div>
+    <div class="table-wrap"><table class="grid" style="min-width:1800px"><thead><tr>
+      <th>STT</th><th>Mã vạch/QR</th>
+      <th>Số DO</th><th>Mã khách hàng</th><th>Khách hàng</th><th>Kho</th><th>Vị trí</th>
+      <th>Inter SO</th><th>Vina SO</th><th>Item</th>
+      <th>Mã hàng</th><th>Tên hàng</th><th>Model</th><th>Màu</th><th>Kích cỡ</th>
+      <th>ĐVT</th><th>SL đã xuất</th><th>Phẩm cấp</th><th>Số PO khách hàng</th><th>Số giao hàng</th><th>Số lô</th>
+    </tr></thead><tbody>
+    ${rows.length?rows.map((r,i)=>`<tr>
+      <td>${i+1}</td>
+      <td><span class="chip-map" data-tems="${r.tems}">${r.n} đã gắn</span></td>
+      <td>${esc(r.doId)}</td><td>${esc(CUST[r.cust]||'')}</td><td>${esc(r.cust)}</td>
+      <td>${esc(r.wh)}</td><td>${r.bin}</td>
+      <td>${esc(r.iso)}</td><td>${esc(r.so)}</td><td>${r.item}</td>
+      <td>${r.code}</td><td>${r.name}</td><td>${esc(r.model||'')}</td><td>${esc(r.color||'')}</td><td>${esc(r.size||'')}</td>
+      <td>${r.uom}</td><td>${num(r.qty)}</td><td></td><td>${esc(r.po||'')}</td><td></td><td></td>
+    </tr>`).join(''):'<tr><td colspan="21" style="padding:30px;text-align:center;color:#9ca3af">Phiếu chưa có dòng hàng</td></tr>'}
+    </tbody></table></div>
+  </div>`;
+  return shell(`Phiếu giao hàng ${esc(s.id)}`, body);
+}
+
+/* GH4: popup dùng đúng 6 trạng thái tem; những câu "Đang giữ cho phiếu",
+   "Còn lại một phần", "Đã hủy phiếu" chuyển xuống cột Ghi chú.
+   GH3: phiếu chưa duyệt và phiếu Đã hủy chưa trừ SL nên cột SL còn lại là SL thật của tem. */
+const TEM_ST = {issued:'Đã phát hành', printed:'Đã in, chưa giữ chỗ', reserved:'Đã in, giữ chỗ',
+                stock:'Trong kho', out:'Đã xuất hết', cxl:'Đã hủy'};
+const TEM_POPUP = {
+  /* GI-2601-00008 — Đã duyệt: SL đã trừ khỏi tem */
+  c1:{title:'1015472 · TNB200-10MP MERCADONA 10*20 (DELIPLUS) — dòng lấy từ 2 tem',
+      rows:[['FGL-260104-0051',16800,0,'out','A-01-04','Phiếu lấy trọn tem'],
+            ['FGL-260104-0052',16800,0,'out','A-01-04','Phiếu lấy trọn tem']]},
+  c2:{title:'1014360 · TRA700-4P MERCADONA 4*40', rows:[['FGL-260103-0027',35280,0,'out','A-03-01','Phiếu lấy trọn tem']]},
+  c3:{title:'1015421 · TNC210-10MP(M) MTC-ALDI 20', rows:[['FGL-260102-0045',15600,0,'out','C-04-01','Phiếu lấy trọn tem']]},
+  c4:{title:'1015421 · TNC210-10MP(M) MTC-ALDI 20', rows:[['FGL-260104-0061',15600,0,'out','C-04-02','Phiếu lấy trọn tem']]},
+  /* GI-2601-00009 — Đã trình, chưa duyệt: tem mới chỉ bị giữ chỗ, SL còn lại chưa trừ */
+  c5:{title:'1014358 · TNC100-10MP MERCADONA 10*24 — tem gán sẵn lúc tạo lệnh',
+      rows:[['FGL-260105-0082',3780,3780,'stock','A-06-02','Đang giữ cho phiếu GI-2601-00009 — phiếu chưa duyệt nên chưa trừ SL']]},
+  c6:{title:'1015472 · TNB200-10MP MERCADONA 10*20 (DELIPLUS)',
+      rows:[['FGL-260102-0017',6600,6600,'stock','A-02-03','Đang giữ cho phiếu GI-2601-00009 — phiếu chưa duyệt nên chưa trừ SL']]},
+  c7:{title:'1014360 · TRA700-4P MERCADONA 4*40 — xuất lẻ từ tem',
+      rows:[['FGL-260103-0023',4200,35280,'stock','A-03-02','Tem 35.280, phiếu lấy 4.200 (xuất lẻ) — phiếu chưa duyệt nên chưa trừ SL']]},
+  c8:{title:'1015472 · TNB200-10MP MERCADONA 10*20 (DELIPLUS)',
+      rows:[['FGL-260102-0016',16800,16800,'stock','A-01-07','Đang giữ cho phiếu GI-2601-00009 — phiếu chưa duyệt nên chưa trừ SL']]},
+  /* GI-2601-00007 — Đã duyệt */
+  a1:{title:'1015472 · TNB200-10MP MERCADONA 10*20 (DELIPLUS)', rows:[['FGL-260102-0014',16800,0,'out','A-01-02','Phiếu lấy trọn tem']]},
+  a2:{title:'1015423 · TRC110-8MP (M) (A) MTC-LIDL 8X12',        rows:[['FGL-260102-0035',7980,0,'out','C-03-01','Phiếu lấy trọn tem']]},
+  /* GI-2601-00006 — Đã duyệt, xuất lẻ: tem còn 8.400 trong kho */
+  b6:{title:'1015472 · TNB200-10MP MERCADONA 10*20 (DELIPLUS) — xuất lẻ từ tem',
+      rows:[['FGL-260102-0013',8400,8400,'stock','A-01-06','Tem 16.800, phiếu lấy 8.400 — còn lại một phần trên pallet']]},
+  /* GI-2601-00005 — Đã trình, chưa duyệt */
+  b5:{title:'1015423 · TRC110-8MP (M) (A) MTC-LIDL 8X12',
+      rows:[['FGL-260102-0036',7980,7980,'stock','C-03-02','Đang giữ cho phiếu GI-2601-00005 — phiếu chưa duyệt nên chưa trừ SL']]},
+  /* GI-2601-00004 — Đã lưu, chưa duyệt */
+  b4:{title:'1015472 · TNB200-10MP MERCADONA 10*20 (DELIPLUS) — xuất lẻ từ tem',
+      rows:[['FGL-260102-0019',2520,16800,'stock','A-02-01','Tem 16.800, phiếu lấy 2.520 — phiếu chưa duyệt nên chưa trừ SL']]},
+  /* GI-2601-00003 — Đã duyệt */
+  b3:{title:'1014358 · TNC100-10MP MERCADONA 10*24', rows:[['FGL-260104-0071',90720,0,'out','B-01-01','Phiếu lấy trọn tem']]},
+  /* GI-2601-00002 — Đã hủy: SL đã cộng lại về tem */
+  b2:{title:'1014358 · TNC100-10MP MERCADONA 10*24',
+      rows:[['FGL-260104-0072',7560,7560,'stock','B-02-01','Phiếu đã hủy — 7.560 đã cộng lại về tem']]}
+};
+/* popup của dòng lệnh giao hàng: dựng thẳng từ các tem đã gắn vào dòng lúc tạo lệnh */
+function temData(k){
+  if(k.indexOf('gan:')!==0) return TEM_POPUP[k];
+  const l = DO_LINES.find(x=>x.k===k.slice(4)) || {};
+  return {title:`${esc(l.code||'')} · ${esc(l.name||'')} — tem gắn vào dòng lúc tạo lệnh`,
+    rows: temGan(l).map(t=>[t.id, 0, t.rest, t.flag==='out'?'out':'stock', t.bin,
+      t.note || 'Chưa có phiếu giao hàng nào lấy từ tem này'])};
+}
+function temModal(k){
+  const d = temData(k);
+  if(!d) return toast('Dòng này chưa gắn tem nào');
+  if(!d.rows.length) return toast('Dòng này chưa gắn tem nào');
+  openModal(`<button class="modal-x" data-close>×</button>
+    <div class="modal-head"><h4>Barcode/QR đã ánh xạ</h4><p>${d.title}</p></div>
+    <div class="modal-body">
+      <div class="field" style="margin-bottom:12px"><input type="text" placeholder="🔍 Tìm Mã vạch/QR"></div>
+      <div class="table-wrap"><table class="grid" style="min-width:820px"><thead><tr>
+        <th>Mã vạch/QR</th><th>SL lấy từ tem</th><th>SL còn lại</th>
+        <th>Trạng thái tem</th><th>Vị trí</th>
+        <th>Số PO khách hàng</th><th>Số lô</th><th>Ghi chú</th></tr></thead><tbody>
+      ${d.rows.map(r=>`<tr><td><a class="nav-link">${r[0]}</a></td>
+        <td>${num(r[1])}</td><td>${num(r[2])}</td>
+        <td><span class="badge badge-saved">${esc(TEM_ST[r[3]]||r[3])}</span></td><td>${r[4]}</td>
+        <td></td><td></td><td style="white-space:normal">${esc(r[5])}</td></tr>`).join('')}
+      </tbody></table></div>
+      <p class="hint">Bấm số tem để mở chi tiết và lịch sử tem. Cột Trạng thái tem dùng đúng 6 trạng thái: Đã phát hành · Đã in, chưa giữ chỗ · Đã in, giữ chỗ · Trong kho · Đã xuất hết · Đã hủy.
+        Cột SL còn lại là SL thật của tem: phiếu chưa duyệt và phiếu đã hủy thì SL chưa bị trừ. Phần đang bị phiếu khác giữ ghi ở cột Ghi chú, thống nhất với màn quét trên PDA.</p>
+    </div>
+    <div class="modal-footer"><button class="btn btn-secondary" data-close>Đóng</button></div>`);
+}
+/* GH11: chỉ cần một tem của phiếu thuộc nhóm bị chặn là chặn hủy cả phiếu.
+   Nhóm bị chặn: tem đã nằm trong yêu cầu hoặc phiếu trả hàng, tem đã chuyển sang kho khác,
+   tem đã hủy do kiểm kê. Không chia hai nhóm, không hủy một phần. */
+const CXL_BLOCK = {
+  'GI-2601-00008':[
+    {id:'FGL-260104-0051', why:'Đang nằm trong yêu cầu trả hàng <b>RT-2610-00002</b>'},
+    {id:'FGL-260104-0061', why:'Đã chuyển sang kho khác: 5003 → 5000'}
+  ]
+};
+const slipTems = id => (SLIP_LINES[id]||[]).reduce((a,r)=>a.concat(((TEM_POPUP[r.tems]||{rows:[]}).rows).map(x=>[x[0],x[1]])),[]);
+function cancelModal(id){
+  const bl = CXL_BLOCK[id] || [], tems = slipTems(id);
+  const body = bl.length
+    ? `<div class="note note-bad">⛔<div><b>Không hủy được phiếu ${esc(id)}.</b>
+         Phiếu có <b>${bl.length}</b> tem thuộc nhóm bị chặn nên cả phiếu không hủy được — xử lý các chứng từ bên dưới trước rồi hủy lại.</div></div>
+       <div class="table-wrap"><table class="grid" style="min-width:700px"><thead><tr>
+         <th>Tem gây chặn</th><th>Lý do chặn</th></tr></thead><tbody>
+         ${bl.map(b=>`<tr><td>${esc(b.id)}</td><td style="white-space:normal">${b.why}</td></tr>`).join('')}
+       </tbody></table></div>`
+    : `<div class="note note-warn">⚠<div>Hủy phiếu sẽ cộng lại số lượng về <b>${tems.length}</b> tem của phiếu. Thao tác này không hoàn lại được.</div></div>
+       <div class="table-wrap"><table class="grid" style="min-width:700px"><thead><tr>
+         <th>Tem</th><th>SL cộng lại về tem</th></tr></thead><tbody>
+         ${tems.map(t=>`<tr><td>${esc(t[0])}</td><td>${num(t[1])}</td></tr>`).join('')}
+       </tbody></table></div>`;
+  openModal(`<button class="modal-x" data-close>×</button>
+    <div class="modal-head"><h4>Hủy phiếu giao hàng ${esc(id)}</h4><p>Hệ thống kiểm từng tem của phiếu trước khi cho hủy.</p></div>
+    <div class="modal-body">
+      ${body}
+      <p class="hint">Nhóm bị chặn: tem đã nằm trong yêu cầu hoặc phiếu trả hàng, tem đã chuyển sang kho khác, tem đã hủy do kiểm kê.
+        Chỉ cần một tem thuộc nhóm này là chặn hủy cả phiếu — không hủy được một phần.</p>
+    </div>
+    <div class="modal-footer"><button class="btn btn-secondary" data-close>Đóng</button>
+      ${bl.length ? '<button class="btn btn-primary btn-disabled" disabled>Xác nhận hủy</button>'
+                  : `<button class="btn btn-primary" data-act="cxlok:${esc(id)}">Xác nhận hủy</button>`}</div>`);
+}
+
+/* ======================= render + sự kiện ======================= */
+function render(){
+  $('#view').innerHTML =
+      state.screen==='list'  ? screenList()
+    : state.screen==='do'    ? screenDO()
+    : state.screen==='newdo' ? screenNewDO()
+    : state.screen==='build' ? screenBuild()
+    : screenSlip();
+  const sc=$('#scan'); if(sc) sc.focus();
+}
+
+document.addEventListener('click', e=>{
+  const t=e.target;
+  const tb=t.closest('[data-tab]');   if(tb){ state.tab=tb.dataset.tab; return render(); }
+  const dt=t.closest('[data-dotab]'); if(dt){ state.dotab=dt.dataset.dotab; return render(); }
+  const ex=t.closest('[data-exp]');
+  if(ex){ const id=ex.dataset.exp; state.open[id]=!state.open[id]; return render(); }
+  const g =t.closest('[data-go]');    if(g){ return go(g.dataset.go, g.dataset.id); }
+  const k =t.closest('[data-menu]');
+  if(k){ const i=+k.dataset.i; return showMenu(k, k.dataset.menu==='do'?menuDO(DO_LIST[i]):menuSlip(SLIPS[i])); }
+  const tm=t.closest('[data-tems]');  if(tm) return temModal(tm.dataset.tems);
+  if(t.closest('[data-close]')) return closeModal();
+  const rm=t.closest('[data-rm]');
+  if(rm){ const [kk,id]=rm.dataset.rm.split('|'); const l=state.cart.find(c=>c.k===kk);
+    l.tems=l.tems.filter(x=>x.id!==id);
+    state.msg={k:'warn',t:`Đã bỏ tem <b>${id}</b> khỏi phiếu — SL trả về khả dụng ngay (X09).`}; return render(); }
+  const ndr=t.closest('[data-ndrm]');
+  if(ndr){ state.nd.rows=state.nd.rows.filter(r=>r.k!==ndr.dataset.ndrm); return render(); }
+  const sim=t.closest('[data-tem]');  if(sim) return doScan(sim.dataset.tem);
+  const a=t.closest('[data-act]');
+  if(a){
+    const v=a.dataset.act;
+    if(v==='scan'){ const el=$('#scan'); const val=el.value; el.value=''; return doScan(val); }
+    if(v==='ndso') return ndPicker();
+    if(v==='ndstock') return toast('Thêm từ tồn kho: giữ nguyên As-is');
+    if(v==='ndadd'){
+      document.querySelectorAll('[data-ndpick]').forEach(cb=>{
+        const r=SO_POOL.find(x=>x.k===cb.dataset.ndpick), has=state.nd.rows.some(x=>x.k===r.k);
+        if(cb.checked && !has) state.nd.rows.push({...r});
+        if(!cb.checked && has) state.nd.rows=state.nd.rows.filter(x=>x.k!==r.k);
+      });
+      closeModal(); render(); return toast(`Lệnh giao hàng có ${state.nd.rows.length} dòng`);
+    }
+    if(v==='ndsave'||v==='ndsubmit'){
+      if(!state.nd.cust||!state.nd.wh) return toast('Chọn khách hàng và kho trước');
+      if(!state.nd.rows.length) return toast('Thêm ít nhất một dòng hàng');
+      return toast(v==='ndsave'?'Đã lưu lệnh giao hàng ở trạng thái Đã lưu':'Đã trình lệnh giao hàng — giờ lập phiếu được');
+    }
+    if(v==='bsubmit'){
+      if(!state.cart.length) return toast('Chọn dòng và gán tem trước khi trình');
+      /* GH10: tự bỏ các dòng không có tem ra khỏi phiếu rồi mới trình */
+      const empty=state.cart.filter(c=>!c.tems.length);
+      if(empty.length===state.cart.length) return toast('Chưa dòng nào có tem — gán tem trước khi trình');
+      if(empty.length){
+        state.cart=state.cart.filter(c=>c.tems.length);
+        state.msg={k:'warn',t:`Đã tự bỏ <b>${empty.length} dòng</b> không có tem khỏi phiếu trước khi trình: `
+          +empty.map(c=>`<b>${esc(c.doId)} · Item ${esc(c.item)}</b>`).join(', ')
+          +`. Các dòng này vẫn còn trên lệnh giao hàng, lập phiếu sau được.`};
+        render();
+      }
+      const miss=state.cart.filter(c=>c.tems.reduce((s,x)=>s+x.q,0)<c.need);
+      return toast((empty.length?`Đã bỏ ${empty.length} dòng không có tem. `:'')
+        +(miss.length?`${miss.length} dòng chưa gán đủ SL — vẫn trình được, phần còn lại lập phiếu sau`:'Đã trình phiếu — chờ duyệt trên Web'));
+    }
+    return act(v);
+  }
+});
+document.addEventListener('change', e=>{
+  const q=e.target.closest('[data-q]');
+  if(q){
+    const [k,id]=q.dataset.q.split('|');
+    const c=state.cart.find(x=>x.k===k); if(!c) return;
+    const tm=c.tems.find(x=>x.id===id); if(!tm) return;
+    const src=TEMS.find(x=>x.id===id)||{avail:tm.q};
+    const other=c.tems.reduce((s,x)=>s+(x.id===id?0:x.q),0);
+    const max=Math.min(src.avail, c.need-other);
+    let v=parseInt(String(q.value).replace(/\D/g,''),10);
+    if(!v || v<1) v=1;
+    if(v>max){ v=max; state.msg={k:'warn',t:`SL lấy từ tem <b>${id}</b> tối đa <b>${num(max)} ${c.uom}</b> — bằng số nhỏ hơn giữa SL khả dụng của tem và SL còn cần giao của dòng.`}; }
+    else state.msg={k:'ok',t:`Tem <b>${id}</b> lấy <b>${num(v)} ${c.uom}</b>.`+(v<src.avail?` Còn ${num(src.avail-v)} trên tem, vẫn nằm ở pallet đó (xuất lẻ).`:'')};
+    tm.q=v; return render();
+  }
+  const nd=e.target.closest('[data-nd]');
+  if(nd){ const v=nd.value; state.nd[nd.dataset.nd]=v.startsWith('Chọn')?'':v; return render(); }
+  const p=e.target.closest('[data-pick]'); if(!p) return;
+  const l=DO_LINES.find(x=>x.k===p.dataset.pick);
+  if(p.checked){
+    if(!state.cart.some(c=>c.k===l.k)){
+      const c={...l, need:remainOf(l), tems:[]};
+      state.cart.push(c);
+      /* lệnh tạo tại WMS đã gán tem thì tem theo dòng sang phiếu luôn; lệnh SAP chưa có tem, gán tay ở bước 2 */
+      let con=c.need;
+      temGanFree(l).forEach(t=>{ if(con<=0) return; const q=Math.min(t.avail,con); c.tems.push({id:t.id,q}); con-=q; });
+      state.msg = c.tems.length
+        ? {k:'ok', t:`Dòng <b>${c.doId} · Item ${c.item}</b> đã có tem gán sẵn từ lúc tạo lệnh — lấy sang phiếu <b>${c.tems.length} tem</b>. Sửa SL hoặc bỏ tem được, và vẫn quét thêm tem khác được.`}
+        : {k:'warn', t:`Dòng <b>${c.doId} · Item ${c.item}</b> chưa có tem gán sẵn — quét tem ở bước 2 để gán.`};
+    }
+  }
+  else { state.cart=state.cart.filter(c=>c.k!==l.k); state.msg=null; }
+  render();
+});
+document.addEventListener('keydown', e=>{
+  if(e.key==='Enter' && e.target.id==='scan'){ e.preventDefault(); const v=e.target.value; e.target.value=''; doScan(v); }
+});
+$('#scrim').addEventListener('click', e=>{ if(e.target.id==='scrim') closeModal(); });
+render();
+
+</script>
+<script>
+window.addEventListener("load",function(){try{var p=new URLSearchParams(location.search),t=p.get("tab");if(!t){var m=(location.hash||"").match(/tab=([\w-]+)/);t=m&&m[1];}if(!t)return;var el=document.querySelector('[data-tab="'+t+'"]');if(el)el.click();}catch(e){}});
+</script>
+</body>
+</html>

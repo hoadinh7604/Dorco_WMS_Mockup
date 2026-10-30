@@ -1,0 +1,2334 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>DorcoWMS - Nhập kho thành phẩm (mockup)</title>
+<style>
+/* DorcoWMS mockup shared theme */
+* { box-sizing: border-box; }
+body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; color: #1f2937; background: #eef1f5; }
+
+.app-shell { display: flex; min-height: 100vh; width: 100%; }
+
+/* Menu trai (theo ban DEV DorcoWMS) */
+.wms-nav { width: 320px; flex: 0 0 320px; background: #141c2e; display: flex; flex-direction: column;
+           align-self: flex-start; position: sticky; top: 0; height: 100vh; }
+.nav-logo { margin: 12px; height: 44px; background: #fff; border-radius: 8px; display: flex; align-items: center;
+            justify-content: center; gap: 7px; font-weight: 800; font-size: 15px; color: #0f172a; }
+.nav-logo .mark { width: 20px; height: 20px; flex: none; }
+.nav-logo .wd { color: #06274f; }
+.nav-logo .ww { color: #2e9bf5; }
+.nav-body { flex: 1 1 auto; display: flex; min-height: 0; }
+.nav-rail { width: 90px; flex: 0 0 90px; display: flex; flex-direction: column; align-items: center; gap: 2px;
+            padding: 4px 0 12px; overflow-y: auto; }
+.rail-item { width: 82px; padding: 7px 3px; border-radius: 10px; display: flex; flex-direction: column; align-items: center;
+             gap: 5px; color: #8d9bb3; font-size: 10.5px; line-height: 1.25; text-align: center; cursor: pointer; }
+.rail-item:hover { color: #e5e9f0; }
+.rail-ico { width: 34px; height: 34px; border-radius: 9px; display: flex; align-items: center; justify-content: center;
+            font-size: 16px; }
+.rail-item.active { color: #fff; }
+.rail-item.active .rail-ico { background: #2c3850; color: #fff; }
+.rail-collapse { margin-top: auto; color: #8d9bb3; font-size: 15px; padding-top: 14px; cursor: pointer; }
+.nav-sub { flex: 1 1 auto; min-width: 0; border-left: 1px solid #222d44; padding: 8px 12px; }
+.nav-sub-title { color: #fff; font-size: 13.5px; font-weight: 700; text-align: center; padding: 10px 0 14px; }
+.nav-sub-item { padding: 10px 14px; border-radius: 8px; color: #c3cbd9; font-size: 13px; margin-bottom: 4px; cursor: pointer; }
+.nav-sub-item:hover { background: #1e2941; color: #fff; }
+.nav-sub-item.active { background: #c5f04c; color: #17300a; font-weight: 700; }
+
+/* Main column */
+.main-col { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; }
+
+/* Topbar */
+.topbar { height: 56px; flex: 0 0 56px; background: #fff; border-bottom: 1px solid #e3e7ee; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; }
+.breadcrumb { font-size: 13px; color: #6b7280; }
+.breadcrumb b { color: #1f2937; }
+.topbar-right { display: flex; align-items: center; gap: 14px; }
+.avatar { width: 32px; height: 32px; border-radius: 50%; background: #d7dde7; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; color: #4b5563; }
+
+/* Content */
+.content { flex: 1 1 auto; padding: 20px 24px 40px; overflow-x: auto; }
+.page-title-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; flex-wrap: wrap; gap: 12px; }
+.page-title { font-size: 20px; font-weight: 700; color: #111827; margin: 0; }
+
+/* Tabs */
+.tabs { display: flex; gap: 4px; border-bottom: 1px solid #e3e7ee; margin-bottom: 16px; }
+.tab { padding: 10px 18px; font-size: 14px; font-weight: 600; color: #6b7280; border-bottom: 2px solid transparent; cursor: pointer; }
+.tab.active { color: #2563eb; border-bottom-color: #2563eb; }
+
+/* Card / filter bar */
+.card { background: #fff; border: 1px solid #e3e7ee; border-radius: 10px; }
+.filter-bar { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 12px; padding: 14px 16px; margin-bottom: 14px; }
+.field { display: flex; flex-direction: column; gap: 4px; min-width: 150px; }
+.field label { font-size: 12px; color: #6b7280; font-weight: 600; }
+.field select, .field input { height: 34px; border: 1px solid #d5dae3; border-radius: 6px; padding: 0 10px; font-size: 13px; background: #fff; color: #1f2937; }
+.filter-spacer { flex: 1 1 auto; }
+
+/* Buttons */
+.btn { height: 34px; padding: 0 14px; border-radius: 6px; font-size: 13px; font-weight: 600; border: 1px solid transparent; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
+.btn-primary { background: #2563eb; color: #fff; }
+.btn-secondary { background: #fff; color: #374151; border-color: #d5dae3; }
+.btn-success { background: #16a34a; color: #fff; }
+.btn-sm { height: 28px; padding: 0 10px; font-size: 12px; }
+.btn-link { background: transparent; color: #2563eb; border: none; padding: 0 6px; font-size: 12px; font-weight: 600; }
+
+/* Table */
+.table-wrap { overflow-x: auto; }
+table.grid { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 920px; }
+table.grid th { background: #f4f6f9; color: #4b5563; font-weight: 700; text-align: left; padding: 10px 10px; border-bottom: 1px solid #e3e7ee; white-space: nowrap; }
+table.grid td { padding: 9px 10px; border-bottom: 1px solid #eef0f4; color: #1f2937; white-space: nowrap; }
+table.grid tr:hover td { background: #f8fafc; }
+table.grid th.new-col, table.grid td.new-col { }
+
+
+.badge { display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 700; }
+.badge-new { background: #fde68a; color: #92400e; }
+.badge-wait { background: #fef3c7; color: #92400e; }
+.badge-done { background: #dcfce7; color: #166534; }
+.badge-sync { background: #dbeafe; color: #1e40af; }
+
+.legend { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #92610b; background: #fff7e6; border: 1px solid #fde68a; border-radius: 8px; padding: 8px 12px; margin-bottom: 12px; }
+.legend .dot { width: 10px; height: 10px; border-radius: 3px; background: #fde68a; border: 1px solid #f3c74b; }
+
+.pagination { display: flex; align-items: center; justify-content: flex-end; gap: 6px; padding: 12px 16px; font-size: 12px; color: #6b7280; }
+.page-btn { width: 26px; height: 26px; border-radius: 6px; border: 1px solid #d5dae3; background: #fff; display: flex; align-items: center; justify-content: center; font-size: 12px; }
+.page-btn.active { background: #2563eb; color: #fff; border-color: #2563eb; }
+
+/* Real-UI page shell (list screens) */
+.wms-page { flex: 1 1 0; min-width: 0; min-height: 100vh; background: #f3f5f8; }
+.wms-topbar { height: 48px; background: #fff; border-bottom: 1px solid #e3e7ee; display: flex; align-items: center; justify-content: space-between; padding: 0 16px; }
+.wms-tab-chip { font-size: 13px; color: #374151; background: #f3f5f8; border: 1px solid #e3e7ee; border-radius: 6px 6px 0 0; padding: 8px 14px; display: flex; align-items: center; gap: 10px; }
+.chip-x { color: #9ca3af; font-size: 12px; }
+.lang-select { font-size: 13px; color: #374151; }
+.icon-btn { width: 30px; height: 30px; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #4b5563; border: 1px solid #e3e7ee; background: #fff; font-size: 13px; }
+
+.stat-row { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; margin: 18px 0 20px; }
+.stat-card { background: #fff; border: 1px solid #e3e7ee; border-radius: 10px; padding: 16px; }
+.stat-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 14px; }
+.stat-label { font-size: 13px; color: #6b7280; }
+.stat-icon { width: 30px; height: 30px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+.icon-blue { background: #dbeafe; color: #2563eb; }
+.icon-amber { background: #fef3c7; color: #b45309; }
+.icon-green { background: #dcfce7; color: #16a34a; }
+.icon-teal { background: #ccfbf1; color: #0d9488; }
+.icon-purple { background: #ede9fe; color: #7c3aed; }
+.stat-value { font-size: 26px; font-weight: 700; color: #111827; }
+
+.filter-card { padding: 0; margin-bottom: 16px; }
+.filter-head { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-bottom: 1px solid #eef0f4; }
+.filter-title { font-size: 14px; font-weight: 700; color: #111827; }
+.filter-head-actions { display: flex; align-items: center; gap: 10px; }
+.btn-find { background: #fde68a; color: #92400e; }
+.chevron { color: #9ca3af; font-size: 13px; }
+.filter-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px 16px; padding: 16px; }
+
+.tab-count { display: inline-flex; align-items: center; justify-content: center; min-width: 20px; height: 20px; padding: 0 6px; border-radius: 999px; background: #e5e7eb; color: #4b5563; font-size: 11px; font-weight: 700; margin-left: 6px; }
+.tab-count.active { background: #dcfce7; color: #16a34a; }
+
+.table-toolbar { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; }
+.result-count { font-size: 13px; color: #6b7280; }
+.col-checkbox { width: 36px; text-align: center; }
+.row-expand { color: #9ca3af; font-size: 13px; }
+.sort { color: #9ca3af; font-size: 11px; }
+.colmenu { color: #c3c9d3; font-size: 12px; margin-left: 2px; }
+.progress { width: 100px; height: 6px; border-radius: 999px; background: #e5e7eb; overflow: hidden; }
+.progress-fill { height: 100%; background: #16a34a; }
+.badge-submitted { background: #dbeafe; color: #1e40af; }
+.badge-saved { background: #f1f5f9; color: #475569; border: 1px solid #d5dae3; }
+.badge-closed { background: #dcfce7; color: #166534; }
+.badge-src-sap { background: #ede9fe; color: #6d28d9; }
+.badge-src-wms { background: #fff7e6; color: #92610b; border: 1px solid #fde68a; }
+.slip-sum { display:inline-flex; align-items:center; gap:6px; font-size:12px; font-weight:600; color:#92400e; background:#fef3c7; border:1px solid #fcd34d; border-radius:999px; padding:2px 10px; }
+.slip-sum.ok { color:#166534; background:#dcfce7; border-color:#bbf7d0; }
+.chip-map { display: inline-flex; align-items: center; background: #f3f4f6; color: #6b7280; border: 1px solid #e5e7eb; border-radius: 6px; padding: 3px 10px; font-size: 12px; font-weight: 600; }
+
+.section-title { font-size: 14px; font-weight: 700; color: #111827; margin: 18px 0 10px; }
+.info-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px 16px; padding: 16px; }
+.info-grid .field { min-width: 0; }
+.modal-footer { display: flex; justify-content: flex-end; gap: 10px; padding: 14px 16px; border-top: 1px solid #e3e7ee; }
+
+/* single-file router */
+.view { display: none; }
+.view.active { display: block; }
+a.nav-link { cursor: pointer; color: #111827; font-weight: 700; text-decoration: underline; }
+a.nav-link:hover { color: #000; }
+.btn-disabled { background: #f3f4f6; color: #9ca3af; border-color: #e5e7eb; cursor: not-allowed; }
+.empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 48px 20px; text-align: center; }
+.empty-state .empty-icon { width: 56px; height: 56px; border-radius: 50%; background: #eef1f5; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 14px; }
+.empty-state .empty-title { font-size: 14px; font-weight: 700; color: #374151; margin-bottom: 4px; }
+.empty-state .empty-sub { font-size: 12px; color: #9ca3af; margin-bottom: 16px; max-width: 360px; }
+.badge-sync-none { background:#f1f5f9; color:#475569; border:1px solid #d5dae3; }
+.badge-sync-ok { background:#dcfce7; color:#166534; }
+.badge-sync-err { background:#fee2e2; color:#b91c1c; cursor:help; }
+.badge-sync-run { background:#dbeafe; color:#1e40af; }
+.badge-sync-pending { background:#fef3c7; color:#92400e; border:1px solid #fcd34d; cursor:help; }
+.badge-cancelled { background:#fef3c7; color:#92400e; border:1px solid #fcd34d; }
+.badge-deleted { background:#fee2e2; color:#b91c1c; }
+.badge-src-so { background:#e0f2fe; color:#0369a1; border:1px solid #bae6fd; }
+.act-cell { cursor:pointer; user-select:none; }
+.act-cell:hover, .act-cell.open { background:#f1f5f9; border-radius:6px; }
+.act-cell.none { cursor:not-allowed; color:#cbd5e1; }
+.act-menu { position:absolute; z-index:60; min-width:184px; background:#fff; border:1px solid #e5e7eb; border-radius:10px; box-shadow:0 10px 28px rgba(15,23,42,.14); padding:6px; }
+.act-menu button { display:flex; align-items:center; gap:10px; width:100%; padding:8px 10px; border:0; background:none; border-radius:6px; font:inherit; font-size:13px; color:#111827; text-align:left; cursor:pointer; }
+.act-menu button:hover, .act-menu button:focus-visible { background:#f3f4f6; outline:none; }
+.act-menu button.danger { color:#b91c1c; }
+.act-menu button.warn { color:#92400e; }
+.act-menu button svg { width:15px; height:15px; flex:none; }
+
+.sync-err { font-size:11px; color:#b91c1c; margin-top:3px; white-space:normal; max-width:220px; }
+.spin { display:inline-block; animation:spin 1s linear infinite; margin-right:3px; }
+@keyframes spin { to { transform:rotate(360deg); } }
+.btn:disabled { opacity:.5; cursor:not-allowed; }
+#toast { position:fixed; top:18px; left:50%; transform:translateX(-50%); background:#111827; color:#fff; padding:10px 16px; border-radius:8px; font-size:13px; display:none; z-index:99; }
+.sub-req { font-size:11px; color:#6b7280; font-weight:400; margin-top:3px; white-space:nowrap; }
+.more-chip { display:inline-block; margin-left:4px; padding:0 6px; border-radius:10px; background:#eef2ff; color:#3730a3; font-size:11px; font-weight:600; cursor:help; }
+.new-mark { }
+
+/* Nhãn trạng thái tem (đúng 6 trạng thái, tên giống nhau ở mọi màn) */
+.badge-t-issued { background:#dbeafe; color:#1d4ed8; }
+.badge-t-printed { background:#ecfeff; color:#0e7490; }
+.badge-t-reserved { background:#fef3c7; color:#92400e; }
+.badge-t-stock { background:#dcfce7; color:#15803d; }
+.badge-t-closed { background:#eef2f7; color:#475569; border:1px solid #d5dae3; }
+.badge-t-cancel { background:#fee2e2; color:#b91c1c; }
+
+/* Popup Barcode/QR đã ánh xạ + chi tiết tem */
+.chip-map.on { background:#eef2ff; color:#3730a3; border-color:#c7d2fe; cursor:pointer; font:inherit; font-size:12px; font-weight:600; }
+.chip-map.on:hover { background:#e0e7ff; }
+.modal-scrim { position:fixed; inset:0; background:rgba(15,23,42,.42); display:flex; align-items:center; justify-content:center; padding:24px; z-index:80; }
+.modal { background:#fff; border:1px solid #e3e7ee; border-radius:10px; box-shadow:0 18px 44px rgba(15,23,42,.22); width:100%; max-width:980px; max-height:88vh; display:flex; flex-direction:column; }
+.modal.narrow { max-width:720px; }
+.modal-head { display:flex; align-items:flex-start; justify-content:space-between; gap:16px; padding:14px 16px; border-bottom:1px solid #eef0f4; }
+.modal-head .modal-title { font-size:15px; font-weight:700; color:#111827; }
+.modal-head .modal-sub { font-size:12px; color:#6b7280; margin-top:3px; }
+.modal-close { width:28px; height:28px; border-radius:6px; border:1px solid #d5dae3; background:#fff; color:#4b5563; font-size:13px; cursor:pointer; flex:none; }
+.modal-close:hover { background:#f3f4f6; }
+.modal-body { padding:0; overflow:auto; }
+.lbl-link { color:#2563eb; font-weight:700; text-decoration:underline; cursor:pointer; }
+.lbl-link:hover { color:#1d4ed8; }
+.hist-note { font-size:12px; color:#6b7280; padding:10px 16px 0; }
+</style>
+</head>
+<body>
+
+<!-- ======================= VIEW: DANH SÁCH (Theo yêu cầu / Theo phiếu) ======================= -->
+<div id="view-list" class="view active">
+  <div class="app-shell">
+    <div class="wms-nav">
+      <div class="nav-logo"><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 2 7l10 5 10-5-10-5z" fill="#5bc0f8"/><path d="M2 7v10l10 5V12L2 7z" fill="#06274f"/><path d="M22 7v10l-10 5V12l10-5z" fill="#2e86d8"/></svg><span><span class="wd">Dorco</span><span class="ww">WMS</span></span></div>
+      <div class="nav-body">
+        <div class="nav-rail">
+          <div class="rail-item"><span class="rail-ico">🔍</span><span>Search Menu</span></div>
+          <div class="rail-item"><span class="rail-ico">⚙️</span><span>Thiết lập chung</span></div>
+          <div class="rail-item"><span class="rail-ico">🛒</span><span>Bán hàng</span></div>
+          <div class="rail-item"><span class="rail-ico">🛍️</span><span>Mua hàng</span></div>
+          <div class="rail-item active"><span class="rail-ico">📦</span><span>Quản lý hàng hóa</span></div>
+          <div class="rail-item"><span class="rail-ico">🔄</span><span>Giao dịch kho</span></div>
+          <div class="rail-item"><span class="rail-ico">▤</span><span>Điều chỉnh tồn kho</span></div>
+          <div class="rail-item"><span class="rail-ico">⚠️</span><span>Cảnh báo tồn kho</span></div>
+          <div class="rail-item"><span class="rail-ico">📊</span><span>Báo cáo</span></div>
+          <div class="rail-item"><span class="rail-ico">🏷️</span><span>Phát hành nhãn</span></div>
+          <div class="rail-collapse">◧</div>
+        </div>
+        <div class="nav-sub">
+          <div class="nav-sub-title">Quản lý hàng hóa</div>
+          <div class="nav-sub-item active" onclick="showView('view-list')">Nhập kho thành phẩm</div>
+          <div class="nav-sub-item">Giao hàng</div>
+          <div class="nav-sub-item">Trả hàng</div>
+        </div>
+      </div>
+    </div>
+    <div class="wms-page">
+    <div class="wms-topbar">
+      <div class="wms-tab-chip">Nhập kho thành phẩm <span class="chip-x">×</span></div>
+      <div class="topbar-right">
+        <div class="icon-btn">🗎</div>
+        <div class="lang-select">🌐 Tiếng Việt ⌄</div>
+        <div class="avatar">A</div>
+        <span style="font-size:13px;color:#374151;font-weight:600;">admin</span>
+      </div>
+    </div>
+
+    <div class="content">
+      <h1 class="page-title">Nhập kho thành phẩm</h1>
+
+      <div class="stat-row">
+        <div class="stat-card">
+          <div class="stat-top"><span class="stat-label">Yêu cầu đã xác nhận</span><span class="stat-icon icon-blue">🗎</span></div>
+          <div class="stat-value">6</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-top"><span class="stat-label">Phiếu chờ phê duyệt</span><span class="stat-icon icon-amber">🕐</span></div>
+          <div class="stat-value">2</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-top"><span class="stat-label">Phiếu đã phê duyệt</span><span class="stat-icon icon-green">✓</span></div>
+          <div class="stat-value">4</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-top"><span class="stat-label">Yêu cầu hoàn tất</span><span class="stat-icon icon-teal">☑</span></div>
+          <div class="stat-value">4</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-top"><span class="stat-label">Tỷ lệ hoàn tất</span><span class="stat-icon icon-purple">📈</span></div>
+          <div class="stat-value">36,36%</div>
+        </div>
+      </div>
+
+      <div class="card filter-card">
+        <div class="filter-head">
+          <span class="filter-title">Bộ lọc</span>
+          <div class="filter-head-actions">
+            <button class="btn btn-secondary btn-sm">↻ Đặt lại</button>
+            <button class="btn btn-find btn-sm">🔍 Tìm kiếm</button>
+            <span class="chevron">⌃</span>
+          </div>
+        </div>
+        <div class="filter-grid">
+          <div class="field">
+            <label>Số yêu cầu nhập thành phẩm</label>
+            <input type="text" placeholder="🔍 Tìm số yêu cầu nhập thành phẩm">
+          </div>
+          <div class="field">
+            <label>Số phiếu nhập thành phẩm</label>
+            <input type="text" placeholder="🔍 Tìm số phiếu nhập thành phẩm">
+          </div>
+          <div class="field">
+            <label>Số lệnh sản xuất</label>
+            <input type="text" placeholder="🔍 Tìm số lệnh sản xuất">
+          </div>
+          <div class="field">
+            <label>Ngày yêu cầu</label>
+            <div style="display:flex; gap:8px;">
+              <input type="text" value="01/10/2026">
+              <input type="text" value="15/10/2026">
+            </div>
+          </div>
+          <div class="field">
+            <label>Kho</label>
+            <select><option>Tất cả</option><option>5000 - Kho 5000 (TP)</option><option>K03 - Kho TP</option></select>
+          </div>
+          <div class="field">
+            <label>Trạng thái yêu cầu</label>
+            <select><option>Tất cả</option><option>Đã lưu</option><option>Đã trình</option><option>Đã đóng</option></select>
+          </div>
+          <div class="field">
+            <label>Trạng thái phiếu nhập thành phẩm</label>
+            <select><option>Tất cả</option><option>Đã lưu</option><option>Đã trình</option><option>Đã duyệt</option><option>Đã hủy</option><option>Đã xóa</option></select>
+          </div>
+          <div class="field new-mark">
+            <label>Trạng thái đồng bộ của yêu cầu</label>
+            <select><option>Tất cả</option><option>Đã đồng bộ</option><option>Có thay đổi chưa nhận</option></select>
+          </div>
+          <div class="field new-mark">
+            <label>Trạng thái đồng bộ của phiếu</label>
+            <select><option>Tất cả</option><option>Chưa đồng bộ</option><option>Đang đồng bộ</option><option>Đã đồng bộ</option><option>Đồng bộ lỗi</option></select>
+          </div>
+        </div>
+      </div>
+
+      <div class="tabs">
+        <div class="tab active" id="tab-yeucau" onclick="showTab('yeucau')">Theo yêu cầu <span class="tab-count active" id="tabcount-yeucau">11</span></div>
+        <div class="tab" id="tab-phieu" onclick="showTab('phieu')">Theo phiếu <span class="tab-count" id="tabcount-phieu">9</span></div>
+      </div>
+
+      <!-- Panel: Theo yêu cầu -->
+      <div id="panel-yeucau" style="display:block;">
+        <div class="card">
+          <div class="table-toolbar">
+            <span class="result-count">11 bản ghi được tìm thấy</span>
+            <div style="display:flex; gap:10px;">
+              <button class="btn btn-secondary">⬇ Xuất</button>
+              <button class="btn btn-primary" onclick="showView('view-yeucau-new')">+ Thêm yêu cầu</button>
+              <div class="icon-btn">▽</div>
+              <div class="icon-btn">▦</div>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table class="grid">
+              <thead>
+                <tr>
+                  <th class="col-checkbox"></th>
+                  <th>Số yêu cầu <span class="sort">↕</span> <span class="colmenu">⋮</span></th>
+                  <th>Nguồn <span class="sort">↕</span> <span class="colmenu">⋮</span></th>
+                  <th>Trạng thái <span class="sort">↕</span> <span class="colmenu">⋮</span></th>
+                  <th class="new-mark">Trạng thái đồng bộ SAP <span class="sort">↕</span> <span class="colmenu">⋮</span></th>
+                  <th>Ngày yêu cầu <span class="sort">↕</span> <span class="colmenu">⋮</span></th>
+                  <th>Lệnh sản xuất <span class="sort">↕</span> <span class="colmenu">⋮</span></th>
+                  <th>Mặt hàng <span class="sort">↕</span> <span class="colmenu">⋮</span></th>
+                  <th>Kho <span class="sort">↕</span> <span class="colmenu">⋮</span></th>
+                  <th>Tiến độ nhập kho <span class="colmenu">⋮</span></th>
+                  <th>Phiếu nhập thành phẩm <span class="sort">↕</span> <span class="colmenu">⋮</span></th>
+                  <th>Thao tác</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="col-checkbox"></td>
+                  <td><a class="nav-link" onclick="openYeuCau(this)">REQ-K03-2610-00015</a></td>
+                  <td><span class="badge badge-src-wms">Tạo tại WMS</span></td>
+                  <td><span class="badge badge-saved">Đã lưu</span></td>
+                  <td><span style="color:#9ca3af;">—</span></td>
+                  <td>21/10/2026 08:40</td>
+                  <td>1349180</td>
+                  <td>1 mặt hàng / 1 dòng</td>
+                  <td>K03 - Kho TP</td>
+                  <td><div class="progress"><div class="progress-fill" style="width:0%"></div></div></td>
+                  <td><span style="color:#9ca3af;">—</span></td>
+                  <td class="col-checkbox act-cell" tabindex="0" data-actions="Sửa|Gửi|In|Xóa">⋮</td>
+                </tr>
+                <tr>
+                  <td class="col-checkbox"></td>
+                  <td><a class="nav-link" onclick="openYeuCau(this)">REQ-K03-2610-00014</a></td>
+                  <td><span class="badge badge-src-wms">Tạo tại WMS</span></td>
+                  <td><span class="badge badge-saved">Đã lưu</span></td>
+                  <td><span style="color:#9ca3af;">—</span></td>
+                  <td>21/10/2026 08:12</td>
+                  <td><span style="color:#9ca3af;">Chưa nhập</span></td>
+                  <td>2 mặt hàng / 2 dòng</td>
+                  <td>K03 - Kho TP</td>
+                  <td><div class="progress"><div class="progress-fill" style="width:0%"></div></div></td>
+                  <td><span style="color:#9ca3af;">—</span></td>
+                  <td class="col-checkbox act-cell" tabindex="0" data-actions="Sửa|Gửi|In|Xóa">⋮</td>
+                </tr>
+                                <tr>
+                  <td class="col-checkbox"><span class="row-expand" onclick="toggleExpand(this,'exp-00001')" style="cursor:pointer;">+</span></td>
+                  <td><a class="nav-link" onclick="openYeuCau(this)">REQ-5000-2610-00001</a></td>
+                  <td><span class="badge badge-src-sap">Đồng bộ SAP</span></td>
+                  <td><span class="badge badge-submitted">Đã trình</span></td>
+                  <td><span class="badge badge-sync-pending" title="SAP đã sửa yêu cầu nhưng WMS từ chối vì đã có phiếu GR-5000-2610-00001. Yêu cầu vẫn chạy theo dữ liệu cũ; SAP tự gửi lại khi phiếu được xóa / hủy.">Có thay đổi chưa nhận</span></td>
+                  <td>14/10/2026 15:52</td>
+                  <td>1349169</td>
+                  <td>2 mặt hàng / 2 dòng</td>
+                  <td>5000 - Kho 5000 (TP)</td>
+                  <td><div class="progress"><div class="progress-fill" style="width:0%"></div></div></td>
+                  <td><span class="slip-sum">0 Đã duyệt / 1</span></td>
+                  <td class="col-checkbox act-cell" tabindex="0" data-actions="Thêm phiếu|In">⋮</td>
+                </tr>
+                <tr id="exp-00001" class="expand-row" style="display:none;">
+                  <td colspan="12" style="padding:0; background:#f8fafc; border-bottom:1px solid #eef0f4;">
+                    <div style="padding:12px 20px 16px 48px;">
+                      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
+                        <span style="font-size:13px; font-weight:700; color:#111827;">📂 Phiếu nhập thành phẩm liên kết <span class="tab-count active">1</span></span>
+                        <div style="display:flex; gap:10px; color:#9ca3af; font-size:13px;"><span>▽</span><span>▦</span></div>
+                      </div>
+                      <div class="card" style="overflow:hidden;">
+                        <table class="grid" style="min-width:0;">
+                          <thead><tr><th>STT</th><th>Số phiếu</th><th>Trạng thái</th><th>Ngày nhập kho</th><th>SL đã nhận</th><th>Người tạo</th><th>Thao tác</th></tr></thead>
+                          <tbody>
+                            <tr>
+                              <td>1</td>
+                              <td><a class="nav-link" onclick="openPhieu('GR-5000-2610-00001')">GR-5000-2610-00001</a></td>
+                              <td><span class="badge badge-submitted">Đã trình</span></td>
+                              <td>14/10/2026 16:10</td>
+                              <td>69.472 SET</td>
+                              <td>Trần Thị B</td>
+                              <td class="col-checkbox">⋮</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="col-checkbox"><span class="row-expand" onclick="toggleExpand(this,'exp-00002')" style="cursor:pointer;">+</span></td>
+                  <td><a class="nav-link" onclick="openYeuCau(this)">REQ-K03-2610-00002</a></td>
+                  <td><span class="badge badge-src-wms">Tạo tại WMS</span></td>
+                  <td><span class="badge badge-submitted">Đã trình</span></td>
+                  <td><span style="color:#9ca3af;">—</span></td>
+                  <td>05/10/2026 00:32</td>
+                  <td>1349170</td>
+                  <td>1 mặt hàng / 1 dòng</td>
+                  <td>K03 - Kho TP</td>
+                  <td><div class="progress"><div class="progress-fill" style="width:0%"></div></div></td>
+                  <td><span class="slip-sum">0 Đã duyệt / 2</span></td>
+                  <td class="col-checkbox act-cell" tabindex="0" data-actions="Thêm phiếu|In">⋮</td>
+                </tr>
+                <tr id="exp-00002" class="expand-row" style="display:none;">
+                  <td colspan="12" style="padding:0; background:#f8fafc; border-bottom:1px solid #eef0f4;">
+                    <div style="padding:12px 20px 16px 48px;">
+                      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
+                        <span style="font-size:13px; font-weight:700; color:#111827;">📂 Phiếu nhập thành phẩm liên kết <span class="tab-count active">2</span></span>
+                        <div style="display:flex; gap:10px; color:#9ca3af; font-size:13px;"><span>▽</span><span>▦</span></div>
+                      </div>
+                      <div class="card" style="overflow:hidden;">
+                        <table class="grid" style="min-width:0;">
+                          <thead><tr><th>STT</th><th>Số phiếu</th><th>Trạng thái</th><th>Ngày nhập kho</th><th>SL đã nhận</th><th>Người tạo</th><th>Thao tác</th></tr></thead>
+                          <tbody>
+                            <tr>
+                              <td>1</td>
+                              <td><a class="nav-link" onclick="openPhieu('GR-K03-2610-00006')">GR-K03-2610-00006</a></td>
+                              <td><span class="badge badge-submitted">Đã trình</span></td>
+                              <td>16/10/2026 10:15</td>
+                              <td>600 SET</td>
+                              <td>Trần Thị B</td>
+                              <td class="col-checkbox">⋮</td>
+                            </tr>
+                            <tr>
+                              <td>2</td>
+                              <td><a class="nav-link" onclick="openPhieu('GR-K03-2610-00007')">GR-K03-2610-00007</a></td>
+                              <td><span class="badge badge-saved">Đã lưu</span></td>
+                              <td>21/10/2026 09:05</td>
+                              <td>500 SET</td>
+                              <td>Trần Thị B</td>
+                              <td class="col-checkbox">⋮</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="col-checkbox"><span class="row-expand" onclick="toggleExpand(this,'exp-00003')" style="cursor:pointer;">+</span></td>
+                  <td><a class="nav-link" onclick="openYeuCau(this)">REQ-K03-2610-00003</a></td>
+                  <td><span class="badge badge-src-sap">Đồng bộ SAP</span></td>
+                  <td><span class="badge badge-submitted">Đã trình</span></td>
+                  <td><span class="badge badge-sync-ok">Đã đồng bộ</span></td>
+                  <td>05/10/2026 00:35</td>
+                  <td>1349171</td>
+                  <td>1 mặt hàng / 1 dòng</td>
+                  <td>K03 - Kho TP</td>
+                  <td><div class="progress"><div class="progress-fill" style="width:0%"></div></div></td>
+                  <td><span class="slip-sum">0 Đã duyệt / 1</span></td>
+                  <td class="col-checkbox act-cell" tabindex="0" data-actions="Thêm phiếu|In">⋮</td>
+                </tr>
+                <tr id="exp-00003" class="expand-row" style="display:none;">
+                  <td colspan="12" style="padding:0; background:#f8fafc; border-bottom:1px solid #eef0f4;">
+                    <div style="padding:12px 20px 16px 48px;">
+                      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
+                        <span style="font-size:13px; font-weight:700; color:#111827;">📂 Phiếu nhập thành phẩm liên kết <span class="tab-count active">1</span></span>
+                        <div style="display:flex; gap:10px; color:#9ca3af; font-size:13px;"><span>▽</span><span>▦</span></div>
+                      </div>
+                      <div class="card" style="overflow:hidden;">
+                        <table class="grid" style="min-width:0;">
+                          <thead><tr><th>STT</th><th>Số phiếu</th><th>Trạng thái</th><th>Ngày nhập kho</th><th>SL đã nhận</th><th>Người tạo</th><th>Thao tác</th></tr></thead>
+                          <tbody>
+                            <tr>
+                              <td>1</td>
+                              <td><a class="nav-link" onclick="openPhieu('GR-K03-2610-00006')">GR-K03-2610-00006</a></td>
+                              <td><span class="badge badge-submitted">Đã trình</span></td>
+                              <td>16/10/2026 10:15</td>
+                              <td>300 SET</td>
+                              <td>Trần Thị B</td>
+                              <td class="col-checkbox">⋮</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="col-checkbox"><span class="row-expand" onclick="toggleExpand(this,'exp-00004')" style="cursor:pointer;">+</span></td>
+                  <td><a class="nav-link" onclick="openYeuCau(this)">REQ-K03-2610-00004</a></td>
+                  <td><span class="badge badge-src-sap">Đồng bộ SAP</span></td>
+                  <td><span class="badge badge-closed">Đã đóng</span></td>
+                  <td><span class="badge badge-sync-ok">Đã đồng bộ</span></td>
+                  <td>05/10/2026 01:09</td>
+                  <td>1349172</td>
+                  <td>1 mặt hàng / 1 dòng</td>
+                  <td>K03 - Kho TP</td>
+                  <td><div class="progress"><div class="progress-fill" style="width:100%"></div></div></td>
+                  <td><span class="slip-sum ok">1 Đã duyệt / 1</span></td>
+                  <td class="col-checkbox act-cell" tabindex="0" data-actions="In">⋮</td>
+                </tr>
+                <tr id="exp-00004" class="expand-row" style="display:none;">
+                  <td colspan="12" style="padding:0; background:#f8fafc; border-bottom:1px solid #eef0f4;">
+                    <div style="padding:12px 20px 16px 48px;">
+                      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
+                        <span style="font-size:13px; font-weight:700; color:#111827;">📂 Phiếu nhập thành phẩm liên kết <span class="tab-count active">1</span></span>
+                        <div style="display:flex; gap:10px; color:#9ca3af; font-size:13px;"><span>▽</span><span>▦</span></div>
+                      </div>
+                      <div class="card" style="overflow:hidden;">
+                        <table class="grid" style="min-width:0;">
+                          <thead><tr><th>STT</th><th>Số phiếu</th><th>Trạng thái</th><th>Ngày nhập kho</th><th>SL đã nhận</th><th>Người tạo</th><th>Thao tác</th></tr></thead>
+                          <tbody>
+                            <tr>
+                              <td>1</td>
+                              <td><a class="nav-link" onclick="openPhieu('GR-K03-2610-00004')">GR-K03-2610-00004</a></td>
+                              <td><span class="badge badge-closed">Đã duyệt</span></td>
+                              <td>06/10/2026 08:20</td>
+                              <td>1.000 SET</td>
+                              <td>Trần Thị B</td>
+                              <td class="col-checkbox">⋮</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="col-checkbox"><span class="row-expand" onclick="toggleExpand(this,'exp-00005')" style="cursor:pointer;">+</span></td>
+                  <td><a class="nav-link" onclick="openYeuCau(this)">REQ-K03-2610-00005</a></td>
+                  <td><span class="badge badge-src-sap">Đồng bộ SAP</span></td>
+                  <td><span class="badge badge-closed">Đã đóng</span></td>
+                  <td><span class="badge badge-sync-ok">Đã đồng bộ</span></td>
+                  <td>05/10/2026 01:12</td>
+                  <td>1349173</td>
+                  <td>1 mặt hàng / 1 dòng</td>
+                  <td>K03 - Kho TP</td>
+                  <td><div class="progress"><div class="progress-fill" style="width:100%"></div></div></td>
+                  <td><span class="slip-sum ok">1 Đã duyệt / 1</span></td>
+                  <td class="col-checkbox act-cell" tabindex="0" data-actions="In">⋮</td>
+                </tr>
+                <tr id="exp-00005" class="expand-row" style="display:none;">
+                  <td colspan="12" style="padding:0; background:#f8fafc; border-bottom:1px solid #eef0f4;">
+                    <div style="padding:12px 20px 16px 48px;">
+                      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
+                        <span style="font-size:13px; font-weight:700; color:#111827;">📂 Phiếu nhập thành phẩm liên kết <span class="tab-count active">1</span></span>
+                        <div style="display:flex; gap:10px; color:#9ca3af; font-size:13px;"><span>▽</span><span>▦</span></div>
+                      </div>
+                      <div class="card" style="overflow:hidden;">
+                        <table class="grid" style="min-width:0;">
+                          <thead><tr><th>STT</th><th>Số phiếu</th><th>Trạng thái</th><th>Ngày nhập kho</th><th>SL đã nhận</th><th>Người tạo</th><th>Thao tác</th></tr></thead>
+                          <tbody>
+                            <tr>
+                              <td>1</td>
+                              <td><a class="nav-link" onclick="openPhieu('GR-K03-2610-00002')">GR-K03-2610-00002</a></td>
+                              <td><span class="badge badge-closed">Đã duyệt</span></td>
+                              <td>05/10/2026 09:40</td>
+                              <td>320 SET</td>
+                              <td>Trần Thị B</td>
+                              <td class="col-checkbox">⋮</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="col-checkbox"><span class="row-expand" onclick="toggleExpand(this,'exp-00006')" style="cursor:pointer;">+</span></td>
+                  <td><a class="nav-link" onclick="openYeuCau(this)">REQ-K03-2610-00006</a></td>
+                  <td><span class="badge badge-src-sap">Đồng bộ SAP</span></td>
+                  <td><span class="badge badge-closed">Đã đóng</span></td>
+                  <td><span class="badge badge-sync-ok">Đã đồng bộ</span></td>
+                  <td>06/10/2026 15:04</td>
+                  <td>1349174</td>
+                  <td>2 mặt hàng / 2 dòng</td>
+                  <td>K03 - Kho TP</td>
+                  <td><div class="progress"><div class="progress-fill" style="width:100%"></div></div></td>
+                  <td><span class="slip-sum ok">1 Đã duyệt / 1</span></td>
+                  <td class="col-checkbox act-cell" tabindex="0" data-actions="In">⋮</td>
+                </tr>
+                <tr id="exp-00006" class="expand-row" style="display:none;">
+                  <td colspan="12" style="padding:0; background:#f8fafc; border-bottom:1px solid #eef0f4;">
+                    <div style="padding:12px 20px 16px 48px;">
+                      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
+                        <span style="font-size:13px; font-weight:700; color:#111827;">📂 Phiếu nhập thành phẩm liên kết <span class="tab-count active">1</span></span>
+                        <div style="display:flex; gap:10px; color:#9ca3af; font-size:13px;"><span>▽</span><span>▦</span></div>
+                      </div>
+                      <div class="card" style="overflow:hidden;">
+                        <table class="grid" style="min-width:0;">
+                          <thead><tr><th>STT</th><th>Số phiếu</th><th>Trạng thái</th><th>Ngày nhập kho</th><th>SL đã nhận</th><th>Người tạo</th><th>Thao tác</th></tr></thead>
+                          <tbody>
+                            <tr>
+                              <td>1</td>
+                              <td><a class="nav-link" onclick="openPhieu('GR-K03-2610-00003')">GR-K03-2610-00003</a></td>
+                              <td><span class="badge badge-closed">Đã duyệt</span></td>
+                              <td>05/10/2026 10:05</td>
+                              <td>540 SET</td>
+                              <td>Trần Thị B</td>
+                              <td class="col-checkbox">⋮</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="col-checkbox"><span class="row-expand" onclick="toggleExpand(this,'exp-00007')" style="cursor:pointer;">+</span></td>
+                  <td><a class="nav-link" onclick="openYeuCau(this)">REQ-K03-2610-00007</a></td>
+                  <td><span class="badge badge-src-sap">Đồng bộ SAP</span></td>
+                  <td><span class="badge badge-closed">Đã đóng</span></td>
+                  <td><span class="badge badge-sync-ok">Đã đồng bộ</span></td>
+                  <td>06/10/2026 17:34</td>
+                  <td>1349175</td>
+                  <td>1 mặt hàng / 1 dòng</td>
+                  <td>K03 - Kho TP</td>
+                  <td><div class="progress"><div class="progress-fill" style="width:100%"></div></div></td>
+                  <td><span class="slip-sum ok">1 Đã duyệt / 1</span></td>
+                  <td class="col-checkbox act-cell" tabindex="0" data-actions="In">⋮</td>
+                </tr>
+                <tr id="exp-00007" class="expand-row" style="display:none;">
+                  <td colspan="12" style="padding:0; background:#f8fafc; border-bottom:1px solid #eef0f4;">
+                    <div style="padding:12px 20px 16px 48px;">
+                      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
+                        <span style="font-size:13px; font-weight:700; color:#111827;">📂 Phiếu nhập thành phẩm liên kết <span class="tab-count active">1</span></span>
+                        <div style="display:flex; gap:10px; color:#9ca3af; font-size:13px;"><span>▽</span><span>▦</span></div>
+                      </div>
+                      <div class="card" style="overflow:hidden;">
+                        <table class="grid" style="min-width:0;">
+                          <thead><tr><th>STT</th><th>Số phiếu</th><th>Trạng thái</th><th>Ngày nhập kho</th><th>SL đã nhận</th><th>Người tạo</th><th>Thao tác</th></tr></thead>
+                          <tbody>
+                            <tr>
+                              <td>1</td>
+                              <td><a class="nav-link" onclick="openPhieu('GR-K03-2610-00005')">GR-K03-2610-00005</a></td>
+                              <td><span class="badge badge-closed">Đã duyệt</span></td>
+                              <td>06/10/2026 15:40</td>
+                              <td>1.200 SET</td>
+                              <td>Trần Thị B</td>
+                              <td class="col-checkbox">⋮</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="pagination">
+              <span>1-9 / 11</span>
+              <div class="page-btn active">1</div>
+              <div class="page-btn">2</div>
+              <div class="page-btn">›</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel: Theo phiếu -->
+      <div id="panel-phieu" style="display:none;">
+        <div class="card">
+          <div class="table-toolbar">
+            <span class="result-count">9 bản ghi được tìm thấy</span>
+            <div style="display:flex; gap:10px;">
+              <button class="btn btn-secondary" id="btnResync" disabled onclick="resyncSAP()">⟳ Đồng bộ lại SAP</button>
+              <button class="btn btn-secondary">⬇ Xuất</button>
+              <button class="btn btn-primary" onclick="showView('view-phieu-new')">+ Thêm phiếu</button>
+              <div class="icon-btn">▽</div>
+              <div class="icon-btn">▦</div>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table class="grid">
+              <thead>
+                <tr>
+                  <th class="col-checkbox"><input type="checkbox" id="sapAll" onchange="sapSelAll(this)"></th>
+                  <th>Số phiếu <span class="sort">↕</span> <span class="colmenu">⋮</span></th>
+                  <th>Trạng thái <span class="sort">↕</span> <span class="colmenu">⋮</span></th>
+                  <th>Trạng thái đồng bộ SAP <span class="sort">↕</span> <span class="colmenu">⋮</span></th>
+                  <th>Ngày nhập kho <span class="sort">↕</span> <span class="colmenu">⋮</span></th>
+                  <th>Lệnh sản xuất <span class="sort">↕</span> <span class="colmenu">⋮</span></th>
+                  <th>Mặt hàng <span class="sort">↕</span> <span class="colmenu">⋮</span></th>
+                  <th>Kho <span class="sort">↕</span> <span class="colmenu">⋮</span></th>
+                  <th>Số lượng nhập <span class="sort">↕</span> <span class="colmenu">⋮</span></th>
+                  <th>Người tạo <span class="sort">↕</span> <span class="colmenu">⋮</span></th>
+                  <th>Thao tác</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="col-checkbox"><input type="checkbox" class="sap-cb" onchange="sapSel()"></td>
+                  <td><span class="row-expand" onclick="toggleExpand(this,'expp-GR-K03-2610-00006')" style="cursor:pointer; margin-right:6px;">+</span><a class="nav-link" onclick="openPhieu('GR-K03-2610-00006')">GR-K03-2610-00006</a></td>
+                  <td><span class="badge badge-submitted">Đã trình</span></td>
+                  <td class="sap-cell"><span class="badge badge-sync-none">Chưa đồng bộ</span></td>
+                  <td>16/10/2026 10:15</td>
+                  <td>1349170<span class="more-chip" title="1349170&#10;1349171">+1</span></td>
+                  <td>2 mặt hàng / 2 dòng</td>
+                  <td>K03 - Kho TP</td>
+                  <td style="text-align:right;">900 SET</td>
+                  <td>Trần Thị B</td>
+                  <td class="col-checkbox act-cell" tabindex="0" data-actions="Phê duyệt|In">⋮</td>
+                </tr>
+                <tr id="expp-GR-K03-2610-00006" class="expand-row" style="display:none;">
+                  <td colspan="11" style="padding:0; background:#f8fafc; border-bottom:1px solid #eef0f4;">
+                    <div style="padding:12px 20px 16px 48px;">
+                      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
+                        <span style="font-size:13px; font-weight:700; color:#111827;">📂 Yêu cầu nhập kho liên kết <span class="tab-count active">2</span></span>
+                        <div style="display:flex; gap:10px; color:#9ca3af; font-size:13px;"><span>▽</span><span>▦</span></div>
+                      </div>
+                      <div class="card" style="overflow:hidden;">
+                        <table class="grid" style="min-width:0;">
+                          <thead><tr><th>STT</th><th>Số yêu cầu</th><th>Trạng thái</th><th>Ngày yêu cầu</th><th>Lệnh sản xuất</th><th>SL đã gán</th><th>Người lập</th><th>Thao tác</th></tr></thead>
+                          <tbody>
+                            <tr>
+                              <td>1</td>
+                              <td><a class="nav-link" onclick="openYeuCau(this)">REQ-K03-2610-00002</a></td>
+                              <td><span class="badge badge-submitted">Đã trình</span></td>
+                              <td>05/10/2026 00:32</td>
+                              <td>1349170</td>
+                              <td style="text-align:right;">600 SET</td>
+                              <td>Nguyễn Văn A</td>
+                              <td class="col-checkbox">⋮</td>
+                            </tr>
+                            <tr>
+                              <td>2</td>
+                              <td><a class="nav-link" onclick="openYeuCau(this)">REQ-K03-2610-00003</a></td>
+                              <td><span class="badge badge-submitted">Đã trình</span></td>
+                              <td>05/10/2026 00:35</td>
+                              <td>1349171</td>
+                              <td style="text-align:right;">300 SET</td>
+                              <td>Nguyễn Văn A</td>
+                              <td class="col-checkbox">⋮</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="col-checkbox"><input type="checkbox" class="sap-cb" onchange="sapSel()"></td>
+                  <td><span class="row-expand" onclick="toggleExpand(this,'expp-GR-5000-2610-00001')" style="cursor:pointer; margin-right:6px;">+</span><a class="nav-link" onclick="openPhieu('GR-5000-2610-00001')">GR-5000-2610-00001</a></td>
+                  <td><span class="badge badge-submitted">Đã trình</span></td>
+                  <td class="sap-cell"><span class="badge badge-sync-none">Chưa đồng bộ</span></td>
+                  <td>14/10/2026 16:10</td>
+                  <td>1349169</td>
+                  <td>2 mặt hàng / 2 dòng</td>
+                  <td>5000 - Kho 5000 (TP)</td>
+                  <td style="text-align:right;">69.472 SET</td>
+                  <td>Trần Thị B</td>
+                  <td class="col-checkbox act-cell" tabindex="0" data-actions="Phê duyệt|In">⋮</td>
+                </tr>
+                <tr id="expp-GR-5000-2610-00001" class="expand-row" style="display:none;">
+                  <td colspan="11" style="padding:0; background:#f8fafc; border-bottom:1px solid #eef0f4;">
+                    <div style="padding:12px 20px 16px 48px;">
+                      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
+                        <span style="font-size:13px; font-weight:700; color:#111827;">📂 Yêu cầu nhập kho liên kết <span class="tab-count active">1</span></span>
+                        <div style="display:flex; gap:10px; color:#9ca3af; font-size:13px;"><span>▽</span><span>▦</span></div>
+                      </div>
+                      <div class="card" style="overflow:hidden;">
+                        <table class="grid" style="min-width:0;">
+                          <thead><tr><th>STT</th><th>Số yêu cầu</th><th>Trạng thái</th><th>Ngày yêu cầu</th><th>Lệnh sản xuất</th><th>SL đã gán</th><th>Người lập</th><th>Thao tác</th></tr></thead>
+                          <tbody>
+                            <tr>
+                              <td>1</td>
+                              <td><a class="nav-link" onclick="openYeuCau(this)">REQ-5000-2610-00001</a></td>
+                              <td><span class="badge badge-submitted">Đã trình</span></td>
+                              <td>14/10/2026 15:52</td>
+                              <td>1349169</td>
+                              <td style="text-align:right;">69.472 SET</td>
+                              <td>Nguyễn Văn A</td>
+                              <td class="col-checkbox">⋮</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="col-checkbox"><input type="checkbox" disabled title="Chỉ đồng bộ lại phiếu có trạng thái Chưa đồng bộ hoặc Đồng bộ lỗi"></td>
+                  <td><span class="row-expand" onclick="toggleExpand(this,'expp-GR-K03-2610-00002')" style="cursor:pointer; margin-right:6px;">+</span><a class="nav-link" onclick="openPhieu('GR-K03-2610-00002')">GR-K03-2610-00002</a></td>
+                  <td><span class="badge badge-closed">Đã duyệt</span></td>
+                  <td class="sap-cell"><span class="badge badge-sync-ok">Đã đồng bộ</span></td>
+                  <td>05/10/2026 09:40</td>
+                  <td>1349173</td>
+                  <td>1 mặt hàng / 1 dòng</td>
+                  <td>K03 - Kho TP</td>
+                  <td style="text-align:right;">320 SET</td>
+                  <td>Trần Thị B</td>
+                  <td class="col-checkbox act-cell" tabindex="0" data-actions="In|Hủy phiếu">⋮</td>
+                </tr>
+                <tr id="expp-GR-K03-2610-00002" class="expand-row" style="display:none;">
+                  <td colspan="11" style="padding:0; background:#f8fafc; border-bottom:1px solid #eef0f4;">
+                    <div style="padding:12px 20px 16px 48px;">
+                      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
+                        <span style="font-size:13px; font-weight:700; color:#111827;">📂 Yêu cầu nhập kho liên kết <span class="tab-count active">1</span></span>
+                        <div style="display:flex; gap:10px; color:#9ca3af; font-size:13px;"><span>▽</span><span>▦</span></div>
+                      </div>
+                      <div class="card" style="overflow:hidden;">
+                        <table class="grid" style="min-width:0;">
+                          <thead><tr><th>STT</th><th>Số yêu cầu</th><th>Trạng thái</th><th>Ngày yêu cầu</th><th>Lệnh sản xuất</th><th>SL đã gán</th><th>Người lập</th><th>Thao tác</th></tr></thead>
+                          <tbody>
+                            <tr>
+                              <td>1</td>
+                              <td><a class="nav-link" onclick="openYeuCau(this)">REQ-K03-2610-00005</a></td>
+                              <td><span class="badge badge-closed">Đã đóng</span></td>
+                              <td>05/10/2026 01:12</td>
+                              <td>1349173</td>
+                              <td style="text-align:right;">320 SET</td>
+                              <td>Nguyễn Văn A</td>
+                              <td class="col-checkbox">⋮</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="col-checkbox"><input type="checkbox" class="sap-cb" onchange="sapSel()"></td>
+                  <td><span class="row-expand" onclick="toggleExpand(this,'expp-GR-K03-2610-00003')" style="cursor:pointer; margin-right:6px;">+</span><a class="nav-link" onclick="openPhieu('GR-K03-2610-00003')">GR-K03-2610-00003</a></td>
+                  <td><span class="badge badge-closed">Đã duyệt</span></td>
+                  <td class="sap-cell"><span class="badge badge-sync-err">Đồng bộ lỗi</span></td>
+                  <td>05/10/2026 10:05</td>
+                  <td>1349174</td>
+                  <td>1 mặt hàng / 1 dòng</td>
+                  <td>K03 - Kho TP</td>
+                  <td style="text-align:right;">540 SET</td>
+                  <td>Trần Thị B</td>
+                  <td class="col-checkbox act-cell" tabindex="0" data-actions="In|Đồng bộ lại SAP|Hủy phiếu">⋮</td>
+                </tr>
+                <tr id="expp-GR-K03-2610-00003" class="expand-row" style="display:none;">
+                  <td colspan="11" style="padding:0; background:#f8fafc; border-bottom:1px solid #eef0f4;">
+                    <div style="padding:12px 20px 16px 48px;">
+                      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
+                        <span style="font-size:13px; font-weight:700; color:#111827;">📂 Yêu cầu nhập kho liên kết <span class="tab-count active">1</span></span>
+                        <div style="display:flex; gap:10px; color:#9ca3af; font-size:13px;"><span>▽</span><span>▦</span></div>
+                      </div>
+                      <div class="card" style="overflow:hidden;">
+                        <table class="grid" style="min-width:0;">
+                          <thead><tr><th>STT</th><th>Số yêu cầu</th><th>Trạng thái</th><th>Ngày yêu cầu</th><th>Lệnh sản xuất</th><th>SL đã gán</th><th>Người lập</th><th>Thao tác</th></tr></thead>
+                          <tbody>
+                            <tr>
+                              <td>1</td>
+                              <td><a class="nav-link" onclick="openYeuCau(this)">REQ-K03-2610-00006</a></td>
+                              <td><span class="badge badge-closed">Đã đóng</span></td>
+                              <td>06/10/2026 15:04</td>
+                              <td>1349174</td>
+                              <td style="text-align:right;">540 SET</td>
+                              <td>Nguyễn Văn A</td>
+                              <td class="col-checkbox">⋮</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="col-checkbox"><input type="checkbox" disabled title="Chỉ đồng bộ lại phiếu có trạng thái Chưa đồng bộ hoặc Đồng bộ lỗi"></td>
+                  <td><span class="row-expand" onclick="toggleExpand(this,'expp-GR-K03-2610-00004')" style="cursor:pointer; margin-right:6px;">+</span><a class="nav-link" onclick="openPhieu('GR-K03-2610-00004')">GR-K03-2610-00004</a></td>
+                  <td><span class="badge badge-closed">Đã duyệt</span></td>
+                  <td class="sap-cell"><span class="badge badge-sync-ok">Đã đồng bộ</span></td>
+                  <td>06/10/2026 08:20</td>
+                  <td>1349172</td>
+                  <td>1 mặt hàng / 1 dòng</td>
+                  <td>K03 - Kho TP</td>
+                  <td style="text-align:right;">1.000 SET</td>
+                  <td>Trần Thị B</td>
+                  <td class="col-checkbox act-cell" tabindex="0" data-actions="In|Hủy phiếu">⋮</td>
+                </tr>
+                <tr id="expp-GR-K03-2610-00004" class="expand-row" style="display:none;">
+                  <td colspan="11" style="padding:0; background:#f8fafc; border-bottom:1px solid #eef0f4;">
+                    <div style="padding:12px 20px 16px 48px;">
+                      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
+                        <span style="font-size:13px; font-weight:700; color:#111827;">📂 Yêu cầu nhập kho liên kết <span class="tab-count active">1</span></span>
+                        <div style="display:flex; gap:10px; color:#9ca3af; font-size:13px;"><span>▽</span><span>▦</span></div>
+                      </div>
+                      <div class="card" style="overflow:hidden;">
+                        <table class="grid" style="min-width:0;">
+                          <thead><tr><th>STT</th><th>Số yêu cầu</th><th>Trạng thái</th><th>Ngày yêu cầu</th><th>Lệnh sản xuất</th><th>SL đã gán</th><th>Người lập</th><th>Thao tác</th></tr></thead>
+                          <tbody>
+                            <tr>
+                              <td>1</td>
+                              <td><a class="nav-link" onclick="openYeuCau(this)">REQ-K03-2610-00004</a></td>
+                              <td><span class="badge badge-closed">Đã đóng</span></td>
+                              <td>05/10/2026 01:09</td>
+                              <td>1349172</td>
+                              <td style="text-align:right;">1.000 SET</td>
+                              <td>Nguyễn Văn A</td>
+                              <td class="col-checkbox">⋮</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="col-checkbox"><input type="checkbox" disabled title="Phiếu đang đồng bộ, khóa nút Đồng bộ lại SAP"></td>
+                  <td><span class="row-expand" onclick="toggleExpand(this,'expp-GR-K03-2610-00005')" style="cursor:pointer; margin-right:6px;">+</span><a class="nav-link" onclick="openPhieu('GR-K03-2610-00005')">GR-K03-2610-00005</a></td>
+                  <td><span class="badge badge-closed">Đã duyệt</span></td>
+                  <td class="sap-cell"><span class="badge badge-sync-run"><span class="spin">⟳</span> Đang đồng bộ</span></td>
+                  <td>06/10/2026 15:40</td>
+                  <td>1349175</td>
+                  <td>1 mặt hàng / 1 dòng</td>
+                  <td>K03 - Kho TP</td>
+                  <td style="text-align:right;">1.200 SET</td>
+                  <td>Trần Thị B</td>
+                  <td class="col-checkbox act-cell" tabindex="0" data-actions="In">⋮</td>
+                </tr>
+                <tr id="expp-GR-K03-2610-00005" class="expand-row" style="display:none;">
+                  <td colspan="11" style="padding:0; background:#f8fafc; border-bottom:1px solid #eef0f4;">
+                    <div style="padding:12px 20px 16px 48px;">
+                      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
+                        <span style="font-size:13px; font-weight:700; color:#111827;">📂 Yêu cầu nhập kho liên kết <span class="tab-count active">1</span></span>
+                        <div style="display:flex; gap:10px; color:#9ca3af; font-size:13px;"><span>▽</span><span>▦</span></div>
+                      </div>
+                      <div class="card" style="overflow:hidden;">
+                        <table class="grid" style="min-width:0;">
+                          <thead><tr><th>STT</th><th>Số yêu cầu</th><th>Trạng thái</th><th>Ngày yêu cầu</th><th>Lệnh sản xuất</th><th>SL đã gán</th><th>Người lập</th><th>Thao tác</th></tr></thead>
+                          <tbody>
+                            <tr>
+                              <td>1</td>
+                              <td><a class="nav-link" onclick="openYeuCau(this)">REQ-K03-2610-00007</a></td>
+                              <td><span class="badge badge-closed">Đã đóng</span></td>
+                              <td>06/10/2026 17:34</td>
+                              <td>1349175</td>
+                              <td style="text-align:right;">1.200 SET</td>
+                              <td>Nguyễn Văn A</td>
+                              <td class="col-checkbox">⋮</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="col-checkbox"><input type="checkbox" class="sap-cb" onchange="sapSel()"></td>
+                  <td><span class="row-expand" onclick="toggleExpand(this,'expp-GR-K03-2610-00007')" style="cursor:pointer; margin-right:6px;">+</span><a class="nav-link" onclick="openPhieu('GR-K03-2610-00007')">GR-K03-2610-00007</a></td>
+                  <td><span class="badge badge-saved">Đã lưu</span></td>
+                  <td class="sap-cell"><span class="badge badge-sync-none">Chưa đồng bộ</span></td>
+                  <td>21/10/2026 09:05</td>
+                  <td>1349170</td>
+                  <td>1 mặt hàng / 1 dòng</td>
+                  <td>K03 - Kho TP</td>
+                  <td style="text-align:right;">500 SET</td>
+                  <td>Trần Thị B</td>
+                  <td class="col-checkbox act-cell" tabindex="0" data-actions="Sửa|Gửi|In|Xóa">⋮</td>
+                </tr>
+                <tr id="expp-GR-K03-2610-00007" class="expand-row" style="display:none;">
+                  <td colspan="11" style="padding:0; background:#f8fafc; border-bottom:1px solid #eef0f4;">
+                    <div style="padding:12px 20px 16px 48px;">
+                      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
+                        <span style="font-size:13px; font-weight:700; color:#111827;">📂 Yêu cầu nhập kho liên kết <span class="tab-count active">1</span></span>
+                        <div style="display:flex; gap:10px; color:#9ca3af; font-size:13px;"><span>▽</span><span>▦</span></div>
+                      </div>
+                      <div class="card" style="overflow:hidden;">
+                        <table class="grid" style="min-width:0;">
+                          <thead><tr><th>STT</th><th>Số yêu cầu</th><th>Trạng thái</th><th>Ngày yêu cầu</th><th>Lệnh sản xuất</th><th>SL đã gán</th><th>Người lập</th><th>Thao tác</th></tr></thead>
+                          <tbody>
+                            <tr>
+                              <td>1</td>
+                              <td><a class="nav-link" onclick="openYeuCau(this)">REQ-K03-2610-00002</a></td>
+                              <td><span class="badge badge-submitted">Đã trình</span></td>
+                              <td>05/10/2026 00:32</td>
+                              <td>1349170</td>
+                              <td style="text-align:right;">500 SET</td>
+                              <td>Nguyễn Văn A</td>
+                              <td class="col-checkbox">⋮</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="col-checkbox"><input type="checkbox" disabled title="Phiếu đã hủy, không đồng bộ lại"></td>
+                  <td><span class="row-expand" onclick="toggleExpand(this,'expp-GR-K03-2610-00008')" style="cursor:pointer; margin-right:6px;">+</span><a class="nav-link" onclick="openPhieu('GR-K03-2610-00008')">GR-K03-2610-00008</a></td>
+                  <td><span class="badge badge-cancelled">Đã hủy</span></td>
+                  <td class="sap-cell"><span style="color:#9ca3af;">—</span></td>
+                  <td>20/10/2026 15:40</td>
+                  <td>1349171</td>
+                  <td>1 mặt hàng / 1 dòng</td>
+                  <td>K03 - Kho TP</td>
+                  <td style="text-align:right;">500 SET</td>
+                  <td>Trần Thị B</td>
+                  <td class="col-checkbox act-cell" tabindex="0" data-actions="Sửa|In">⋮</td>
+                </tr>
+                <tr id="expp-GR-K03-2610-00008" class="expand-row" style="display:none;">
+                  <td colspan="11" style="padding:0; background:#f8fafc; border-bottom:1px solid #eef0f4;">
+                    <div style="padding:12px 20px 16px 48px;">
+                      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
+                        <span style="font-size:13px; font-weight:700; color:#111827;">📂 Yêu cầu nhập kho liên kết <span class="tab-count active">1</span></span>
+                        <div style="display:flex; gap:10px; color:#9ca3af; font-size:13px;"><span>▽</span><span>▦</span></div>
+                      </div>
+                      <div class="card" style="overflow:hidden;">
+                        <table class="grid" style="min-width:0;">
+                          <thead><tr><th>STT</th><th>Số yêu cầu</th><th>Trạng thái</th><th>Ngày yêu cầu</th><th>Lệnh sản xuất</th><th>SL đã gán</th><th>Người lập</th><th>Thao tác</th></tr></thead>
+                          <tbody>
+                            <tr>
+                              <td>1</td>
+                              <td><a class="nav-link" onclick="openYeuCau(this)">REQ-K03-2610-00003</a></td>
+                              <td><span class="badge badge-submitted">Đã trình</span></td>
+                              <td>05/10/2026 00:35</td>
+                              <td>1349171</td>
+                              <td style="text-align:right;">500 SET</td>
+                              <td>Nguyễn Văn A</td>
+                              <td class="col-checkbox">⋮</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="col-checkbox"><input type="checkbox" disabled title="Phiếu đã xóa, không đồng bộ lại"></td>
+                  <td><span class="row-expand" onclick="toggleExpand(this,'expp-GR-K03-2610-00009')" style="cursor:pointer; margin-right:6px;">+</span><a class="nav-link" onclick="openPhieu('GR-K03-2610-00009')">GR-K03-2610-00009</a></td>
+                  <td><span class="badge badge-deleted">Đã xóa</span></td>
+                  <td class="sap-cell"><span style="color:#9ca3af;">—</span></td>
+                  <td>20/10/2026 10:02</td>
+                  <td>1349170</td>
+                  <td>1 mặt hàng / 1 dòng</td>
+                  <td>K03 - Kho TP</td>
+                  <td style="text-align:right;">500 SET</td>
+                  <td>Trần Thị B</td>
+                  <td class="col-checkbox act-cell none" title="Phiếu đã xóa, chỉ xem">⋮</td>
+                </tr>
+                <tr id="expp-GR-K03-2610-00009" class="expand-row" style="display:none;">
+                  <td colspan="11" style="padding:0; background:#f8fafc; border-bottom:1px solid #eef0f4;">
+                    <div style="padding:12px 20px 16px 48px;">
+                      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
+                        <span style="font-size:13px; font-weight:700; color:#111827;">📂 Yêu cầu nhập kho liên kết <span class="tab-count active">1</span></span>
+                        <div style="display:flex; gap:10px; color:#9ca3af; font-size:13px;"><span>▽</span><span>▦</span></div>
+                      </div>
+                      <div class="card" style="overflow:hidden;">
+                        <table class="grid" style="min-width:0;">
+                          <thead><tr><th>STT</th><th>Số yêu cầu</th><th>Trạng thái</th><th>Ngày yêu cầu</th><th>Lệnh sản xuất</th><th>SL đã gán</th><th>Người lập</th><th>Thao tác</th></tr></thead>
+                          <tbody>
+                            <tr>
+                              <td>1</td>
+                              <td><a class="nav-link" onclick="openYeuCau(this)">REQ-K03-2610-00002</a></td>
+                              <td><span class="badge badge-submitted">Đã trình</span></td>
+                              <td>05/10/2026 00:32</td>
+                              <td>1349170</td>
+                              <td style="text-align:right;">500 SET</td>
+                              <td>Nguyễn Văn A</td>
+                              <td class="col-checkbox">⋮</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="pagination">
+              <span>1-9 / 9</span>
+              <div class="page-btn active">1</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================= VIEW: CHI TIẾT / THÊM YÊU CẦU ======================= -->
+<div id="view-yeucau" class="view">
+  <div class="app-shell">
+    <div class="wms-nav">
+      <div class="nav-logo"><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 2 7l10 5 10-5-10-5z" fill="#5bc0f8"/><path d="M2 7v10l10 5V12L2 7z" fill="#06274f"/><path d="M22 7v10l-10 5V12l10-5z" fill="#2e86d8"/></svg><span><span class="wd">Dorco</span><span class="ww">WMS</span></span></div>
+      <div class="nav-body">
+        <div class="nav-rail">
+          <div class="rail-item"><span class="rail-ico">🔍</span><span>Search Menu</span></div>
+          <div class="rail-item"><span class="rail-ico">⚙️</span><span>Thiết lập chung</span></div>
+          <div class="rail-item"><span class="rail-ico">🛒</span><span>Bán hàng</span></div>
+          <div class="rail-item"><span class="rail-ico">🛍️</span><span>Mua hàng</span></div>
+          <div class="rail-item active"><span class="rail-ico">📦</span><span>Quản lý hàng hóa</span></div>
+          <div class="rail-item"><span class="rail-ico">🔄</span><span>Giao dịch kho</span></div>
+          <div class="rail-item"><span class="rail-ico">▤</span><span>Điều chỉnh tồn kho</span></div>
+          <div class="rail-item"><span class="rail-ico">⚠️</span><span>Cảnh báo tồn kho</span></div>
+          <div class="rail-item"><span class="rail-ico">📊</span><span>Báo cáo</span></div>
+          <div class="rail-item"><span class="rail-ico">🏷️</span><span>Phát hành nhãn</span></div>
+          <div class="rail-collapse">◧</div>
+        </div>
+        <div class="nav-sub">
+          <div class="nav-sub-title">Quản lý hàng hóa</div>
+          <div class="nav-sub-item active" onclick="showView('view-list')">Nhập kho thành phẩm</div>
+          <div class="nav-sub-item">Giao hàng</div>
+          <div class="nav-sub-item">Trả hàng</div>
+        </div>
+      </div>
+    </div>
+    <div class="main-col">
+      <div class="topbar">
+        <div class="breadcrumb">Kho vận &nbsp;/&nbsp; Nhập kho thành phẩm &nbsp;/&nbsp; <b id="yc-crumb">Chi tiết yêu cầu REQ-5000-2610-00001</b></div>
+        <div class="topbar-right">
+          <div class="btn btn-secondary btn-sm">🔔</div>
+          <div class="avatar">AD</div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="page-title-row">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <span class="nav-link" onclick="showView('view-list')" style="font-size:18px; color:#6b7280;">←</span>
+            <h1 class="page-title" style="margin:0;" id="yc-title">Số yêu cầu REQ-5000-2610-00001</h1>
+            <span class="badge badge-submitted" id="yc-status">Đã trình</span>
+          </div>
+          <div style="display:flex; gap:10px;">
+            <button class="btn btn-secondary" title="In phiếu">🖶</button>
+            <button class="btn btn-secondary" id="yc-btn-edit">Sửa</button>
+            <button class="btn btn-primary" id="yc-btn-addslip" onclick="showView('view-phieu-new')">+ Thêm phiếu</button>
+          </div>
+        </div>
+
+        <div class="tabs">
+          <div class="tab active" id="yctab-main" onclick="showYcTab('main')">Yêu cầu nhập thành phẩm</div>
+          <div class="tab" id="yctab-slips" onclick="showYcTab('slips')">Phiếu nhập kho thành phẩm <span class="tab-count" id="yc-slipcount">1</span></div>
+        </div>
+
+        <div id="panel-yc-main">
+        <div class="card" style="margin-bottom:16px;">
+          <div class="section-title" style="padding:14px 16px 0;">Thông tin phiếu yêu cầu</div>
+          <div class="info-grid">
+            <div class="field">
+              <label>Lệnh sản xuất</label>
+              <input type="text" value="1349169" id="yc-mo" readonly>
+            </div>
+            <div class="field new-mark">
+              <label>Ngày sản xuất</label>
+              <input type="text" value="01/10/2026" id="yc-ngaysx" readonly>
+            </div>
+            <div class="field">
+              <label>Kho &nbsp;(Bộ phận nhận - Nhóm QA/Kho)</label>
+              <input type="text" value="5000 - Kho 5000 (TP)" id="yc-kho" readonly>
+            </div>
+            <div class="field">
+              <label>Loại phiếu</label>
+              <select id="yc-loai"><option selected>Thành phẩm</option><option>Hàng lỗi</option><option>Phế phẩm</option></select>
+            </div>
+            <div class="field">
+              <label>Ca làm việc</label>
+              <select id="yc-ca"><option>Ca 1 (06:00-14:00)</option><option>Ca 2 (14:00-22:00)</option><option>Ca 3 (22:00-06:00)</option></select>
+            </div>
+            <div class="field">
+              <label>Ngày yêu cầu</label>
+              <input type="text" value="14/10/2026" id="yc-ngayyc" readonly>
+            </div>
+            <div class="field new-mark">
+              <label>Ngày nhập kho dự kiến</label>
+              <input type="text" value="15/10/2026" id="yc-ngaydk" readonly>
+            </div>
+            <div class="field">
+              <label>Người lập</label>
+              <input type="text" value="Nguyễn Văn A" id="yc-nguoilap" readonly>
+            </div>
+            <div class="field">
+              <label>Ghi chú</label>
+              <input type="text" id="yc-ghichu" placeholder="Nhập ghi chú (nếu đồng bộ lỗi, nhập tay khi cần gấp)">
+            </div>
+          </div>
+        </div>
+
+        <div class="page-title-row" style="margin-bottom:6px;">
+          <div class="section-title" style="margin:0;">Danh sách mặt hàng</div>
+        </div>
+
+        <div class="card table-wrap">
+          <table class="grid">
+            <thead>
+              <tr>
+                <th>STT</th>
+                <th>Mã vạch / QR</th>
+                <th>Mã mặt hàng</th>
+                <th>Tên mặt hàng</th>
+                <th>Checklist</th>
+                <th>Model</th>
+                <th>Màu sắc</th>
+                <th>Size</th>
+                <th>ĐVT</th>
+                <th>Số Inter SO</th>
+                <th>Số Vina SO</th>
+                <th>Item</th>
+                <th>Khách hàng</th>
+                <th>Số PO khách hàng</th>
+                <th>Cust Batch / Batch No</th>
+                <th>Phân hạng</th>
+                <th>Số lô</th>
+                <th>Ngày hết hạn</th>
+                <th>Số lượng yêu cầu</th>
+                <th>Số lượng box</th>
+                <th>Print</th>
+                <th>Packing</th>
+                <th>Ghi chú</th>
+              </tr>
+            </thead>
+            <tbody id="yc-items"></tbody>
+          </table>
+        </div>
+        </div>
+
+        <!-- Tab: Phiếu nhập kho thành phẩm liên kết -->
+        <div id="panel-yc-slips" style="display:none;">
+          <div class="section-title" style="margin-top:4px;" id="yc-slips-title">Phiếu nhập thành phẩm liên kết (1)</div>
+          <div class="card">
+            <div class="table-toolbar" style="justify-content:flex-end;">
+              <div style="display:flex; gap:10px;">
+                <div class="icon-btn">▽</div>
+                <div class="icon-btn">▦</div>
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table class="grid">
+                <thead>
+                  <tr>
+                    <th>STT <span class="colmenu">⋮</span></th>
+                    <th>Số phiếu <span class="sort">↕</span> <span class="colmenu">⋮</span></th>
+                    <th>Trạng thái <span class="sort">↕</span> <span class="colmenu">⋮</span></th>
+                    <th>Trạng thái đồng bộ SAP <span class="sort">↕</span> <span class="colmenu">⋮</span></th>
+                    <th>Ngày tạo <span class="sort">↕</span> <span class="colmenu">⋮</span></th>
+                    <th>Số lượng nhập <span class="sort">↕</span> <span class="colmenu">⋮</span></th>
+                    <th>Người tạo <span class="sort">↕</span> <span class="colmenu">⋮</span></th>
+                    <th>Thao tác</th>
+                  </tr>
+                </thead>
+                <tbody id="yc-slips"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================= VIEW: CHI TIẾT / THÊM PHIẾU ======================= -->
+<div id="view-phieu" class="view">
+  <div class="app-shell">
+    <div class="wms-nav">
+      <div class="nav-logo"><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 2 7l10 5 10-5-10-5z" fill="#5bc0f8"/><path d="M2 7v10l10 5V12L2 7z" fill="#06274f"/><path d="M22 7v10l-10 5V12l10-5z" fill="#2e86d8"/></svg><span><span class="wd">Dorco</span><span class="ww">WMS</span></span></div>
+      <div class="nav-body">
+        <div class="nav-rail">
+          <div class="rail-item"><span class="rail-ico">🔍</span><span>Search Menu</span></div>
+          <div class="rail-item"><span class="rail-ico">⚙️</span><span>Thiết lập chung</span></div>
+          <div class="rail-item"><span class="rail-ico">🛒</span><span>Bán hàng</span></div>
+          <div class="rail-item"><span class="rail-ico">🛍️</span><span>Mua hàng</span></div>
+          <div class="rail-item active"><span class="rail-ico">📦</span><span>Quản lý hàng hóa</span></div>
+          <div class="rail-item"><span class="rail-ico">🔄</span><span>Giao dịch kho</span></div>
+          <div class="rail-item"><span class="rail-ico">▤</span><span>Điều chỉnh tồn kho</span></div>
+          <div class="rail-item"><span class="rail-ico">⚠️</span><span>Cảnh báo tồn kho</span></div>
+          <div class="rail-item"><span class="rail-ico">📊</span><span>Báo cáo</span></div>
+          <div class="rail-item"><span class="rail-ico">🏷️</span><span>Phát hành nhãn</span></div>
+          <div class="rail-collapse">◧</div>
+        </div>
+        <div class="nav-sub">
+          <div class="nav-sub-title">Quản lý hàng hóa</div>
+          <div class="nav-sub-item active" onclick="showView('view-list')">Nhập kho thành phẩm</div>
+          <div class="nav-sub-item">Giao hàng</div>
+          <div class="nav-sub-item">Trả hàng</div>
+        </div>
+      </div>
+    </div>
+    <div class="main-col">
+      <div class="topbar">
+        <div class="breadcrumb">Kho vận &nbsp;/&nbsp; Nhập kho thành phẩm &nbsp;/&nbsp; <b id="gr-crumb">Phiếu GR-5000-2610-00001</b></div>
+        <div class="topbar-right">
+          <div class="btn btn-secondary btn-sm">🔔</div>
+          <div class="avatar">AD</div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="page-title-row">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <span class="nav-link" onclick="showView('view-list')" style="font-size:18px; color:#6b7280;">←</span>
+            <h1 class="page-title" style="margin:0;" id="gr-title">Số phiếu GR-5000-2610-00001</h1>
+            <span class="badge badge-submitted" id="gr-status">Đã trình</span>
+            <span class="badge badge-sync-none" id="gr-sync">Chưa đồng bộ</span>
+          </div>
+          <div style="display:flex; gap:10px;" id="gr-actions"></div>
+        </div>
+
+        <div class="card" style="margin-bottom:16px;">
+          <div class="section-title" style="padding:14px 16px 0;">Thông tin phiếu nhập thành phẩm</div>
+          <div class="info-grid">
+            <div class="field">
+              <label>Số phiếu</label>
+              <input type="text" value="GR-5000-2610-00001" id="gr-no" readonly>
+            </div>
+            <div class="field">
+              <label>Ngày nhập kho</label>
+              <input type="text" value="14/10/2026 16:10" id="gr-date" readonly>
+            </div>
+            <div class="field">
+              <label>Kho &nbsp;(Bộ phận nhận - Nhóm QA/Kho)</label>
+              <input type="text" value="5000 - Kho 5000 (TP)" id="gr-kho" readonly>
+            </div>
+            <div class="field">
+              <label>Người phụ trách</label>
+              <input type="text" value="Trần Thị B" id="gr-by" readonly>
+            </div>
+            <div class="field">
+              <label>Loại phiếu</label>
+              <select id="gr-loai"><option selected>Thành phẩm</option><option>Hàng lỗi</option><option>Phế phẩm</option></select>
+            </div>
+            <div class="field">
+              <label>Ca làm việc</label>
+              <select id="gr-ca"><option>Ca 1 (06:00-14:00)</option><option selected>Ca 2 (14:00-22:00)</option><option>Ca 3 (22:00-06:00)</option></select>
+            </div>
+            <div class="field">
+              <label>Ghi chú</label>
+              <input type="text" id="gr-note" placeholder="Nhập ghi chú (nếu đồng bộ lỗi, nhập tay khi cần gấp)">
+            </div>
+          </div>
+        </div>
+
+        <div class="section-title">Danh sách mặt hàng <span class="more-chip new-mark" id="gr-sum" style="cursor:default"></span></div>
+
+        <div class="card table-wrap">
+          <table class="grid">
+            <thead>
+              <tr>
+                <th>STT</th>
+                <th class="new-mark">Số yêu cầu</th>
+                <th class="new-mark">Lệnh SX</th>
+                <th>Mã vạch / QR</th>
+                <th>Mã mặt hàng</th>
+                <th>Tên mặt hàng</th>
+                <th>Checklist</th>
+                <th>Model</th>
+                <th>Màu sắc</th>
+                <th>Size</th>
+                <th>ĐVT</th>
+                <th>Số Inter SO</th>
+                <th>Số Vina SO</th>
+                <th>Item</th>
+                <th>Khách hàng</th>
+                <th>Số PO khách hàng</th>
+                <th>Cust Batch / Batch No</th>
+                <th>Số lượng nhập</th>
+                <th>Số lượng box</th>
+                <th>Phân hạng</th>
+                <th>Số lô</th>
+                <th>Ngày hết hạn</th>
+                <th>Vị trí (Bin)</th>
+                <th>Print</th>
+                <th>Packing</th>
+                <th>Ghi chú</th>
+              </tr>
+            </thead>
+            <tbody id="gr-items"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================= VIEW: THÊM MỚI YÊU CẦU (trống) ======================= -->
+<div id="view-yeucau-new" class="view">
+  <div class="app-shell">
+    <div class="wms-nav">
+      <div class="nav-logo"><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 2 7l10 5 10-5-10-5z" fill="#5bc0f8"/><path d="M2 7v10l10 5V12L2 7z" fill="#06274f"/><path d="M22 7v10l-10 5V12l10-5z" fill="#2e86d8"/></svg><span><span class="wd">Dorco</span><span class="ww">WMS</span></span></div>
+      <div class="nav-body">
+        <div class="nav-rail">
+          <div class="rail-item"><span class="rail-ico">🔍</span><span>Search Menu</span></div>
+          <div class="rail-item"><span class="rail-ico">⚙️</span><span>Thiết lập chung</span></div>
+          <div class="rail-item"><span class="rail-ico">🛒</span><span>Bán hàng</span></div>
+          <div class="rail-item"><span class="rail-ico">🛍️</span><span>Mua hàng</span></div>
+          <div class="rail-item active"><span class="rail-ico">📦</span><span>Quản lý hàng hóa</span></div>
+          <div class="rail-item"><span class="rail-ico">🔄</span><span>Giao dịch kho</span></div>
+          <div class="rail-item"><span class="rail-ico">▤</span><span>Điều chỉnh tồn kho</span></div>
+          <div class="rail-item"><span class="rail-ico">⚠️</span><span>Cảnh báo tồn kho</span></div>
+          <div class="rail-item"><span class="rail-ico">📊</span><span>Báo cáo</span></div>
+          <div class="rail-item"><span class="rail-ico">🏷️</span><span>Phát hành nhãn</span></div>
+          <div class="rail-collapse">◧</div>
+        </div>
+        <div class="nav-sub">
+          <div class="nav-sub-title">Quản lý hàng hóa</div>
+          <div class="nav-sub-item active" onclick="showView('view-list')">Nhập kho thành phẩm</div>
+          <div class="nav-sub-item">Giao hàng</div>
+          <div class="nav-sub-item">Trả hàng</div>
+        </div>
+      </div>
+    </div>
+    <div class="main-col">
+      <div class="topbar">
+        <div class="breadcrumb">Kho vận &nbsp;/&nbsp; Nhập kho thành phẩm &nbsp;/&nbsp; <b>Thêm yêu cầu nhập kho thành phẩm</b></div>
+        <div class="topbar-right">
+          <div class="btn btn-secondary btn-sm">🔔</div>
+          <div class="avatar">AD</div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="page-title-row">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <span class="nav-link" onclick="showView('view-list')" style="font-size:18px; color:#6b7280; text-decoration:none;">←</span>
+            <h1 class="page-title" style="margin:0;">Thêm yêu cầu nhập kho thành phẩm</h1>
+          </div>
+          <div style="display:flex; gap:10px;">
+            <button class="btn btn-secondary">Lưu</button>
+            <button class="btn btn-success" onclick="showView('view-list')">Gửi</button>
+          </div>
+        </div>
+
+        <div class="card" style="margin-bottom:16px;">
+          <div class="info-grid">
+            <div class="field">
+              <label>Số yêu cầu</label>
+              <input type="text" placeholder="Tự động tạo" disabled>
+            </div>
+            <div class="field">
+              <label>Ngày yêu cầu *</label>
+              <input type="text" value="16/10/2026 15:24" readonly>
+            </div>
+            <div class="field new-mark">
+              <label>Ngày nhập kho dự kiến *</label>
+              <input type="text" placeholder="Chọn ngày nhập kho dự kiến">
+            </div>
+            <div class="field">
+              <label>Kho nhận hàng *</label>
+              <select><option>Chọn Kho nhận hàng</option><option>5000 - Kho 5000 (TP)</option><option>K03 - Kho TP</option></select>
+            </div>
+            <div class="field">
+              <label>Người phụ trách *</label>
+              <select><option selected>Super Administrator</option></select>
+            </div>
+            <div class="field">
+              <label>Lệnh sản xuất</label>
+              <input type="text" placeholder="Nhập Lệnh sản xuất">
+            </div>
+            <div class="field new-mark">
+              <label>Ngày sản xuất</label>
+              <input type="date" title="Nhập tay ngày sản xuất của lệnh SX">
+            </div>
+            <div class="field">
+              <label>Mức ưu tiên *</label>
+              <select><option selected>Bình thường</option><option>Cao</option><option>Khẩn cấp</option></select>
+            </div>
+            <div class="field">
+              <label>Ghi chú</label>
+              <input type="text" placeholder="Nhập Ghi chú">
+            </div>
+          </div>
+        </div>
+
+        <div class="page-title-row" style="margin-bottom:6px;">
+          <div class="section-title" style="margin:0;">Danh sách mặt hàng</div>
+          <div style="display:flex; gap:10px;">
+            <button class="btn btn-disabled">+ Thêm từ lệnh sản xuất</button>
+            <button class="btn" style="background:#111827; color:#fff;">+ Thêm mặt hàng</button>
+          </div>
+        </div>
+
+        <div class="card table-wrap">
+          <table class="grid">
+            <thead>
+              <tr>
+                <th>STT</th>
+                <th>Mã vạch / QR</th>
+                <th>Mã mặt hàng</th>
+                <th>Tên mặt hàng</th>
+                <th>Checklist</th>
+                <th>Model</th>
+                <th>Màu sắc</th>
+                <th>Size</th>
+                <th>ĐVT</th>
+                <th>Số Inter SO</th>
+                <th>Số Vina SO</th>
+                <th>Item</th>
+                <th>Khách hàng</th>
+                <th>Số PO khách hàng</th>
+                <th>Cust Batch / Batch No</th>
+                <th>Phân hạng</th>
+                <th>Số lô</th>
+                <th>Ngày hết hạn</th>
+                <th>Số lượng yêu cầu</th>
+                <th>Số lượng box</th>
+                <th>Print</th>
+                <th>Packing</th>
+                <th>Ghi chú</th>
+                <th>Thao tác</th>
+              </tr>
+            </thead>
+          </table>
+          <div class="empty-state">
+            <div class="empty-icon">🤖</div>
+            <div class="empty-title">Chưa có dòng hàng nào</div>
+            <div class="empty-sub">Dùng Thêm mặt hàng hoặc Thêm từ lệnh sản xuất để thêm mặt hàng.</div>
+            <button class="btn" style="background:#111827; color:#fff;">+ Thêm mặt hàng</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================= VIEW: THÊM MỚI PHIẾU (trống) ======================= -->
+<div id="view-phieu-new" class="view">
+  <div class="app-shell">
+    <div class="wms-nav">
+      <div class="nav-logo"><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 2 7l10 5 10-5-10-5z" fill="#5bc0f8"/><path d="M2 7v10l10 5V12L2 7z" fill="#06274f"/><path d="M22 7v10l-10 5V12l10-5z" fill="#2e86d8"/></svg><span><span class="wd">Dorco</span><span class="ww">WMS</span></span></div>
+      <div class="nav-body">
+        <div class="nav-rail">
+          <div class="rail-item"><span class="rail-ico">🔍</span><span>Search Menu</span></div>
+          <div class="rail-item"><span class="rail-ico">⚙️</span><span>Thiết lập chung</span></div>
+          <div class="rail-item"><span class="rail-ico">🛒</span><span>Bán hàng</span></div>
+          <div class="rail-item"><span class="rail-ico">🛍️</span><span>Mua hàng</span></div>
+          <div class="rail-item active"><span class="rail-ico">📦</span><span>Quản lý hàng hóa</span></div>
+          <div class="rail-item"><span class="rail-ico">🔄</span><span>Giao dịch kho</span></div>
+          <div class="rail-item"><span class="rail-ico">▤</span><span>Điều chỉnh tồn kho</span></div>
+          <div class="rail-item"><span class="rail-ico">⚠️</span><span>Cảnh báo tồn kho</span></div>
+          <div class="rail-item"><span class="rail-ico">📊</span><span>Báo cáo</span></div>
+          <div class="rail-item"><span class="rail-ico">🏷️</span><span>Phát hành nhãn</span></div>
+          <div class="rail-collapse">◧</div>
+        </div>
+        <div class="nav-sub">
+          <div class="nav-sub-title">Quản lý hàng hóa</div>
+          <div class="nav-sub-item active" onclick="showView('view-list')">Nhập kho thành phẩm</div>
+          <div class="nav-sub-item">Giao hàng</div>
+          <div class="nav-sub-item">Trả hàng</div>
+        </div>
+      </div>
+    </div>
+    <div class="main-col">
+      <div class="topbar">
+        <div class="breadcrumb">Kho vận &nbsp;/&nbsp; Nhập kho thành phẩm &nbsp;/&nbsp; <b>Thêm phiếu nhập thành phẩm</b></div>
+        <div class="topbar-right">
+          <div class="btn btn-secondary btn-sm">🔔</div>
+          <div class="avatar">AD</div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="page-title-row">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <span class="nav-link" onclick="showView('view-list')" style="font-size:18px; color:#6b7280; text-decoration:none;">←</span>
+            <h1 class="page-title" style="margin:0;">Thêm phiếu nhập thành phẩm</h1>
+          </div>
+          <div style="display:flex; gap:10px;">
+            <button class="btn btn-secondary" title="In phiếu">🖶</button>
+            <button class="btn btn-secondary">Lưu</button>
+            <button class="btn btn-success" onclick="showView('view-list')">✓ Gửi</button>
+          </div>
+        </div>
+
+        <div class="card" style="margin-bottom:16px;">
+          <div class="section-title" style="padding:14px 16px 0;">Thông tin phiếu nhập thành phẩm</div>
+          <div class="info-grid">
+            <div class="field">
+              <label>Số phiếu</label>
+              <input type="text" placeholder="Tự động tạo" disabled>
+            </div>
+            <div class="field">
+              <label>Ngày nhập kho *</label>
+              <input type="text" placeholder="Chọn Ngày nhập kho">
+            </div>
+            <div class="field">
+              <label>Kho *</label>
+              <select><option>Chọn Kho nhận hàng</option><option>5000 - Kho 5000 (TP)</option><option>K03 - Kho TP</option></select>
+            </div>
+            <div class="field">
+              <label>Người phụ trách *</label>
+              <select><option selected>Super Administrator</option></select>
+            </div>
+            <div class="field">
+              <label>Loại phiếu *</label>
+              <select><option>Chọn Loại phiếu</option><option>Thành phẩm</option><option>Hàng lỗi</option><option>Phế phẩm</option></select>
+            </div>
+            <div class="field">
+              <label>Ca làm việc</label>
+              <select><option>Chọn Ca làm việc</option><option>Ca 1 (06:00-14:00)</option><option>Ca 2 (14:00-22:00)</option><option>Ca 3 (22:00-06:00)</option></select>
+            </div>
+          </div>
+          <div style="padding:0 16px 16px;">
+            <div class="field">
+              <label>Ghi chú</label>
+              <textarea rows="3" placeholder="Nhập Ghi chú" style="border:1px solid #d5dae3; border-radius:6px; padding:8px 10px; font-size:13px; font-family:inherit; resize:vertical;"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="page-title-row" style="margin-bottom:6px;">
+          <div class="section-title" style="margin:0;">Danh sách mặt hàng</div>
+          <div style="display:flex; gap:10px;">
+            <button class="btn btn-secondary">+ Thêm từ yêu cầu</button>
+            <button class="btn btn-disabled">+ Thêm từ lệnh sản xuất</button>
+            <button class="btn" style="background:#111827; color:#fff;">+ Thêm mặt hàng</button>
+          </div>
+        </div>
+
+        <div class="card table-wrap">
+          <table class="grid">
+            <thead>
+              <tr>
+                <th>STT</th>
+                <th class="new-mark">Số yêu cầu</th>
+                <th class="new-mark">Lệnh SX</th>
+                <th>Mã vạch / QR</th>
+                <th>Mã mặt hàng</th>
+                <th>Tên mặt hàng</th>
+                <th>Checklist</th>
+                <th>Model</th>
+                <th>Màu sắc</th>
+                <th>Size</th>
+                <th>ĐVT</th>
+                <th>Số Inter SO</th>
+                <th>Số Vina SO</th>
+                <th>Item</th>
+                <th>Khách hàng</th>
+                <th>Số PO khách hàng</th>
+                <th>Cust Batch / Batch No</th>
+                <th>Số lượng nhập</th>
+                <th>Số lượng box</th>
+                <th>Phân hạng</th>
+                <th>Số lô</th>
+                <th>Ngày hết hạn</th>
+                <th>Vị trí (Bin) *</th>
+                <th>Print</th>
+                <th>Packing</th>
+                <th>Ghi chú</th>
+              </tr>
+            </thead>
+          </table>
+          <div class="empty-state">
+            <div class="empty-icon">🤖</div>
+            <div class="empty-title">Chưa có dòng hàng nào</div>
+            <div class="empty-sub">Dùng Thêm từ yêu cầu, Thêm từ lệnh sản xuất hoặc Thêm mặt hàng. Một phiếu được chứa dòng của nhiều yêu cầu cùng kho; mỗi dòng ghi Số yêu cầu và Lệnh SX.</div>
+            <button class="btn" style="background:#111827; color:#fff;">+ Thêm mặt hàng</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ===== Dữ liệu mẫu cho các yêu cầu trang 1 ===== */
+const YC_ITEMS = {
+  A: {bc:'101653100001', code:'1016531', name:'TNA4007-B PT.INN 24', cl:'2026-328', model:'TNA4007-B', color:'LIMEGREEN', size:'—', uom:'SET', inter:'11753848', vina:'11754800', item:'40', cust:'PT INDOSARI NIAGA NUSANTARA', po:'—', batch:'MFG 01/10/2026 - EXP 01/10/2036', print:'DORCO', pack:'1/6/24'},
+  B: {bc:'101445500001', code:'1014455', name:'TNC210BE-BK BSC 1000', cl:'2023-254-1', model:'TNC210BE-BK', color:'BEIGE/GRAY/Y.GREEN', size:'—', uom:'SET', inter:'11752920', vina:'11755849', item:'10', cust:'VISAGE LINES PERSONAL CARE PVT. LTD', po:'—', batch:'PKD 09/2026', print:'BSC', pack:'1/10/100/1000'},
+  C: {bc:'101223300001', code:'1012233', name:'TNB300A-GR SHV 500', cl:'2025-117', model:'TNB300A-GR', color:'GRAY', size:'—', uom:'SET', inter:'11751220', vina:'11756003', item:'20', cust:'SHAVEX ALLIANCE PVT. LTD', po:'—', batch:'PKD 08/2026', print:'SHV', pack:'1/4/16'},
+  D: {bc:'101870200001', code:'1018702', name:'TND500C-WH MOM 10', cl:'2026-045', model:'TND500C-WH', color:'WHITE', size:'—', uom:'SET', inter:'11754110', vina:'11756420', item:'30', cust:'MOMO TRADING CO., LTD', po:'—', batch:'MFG 05/10/2026 - EXP 05/10/2036', print:'MOMO', pack:'1/5/10'}
+};
+/* Tên trạng thái đồng bộ dùng chung, bỏ hậu tố SAP (điểm chốt 7) */
+const SY = {
+  none: ['Chưa đồng bộ','badge-sync-none'],
+  ok:   ['Đã đồng bộ','badge-sync-ok'],
+  err:  ['Đồng bộ lỗi','badge-sync-err'],
+  run:  ['<span class="spin">⟳</span> Đang đồng bộ','badge-sync-run']
+};
+const ST = {
+  saved:     ['Đã lưu','badge-saved'],
+  submitted: ['Đã trình','badge-submitted'],
+  approved:  ['Đã duyệt','badge-closed'],
+  closed:    ['Đã đóng','badge-closed'],
+  cancelled: ['Đã hủy','badge-cancelled'],
+  deleted:   ['Đã xóa','badge-deleted']
+};
+/* Đúng 6 trạng thái tem, tên giống nhau ở mọi màn */
+const TST = {
+  issued:   ['Đã phát hành','badge-t-issued'],
+  printed:  ['Đã in, chưa giữ chỗ','badge-t-printed'],
+  reserved: ['Đã in, giữ chỗ','badge-t-reserved'],
+  stock:    ['Trong kho','badge-t-stock'],
+  closed:   ['Đã xuất hết','badge-t-closed'],
+  cancel:   ['Đã hủy','badge-t-cancel']
+};
+const YC = {
+  'REQ-K03-2610-00015': {src:'wms', st:'saved', mo:'1349180', kho:'K03 - Kho TP', sx:'20/10/2026', yc:'21/10/2026', dk:'23/10/2026', ca:1, by:'Nguyễn Văn A', note:'',
+    items:[['B','2.000','2 thùng']], slips:[]},
+  'REQ-K03-2610-00014': {src:'wms', st:'saved', mo:'—', kho:'K03 - Kho TP', sx:'20/10/2026', yc:'21/10/2026', dk:'23/10/2026', ca:1, by:'Nguyễn Văn A', note:'',
+    items:[['C','480','30 thùng'],['D','1.000','100 thùng']], slips:[]},
+  'REQ-5000-2610-00001': {src:'sap', st:'submitted', mo:'1349169', kho:'5000 - Kho 5000 (TP)', sx:'01/10/2026', yc:'14/10/2026', dk:'15/10/2026', ca:2, by:'Nguyễn Văn A', note:'',
+    items:[['A','5.472','228 thùng','REQ-5000-2610-00001#1'],['B','64.000','64 thùng','REQ-5000-2610-00001#2']],
+    slips:[{no:'GR-5000-2610-00001', st:'submitted', sy:'none', date:'14/10/2026 16:10', qty:'69.472 SET', by:'Trần Thị B', act:'Phê duyệt|In'}]},
+  'REQ-K03-2610-00002': {src:'wms', st:'submitted', mo:'1349170', kho:'K03 - Kho TP', sx:'04/10/2026', yc:'05/10/2026', dk:'07/10/2026', ca:1, by:'Nguyễn Văn A', note:'',
+    items:[['A','1.200','50 thùng','REQ-K03-2610-00002#1']],
+    slips:[{no:'GR-K03-2610-00006', st:'submitted', sy:'none', date:'16/10/2026 10:15', qty:'600 SET', by:'Trần Thị B', act:'Phê duyệt|In'},
+           {no:'GR-K03-2610-00007', st:'saved', sy:'none', date:'21/10/2026 09:05', qty:'500 SET', by:'Trần Thị B', act:'Sửa|Gửi|In|Xóa'}]},
+  'REQ-K03-2610-00003': {src:'sap', st:'submitted', mo:'1349171', kho:'K03 - Kho TP', sx:'04/10/2026', yc:'05/10/2026', dk:'07/10/2026', ca:1, by:'Nguyễn Văn A', note:'',
+    items:[['B','600','1 thùng','REQ-K03-2610-00003#1']],
+    slips:[{no:'GR-K03-2610-00006', st:'submitted', sy:'none', date:'16/10/2026 10:15', qty:'300 SET', by:'Trần Thị B', act:'Phê duyệt|In'}]},
+  'REQ-K03-2610-00004': {src:'sap', st:'closed', mo:'1349172', kho:'K03 - Kho TP', sx:'04/10/2026', yc:'05/10/2026', dk:'06/10/2026', ca:2, by:'Nguyễn Văn A', note:'',
+    items:[['B','1.000','1 thùng','GR-K03-2610-00004#1']],
+    slips:[{no:'GR-K03-2610-00004', st:'approved', sy:'ok', date:'06/10/2026 08:20', qty:'1.000 SET', by:'Trần Thị B', act:'In|Hủy phiếu'}]},
+  'REQ-K03-2610-00005': {src:'sap', st:'closed', mo:'1349173', kho:'K03 - Kho TP', sx:'04/10/2026', yc:'05/10/2026', dk:'06/10/2026', ca:2, by:'Nguyễn Văn A', note:'',
+    items:[['C','320','20 thùng','GR-K03-2610-00002#1']],
+    slips:[{no:'GR-K03-2610-00002', st:'approved', sy:'ok', date:'05/10/2026 09:40', qty:'320 SET', by:'Trần Thị B', act:'In|Hủy phiếu'}]},
+  'REQ-K03-2610-00006': {src:'sap', st:'closed', mo:'1349174', kho:'K03 - Kho TP', sx:'05/10/2026', yc:'06/10/2026', dk:'07/10/2026', ca:3, by:'Nguyễn Văn A', note:'',
+    items:[['C','240','15 thùng','REQ-K03-2610-00006#1'],['D','300','30 thùng','REQ-K03-2610-00006#2']],
+    slips:[{no:'GR-K03-2610-00003', st:'approved', sy:'err', date:'05/10/2026 10:05', qty:'540 SET', by:'Trần Thị B', act:'In|Đồng bộ lại SAP|Hủy phiếu'}]},
+  'REQ-K03-2610-00007': {src:'sap', st:'closed', mo:'1349175', kho:'K03 - Kho TP', sx:'05/10/2026', yc:'06/10/2026', dk:'08/10/2026', ca:3, by:'Nguyễn Văn A', note:'',
+    items:[['A','1.200','50 thùng','REQ-K03-2610-00007#1']],
+    slips:[{no:'GR-K03-2610-00005', st:'approved', sy:'run', date:'06/10/2026 15:40', qty:'1.200 SET', by:'Trần Thị B', act:'In'}]}
+};
+
+/* ===== Dữ liệu mẫu phiếu nhập thành phẩm: một màn chi tiết dùng chung cho mọi phiếu ===== */
+const GR = {
+  'GR-5000-2610-00001': {st:'submitted', sy:'none', kho:'5000 - Kho 5000 (TP)', date:'14/10/2026 16:10', by:'Trần Thị B', ca:2, note:'',
+    rows:[{req:'REQ-5000-2610-00001', mo:'1349169', it:'A', qty:'5.472', box:'228 thùng', bin:'HY-A-03-12', map:'GR-5000-2610-00001#1'},
+          {req:'REQ-5000-2610-00001', mo:'1349169', it:'B', qty:'64.000', box:'64 thùng', bin:'HY-A-03-13', map:'GR-5000-2610-00001#2'}]},
+  'GR-K03-2610-00002': {st:'approved', sy:'ok', kho:'K03 - Kho TP', date:'05/10/2026 09:40', by:'Trần Thị B', ca:2, note:'',
+    rows:[{req:'REQ-K03-2610-00005', mo:'1349173', it:'C', qty:'320', box:'20 thùng', bin:'K03-A-01-01', map:'GR-K03-2610-00002#1'}]},
+  'GR-K03-2610-00003': {st:'approved', sy:'err', kho:'K03 - Kho TP', date:'05/10/2026 10:05', by:'Trần Thị B', ca:3, note:'',
+    rows:[{req:'REQ-K03-2610-00006', mo:'1349174', it:'C', qty:'240', box:'15 thùng', bin:'K03-A-01-04', map:'GR-K03-2610-00003#1'},
+          {req:'REQ-K03-2610-00006', mo:'1349174', it:'D', qty:'300', box:'30 thùng', bin:'K03-A-01-05', map:'GR-K03-2610-00003#2'}]},
+  'GR-K03-2610-00004': {st:'approved', sy:'ok', kho:'K03 - Kho TP', date:'06/10/2026 08:20', by:'Trần Thị B', ca:2, note:'',
+    rows:[{req:'REQ-K03-2610-00004', mo:'1349172', it:'B', qty:'1.000', box:'1 thùng', bin:'K03-A-01-02', map:'GR-K03-2610-00004#1'}]},
+  'GR-K03-2610-00005': {st:'approved', sy:'run', kho:'K03 - Kho TP', date:'06/10/2026 15:40', by:'Trần Thị B', ca:3, note:'',
+    rows:[{req:'REQ-K03-2610-00007', mo:'1349175', it:'A', qty:'1.200', box:'50 thùng', bin:'K03-A-02-01', map:'GR-K03-2610-00005#1'}]},
+  'GR-K03-2610-00006': {st:'submitted', sy:'none', kho:'K03 - Kho TP', date:'16/10/2026 10:15', by:'Trần Thị B', ca:1, note:'',
+    rows:[{req:'REQ-K03-2610-00002', mo:'1349170', it:'A', qty:'600', box:'25 thùng', bin:'K03-A-01-02', map:'GR-K03-2610-00006#1'},
+          {req:'REQ-K03-2610-00003', mo:'1349171', it:'B', qty:'300', box:'1 thùng (lẻ)', bin:'K03-A-01-03', map:'GR-K03-2610-00006#2'}]},
+  'GR-K03-2610-00007': {st:'saved', sy:'none', kho:'K03 - Kho TP', date:'21/10/2026 09:05', by:'Trần Thị B', ca:1, note:'',
+    rows:[{req:'REQ-K03-2610-00002', mo:'1349170', it:'A', qty:'500', box:'21 thùng', bin:'K03-A-01-02', map:'GR-K03-2610-00007#1'}]},
+  'GR-K03-2610-00008': {st:'cancelled', sy:null, kho:'K03 - Kho TP', date:'20/10/2026 15:40', by:'Trần Thị B', ca:1, note:'Hủy do nhập nhầm lệnh sản xuất',
+    rows:[{req:'REQ-K03-2610-00003', mo:'1349171', it:'B', qty:'500', box:'1 thùng', bin:'K03-A-01-03', map:'GR-K03-2610-00008#1'}]},
+  'GR-K03-2610-00009': {st:'deleted', sy:null, kho:'K03 - Kho TP', date:'20/10/2026 10:02', by:'Trần Thị B', ca:1, note:'Phiếu nháp đã xóa',
+    rows:[{req:'REQ-K03-2610-00002', mo:'1349170', it:'A', qty:'500', box:'21 thùng', bin:'K03-A-01-02', map:'GR-K03-2610-00009#1'}]}
+};
+
+/* ===== Popup "Barcode/QR đã ánh xạ" (điểm chốt 11) ===== */
+const QRMAP = {
+  'GR-K03-2610-00004#1': {doc:'GR-K03-2610-00004', req:'REQ-K03-2610-00004', line:'1', it:'B', uom:'SET',
+    rows:[
+      {no:'FGL-261006-0001', nhap:'200', con:'200', st:'stock',    bin:'K03-A-01-02', note:''},
+      {no:'FGL-261006-0002', nhap:'200', con:'0',   st:'closed',   bin:'K03-A-01-02', note:'Đã xuất hết theo phiếu giao GI-2610-00004'},
+      {no:'FGL-261006-0003', nhap:'200', con:'120', st:'stock',    bin:'K03-A-01-02', note:'Đã xuất lẻ 80'},
+      {no:'FGL-261006-0004', nhap:'200', con:'0',   st:'cancel',   bin:'—',           note:'Gộp vào FGL-261006-0005, lý do GỘP'},
+      {no:'FGL-261006-0005', nhap:'200', con:'400', st:'stock',    bin:'K03-A-01-03', note:'Tem đích, đã gộp FGL-261006-0004'},
+      {no:'FGL-261006-0006', nhap:'—',   con:'200', st:'reserved', bin:'—',           note:'Đang giữ chỗ cho dòng này, chưa nhập kho'},
+      {no:'FGL-261006-0007', nhap:'—',   con:'200', st:'printed',  bin:'—',           note:'Đã bỏ giữ chỗ, không nhập theo phiếu này'},
+      {no:'FGL-261006-0008', nhap:'—',   con:'200', st:'issued',   bin:'—',           note:'Chưa xác nhận in'}
+    ]},
+  'GR-K03-2610-00002#1': {doc:'GR-K03-2610-00002', req:'REQ-K03-2610-00005', line:'1', it:'C', uom:'SET',
+    rows:[
+      {no:'FGL-261005-0011', nhap:'160', con:'160', st:'stock', bin:'K03-A-01-01', note:''},
+      {no:'FGL-261005-0012', nhap:'160', con:'160', st:'stock', bin:'K03-A-01-01', note:''}
+    ]},
+  'REQ-5000-2610-00001#1': {doc:'GR-5000-2610-00001', req:'REQ-5000-2610-00001', line:'1', it:'A', uom:'SET',
+    rows:[
+      {no:'FGL-261014-0101', nhap:'—', con:'2.736', st:'reserved', bin:'—', note:'Đang giữ chỗ theo phiếu GR-5000-2610-00001, chưa nhập kho'},
+      {no:'FGL-261014-0102', nhap:'—', con:'2.736', st:'reserved', bin:'—', note:'Đang giữ chỗ theo phiếu GR-5000-2610-00001, chưa nhập kho'}
+    ]},
+  'REQ-5000-2610-00001#2': {doc:'GR-5000-2610-00001', req:'REQ-5000-2610-00001', line:'2', it:'B', uom:'SET',
+    rows:[
+      {no:'FGL-261014-0103', nhap:'—', con:'32.000', st:'reserved', bin:'—', note:'Đang giữ chỗ theo phiếu GR-5000-2610-00001, chưa nhập kho'},
+      {no:'FGL-261014-0104', nhap:'—', con:'32.000', st:'reserved', bin:'—', note:'Đang giữ chỗ theo phiếu GR-5000-2610-00001, chưa nhập kho'}
+    ]},
+  'REQ-K03-2610-00002#1': {doc:'GR-K03-2610-00006, GR-K03-2610-00007', req:'REQ-K03-2610-00002', line:'1', it:'A', uom:'SET',
+    rows:[
+      {no:'FGL-261005-0201', nhap:'—', con:'300', st:'reserved', bin:'—', note:'Đang giữ chỗ theo phiếu GR-K03-2610-00006, chưa nhập kho'},
+      {no:'FGL-261005-0202', nhap:'—', con:'300', st:'reserved', bin:'—', note:'Đang giữ chỗ theo phiếu GR-K03-2610-00006, chưa nhập kho'},
+      {no:'FGL-261005-0203', nhap:'—', con:'250', st:'reserved', bin:'—', note:'Đang giữ chỗ theo phiếu GR-K03-2610-00007, chưa nhập kho'},
+      {no:'FGL-261005-0204', nhap:'—', con:'250', st:'reserved', bin:'—', note:'Đang giữ chỗ theo phiếu GR-K03-2610-00007, chưa nhập kho'},
+      {no:'FGL-261005-0205', nhap:'—', con:'100', st:'printed', bin:'—', note:'Chưa lập phiếu nhập kho cho phần còn lại'}
+    ]},
+  'REQ-K03-2610-00003#1': {doc:'GR-K03-2610-00006', req:'REQ-K03-2610-00003', line:'1', it:'B', uom:'SET',
+    rows:[
+      {no:'FGL-261005-0301', nhap:'—', con:'150', st:'reserved', bin:'—', note:'Đang giữ chỗ theo phiếu GR-K03-2610-00006, chưa nhập kho'},
+      {no:'FGL-261005-0302', nhap:'—', con:'150', st:'reserved', bin:'—', note:'Đang giữ chỗ theo phiếu GR-K03-2610-00006, chưa nhập kho'},
+      {no:'FGL-261005-0303', nhap:'—', con:'300', st:'printed', bin:'—', note:'Chưa lập phiếu nhập kho cho phần còn lại'}
+    ]},
+  'REQ-K03-2610-00006#1': {doc:'GR-K03-2610-00003', req:'REQ-K03-2610-00006', line:'1', it:'C', uom:'SET',
+    rows:[
+      {no:'FGL-261006-0601', nhap:'120', con:'120', st:'stock', bin:'K03-A-01-04', note:''},
+      {no:'FGL-261006-0602', nhap:'120', con:'120', st:'stock', bin:'K03-A-01-04', note:''}
+    ]},
+  'REQ-K03-2610-00006#2': {doc:'GR-K03-2610-00003', req:'REQ-K03-2610-00006', line:'2', it:'D', uom:'SET',
+    rows:[
+      {no:'FGL-261006-0603', nhap:'150', con:'150', st:'stock', bin:'K03-A-01-05', note:''},
+      {no:'FGL-261006-0604', nhap:'150', con:'150', st:'stock', bin:'K03-A-01-05', note:''}
+    ]},
+  'REQ-K03-2610-00007#1': {doc:'GR-K03-2610-00005', req:'REQ-K03-2610-00007', line:'1', it:'A', uom:'SET',
+    rows:[
+      {no:'FGL-261006-0701', nhap:'600', con:'600', st:'stock', bin:'K03-A-02-01', note:''},
+      {no:'FGL-261006-0702', nhap:'600', con:'600', st:'stock', bin:'K03-A-02-01', note:''}
+    ]},
+  'GR-5000-2610-00001#1': {doc:'GR-5000-2610-00001', req:'REQ-5000-2610-00001', line:'1', it:'A', uom:'SET',
+    rows:[
+      {no:'FGL-261014-0101', nhap:'—', con:'2.736', st:'reserved', bin:'—', note:'Đang giữ chỗ theo phiếu GR-5000-2610-00001, chưa nhập kho'},
+      {no:'FGL-261014-0102', nhap:'—', con:'2.736', st:'reserved', bin:'—', note:'Đang giữ chỗ theo phiếu GR-5000-2610-00001, chưa nhập kho'}
+    ]},
+  'GR-5000-2610-00001#2': {doc:'GR-5000-2610-00001', req:'REQ-5000-2610-00001', line:'2', it:'B', uom:'SET',
+    rows:[
+      {no:'FGL-261014-0103', nhap:'—', con:'32.000', st:'reserved', bin:'—', note:'Đang giữ chỗ theo phiếu GR-5000-2610-00001, chưa nhập kho'},
+      {no:'FGL-261014-0104', nhap:'—', con:'32.000', st:'reserved', bin:'—', note:'Đang giữ chỗ theo phiếu GR-5000-2610-00001, chưa nhập kho'}
+    ]},
+  'GR-K03-2610-00003#1': {doc:'GR-K03-2610-00003', req:'REQ-K03-2610-00006', line:'1', it:'C', uom:'SET',
+    rows:[
+      {no:'FGL-261006-0601', nhap:'120', con:'120', st:'stock', bin:'K03-A-01-04', note:''},
+      {no:'FGL-261006-0602', nhap:'120', con:'120', st:'stock', bin:'K03-A-01-04', note:''}
+    ]},
+  'GR-K03-2610-00003#2': {doc:'GR-K03-2610-00003', req:'REQ-K03-2610-00006', line:'2', it:'D', uom:'SET',
+    rows:[
+      {no:'FGL-261006-0603', nhap:'150', con:'150', st:'stock', bin:'K03-A-01-05', note:''},
+      {no:'FGL-261006-0604', nhap:'150', con:'150', st:'stock', bin:'K03-A-01-05', note:''}
+    ]},
+  'GR-K03-2610-00005#1': {doc:'GR-K03-2610-00005', req:'REQ-K03-2610-00007', line:'1', it:'A', uom:'SET',
+    rows:[
+      {no:'FGL-261006-0701', nhap:'600', con:'600', st:'stock', bin:'K03-A-02-01', note:''},
+      {no:'FGL-261006-0702', nhap:'600', con:'600', st:'stock', bin:'K03-A-02-01', note:''}
+    ]},
+  'GR-K03-2610-00006#1': {doc:'GR-K03-2610-00006', req:'REQ-K03-2610-00002', line:'1', it:'A', uom:'SET',
+    rows:[
+      {no:'FGL-261005-0201', nhap:'—', con:'300', st:'reserved', bin:'—', note:'Đang giữ chỗ theo phiếu GR-K03-2610-00006, chưa nhập kho'},
+      {no:'FGL-261005-0202', nhap:'—', con:'300', st:'reserved', bin:'—', note:'Đang giữ chỗ theo phiếu GR-K03-2610-00006, chưa nhập kho'}
+    ]},
+  'GR-K03-2610-00006#2': {doc:'GR-K03-2610-00006', req:'REQ-K03-2610-00003', line:'2', it:'B', uom:'SET',
+    rows:[
+      {no:'FGL-261005-0301', nhap:'—', con:'150', st:'reserved', bin:'—', note:'Đang giữ chỗ theo phiếu GR-K03-2610-00006, chưa nhập kho'},
+      {no:'FGL-261005-0302', nhap:'—', con:'150', st:'reserved', bin:'—', note:'Đang giữ chỗ theo phiếu GR-K03-2610-00006, chưa nhập kho'}
+    ]},
+  'GR-K03-2610-00007#1': {doc:'GR-K03-2610-00007', req:'REQ-K03-2610-00002', line:'1', it:'A', uom:'SET',
+    rows:[
+      {no:'FGL-261005-0203', nhap:'—', con:'250', st:'reserved', bin:'—', note:'Đang giữ chỗ theo phiếu GR-K03-2610-00007, chưa nhập kho'},
+      {no:'FGL-261005-0204', nhap:'—', con:'250', st:'reserved', bin:'—', note:'Đang giữ chỗ theo phiếu GR-K03-2610-00007, chưa nhập kho'}
+    ]},
+  'GR-K03-2610-00008#1': {doc:'GR-K03-2610-00008', req:'REQ-K03-2610-00003', line:'1', it:'B', uom:'SET',
+    rows:[
+      {no:'FGL-261005-8001', nhap:'—', con:'250', st:'printed', bin:'—', note:'Đã bỏ giữ chỗ do phiếu GR-K03-2610-00008 bị hủy'},
+      {no:'FGL-261005-8002', nhap:'—', con:'250', st:'printed', bin:'—', note:'Đã bỏ giữ chỗ do phiếu GR-K03-2610-00008 bị hủy'}
+    ]},
+  'GR-K03-2610-00009#1': {doc:'GR-K03-2610-00009', req:'REQ-K03-2610-00002', line:'1', it:'A', uom:'SET',
+    rows:[
+      {no:'FGL-261005-9001', nhap:'—', con:'250', st:'printed', bin:'—', note:'Đã bỏ giữ chỗ do phiếu GR-K03-2610-00009 bị xóa'},
+      {no:'FGL-261005-9002', nhap:'—', con:'250', st:'printed', bin:'—', note:'Đã bỏ giữ chỗ do phiếu GR-K03-2610-00009 bị xóa'}
+    ]}
+};
+
+/* Chi tiết và lịch sử từng tem: [thời điểm, thao tác, chứng từ, số lượng, người, ghi chú] */
+const TEM = {
+  'FGL-261006-0001': {src:'YÊU CẦU', issued:'05/10/2026 14:02', qty:'200', hist:[
+    ['05/10/2026 14:02','Phát hành tem','REQ-K03-2610-00004','200','Nguyễn Văn A','Phát hành từ màn 3010050'],
+    ['05/10/2026 14:30','In tem lần đầu','—','200','Nguyễn Văn A','Chuyển Đã in, giữ chỗ'],
+    ['06/10/2026 08:20','Nhập kho','GR-K03-2610-00004','200','Trần Thị B','Vào vị trí K03-A-01-02']]},
+  'FGL-261006-0002': {src:'YÊU CẦU', issued:'05/10/2026 14:02', qty:'200', hist:[
+    ['05/10/2026 14:02','Phát hành tem','REQ-K03-2610-00004','200','Nguyễn Văn A',''],
+    ['06/10/2026 08:20','Nhập kho','GR-K03-2610-00004','200','Trần Thị B','Vào vị trí K03-A-01-02'],
+    ['18/10/2026 09:15','Xuất giao hàng','GI-2610-00004','200','Lê Văn C','SL còn lại về 0, tem Đã xuất hết']]},
+  'FGL-261006-0003': {src:'YÊU CẦU', issued:'05/10/2026 14:02', qty:'200', hist:[
+    ['05/10/2026 14:02','Phát hành tem','REQ-K03-2610-00004','200','Nguyễn Văn A',''],
+    ['06/10/2026 08:20','Nhập kho','GR-K03-2610-00004','200','Trần Thị B','Vào vị trí K03-A-01-02'],
+    ['19/10/2026 10:40','Xuất lẻ','GI-2610-00006','80','Lê Văn C','Còn lại 120']]},
+  'FGL-261006-0004': {src:'YÊU CẦU', issued:'05/10/2026 14:02', qty:'200', hist:[
+    ['05/10/2026 14:02','Phát hành tem','REQ-K03-2610-00004','200','Nguyễn Văn A',''],
+    ['06/10/2026 08:20','Nhập kho','GR-K03-2610-00004','200','Trần Thị B','Vào vị trí K03-A-01-02'],
+    ['20/10/2026 11:05','Gộp tem','MRG-2610-00002','200','Trần Thị B','Gộp vào FGL-261006-0005, tem nguồn Đã hủy lý do GỘP']]},
+  'FGL-261006-0005': {src:'YÊU CẦU', issued:'05/10/2026 14:02', qty:'200', hist:[
+    ['05/10/2026 14:02','Phát hành tem','REQ-K03-2610-00004','200','Nguyễn Văn A',''],
+    ['06/10/2026 08:20','Nhập kho','GR-K03-2610-00004','200','Trần Thị B','Vào vị trí K03-A-01-03'],
+    ['20/10/2026 11:05','Gộp tem','MRG-2610-00002','+200','Trần Thị B','Nhận từ FGL-261006-0004, còn lại 400']]},
+  'FGL-261006-0006': {src:'YÊU CẦU', issued:'05/10/2026 14:02', qty:'200', hist:[
+    ['05/10/2026 14:02','Phát hành tem','REQ-K03-2610-00004','200','Nguyễn Văn A',''],
+    ['05/10/2026 14:30','In tem lần đầu','—','200','Nguyễn Văn A','Chuyển Đã in, giữ chỗ']]},
+  'FGL-261006-0007': {src:'YÊU CẦU', issued:'05/10/2026 14:02', qty:'200', hist:[
+    ['05/10/2026 14:02','Phát hành tem','REQ-K03-2610-00004','200','Nguyễn Văn A',''],
+    ['05/10/2026 14:30','In tem lần đầu','—','200','Nguyễn Văn A',''],
+    ['07/10/2026 16:20','Bỏ giữ chỗ','—','200','Nguyễn Văn A','Chuyển Đã in, chưa giữ chỗ']]},
+  'FGL-261006-0008': {src:'YÊU CẦU', issued:'05/10/2026 14:02', qty:'200', hist:[
+    ['05/10/2026 14:02','Phát hành tem','REQ-K03-2610-00004','200','Nguyễn Văn A','Chưa xác nhận in']]},
+  'FGL-261005-0011': {src:'YÊU CẦU', issued:'04/10/2026 16:40', qty:'160', hist:[
+    ['04/10/2026 16:40','Phát hành tem','REQ-K03-2610-00005','160','Nguyễn Văn A',''],
+    ['05/10/2026 09:40','Nhập kho','GR-K03-2610-00002','160','Trần Thị B','Vào vị trí K03-A-01-01']]},
+  'FGL-261005-0012': {src:'YÊU CẦU', issued:'04/10/2026 16:40', qty:'160', hist:[
+    ['04/10/2026 16:40','Phát hành tem','REQ-K03-2610-00005','160','Nguyễn Văn A',''],
+    ['05/10/2026 09:40','Nhập kho','GR-K03-2610-00002','160','Trần Thị B','Vào vị trí K03-A-01-01']]},
+  'FGL-261014-0101': {src:'YÊU CẦU', issued:'14/10/2026 08:00', qty:'2.736', hist:[
+    ['14/10/2026 08:00','Phát hành tem','REQ-5000-2610-00001','2.736','Nguyễn Văn A','Phát hành từ màn 3010050'],
+    ['14/10/2026 09:00','In tem lần đầu','—','2.736','Nguyễn Văn A','Chuyển Đã in, giữ chỗ'],
+    ['14/10/2026 16:10','Ánh xạ vào phiếu','GR-5000-2610-00001','2.736','Trần Thị B','Chờ phê duyệt phiếu']]},
+  'FGL-261014-0102': {src:'YÊU CẦU', issued:'14/10/2026 08:00', qty:'2.736', hist:[
+    ['14/10/2026 08:00','Phát hành tem','REQ-5000-2610-00001','2.736','Nguyễn Văn A','Phát hành từ màn 3010050'],
+    ['14/10/2026 09:00','In tem lần đầu','—','2.736','Nguyễn Văn A','Chuyển Đã in, giữ chỗ'],
+    ['14/10/2026 16:10','Ánh xạ vào phiếu','GR-5000-2610-00001','2.736','Trần Thị B','Chờ phê duyệt phiếu']]},
+  'FGL-261014-0103': {src:'YÊU CẦU', issued:'14/10/2026 08:00', qty:'32.000', hist:[
+    ['14/10/2026 08:00','Phát hành tem','REQ-5000-2610-00001','32.000','Nguyễn Văn A','Phát hành từ màn 3010050'],
+    ['14/10/2026 09:00','In tem lần đầu','—','32.000','Nguyễn Văn A','Chuyển Đã in, giữ chỗ'],
+    ['14/10/2026 16:10','Ánh xạ vào phiếu','GR-5000-2610-00001','32.000','Trần Thị B','Chờ phê duyệt phiếu']]},
+  'FGL-261014-0104': {src:'YÊU CẦU', issued:'14/10/2026 08:00', qty:'32.000', hist:[
+    ['14/10/2026 08:00','Phát hành tem','REQ-5000-2610-00001','32.000','Nguyễn Văn A','Phát hành từ màn 3010050'],
+    ['14/10/2026 09:00','In tem lần đầu','—','32.000','Nguyễn Văn A','Chuyển Đã in, giữ chỗ'],
+    ['14/10/2026 16:10','Ánh xạ vào phiếu','GR-5000-2610-00001','32.000','Trần Thị B','Chờ phê duyệt phiếu']]},
+  'FGL-261005-0201': {src:'YÊU CẦU', issued:'05/10/2026 08:00', qty:'300', hist:[
+    ['05/10/2026 08:00','Phát hành tem','REQ-K03-2610-00002','300','Nguyễn Văn A','Phát hành từ màn 3010050'],
+    ['05/10/2026 09:00','In tem lần đầu','—','300','Nguyễn Văn A','Chuyển Đã in, giữ chỗ'],
+    ['16/10/2026 10:15','Ánh xạ vào phiếu','GR-K03-2610-00006','300','Trần Thị B','Chờ phê duyệt phiếu']]},
+  'FGL-261005-0202': {src:'YÊU CẦU', issued:'05/10/2026 08:00', qty:'300', hist:[
+    ['05/10/2026 08:00','Phát hành tem','REQ-K03-2610-00002','300','Nguyễn Văn A','Phát hành từ màn 3010050'],
+    ['05/10/2026 09:00','In tem lần đầu','—','300','Nguyễn Văn A','Chuyển Đã in, giữ chỗ'],
+    ['16/10/2026 10:15','Ánh xạ vào phiếu','GR-K03-2610-00006','300','Trần Thị B','Chờ phê duyệt phiếu']]},
+  'FGL-261005-0203': {src:'YÊU CẦU', issued:'05/10/2026 08:00', qty:'250', hist:[
+    ['05/10/2026 08:00','Phát hành tem','REQ-K03-2610-00002','250','Nguyễn Văn A','Phát hành từ màn 3010050'],
+    ['05/10/2026 09:00','In tem lần đầu','—','250','Nguyễn Văn A','Chuyển Đã in, giữ chỗ'],
+    ['21/10/2026 09:05','Ánh xạ vào phiếu','GR-K03-2610-00007','250','Trần Thị B','Chờ phê duyệt phiếu']]},
+  'FGL-261005-0204': {src:'YÊU CẦU', issued:'05/10/2026 08:00', qty:'250', hist:[
+    ['05/10/2026 08:00','Phát hành tem','REQ-K03-2610-00002','250','Nguyễn Văn A','Phát hành từ màn 3010050'],
+    ['05/10/2026 09:00','In tem lần đầu','—','250','Nguyễn Văn A','Chuyển Đã in, giữ chỗ'],
+    ['21/10/2026 09:05','Ánh xạ vào phiếu','GR-K03-2610-00007','250','Trần Thị B','Chờ phê duyệt phiếu']]},
+  'FGL-261005-0205': {src:'YÊU CẦU', issued:'05/10/2026 08:00', qty:'100', hist:[
+    ['05/10/2026 08:00','Phát hành tem','REQ-K03-2610-00002','100','Nguyễn Văn A','Phát hành từ màn 3010050'],
+    ['05/10/2026 09:00','In tem lần đầu','—','100','Nguyễn Văn A','Chuyển Đã in, chưa giữ chỗ']]},
+  'FGL-261005-0301': {src:'YÊU CẦU', issued:'05/10/2026 08:00', qty:'150', hist:[
+    ['05/10/2026 08:00','Phát hành tem','REQ-K03-2610-00003','150','Nguyễn Văn A','Phát hành từ màn 3010050'],
+    ['05/10/2026 09:00','In tem lần đầu','—','150','Nguyễn Văn A','Chuyển Đã in, giữ chỗ'],
+    ['16/10/2026 10:15','Ánh xạ vào phiếu','GR-K03-2610-00006','150','Trần Thị B','Chờ phê duyệt phiếu']]},
+  'FGL-261005-0302': {src:'YÊU CẦU', issued:'05/10/2026 08:00', qty:'150', hist:[
+    ['05/10/2026 08:00','Phát hành tem','REQ-K03-2610-00003','150','Nguyễn Văn A','Phát hành từ màn 3010050'],
+    ['05/10/2026 09:00','In tem lần đầu','—','150','Nguyễn Văn A','Chuyển Đã in, giữ chỗ'],
+    ['16/10/2026 10:15','Ánh xạ vào phiếu','GR-K03-2610-00006','150','Trần Thị B','Chờ phê duyệt phiếu']]},
+  'FGL-261005-0303': {src:'YÊU CẦU', issued:'05/10/2026 08:00', qty:'300', hist:[
+    ['05/10/2026 08:00','Phát hành tem','REQ-K03-2610-00003','300','Nguyễn Văn A','Phát hành từ màn 3010050'],
+    ['05/10/2026 09:00','In tem lần đầu','—','300','Nguyễn Văn A','Chuyển Đã in, chưa giữ chỗ']]},
+  'FGL-261006-0601': {src:'YÊU CẦU', issued:'06/10/2026 08:00', qty:'120', hist:[
+    ['06/10/2026 08:00','Phát hành tem','REQ-K03-2610-00006','120','Nguyễn Văn A','Phát hành từ màn 3010050'],
+    ['06/10/2026 09:00','In tem lần đầu','—','120','Nguyễn Văn A','Chuyển Đã in, giữ chỗ'],
+    ['05/10/2026 10:05','Nhập kho','GR-K03-2610-00003','120','Trần Thị B','Vào vị trí K03-A-01-04']]},
+  'FGL-261006-0602': {src:'YÊU CẦU', issued:'06/10/2026 08:00', qty:'120', hist:[
+    ['06/10/2026 08:00','Phát hành tem','REQ-K03-2610-00006','120','Nguyễn Văn A','Phát hành từ màn 3010050'],
+    ['06/10/2026 09:00','In tem lần đầu','—','120','Nguyễn Văn A','Chuyển Đã in, giữ chỗ'],
+    ['05/10/2026 10:05','Nhập kho','GR-K03-2610-00003','120','Trần Thị B','Vào vị trí K03-A-01-04']]},
+  'FGL-261006-0603': {src:'YÊU CẦU', issued:'06/10/2026 08:00', qty:'150', hist:[
+    ['06/10/2026 08:00','Phát hành tem','REQ-K03-2610-00006','150','Nguyễn Văn A','Phát hành từ màn 3010050'],
+    ['06/10/2026 09:00','In tem lần đầu','—','150','Nguyễn Văn A','Chuyển Đã in, giữ chỗ'],
+    ['05/10/2026 10:05','Nhập kho','GR-K03-2610-00003','150','Trần Thị B','Vào vị trí K03-A-01-05']]},
+  'FGL-261006-0604': {src:'YÊU CẦU', issued:'06/10/2026 08:00', qty:'150', hist:[
+    ['06/10/2026 08:00','Phát hành tem','REQ-K03-2610-00006','150','Nguyễn Văn A','Phát hành từ màn 3010050'],
+    ['06/10/2026 09:00','In tem lần đầu','—','150','Nguyễn Văn A','Chuyển Đã in, giữ chỗ'],
+    ['05/10/2026 10:05','Nhập kho','GR-K03-2610-00003','150','Trần Thị B','Vào vị trí K03-A-01-05']]},
+  'FGL-261006-0701': {src:'YÊU CẦU', issued:'06/10/2026 08:00', qty:'600', hist:[
+    ['06/10/2026 08:00','Phát hành tem','REQ-K03-2610-00007','600','Nguyễn Văn A','Phát hành từ màn 3010050'],
+    ['06/10/2026 09:00','In tem lần đầu','—','600','Nguyễn Văn A','Chuyển Đã in, giữ chỗ'],
+    ['06/10/2026 15:40','Nhập kho','GR-K03-2610-00005','600','Trần Thị B','Vào vị trí K03-A-02-01']]},
+  'FGL-261006-0702': {src:'YÊU CẦU', issued:'06/10/2026 08:00', qty:'600', hist:[
+    ['06/10/2026 08:00','Phát hành tem','REQ-K03-2610-00007','600','Nguyễn Văn A','Phát hành từ màn 3010050'],
+    ['06/10/2026 09:00','In tem lần đầu','—','600','Nguyễn Văn A','Chuyển Đã in, giữ chỗ'],
+    ['06/10/2026 15:40','Nhập kho','GR-K03-2610-00005','600','Trần Thị B','Vào vị trí K03-A-02-01']]},
+  'FGL-261005-8001': {src:'YÊU CẦU', issued:'05/10/2026 08:00', qty:'250', hist:[
+    ['05/10/2026 08:00','Phát hành tem','REQ-K03-2610-00003','250','Nguyễn Văn A','Phát hành từ màn 3010050'],
+    ['05/10/2026 09:00','In tem lần đầu','—','250','Nguyễn Văn A','Chuyển Đã in, giữ chỗ'],
+    ['20/10/2026 15:40','Bỏ giữ chỗ','GR-K03-2610-00008','250','Trần Thị B','Phiếu bị hủy, tem về Đã in, chưa giữ chỗ']]},
+  'FGL-261005-8002': {src:'YÊU CẦU', issued:'05/10/2026 08:00', qty:'250', hist:[
+    ['05/10/2026 08:00','Phát hành tem','REQ-K03-2610-00003','250','Nguyễn Văn A','Phát hành từ màn 3010050'],
+    ['05/10/2026 09:00','In tem lần đầu','—','250','Nguyễn Văn A','Chuyển Đã in, giữ chỗ'],
+    ['20/10/2026 15:40','Bỏ giữ chỗ','GR-K03-2610-00008','250','Trần Thị B','Phiếu bị hủy, tem về Đã in, chưa giữ chỗ']]},
+  'FGL-261005-9001': {src:'YÊU CẦU', issued:'05/10/2026 08:00', qty:'250', hist:[
+    ['05/10/2026 08:00','Phát hành tem','REQ-K03-2610-00002','250','Nguyễn Văn A','Phát hành từ màn 3010050'],
+    ['05/10/2026 09:00','In tem lần đầu','—','250','Nguyễn Văn A','Chuyển Đã in, giữ chỗ'],
+    ['20/10/2026 10:02','Bỏ giữ chỗ','GR-K03-2610-00009','250','Trần Thị B','Phiếu bị xóa, tem về Đã in, chưa giữ chỗ']]},
+  'FGL-261005-9002': {src:'YÊU CẦU', issued:'05/10/2026 08:00', qty:'250', hist:[
+    ['05/10/2026 08:00','Phát hành tem','REQ-K03-2610-00002','250','Nguyễn Văn A','Phát hành từ màn 3010050'],
+    ['05/10/2026 09:00','In tem lần đầu','—','250','Nguyễn Văn A','Chuyển Đã in, giữ chỗ'],
+    ['20/10/2026 10:02','Bỏ giữ chỗ','GR-K03-2610-00009','250','Trần Thị B','Phiếu bị xóa, tem về Đã in, chưa giữ chỗ']]}
+};
+
+function ycSetVal(id, val) { const e = document.getElementById(id); if (e) e.value = val; }
+
+/* Cột Mã vạch / QR: luôn là nút "Đã ánh xạ N", bấm mở popup tem (điểm chốt 11) */
+function mapChip(key) {
+  const d = key && QRMAP[key];
+  if (!d) return '<span class="chip-map">Đã ánh xạ 0</span>';
+  return '<button type="button" class="chip-map on" onclick="openQR(\'' + key + '\')">Đã ánh xạ ' + d.rows.length + '</button>';
+}
+
+function ycRenderItems(d) {
+  const tb = document.getElementById('yc-items');
+  tb.innerHTML = d.items.map(function (r, i) {
+    const it = YC_ITEMS[r[0]];
+    const bc = mapChip(r[3]);
+    return '<tr><td>' + (i + 1) + '</td><td>' + bc + '</td><td>' + it.code + '</td><td>' + it.name + '</td><td>' + it.cl +
+      '</td><td>' + it.model + '</td><td>' + it.color + '</td><td>' + it.size + '</td><td>' + it.uom +
+      '</td><td>' + it.inter + '</td><td>' + it.vina + '</td><td>' + it.item + '</td><td>' + it.cust +
+      '</td><td>' + it.po + '</td><td>' + it.batch + '</td><td></td><td></td><td></td><td>' + r[1] + '</td><td>' + r[2] +
+      '</td><td>' + it.print + '</td><td>' + it.pack + '</td><td></td></tr>';
+  }).join('');
+}
+
+function ycRenderSlips(d) {
+  document.getElementById('yc-slips-title').textContent = 'Phiếu nhập thành phẩm liên kết (' + d.slips.length + ')';
+  const tb = document.getElementById('yc-slips');
+  if (!d.slips.length) {
+    tb.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:28px; color:#9ca3af;">Chưa có phiếu nhập kho nào cho yêu cầu này</td></tr>';
+    return;
+  }
+  tb.innerHTML = d.slips.map(function (sp, i) {
+    const st = ST[sp.st], sy = SY[sp.sy];
+    return '<tr><td>' + (i + 1) + '</td>' +
+      '<td><a class="nav-link" onclick="openPhieu(\'' + sp.no + '\')">' + sp.no + '</a></td>' +
+      '<td><span class="badge ' + st[1] + '">' + st[0] + '</span></td>' +
+      '<td><span class="badge ' + sy[1] + '">' + sy[0] + '</span></td>' +
+      '<td>' + sp.date + '</td>' +
+      '<td style="text-align:right;">' + sp.qty + '</td>' +
+      '<td>' + sp.by + '</td>' +
+      '<td class="col-checkbox act-cell" tabindex="0" data-actions="' + sp.act + '">⋮</td></tr>';
+  }).join('');
+}
+
+function showView(id) {
+  document.querySelectorAll('.view').forEach(function (v) {
+    v.classList.remove('active');
+  });
+  var el = document.getElementById(id);
+  if (el) el.classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function openYeuCau(el) {
+  const no = (typeof el === 'string') ? el : el.textContent.trim();
+  document.getElementById('yc-title').textContent = 'Số yêu cầu ' + no;
+  document.getElementById('yc-crumb').textContent = 'Chi tiết yêu cầu ' + no;
+  const d = YC[no];
+  if (d) {
+    const st = document.getElementById('yc-status'), s = ST[d.st] || ST.saved;
+    st.className = 'badge ' + s[1]; st.textContent = s[0];
+    ycSetVal('yc-mo', d.mo);
+    ycSetVal('yc-kho', d.kho);
+    ycSetVal('yc-ngaysx', d.sx);
+    ycSetVal('yc-ngayyc', d.yc);
+    ycSetVal('yc-ngaydk', d.dk);
+    ycSetVal('yc-nguoilap', d.by);
+    ycSetVal('yc-ghichu', d.note || '');
+    document.getElementById('yc-ca').selectedIndex = (d.ca || 1) - 1;
+    document.getElementById('yc-slipcount').textContent = d.slips.length;
+    /* Điểm chốt 12: yêu cầu nguồn Đồng bộ SAP không có nút Sửa; chỉ yêu cầu WMS Đã lưu mới sửa được */
+    document.getElementById('yc-btn-edit').style.display = (d.src === 'wms' && d.st === 'saved') ? '' : 'none';
+    document.getElementById('yc-btn-addslip').style.display = (d.st === 'submitted') ? '' : 'none';
+    ycRenderItems(d);
+    ycRenderSlips(d);
+  }
+  showYcTab('main');
+  showView('view-yeucau');
+}
+
+/* ===== Chi tiết phiếu nhập thành phẩm (dùng chung cho mọi số phiếu) ===== */
+function grActions(no, d) {
+  const b = [];
+  b.push('<button class="btn btn-secondary" title="In phiếu" onclick="toast(\'Đang in ' + no + '\')">🖶</button>');
+  if (d.st === 'saved') {
+    b.push('<button class="btn btn-secondary" onclick="toast(\'Mở ' + no + ' để sửa\')">Sửa</button>');
+    b.push('<button class="btn btn-success" onclick="toast(\'Đã gửi ' + no + ', trạng thái chuyển Đã trình\')">✓ Gửi</button>');
+  } else if (d.st === 'submitted') {
+    /* Điểm chốt 12: phiếu Đã trình chỉ có Phê duyệt và In */
+    b.push('<button class="btn btn-success" onclick="runActionNo(\'Phê duyệt\',\'' + no + '\')">✓ Phê duyệt</button>');
+  } else if (d.st === 'approved') {
+    if (d.sy === 'none' || d.sy === 'err') b.push('<button class="btn btn-secondary" onclick="runActionNo(\'Đồng bộ lại SAP\',\'' + no + '\')">⟳ Đồng bộ lại SAP</button>');
+    if (d.sy !== 'run') b.push('<button class="btn btn-secondary" onclick="runActionNo(\'Hủy phiếu\',\'' + no + '\')">Hủy phiếu</button>');
+  } else if (d.st === 'cancelled') {
+    b.push('<button class="btn btn-secondary" onclick="toast(\'Mở ' + no + ' để sửa\')">Sửa</button>');
+  }
+  return b.join('');
+}
+function openPhieu(no) {
+  const d = GR[no];
+  if (!d) { toast('Chưa có dữ liệu mẫu cho ' + no); return; }
+  document.getElementById('gr-crumb').textContent = 'Phiếu ' + no;
+  document.getElementById('gr-title').textContent = 'Số phiếu ' + no;
+  const s = ST[d.st], stEl = document.getElementById('gr-status');
+  stEl.className = 'badge ' + s[1]; stEl.textContent = s[0];
+  const syEl = document.getElementById('gr-sync');
+  if (d.sy) { syEl.style.display = ''; syEl.className = 'badge ' + SY[d.sy][1]; syEl.innerHTML = SY[d.sy][0]; }
+  else { syEl.style.display = 'none'; }
+  document.getElementById('gr-actions').innerHTML = grActions(no, d);
+  ycSetVal('gr-no', no);
+  ycSetVal('gr-date', d.date);
+  ycSetVal('gr-kho', d.kho);
+  ycSetVal('gr-by', d.by);
+  ycSetVal('gr-note', d.note || '');
+  document.getElementById('gr-ca').selectedIndex = (d.ca || 1) - 1;
+  const reqSet = [], moSet = [];
+  d.rows.forEach(function (r) { if (reqSet.indexOf(r.req) < 0) reqSet.push(r.req); if (moSet.indexOf(r.mo) < 0) moSet.push(r.mo); });
+  const sum = document.getElementById('gr-sum');
+  sum.textContent = reqSet.length > 1 ? (reqSet.length + ' yêu cầu · ' + moSet.length + ' lệnh SX · ' + d.rows.length + ' dòng') : '';
+  sum.style.display = reqSet.length > 1 ? '' : 'none';
+  document.getElementById('gr-items').innerHTML = d.rows.map(function (r, i) {
+    const it = YC_ITEMS[r.it];
+    return '<tr><td>' + (i + 1) + '</td>' +
+      '<td><a class="nav-link" onclick="openYeuCau(\'' + r.req + '\')">' + r.req + '</a></td>' +
+      '<td>' + r.mo + '</td><td>' + mapChip(r.map) + '</td><td>' + it.code + '</td><td>' + it.name + '</td><td>' + it.cl +
+      '</td><td>' + it.model + '</td><td>' + it.color + '</td><td>' + it.size + '</td><td>' + it.uom +
+      '</td><td>' + it.inter + '</td><td>' + it.vina + '</td><td>' + it.item + '</td><td>' + it.cust +
+      '</td><td>' + it.po + '</td><td>' + it.batch + '</td><td>' + r.qty + '</td><td>' + r.box +
+      '</td><td></td><td></td><td></td><td>' + r.bin + '</td><td>' + it.print + '</td><td>' + it.pack + '</td><td></td></tr>';
+  }).join('');
+  showView('view-phieu');
+}
+
+/* ===== Popup Barcode/QR đã ánh xạ + chi tiết, lịch sử tem ===== */
+function closeModal(id) { const e = document.getElementById(id); if (e) e.remove(); }
+function modalOpen(id, cls, title, sub, body) {
+  closeModal(id);
+  const w = document.createElement('div');
+  w.className = 'modal-scrim'; w.id = id;
+  w.innerHTML = '<div class="modal' + (cls ? ' ' + cls : '') + '" role="dialog" aria-modal="true">' +
+    '<div class="modal-head"><div><div class="modal-title">' + title + '</div><div class="modal-sub">' + sub + '</div></div>' +
+    '<button type="button" class="modal-close" aria-label="Đóng">✕</button></div>' +
+    '<div class="modal-body">' + body + '</div></div>';
+  w.addEventListener('click', function (e) {
+    if (e.target === w || e.target.closest('.modal-close')) closeModal(id);
+  });
+  document.body.appendChild(w);
+}
+function openQR(key) {
+  const d = QRMAP[key];
+  if (!d) return;
+  const it = YC_ITEMS[d.it];
+  const body = '<div class="table-wrap"><table class="grid" style="min-width:760px;"><thead><tr>' +
+    '<th>Mã vạch / QR</th><th style="text-align:right;">SL nhập</th><th style="text-align:right;">SL còn lại</th>' +
+    '<th>Trạng thái tem</th><th>Vị trí</th><th>Ghi chú</th></tr></thead><tbody>' +
+    d.rows.map(function (r) {
+      const t = TST[r.st];
+      return '<tr><td><span class="lbl-link" onclick="openTem(\'' + r.no + '\',\'' + key + '\')">' + r.no + '</span></td>' +
+        '<td style="text-align:right;">' + r.nhap + (r.nhap === '—' ? '' : ' ' + d.uom) + '</td>' +
+        '<td style="text-align:right;">' + r.con + ' ' + d.uom + '</td>' +
+        '<td><span class="badge ' + t[1] + '">' + t[0] + '</span></td>' +
+        '<td>' + r.bin + '</td><td style="white-space:normal;">' + (r.note || '—') + '</td></tr>';
+    }).join('') + '</tbody></table></div>' +
+    '<div class="hist-note">Bấm vào số tem để xem chi tiết và lịch sử tem.</div>' +
+    '<div class="modal-footer"><button class="btn btn-secondary" type="button" onclick="closeModal(\'qr-modal\')">Đóng</button></div>';
+  modalOpen('qr-modal', '', 'Barcode/QR đã ánh xạ · ' + d.rows.length + ' tem',
+    d.doc + ' · dòng ' + d.line + ' · ' + it.code + ' ' + it.name + ' · yêu cầu ' + d.req, body);
+}
+function openTem(no, key) {
+  const d = QRMAP[key], row = d.rows.filter(function (r) { return r.no === no; })[0], t = TEM[no] || {};
+  const it = YC_ITEMS[d.it], ts = TST[row.st];
+  const kv = [['Mã mặt hàng', it.code], ['Tên mặt hàng', it.name], ['ĐVT', d.uom],
+    ['Nguồn tem', t.src || 'YÊU CẦU'], ['Yêu cầu nguồn', d.req], ['Phiếu nhập', d.doc],
+    ['SL phát hành', (t.qty || row.con) + ' ' + d.uom], ['SL còn lại', row.con + ' ' + d.uom],
+    ['Trạng thái tem', '<span class="badge ' + ts[1] + '">' + ts[0] + '</span>'], ['Vị trí', row.bin],
+    ['Ngày phát hành', t.issued || '—'], ['Ghi chú', row.note || '—']];
+  const body = '<div class="info-grid">' + kv.map(function (p) {
+      return '<div class="field"><label>' + p[0] + '</label><div style="font-size:13px; font-weight:600; padding:6px 0;">' + p[1] + '</div></div>';
+    }).join('') + '</div>' +
+    '<div class="section-title" style="padding:0 16px;">Lịch sử tem</div>' +
+    '<div class="table-wrap"><table class="grid" style="min-width:680px;"><thead><tr>' +
+    '<th>Thời điểm</th><th>Thao tác</th><th>Chứng từ</th><th style="text-align:right;">Số lượng</th><th>Người thực hiện</th><th>Ghi chú</th>' +
+    '</tr></thead><tbody>' +
+    (t.hist || []).map(function (h) {
+      return '<tr><td>' + h[0] + '</td><td>' + h[1] + '</td><td>' + h[2] + '</td><td style="text-align:right;">' + h[3] +
+        '</td><td>' + h[4] + '</td><td style="white-space:normal;">' + (h[5] || '—') + '</td></tr>';
+    }).join('') + '</tbody></table></div>' +
+    '<div class="modal-footer"><button class="btn btn-secondary" type="button" onclick="closeModal(\'tem-modal\')">Đóng</button></div>';
+  modalOpen('tem-modal', 'narrow', 'Chi tiết tem ' + no, 'Lịch sử ghi mọi giao dịch của tem', body);
+}
+document.addEventListener('keydown', function (e) {
+  if (e.key !== 'Escape') return;
+  if (document.getElementById('tem-modal')) closeModal('tem-modal');
+  else closeModal('qr-modal');
+});
+
+function showYcTab(which) {
+  const main = which === 'main';
+  document.getElementById('yctab-main').classList.toggle('active', main);
+  document.getElementById('yctab-slips').classList.toggle('active', !main);
+  document.getElementById('panel-yc-main').style.display = main ? 'block' : 'none';
+  document.getElementById('panel-yc-slips').style.display = main ? 'none' : 'block';
+}
+
+function showTab(tab) {
+  var isYeuCau = tab === 'yeucau';
+  document.getElementById('tab-yeucau').classList.toggle('active', isYeuCau);
+  document.getElementById('tab-phieu').classList.toggle('active', !isYeuCau);
+  document.getElementById('tabcount-yeucau').classList.toggle('active', isYeuCau);
+  document.getElementById('tabcount-phieu').classList.toggle('active', !isYeuCau);
+  document.getElementById('panel-yeucau').style.display = isYeuCau ? 'block' : 'none';
+  document.getElementById('panel-phieu').style.display = isYeuCau ? 'none' : 'block';
+}
+
+function toggleExpand(el, id) {
+  var row = document.getElementById(id);
+  if (!row) return;
+  var isOpen = row.style.display !== 'none';
+  row.style.display = isOpen ? 'none' : 'table-row';
+  el.textContent = isOpen ? '+' : '−';
+}
+
+function sapSel() {
+  const n = document.querySelectorAll('.sap-cb:checked').length;
+  const btn = document.getElementById('btnResync');
+  btn.disabled = !n;
+  btn.textContent = n ? '⟳ Đồng bộ lại SAP (' + n + ')' : '⟳ Đồng bộ lại SAP';
+  const all = document.querySelectorAll('.sap-cb');
+  document.getElementById('sapAll').checked = all.length && n === all.length;
+}
+function sapSelAll(el) { document.querySelectorAll('.sap-cb').forEach(c => c.checked = el.checked); sapSel(); }
+function resyncSAP() {
+  const picked = [...document.querySelectorAll('.sap-cb:checked')];
+  picked.forEach(cb => {
+    const cell = cb.closest('tr').querySelector('.sap-cell');
+    cb.checked = false; cb.disabled = true;
+    cell.innerHTML = '<span class="badge badge-sync-run"><span class="spin">⟳</span> Đang đồng bộ</span>';
+    setTimeout(() => { cell.innerHTML = '<span class="badge badge-sync-ok">Đã đồng bộ</span>'; cb.classList.remove('sap-cb'); }, 1800);
+  });
+  sapSel();
+  toast('Đã gửi đồng bộ lại SAP cho ' + picked.length + ' phiếu');
+}
+function toast(m) { let t = document.getElementById('toast'); if (!t) { t = document.createElement('div'); t.id = 'toast'; document.body.appendChild(t); } t.textContent = m; t.style.display = 'block'; clearTimeout(t._h); t._h = setTimeout(() => t.style.display = 'none', 2500); }
+
+/* ---- Menu Thao tác theo trạng thái ---- */
+const ACT_ICON = {
+  'Sửa':'<path d="M4 20h4L19 9l-4-4L4 16v4z"/>',
+  'Gửi':'<path d="M5 12l5 5L20 7"/>',
+  'In':'<path d="M7 9V3h10v6M7 17H4v-7h16v7h-3M7 14h10v7H7z"/>',
+  'Xóa':'<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>',
+  'Phát hành tem':'<path d="M3 12V4h8l10 10-8 8L3 12z"/><circle cx="7.5" cy="7.5" r="1.2"/>',
+  'Thêm phiếu':'<path d="M12 5v14M5 12h14"/>',
+  'Phê duyệt':'<path d="M5 12l5 5L20 7"/>',
+  'Hủy phiếu':'<path d="M6 6l12 12M18 6L6 18"/>',
+  'Đồng bộ lại SAP':'<path d="M20 11a8 8 0 0 0-14.9-3M4 13a8 8 0 0 0 14.9 3M4 4v4h4M20 20v-4h-4"/>'
+};
+const ACT_TONE = { 'Xóa':'danger', 'Hủy phiếu':'danger' };
+let actOpen = null;
+function closeActMenu() {
+  if (actOpen) { actOpen.menu.remove(); actOpen.cell.classList.remove('open'); actOpen = null; }
+}
+function runActionNo(base, no) {
+  const msg = {
+    'Gửi': 'Đã gửi ' + no + ', trạng thái chuyển Đã trình',
+    'In': 'Đang in ' + no,
+    'Xóa': 'Đã xóa ' + no,
+    'Sửa': 'Đã tạo bản sửa mới của ' + no + ' ở trạng thái Đã lưu',
+    'Phát hành tem': 'Mở màn Phát hành tem (3010050) với các dòng của ' + no,
+    'Phê duyệt': 'Đã duyệt ' + no + ', tem chuyển Trong kho, gửi kết quả về SAP',
+    /* NK1: chỉ chặn khi tem đã xuất lẻ hoặc bị kiểm kê điều chỉnh; tem đã tách / gộp vẫn cho hủy */
+    'Hủy phiếu': 'Hủy ' + no + ': đảo tồn và đảo SAP. Bị chặn nếu tem đã xuất lẻ hoặc bị kiểm kê điều chỉnh; tem đã tách hoặc gộp vẫn cho hủy, trừ SL vào tem gốc hoặc tem đích',
+    'Đồng bộ lại SAP': 'Đã gửi lại ' + no + ' về SAP'
+  }[base] || base;
+  toast(msg);
+}
+function runAction(label, cell) {
+  const row = cell.closest('tr');
+  const no = (row.querySelector('.nav-link') || {}).textContent || '';
+  const base = label.replace(/\s*\(\d+\)$/, '');
+  if (base === 'Thêm phiếu') { showView('view-phieu-new'); return; }
+  if (base === 'Sửa' && no.startsWith('REQ')) { openYeuCau(no); toast('Mở ' + no + ' để sửa'); return; }
+  runActionNo(base, no);
+}
+function openActMenu(cell) {
+  closeActMenu();
+  if (cell.classList.contains('none')) return;
+  const items = cell.dataset.actions.split('|');
+  const menu = document.createElement('div');
+  menu.className = 'act-menu';
+  menu.setAttribute('role', 'menu');
+  items.forEach(function (label, i) {
+    const base = label.replace(/\s*\(\d+\)$/, '');
+    const b = document.createElement('button');
+    b.type = 'button'; b.setAttribute('role', 'menuitem');
+    if (ACT_TONE[base]) b.className = ACT_TONE[base];
+    b.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' + (ACT_ICON[base] || '') + '</svg><span>' + label + '</span>';
+    b.addEventListener('click', function (e) { e.stopPropagation(); closeActMenu(); runAction(label, cell); });
+    menu.appendChild(b);
+  });
+  document.body.appendChild(menu);
+  const r = cell.getBoundingClientRect();
+  const mw = menu.offsetWidth, mh = menu.offsetHeight;
+  let left = r.right + window.scrollX - mw;
+  let top = r.bottom + window.scrollY + 4;
+  if (r.bottom + mh + 8 > window.innerHeight) top = r.top + window.scrollY - mh - 4;
+  menu.style.left = Math.max(8, left) + 'px';
+  menu.style.top = top + 'px';
+  cell.classList.add('open');
+  actOpen = { menu: menu, cell: cell };
+  const first = menu.querySelector('button'); if (first) first.focus({ preventScroll: true });
+  actOpen.openedAt = Date.now();
+}
+document.addEventListener('click', function (e) {
+  const cell = e.target.closest('.act-cell');
+  if (cell) { e.stopPropagation(); if (actOpen && actOpen.cell === cell) closeActMenu(); else openActMenu(cell); return; }
+  if (!e.target.closest('.act-menu')) closeActMenu();
+});
+document.addEventListener('keydown', function (e) {
+  const cell = e.target.closest && e.target.closest('.act-cell');
+  if (cell && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); openActMenu(cell); }
+  if (e.key === 'Escape') closeActMenu();
+});
+window.addEventListener('scroll', function () { if (actOpen && Date.now() - actOpen.openedAt > 300) closeActMenu(); }, true);
+
+(function () {
+  const d = YC['REQ-5000-2610-00001'];
+  if (d) {
+    ycRenderItems(d); ycRenderSlips(d);
+    document.getElementById('yc-slipcount').textContent = d.slips.length;
+    document.getElementById('yc-btn-edit').style.display = 'none';
+  }
+  openPhieu('GR-5000-2610-00001');
+  showView('view-list');
+})();
+</script>
+<script>
+window.addEventListener("load",function(){try{var p=new URLSearchParams(location.search),t=p.get("tab");if(!t){var m=(location.hash||"").match(/tab=([\w-]+)/);t=m&&m[1];}if(!t)return;if(typeof showTab==="function")showTab(t);}catch(e){}});
+</script>
+</body>
+</html>

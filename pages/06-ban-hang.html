@@ -17,11 +17,113 @@
 <div class="page-head">
   <small>Giải pháp hệ thống</small>
   <h1>6. Quy trình bán hàng</h1>
-  <p>Xuất bán & trả hàng thành phẩm.</p>
+  <p>Xuất bán và trả hàng thành phẩm: yêu cầu giao hàng, quét tem giao hàng bằng PDA, phiếu giao hàng; và nhánh hàng bán bị trả lại: yêu cầu trả, phát hành tem, lập phiếu trả, hàng thực tế về.</p>
 </div>
 
-<!-- ===== Khi có nội dung: xóa khối "Sắp có" bên dưới, chép khối <section class="screen"> từ pages/_mau-trang-muc.html ===== -->
-<div class="soon"><b>Sắp có</b>Nội dung và màn hình của mục này sẽ được bổ sung khi có ảnh hệ thống thật.</div>
+<!-- ===== BẮT ĐẦU: 6.1 Yêu cầu giao hàng ===== -->
+<section class="screen" id="bh-yc-giao">
+  <h2 class="screen__title"><span class="no">6.1</span>Yêu cầu giao hàng</h2>
+  <p class="screen__path">Kho vận › Giao hàng</p>
+  <div class="screen__body">
+    <div class="screen__shots">
+      <figure class="shot"><figcaption>Giao diện WMS · Giao hàng — tab “Theo lệnh giao hàng”; kéo ngang bảng để xem hết cột, bấm một dòng để xem chi tiết<a class="btn shot__zoom" href="../mockups/06-ban-hang/1.html?tab=do" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption>
+        <iframe class="shot__live" src="../mockups/06-ban-hang/1.html?tab=do" title="Yêu cầu giao hàng" loading="lazy"></iframe></figure>
+    </div>
+    <aside class="screen__notes">
+      <div class="note"><h3>Mô tả</h3><p>Màn hình quản lý giao hàng, mở sẵn tab Theo lệnh giao hàng. Lệnh giao hàng lập từ đơn bán hàng nội bộ (Vina SO) đồng bộ từ SAP; một SO giao được nhiều lần, theo pallet hoặc lẻ thùng. Bấm một dòng để xem chi tiết lệnh và gán mã vạch tem cho từng mã hàng.</p></div>
+      <div class="note note--biz"><h3>Lưu ý nghiệp vụ</h3><ul><li>Kho lập lệnh giao từ SO; nhân viên kho lấy lệnh ra thực hiện trên PDA.</li></ul></div>
+    </aside>
+  </div>
+</section>
+<!-- ===== KẾT THÚC: 6.1 Yêu cầu giao hàng ===== -->
+<!-- ===== BẮT ĐẦU: 6.2 Quét tem giao hàng ===== -->
+<section class="screen" id="bh-quet-giao">
+  <h2 class="screen__title"><span class="no">6.2</span>Quét tem giao hàng</h2>
+  <p class="screen__path">Ứng dụng PDA › Giao hàng</p>
+  <div class="screen__body">
+    <div class="screen__shots">
+      <figure class="shot"><figcaption>Giao diện PDA · Quét tem giao hàng — bấm các nút trên máy để chạy thử từng bước<a class="btn shot__zoom" href="../mockups/06-ban-hang/2.html" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption>
+        <iframe class="shot__live" src="../mockups/06-ban-hang/2.html" title="Quét tem giao hàng trên PDA" loading="lazy"></iframe></figure>
+    </div>
+    <aside class="screen__notes">
+      <div class="note"><h3>Mô tả</h3><p>Kho dùng PDA quét tem thành phẩm theo lệnh giao hàng. Quét sai mã hàng hoặc sai đơn sẽ bị chặn; WMS tự sinh phiếu giao hàng từ kết quả quét.</p></div>
+      <div class="note note--biz"><h3>Lưu ý nghiệp vụ</h3><ul><li>Giao theo pallet hoặc lẻ thùng; mỗi lần giao ghi số lượng thực tế.</li></ul></div>
+    </aside>
+  </div>
+</section>
+<!-- ===== KẾT THÚC: 6.2 Quét tem giao hàng ===== -->
+<!-- ===== BẮT ĐẦU: 6.3 Phiếu giao hàng ===== -->
+<section class="screen" id="bh-phieu-giao">
+  <h2 class="screen__title"><span class="no">6.3</span>Phiếu giao hàng</h2>
+  <p class="screen__path">Kho vận › Giao hàng › Phiếu giao hàng</p>
+  <div class="screen__body">
+    <div class="screen__shots">
+      <figure class="shot"><figcaption>Giao diện WMS · Giao hàng — tab “Theo phiếu”; kéo ngang bảng để xem hết cột, bấm một phiếu để xem chi tiết<a class="btn shot__zoom" href="../mockups/06-ban-hang/1.html?tab=slip" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption>
+        <iframe class="shot__live" src="../mockups/06-ban-hang/1.html?tab=slip" title="Phiếu giao hàng" loading="lazy"></iframe></figure>
+    </div>
+    <aside class="screen__notes">
+      <div class="note"><h3>Mô tả</h3><p>Cùng màn hình Giao hàng, mở sẵn tab Theo phiếu. Phiếu giao hàng do PDA sinh sau khi quét; văn phòng kho xác nhận phiếu để giảm tồn và đồng bộ kết quả sang SAP.</p></div>
+      <div class="note note--biz"><h3>Lưu ý nghiệp vụ</h3><ul><li>SAP quản lý đơn vị cái; một SO có thể có nhiều phiếu giao.</li></ul></div>
+    </aside>
+  </div>
+</section>
+<!-- ===== KẾT THÚC: 6.3 Phiếu giao hàng ===== -->
+<!-- ===== BẮT ĐẦU: 6.4 Yêu cầu hàng bán trả lại ===== -->
+<section class="screen" id="bh-yc-tra">
+  <h2 class="screen__title"><span class="no">6.4</span>Yêu cầu hàng bán trả lại</h2>
+  <p class="screen__path">Kho vận › Trả hàng</p>
+  <div class="screen__body">
+    <div class="screen__shots">
+      <figure class="shot"><figcaption>Giao diện WMS · Trả hàng — tab “Theo yêu cầu”; kéo ngang bảng để xem hết cột, bấm một dòng để xem chi tiết<a class="btn shot__zoom" href="../mockups/06-ban-hang/3.html?tab=req" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption>
+        <iframe class="shot__live" src="../mockups/06-ban-hang/3.html?tab=req" title="Yêu cầu hàng bán trả lại" loading="lazy"></iframe></figure>
+    </div>
+    <aside class="screen__notes">
+      <div class="note"><h3>Mô tả</h3><p>Màn hình quản lý hàng bán bị trả lại, mở sẵn tab Theo yêu cầu. Khi XNK xong tờ khai nhập khẩu, lập yêu cầu trả hàng từ PO trả hàng SAP, từ phiếu giao hàng hoặc thủ công. Hàng nhận về kho 5900 ở vị trí tạm.</p></div>
+      <div class="note note--biz"><h3>Lưu ý nghiệp vụ</h3><ul><li>Trả nguyên pallet dùng tem cũ; trả không nguyên pallet thì in và dán tem mới.</li></ul></div>
+    </aside>
+  </div>
+</section>
+<!-- ===== KẾT THÚC: 6.4 Yêu cầu hàng bán trả lại ===== -->
+<!-- ===== BẮT ĐẦU: 6.5 Phát hành tem (tham chiếu 11.2) ===== -->
+<section class="screen" id="bh-tem">
+  <h2 class="screen__title"><span class="no">6.5</span>Phát hành tem</h2>
+  <p class="screen__path">Phát hành nhãn › Phát hành tem thành phẩm / bán thành phẩm</p>
+  <div class="screen__body">
+    <aside class="screen__notes">
+      <div class="note"><h3>Mô tả</h3><p>Bước phát hành tem cho hàng bán trả lại (khi trả không nguyên pallet) dùng chung màn hình <a href="11-phat-hanh-tem-nhan.html#t-tp">11.2 Phát hành tem thành phẩm / bán thành phẩm</a>, với <b>Nguồn: Thành phẩm trả lại</b>. Xem màn hình và mô tả chi tiết tại mục đó.</p></div>
+      <div class="note note--biz"><h3>Lưu ý nghiệp vụ</h3><ul><li>Chỉ in tem mới khi trả không nguyên pallet; trả nguyên pallet dùng lại tem cũ.</li></ul></div>
+    </aside>
+  </div>
+</section>
+<!-- ===== KẾT THÚC: 6.5 Phát hành tem ===== -->
+<!-- ===== BẮT ĐẦU: 6.6 Lập phiếu trả hàng ===== -->
+<section class="screen" id="bh-phieu-tra">
+  <h2 class="screen__title"><span class="no">6.6</span>Lập phiếu trả hàng</h2>
+  <p class="screen__path">Kho vận › Trả hàng › Phiếu trả hàng</p>
+  <div class="screen__body">
+    <div class="screen__shots">
+      <figure class="shot"><figcaption>Giao diện WMS · Trả hàng — tab “Theo phiếu”; kéo ngang bảng để xem hết cột, bấm nút để mở popup (đóng bằng nút ✕)<a class="btn shot__zoom" href="../mockups/06-ban-hang/3.html?tab=slip" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption>
+        <iframe class="shot__live" src="../mockups/06-ban-hang/3.html?tab=slip" title="Lập phiếu trả hàng" loading="lazy"></iframe></figure>
+    </div>
+    <aside class="screen__notes">
+      <div class="note"><h3>Mô tả</h3><p>Cùng màn hình Trả hàng, mở sẵn tab Theo phiếu. Lập phiếu trả hàng từ yêu cầu; hàng về đặt ở vị trí tạm trong kho 5900. Văn phòng kho xác nhận phiếu để tăng tồn và đồng bộ sang SAP.</p></div>
+      <div class="note note--biz"><h3>Lưu ý nghiệp vụ</h3><ul><li>Phiếu trả hàng bám theo nhánh SAP (PO trả hàng / tờ khai nhập khẩu).</li></ul></div>
+    </aside>
+  </div>
+</section>
+<!-- ===== KẾT THÚC: 6.6 Lập phiếu trả hàng ===== -->
+<!-- ===== BẮT ĐẦU: 6.7 Hàng thực tế về (tham chiếu) ===== -->
+<section class="screen" id="bh-ve-cvt">
+  <h2 class="screen__title"><span class="no">6.7</span>Hàng thực tế về</h2>
+  <p class="screen__path">Ứng dụng PDA › Chuyển vị trí</p>
+  <div class="screen__body">
+    <aside class="screen__notes">
+      <div class="note"><h3>Mô tả</h3><p>Khi hàng bán trả lại thực tế về kho, nhân viên quét QR tem và chuyển hàng từ vị trí tạm (5900) sang vị trí thật. Thao tác này dùng chung màn hình <a href="08-chuyen-kho.html#ck-vitri">8.2 Chuyển vị trí</a> (mục 8. Quy trình chuyển kho). Xem chi tiết tại mục đó.</p></div>
+      <div class="note note--biz"><h3>Lưu ý nghiệp vụ</h3><ul><li>Chuyển vị trí trong kho không đồng bộ SAP (SAP không quản lý vị trí).</li></ul></div>
+    </aside>
+  </div>
+</section>
+<!-- ===== KẾT THÚC: 6.7 Hàng thực tế về ===== -->
 
 </main>
 

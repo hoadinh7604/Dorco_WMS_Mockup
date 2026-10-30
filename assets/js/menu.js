@@ -34,7 +34,10 @@ window.TSD_MENU = [
         { no: "1.2", title: "Danh mục nhà máy",   id: "m-plant" },
         { no: "1.3", title: "Danh mục kho",       id: "m-warehouse" },
         { no: "1.4", title: "Danh mục vị trí",    id: "m-location" },
-        { no: "1.5", title: "Đối tác kinh doanh", id: "m-partner" }
+        { no: "1.5", title: "Đối tác kinh doanh", id: "m-partner" },
+        { no: "1.6", title: "Danh mục loại hàng", id: "m-material-type" },
+        { no: "1.7", title: "Danh mục nhóm hàng", id: "m-material-group" },
+        { no: "1.8", title: "Danh mục mặt hàng",  id: "m-material" }
       ]},
 
     // ===== Mục 2 – sơ đồ quy trình 1 – (người phụ trách: chưa chia) =====
@@ -70,20 +73,44 @@ window.TSD_MENU = [
       desc: "Xuất đi & nhận về" },
 
     // ===== Mục 5 – sơ đồ quy trình 4 – (người phụ trách: chưa chia) =====
-    { no: "5", title: "Quy trình nhập kho thành phẩm", page: "05", href: "pages/05-nhap-kho-thanh-pham.html", soon: true,
-      desc: "Từ sản xuất vào kho Thành phẩm" },
+    { no: "5", title: "Quy trình nhập kho thành phẩm / bán thành phẩm", page: "05", href: "pages/05-nhap-kho-thanh-pham.html",
+      desc: "Nhập kho thành phẩm, bán thành phẩm từ sản xuất",
+      screens: [
+        { no: "5.1", title: "Yêu cầu nhập kho", id: "tp-yc" },
+        { no: "5.2", title: "Phát hành và dán tem", id: "tp-tem" },
+        { no: "5.3", title: "Quét tem nhập kho", id: "tp-quet" },
+        { no: "5.4", title: "Lập phiếu nhập kho", id: "tp-phieu" }
+      ]},
 
     // ===== Mục 6 – sơ đồ quy trình 5 – (người phụ trách: chưa chia) =====
-    { no: "6", title: "Quy trình bán hàng", page: "06", href: "pages/06-ban-hang.html", soon: true,
-      desc: "Xuất bán & trả hàng thành phẩm" },
+    { no: "6", title: "Quy trình bán hàng", page: "06", href: "pages/06-ban-hang.html",
+      desc: "Xuất bán & trả hàng thành phẩm",
+      screens: [
+        { no: "6.1", title: "Yêu cầu giao hàng", id: "bh-yc-giao" },
+        { no: "6.2", title: "Quét tem giao hàng", id: "bh-quet-giao" },
+        { no: "6.3", title: "Phiếu giao hàng", id: "bh-phieu-giao" },
+        { no: "6.4", title: "Yêu cầu hàng bán trả lại", id: "bh-yc-tra" },
+        { no: "6.5", title: "Phát hành tem", id: "bh-tem" },
+        { no: "6.6", title: "Lập phiếu trả hàng", id: "bh-phieu-tra" },
+        { no: "6.7", title: "Hàng thực tế về (chuyển vị trí)", id: "bh-ve-cvt" }
+      ]},
 
     // ===== Mục 7 – sơ đồ quy trình 6 – (người phụ trách: chưa chia) =====
-    { no: "7", title: "Quy trình nhập xuất khác", page: "07", href: "pages/07-nhap-xuat-khac.html", soon: true,
-      desc: "Nhập khác · xuất mẫu, xuất hủy" },
+    { no: "7", title: "Quy trình xuất khác", page: "07", href: "pages/07-nhap-xuat-khac.html", soon: true,
+      desc: "Xuất khác: xuất mẫu, xuất hủy",
+      screens: [
+        { no: "7.1", title: "Yêu cầu xuất khác", id: "xk-yc" },
+        { no: "7.2", title: "Quét tem xuất khác", id: "xk-quet" },
+        { no: "7.3", title: "Phiếu xuất khác", id: "xk-phieu" }
+      ]},
 
     // ===== Mục 8 – sơ đồ quy trình 7 – (người phụ trách: chưa chia) =====
     { no: "8", title: "Quy trình chuyển kho", page: "08", href: "pages/08-chuyen-kho.html", soon: true,
-      desc: "Chuyển kho · chuyển vị trí" },
+      desc: "Chuyển kho · chuyển vị trí",
+      screens: [
+        { no: "8.1", title: "Chuyển sang kho khác", id: "ck-kho" },
+        { no: "8.2", title: "Chuyển vị trí", id: "ck-vitri" }
+      ]},
 
     // ===== Mục 9 – sơ đồ quy trình 8 – (người phụ trách: chưa chia) =====
     { no: "9", title: "Quy trình kiểm kê", page: "09", href: "pages/09-kiem-ke.html", soon: true,
@@ -97,7 +124,8 @@ window.TSD_MENU = [
     { no: "11", title: "Phát hành tem nhãn", page: "11", href: "pages/11-phat-hanh-tem-nhan.html",
       desc: "In tem QR nguyên vật liệu, thành phẩm, vị trí",
       screens: [
-        { no: "11.1", title: "Phát hành tem NVL", id: "t-nvl" }
+        { no: "11.1", title: "Phát hành tem NVL", id: "t-nvl" },
+        { no: "11.2", title: "Phát hành tem thành phẩm / bán thành phẩm", id: "t-tp" }
       ]}
   ]}
 ];

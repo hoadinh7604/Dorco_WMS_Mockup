@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>DorcoWMS — Nhóm hàng / Mẫu sản phẩm</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    color-scheme: light;
+    --navy:#152338;
+    --navy-rail:#0b0c0f;
+    --navy-hover:#1c1e24;
+    --lime:#aee34a;
+    --lime-strong:#9bd635;
+    --lime-dark:#1f2e12;
+    --panel:#ffffff;
+    --line:#e6e8ec;
+    --line-soft:#eef0f3;
+    --text:#1f2937;
+    --text-soft:#6b7280;
+    --text-mute:#9aa3af;
+    --head-bg:#f6f7f9;
+    --row-hover:#f6fbee;
+    --badge-bd:#cfe3b0;
+    --badge-bg:#f4fae9;
+    --badge-tx:#4d7a2a;
+    font-synthesis:none;
+  }
+  *{box-sizing:border-box;}
+  html,body{height:100%;margin:0;}
+  body{
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    background:#eef1f5;color:var(--text);font-size:13px;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  .app{display:flex;flex-direction:column;height:100%;min-width:1100px;background:#f3f5f8;}
+
+  /* ===== TOP BAR ===== */
+  .topbar{display:flex;align-items:stretch;height:56px;background:#fff;border-bottom:1px solid var(--line);flex:none;}
+  .logo-wrap{width:318px;display:flex;align-items:center;padding:8px 12px;flex:none;background:#0a0b0d;}
+  .logo{flex:1;display:flex;align-items:center;justify-content:center;gap:7px;background:#ffffff;border-radius:12px;padding:10px 16px;}
+  .logo svg{display:block;}
+  .logo .t1{color:#1a2b45;font-weight:800;font-size:16px;letter-spacing:.1px;}
+  .logo .t2{color:#2f9fe0;font-weight:800;font-size:16px;}
+  .tabs{display:flex;align-items:flex-end;gap:2px;flex:1;padding-left:4px;}
+  .tab{display:flex;align-items:center;gap:10px;padding:0 16px;height:38px;margin-top:10px;border:1px solid var(--line);border-bottom:none;border-radius:8px 8px 0 0;background:#f3f4f6;color:var(--text-soft);font-size:12.5px;font-weight:500;}
+  .tab.active{background:#fff;color:var(--text);border-color:var(--line);box-shadow:0 -2px 0 var(--lime) inset;font-weight:600;position:relative;top:1px;}
+  .tab .x{color:var(--text-mute);font-size:13px;line-height:1;}
+  .topright{display:flex;align-items:center;gap:18px;padding:0 20px;flex:none;}
+  .tr-item{display:flex;align-items:center;gap:7px;color:var(--text-soft);font-size:12.5px;font-weight:500;}
+  .avatar{width:26px;height:26px;border-radius:50%;background:#e9edf2;display:flex;align-items:center;justify-content:center;font-weight:700;color:#5b6472;font-size:12px;}
+  .chev{color:var(--text-mute);font-size:10px;}
+
+  /* ===== BODY ===== */
+  .body{display:flex;flex:1;min-height:0;}
+
+  /* icon rail */
+  .rail{width:92px;background:var(--navy-rail);flex:none;overflow-y:auto;padding:6px 8px 20px;}
+  .rail::-webkit-scrollbar{width:0;}
+  .rail-item{display:flex;flex-direction:column;align-items:center;gap:6px;padding:11px 4px;border-radius:12px;color:#aeb9c9;cursor:pointer;text-align:center;line-height:1.2;}
+  .rail-item span{font-size:10.5px;font-weight:500;}
+  .rail-item:hover{background:var(--navy-hover);color:#e7edf4;}
+  .rail-item svg{stroke:currentColor;}
+  .rail-item.active{background:rgba(163,230,53,.10);color:#a9e34a;}
+  .rail-item.active span{font-weight:700;}
+
+  /* submenu */
+  .submenu{width:226px;background:#0f1013;border-right:1px solid #20222a;flex:none;overflow-y:auto;padding:0 0 20px;}
+  .submenu h2{font-size:15px;font-weight:700;color:#f1f3f6;padding:16px 16px 14px;margin:0;text-align:center;border-bottom:1px solid #1d1f26;}
+  .mi{display:flex;align-items:center;gap:10px;padding:13px 16px;font-size:13px;color:#dfe3e9;cursor:pointer;}
+  .mi:hover{background:#17181d;}
+  .mi .ic{color:#aab2bd;display:flex;}
+  .mi .lbl{flex:1;}
+  .mi .gr{color:#6b7280;font-size:11px;}
+  .mi.group-row{border-bottom:1px solid #1d1f26;}
+  .mi.group-open{border-bottom:none;}
+  .sub-list{padding:4px 0 6px;border-bottom:1px solid #1d1f26;}
+  .sub-item{display:flex;align-items:center;padding:10px 16px 10px 42px;font-size:12.5px;color:#aab2bd;cursor:pointer;}
+  .sub-item:hover{background:#17181d;}
+  .sub-item.active{background:var(--lime);color:var(--lime-dark);font-weight:700;border-radius:10px;margin:3px 12px;padding:10px 14px;}
+  .sub-item.hl{background:#20232b;color:#eef1f5;border-radius:10px;margin:3px 12px;padding:10px 14px;}
+
+  /* category tree */
+  .tree{width:300px;background:#fff;border-right:1px solid var(--line);flex:none;display:flex;flex-direction:column;}
+  .tree-head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px 10px;}
+  .tree-head h3{margin:0;font-size:14px;font-weight:700;}
+  .tree-head .cl{color:var(--text-mute);}
+  .tree-search{margin:0 14px 10px;}
+  .tree-search input{width:100%;border:1px solid var(--line);border-radius:8px;padding:9px 12px;font-size:12.5px;color:var(--text);outline:none;font-family:inherit;}
+  .tree-search input::placeholder{color:var(--text-mute);}
+  .tree-body{flex:1;overflow-y:auto;padding:0 8px 20px;}
+  .tn{display:flex;align-items:center;gap:6px;padding:7px 8px;border-radius:7px;font-size:12.5px;color:#374151;cursor:pointer;white-space:nowrap;}
+  .tn:hover{background:#f4f6f8;}
+  .tn.sel{background:var(--lime);color:var(--lime-dark);font-weight:700;}
+  .tn .tw{color:#9aa3af;width:12px;display:inline-flex;justify-content:center;font-size:10px;}
+  .tn.sel .tw{color:var(--lime-dark);}
+  .tn.lvl1{padding-left:22px;}
+  .tn.lvl2{padding-left:40px;}
+  .tn .dot{width:5px;height:5px;border-radius:50%;background:#c3cad4;flex:none;}
+
+  /* main */
+  .main{flex:1;min-width:0;display:flex;flex-direction:column;background:#f3f5f8;overflow:hidden;}
+  .main-head{display:flex;align-items:center;gap:12px;padding:16px 22px 12px;flex-wrap:wrap;}
+  .main-head h1{margin:0;font-size:16px;font-weight:700;}
+  .badge-cat{background:#eaf0f6;color:#334155;border:1px solid #dbe3ec;border-radius:7px;padding:4px 10px;font-size:12px;font-weight:600;}
+  .cnt{background:#eef2f6;color:#55607a;border-radius:7px;padding:4px 10px;font-size:12px;}
+  .head-actions{margin-left:auto;display:flex;align-items:center;gap:10px;}
+  .icon-btn{width:34px;height:34px;border:1px solid var(--line);background:#fff;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#64748b;cursor:pointer;}
+  .icon-btn:hover{background:#f6f8fa;}
+  .btn-add{display:flex;align-items:center;gap:8px;background:var(--lime);color:var(--lime-dark);border:none;border-radius:9px;padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;}
+  .btn-add:hover{background:var(--lime-strong);}
+
+  .table-card{flex:1;margin:0 22px 18px;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;}
+  .table-scroll{flex:1;overflow:auto;}
+  table{width:100%;border-collapse:collapse;}
+  thead th{position:sticky;top:0;background:var(--head-bg);z-index:2;text-align:left;font-size:12.5px;font-weight:700;color:#3b4453;padding:13px 16px;border-bottom:1px solid var(--line);white-space:nowrap;}
+  .th-in{display:flex;align-items:center;gap:8px;}
+  .sort{display:inline-flex;flex-direction:column;line-height:6px;color:#b7c0cc;}
+  .kebab{color:#c3cad4;cursor:pointer;margin-left:auto;padding-left:8px;}
+  tbody td{padding:13px 16px;font-size:12.5px;color:#374151;border-bottom:1px solid var(--line-soft);white-space:nowrap;}
+  tbody tr:hover{background:var(--row-hover);}
+  tbody tr:last-child td{border-bottom:none;}
+  .code{font-weight:600;color:#1f2937;}
+  .status{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--badge-bd);background:var(--badge-bg);color:var(--badge-tx);border-radius:16px;padding:3px 11px;font-size:11.5px;font-weight:600;}
+  .status .sd{width:6px;height:6px;border-radius:50%;background:#5ba12e;}
+  .unit{font-weight:600;color:#475569;}
+  .mtype{display:inline-block;background:#eef3f9;color:#2f5a86;border:1px solid #d7e3f0;border-radius:6px;padding:2px 10px;font-weight:600;font-size:12px;}
+  .row-act{display:flex;justify-content:center;color:#9aa3af;cursor:pointer;}
+  .row-act:hover{color:#475569;}
+  td.c-act{text-align:center;}
+
+  /* pagination */
+  .pager{display:flex;align-items:center;justify-content:flex-end;gap:14px;padding:12px 18px;border-top:1px solid var(--line);background:#fff;flex:none;}
+  .pg-btn{width:30px;height:30px;border:1px solid var(--line);background:#fff;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#64748b;cursor:pointer;}
+  .pg-num{width:30px;height:30px;border-radius:8px;background:var(--navy-rail);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:12.5px;}
+  .pg-sel{display:flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:8px;padding:6px 10px;color:#475569;font-size:12.5px;cursor:pointer;}
+  .pg-goto{display:flex;align-items:center;gap:8px;color:#64748b;font-size:12.5px;}
+  .pg-goto input{width:58px;border:1px solid var(--line);border-radius:8px;padding:6px 8px;font-size:12.5px;outline:none;font-family:inherit;}
+
+  /* ===== ADD FORM VIEW ===== */
+  #formView{display:none;flex-direction:column;height:100%;overflow:hidden;}
+  .form-head{display:flex;align-items:center;padding:16px 24px;flex:none;}
+  .form-title{display:flex;align-items:center;gap:12px;font-size:19px;font-weight:700;color:#1f2937;}
+  .back-btn{width:30px;height:30px;border:none;background:none;cursor:pointer;color:#1f2937;font-size:20px;display:flex;align-items:center;justify-content:center;border-radius:8px;}
+  .back-btn:hover{background:#eceff3;}
+  .btn-save{margin-left:auto;display:flex;align-items:center;gap:8px;background:var(--lime);color:var(--lime-dark);border:none;border-radius:9px;padding:10px 20px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;}
+  .btn-save:hover{background:var(--lime-strong);}
+  .form-body{flex:1;overflow-y:auto;padding:0 24px 32px;display:flex;flex-direction:column;gap:18px;}
+
+  .form-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px 22px 24px;}
+  .card-head{display:flex;align-items:center;justify-content:space-between;font-size:17px;font-weight:700;color:#1f2937;padding-bottom:16px;}
+  .card-chev{color:#9aa3af;font-size:13px;}
+  .card-head2{display:flex;align-items:center;justify-content:space-between;padding-bottom:16px;}
+  .card-title{font-size:16px;font-weight:700;color:#1f2937;}
+
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px 24px;}
+  .field{display:flex;flex-direction:column;gap:8px;}
+  .field label{font-size:13px;color:#374151;font-weight:500;}
+  .req{color:#e5484d;font-weight:700;}
+  .field input{border:1px solid #d8dce1;border-radius:8px;padding:11px 13px;font-size:13.5px;color:#1f2937;outline:none;font-family:inherit;background:#fcfcfd;}
+  .field input::placeholder{color:#9aa3af;}
+  .field input:focus{border-color:#9bd635;background:#fff;}
+  .select{display:flex;align-items:center;border:1px solid #d8dce1;border-radius:8px;padding:11px 13px;font-size:13.5px;color:#1f2937;cursor:pointer;background:#fcfcfd;}
+  .select .dd{margin-left:auto;color:#9aa3af;font-size:11px;}
+  .select.placeholder{color:#9aa3af;}
+  .toggle{display:flex;border:1px solid #d8dce1;border-radius:9px;overflow:hidden;height:44px;}
+  .tg-opt{flex:1;display:flex;align-items:center;justify-content:center;font-size:13.5px;font-weight:600;color:#6b7280;cursor:pointer;}
+  .tg-opt.active{background:#f4fbe6;color:#3f6d1c;border:2px solid var(--lime);border-radius:9px;margin:-1px;}
+
+  .attr-table{width:100%;border-collapse:collapse;border:1px solid var(--line);border-radius:10px;overflow:hidden;}
+  .attr-table th{background:var(--head-bg);text-align:left;font-size:12.5px;font-weight:700;color:#3b4453;padding:13px 16px;border-bottom:1px solid var(--line);white-space:nowrap;}
+  .empty-state{display:flex;flex-direction:column;align-items:center;gap:12px;padding:46px 0;color:#9aa3af;font-size:14px;}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+  .rule-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px 20px;}
+  .rule-head{display:flex;align-items:center;gap:10px;}
+  .rule-title{font-size:15px;font-weight:700;color:#1f2937;}
+  .count{background:#eef1f5;color:#64748b;border-radius:6px;padding:2px 8px;font-size:11.5px;font-weight:600;}
+  .help{width:17px;height:17px;border:1px solid #cfd5dd;border-radius:50%;color:#9aa3af;font-size:11px;display:flex;align-items:center;justify-content:center;}
+  .clear{margin-left:auto;display:flex;align-items:center;gap:6px;color:#9aa3af;font-size:13px;cursor:pointer;}
+  .rule-sub{color:#8a94a3;font-size:12.5px;margin:6px 0 16px;}
+  .pattern-label,.add-label,.gen-label{font-size:13.5px;font-weight:600;color:#374151;margin-bottom:9px;}
+  .add-label,.gen-label{margin-top:18px;}
+  .pattern-box{border:1px dashed #d4d9e0;background:#fafbfc;border-radius:10px;min-height:96px;display:flex;align-items:center;justify-content:center;text-align:center;color:#9aa3af;font-size:13.5px;padding:16px 24px;}
+  .add-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  .chip{border:1px solid #d8dce1;border-radius:7px;padding:7px 12px;font-size:13px;color:#374151;background:#fff;}
+  .btn-add.small{padding:8px 14px;font-size:13px;border-radius:8px;}
+  .vsep{width:1px;height:26px;background:#e2e5ea;}
+  .op{width:34px;height:34px;border:1px solid #d8dce1;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;color:#475569;cursor:pointer;background:#fff;}
+  .op.wide{width:auto;padding:0 12px;font-size:13px;}
+  .custom-row{display:flex;gap:10px;margin-top:12px;}
+  .custom-row input{flex:1;border:1px solid #d8dce1;border-radius:8px;padding:10px 13px;font-size:13.5px;outline:none;font-family:inherit;color:#1f2937;}
+  .custom-row input::placeholder{color:#9aa3af;}
+  .add-text{border:1px solid #d8dce1;background:#f3f4f6;color:#9aa3af;border-radius:8px;padding:0 16px;font-size:13px;font-weight:600;cursor:not-allowed;font-family:inherit;}
+  .reserved{color:#9aa3af;font-size:12px;margin-top:9px;}
+  .gen-box{border:1px solid var(--line);background:#f8f9fb;border-radius:10px;padding:14px 16px;color:#6b7280;font-size:13.5px;letter-spacing:.3px;}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- ============ TOP BAR ============ -->
+  <div class="topbar">
+    <div class="logo-wrap">
+      <div class="logo">
+        <svg width="21" height="21" viewBox="0 0 24 24">
+          <path d="M12 2 21 7 12 12 3 7z" fill="#5fb3ee"/>
+          <path d="M3 7 12 12 12 22 3 17z" fill="#2f7fc9"/>
+          <path d="M21 7 12 12 12 22 21 17z" fill="#1f5ba3"/>
+        </svg>
+        <span class="t1">Dorco</span><span class="t2">WMS</span>
+      </div>
+    </div>
+    <div class="tabs">
+      <div class="tab"><span>Danh mục loại hàng</span><span class="x">✕</span></div>
+      <div class="tab active"><span>Nhóm hàng / Mẫu sản phẩm</span><span class="x">✕</span></div>
+    </div>
+    <div class="topright">
+      <div class="tr-item">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8a94a3" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
+        Tiếng Việt <span class="chev">▾</span>
+      </div>
+      <div class="tr-item"><div class="avatar">A</div> admin <span class="chev">▾</span></div>
+    </div>
+  </div>
+
+  <!-- ============ BODY ============ -->
+  <div class="body">
+
+    <!-- icon rail -->
+    <nav class="rail">
+      <div class="rail-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><span>Search Menu</span></div>
+      <div class="rail-item active"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-2.7 1.1V21a2 2 0 1 1-4 0v-.2A1.6 1.6 0 0 0 7 19.3a1.6 1.6 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1A1.6 1.6 0 0 0 3 15a1.6 1.6 0 0 0-1.5-1H1a2 2 0 1 1 0-4h.2A1.6 1.6 0 0 0 3 9a1.6 1.6 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1A1.6 1.6 0 0 0 7 4.6 1.6 1.6 0 0 0 8 3V1a2 2 0 1 1 4 0v.2A1.6 1.6 0 0 0 15 3a1.6 1.6 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1A1.6 1.6 0 0 0 21 9h.2a2 2 0 1 1 0 4H21a1.6 1.6 0 0 0-1.5 1z" transform="scale(.82) translate(2.6 2.6)"/></svg><span>Thiết lập chung</span></div>
+      <div class="rail-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="9" cy="20" r="1.3"/><circle cx="18" cy="20" r="1.3"/><path d="M1 1h3l2.6 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H5"/></svg><span>Bán hàng</span></div>
+      <div class="rail-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M21 16V8a2 2 0 0 0-1-1.7l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.7l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/></svg><span>Quản lý hàng hóa</span></div>
+      <div class="rail-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M9.5 13.5a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1.5 1.5"/><path d="M14.5 10.5a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1.5-1.5"/></svg><span>Giao dịch kho</span></div>
+      <div class="rail-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 6h11M18 6h3M3 12h3M10 12h11M3 18h8M15 18h6"/><circle cx="16" cy="6" r="2"/><circle cx="8" cy="12" r="2"/><circle cx="13" cy="18" r="2"/></svg><span>Điều chỉnh tồn kho</span></div>
+      <div class="rail-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 3 5 6v5c0 4 3 7 7 9 4-2 7-5 7-9V6z"/><path d="m9 12 2 2 4-4"/></svg><span>Cảnh báo tồn kho</span></div>
+      <div class="rail-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 3v18h18"/><rect x="7" y="12" width="3" height="6"/><rect x="12" y="8" width="3" height="10"/><rect x="17" y="5" width="3" height="13"/></svg><span>Báo cáo</span></div>
+    </nav>
+
+    <!-- submenu -->
+    <div class="submenu">
+      <h2>Thiết lập chung</h2>
+
+      <div class="mi group-row"><span class="ic">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0 1 12 0"/><path d="M16 5.6a3 3 0 0 1 0 4.8M21 20a5.5 5.5 0 0 0-4-5.3"/></svg>
+      </span><span class="lbl">Phân quyền</span><span class="gr">⌄</span></div>
+
+      <div class="mi group-row"><span class="ic">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="9" y="3" width="6" height="5" rx="1"/><rect x="3" y="16" width="6" height="5" rx="1"/><rect x="15" y="16" width="6" height="5" rx="1"/><path d="M12 8v3M6 16v-2h12v2M12 11v3"/></svg>
+      </span><span class="lbl">Thiết lập tổ chức</span><span class="gr">⌄</span></div>
+
+      <div class="mi group-row"><span class="ic">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="2.5" y="5" width="19" height="14" rx="2"/><circle cx="8" cy="11" r="2"/><path d="M4.8 16a3.2 3.2 0 0 1 6.4 0M14 9.5h4M14 13h4"/></svg>
+      </span><span class="lbl">Đối tác kinh doanh</span><span class="gr">⌄</span></div>
+
+      <div class="mi group-row group-open"><span class="ic">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      </span><span class="lbl">Quản lý mặt hàng</span><span class="gr">⌃</span></div>
+      <div class="sub-list">
+        <div class="sub-item">Danh mục loại hàng</div>
+        <div class="sub-item hl">Từ điển thuộc tính</div>
+        <div class="sub-item active">Nhóm hàng / Mẫu sản ...</div>
+        <div class="sub-item">Danh mục mặt hàng</div>
+        <div class="sub-item">Đơn vị tính &amp; quy đổi đơ...</div>
+        <div class="sub-item">Tra cứu mặt hàng</div>
+      </div>
+
+      <div class="mi group-row"><span class="ic">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 21V10l6 3.5V10l6 3.5V7.5l6 3.5V21z"/><path d="M3 21h18"/></svg>
+      </span><span class="lbl">Sản xuất</span><span class="gr">⌄</span></div>
+
+      <div class="mi group-row"><span class="ic">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 13h6M10 17h6"/></svg>
+      </span><span class="lbl">Quản lý BOM</span><span class="gr">⌄</span></div>
+
+      <div class="mi group-row"><span class="ic">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3 5 6v5c0 4 3 7 7 9 4-2 7-5 7-9V6z"/><path d="m9 12 2 2 4-4"/></svg>
+      </span><span class="lbl">Quản lý chất lượng</span><span class="gr">⌄</span></div>
+
+      <div class="mi group-row"><span class="ic">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      </span><span class="lbl">Nhập dữ liệu</span><span class="gr">⌄</span></div>
+    </div>
+
+    <!-- category tree -->
+    <aside class="tree" id="treeCol">
+      <div class="tree-head"><h3>Cây danh mục</h3><span class="cl">⌃</span></div>
+      <div class="tree-search"><input placeholder="Tìm theo mã hoặc tên danh mục"></div>
+      <div class="tree-body" id="tree"></div>
+    </aside>
+
+    <!-- main -->
+    <main class="main">
+     <div id="listView" style="display:flex;flex-direction:column;flex:1;min-height:0;">
+      <div class="main-head">
+        <h1>Danh mục nhóm hàng</h1>
+        <span class="badge-cat" id="catBadge">[ROH1] Raw Materials</span>
+        <span class="cnt" id="cnt">9 bản ghi được tìm thấy</span>
+        <div class="head-actions">
+          <button class="icon-btn" title="Bộ lọc"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 3H2l8 9.5V19l4 2v-8.5L22 3z"/></svg></button>
+          <button class="icon-btn" title="Tuỳ chỉnh cột"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M15 3v18"/></svg></button>
+          <button class="btn-add" id="addBtn"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg>Thêm nhóm mặt hàng</button>
+        </div>
+      </div>
+
+      <div class="table-card">
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th><div class="th-in">Mã nhóm mặt hàng <span class="sort">▴▾</span><span class="kebab">⋮</span></div></th>
+                <th><div class="th-in">Tên nhóm mặt hàng <span class="sort">▴▾</span><span class="kebab">⋮</span></div></th>
+                <th><div class="th-in">Diễn giải <span class="sort">▴▾</span><span class="kebab">⋮</span></div></th>
+                <th><div class="th-in">Trạng thái <span class="sort">▴▾</span><span class="kebab">⋮</span></div></th>
+                <th style="width:100px;"><div class="th-in">Thao tác</div></th>
+              </tr>
+            </thead>
+            <tbody id="rows"></tbody>
+          </table>
+        </div>
+        <div class="pager">
+          <div class="pg-btn">‹</div>
+          <div class="pg-num">1</div>
+          <div class="pg-btn">›</div>
+          <div class="pg-sel">20 / trang <span class="chev">▾</span></div>
+          <div class="pg-goto">Đến <input placeholder="Nhập"> Trang</div>
+        </div>
+      </div>
+     </div><!-- /listView -->
+
+     <!-- ===== ADD FORM VIEW ===== -->
+     <div id="formView">
+       <div class="form-head">
+         <div class="form-title"><button class="back-btn" id="backBtn">←</button> Thêm nhóm mặt hàng</div>
+         <button class="btn-save">
+           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><path d="M17 21v-8H7v8M7 3v5h8"/></svg>
+           Lưu
+         </button>
+       </div>
+
+       <div class="form-body">
+         <!-- General Information -->
+         <div class="form-card">
+           <div class="card-head"><span>General Information</span><span class="card-chev">⌃</span></div>
+           <div class="grid3">
+             <div class="field"><label>Mã nhóm mặt hàng <span class="req">*</span></label><input value="ABC04"></div>
+             <div class="field"><label>Tên nhóm mặt hàng <span class="req">*</span></label><input placeholder="Nhập tên nhóm mặt hàng rõ ràng."></div>
+             <div class="field"><label>Danh mục mặt hàng <span class="req">*</span></label><div class="select">[ABC] ABC<span class="dd">▾</span></div></div>
+             <div class="field"><label>Loại mặt hàng</label><div class="select placeholder">Chọn Loại mặt hàng<span class="dd">▾</span></div></div>
+             <div class="field"><label>Đơn vị cơ sở</label><div class="select placeholder">Chọn Đơn vị cơ sở<span class="dd">▾</span></div></div>
+             <div class="field"><label>Trạng thái</label>
+               <div class="toggle"><div class="tg-opt active">Hoạt động</div><div class="tg-opt">Không hoạt động</div></div>
+             </div>
+           </div>
+         </div>
+
+         <!-- Thuộc tính -->
+         <div class="form-card">
+           <div class="card-head2">
+             <span class="card-title">Thuộc tính</span>
+             <button class="btn-add small"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg>Thêm thuộc tính</button>
+           </div>
+           <table class="attr-table">
+             <thead><tr>
+               <th style="width:40px;"></th><th>Bí danh</th><th>Thuộc tính</th><th>Bắt buộc</th><th>Thuộc tính ...</th><th>Giá trị mặc định</th><th>Ghi chú</th><th style="width:90px;">Thao tác</th>
+             </tr></thead>
+             <tbody><tr><td colspan="8">
+               <div class="empty-state">
+                 <svg width="72" height="72" viewBox="0 0 72 72" fill="none"><circle cx="36" cy="36" r="26" stroke="#dfe3e9" stroke-width="3"/><circle cx="27" cy="31" r="2.4" fill="#cfd5dd"/><circle cx="45" cy="31" r="2.4" fill="#cfd5dd"/><path d="M26 46c3-3 5-3 7-1s4 2 7-1 5-3 7-1" stroke="#dfe3e9" stroke-width="3" stroke-linecap="round"/></svg>
+                 <div>Chưa có thuộc tính</div>
+               </div>
+             </td></tr></tbody>
+           </table>
+         </div>
+
+         <!-- Quy tắc mã + Quy tắc quy cách -->
+         <div class="grid2">
+           <div class="rule-card">
+             <div class="rule-head"><span class="rule-title">Quy tắc mã</span><span class="count">0/500</span><span class="help">?</span><span class="clear"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg>Clear Rule</span></div>
+             <div class="rule-sub">Defines generated Item Code</div>
+             <div class="pattern-label">Pattern</div>
+             <div class="pattern-box">Nhấp Mã nhóm mặt hàng hoặc kéo thuộc tính vào đây.</div>
+             <div class="add-label">Add to pattern</div>
+             <div class="add-row">
+               <span class="chip">ABC04</span>
+               <button class="btn-add small"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg>Thêm thuộc tính</button>
+               <span class="vsep"></span>
+               <span class="op">+</span><span class="op">-</span><span class="op">_</span><span class="op">/</span><span class="op">.</span>
+             </div>
+             <div class="custom-row"><input placeholder="Custom text"><button class="add-text">Add text</button></div>
+             <div class="reserved">Enter any text except the reserved characters: {, }, and @.</div>
+             <div class="gen-label">Generated result</div>
+             <div class="gen-box">Chưa có kết quả được tạo.</div>
+           </div>
+
+           <div class="rule-card">
+             <div class="rule-head"><span class="rule-title">Quy tắc quy cách</span><span class="count">0/500</span><span class="help">?</span><span class="clear"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg>Clear Rule</span></div>
+             <div class="rule-sub">Defines generated specification</div>
+             <div class="pattern-label">Pattern</div>
+             <div class="pattern-box">Nhấp Mã nhóm mặt hàng hoặc kéo thuộc tính vào đây để tạo quy cách.</div>
+             <div class="add-label">Add to pattern</div>
+             <div class="add-row">
+               <span class="chip">ABC04</span>
+               <button class="btn-add small"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg>Thêm thuộc tính</button>
+               <span class="vsep"></span>
+               <span class="op">+</span><span class="op">-</span><span class="op">_</span><span class="op">/</span><span class="op">.</span><span class="op wide">Khoảng trắng</span>
+             </div>
+             <div class="custom-row"><input placeholder="Custom text"><button class="add-text">Add text</button></div>
+             <div class="reserved">Enter any text except the reserved characters: {, }, and @.</div>
+             <div class="gen-label">Generated result</div>
+             <div class="gen-box">Chưa có kết quả được tạo.</div>
+           </div>
+         </div>
+       </div>
+     </div><!-- /formView -->
+    </main>
+
+  </div>
+</div>
+
+<script>
+  // [mã nhóm, tên nhóm, diễn giải, đơn vị cơ sở, material type]
+  const data = [
+    ["31001","Steel Material","ROH1 (Raw Materials)","KG","ROH1"],
+    ["31002","Resin","ROH1 (Raw Materials)","KG","ROH1"],
+    ["31003","Pur. Parts","ROH1 (Raw Materials)","PCS","ROH1"],
+    ["31004","MasterBatch(GPPS)","ROH1 (Raw Materials)","KG","ROH1"],
+    ["31005","MasterBatch(HIPS)","ROH1 (Raw Materials)","KG","ROH1"],
+    ["31006","MasterBatch(ETC)","ROH1 (Raw Materials)","KG","ROH1"],
+    ["31007","Abrasive Material","ROH1 (Raw Materials)","KG","ROH1"],
+    ["31008","Print","ROH1 (Raw Materials)","M","ROH1"],
+    ["31009","ETC","ROH1 (Raw Materials)","EA","ROH1"],
+    ["32001","CARD","ROH2 (Packaging)","EA","ROH2"],
+    ["32002","OPP","ROH2 (Packaging)","M","ROH2"],
+    ["32003","FILM","ROH2 (Packaging)","M","ROH2"],
+    ["32004","LB","ROH2 (Packaging)","EA","ROH2"],
+    ["32005","IC","ROH2 (Packaging)","EA","ROH2"],
+    ["32006","SK","ROH2 (Packaging)","EA","ROH2"],
+    ["32007","WP","ROH2 (Packaging)","EA","ROH2"],
+    ["32008","BT","ROH2 (Packaging)","EA","ROH2"],
+    ["32009","IBT","ROH2 (Packaging)","EA","ROH2"],
+    ["32010","SB","ROH2 (Packaging)","EA","ROH2"],
+    ["32011","IB","ROH2 (Packaging)","EA","ROH2"],
+    ["32012","OB","ROH2 (Packaging)","EA","ROH2"],
+    ["32013","DB","ROH2 (Packaging)","EA","ROH2"],
+    ["32014","PAD","ROH2 (Packaging)","EA","ROH2"],
+    ["32015","CV","ROH2 (Packaging)","EA","ROH2"],
+    ["32016","ETC","ROH2 (Packaging)","EA","ROH2"]
+  ];
+
+  // Cây danh mục = Material Type
+  const types = [
+    ["ROH1","Raw Materials"],
+    ["ROH2","Packaging"]
+  ];
+
+  const kebab = '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="12" cy="19" r="1.6"/></svg>';
+
+  let selected = "ROH1";
+  const typeName = c => (types.find(t => t[0] === c) || [,""])[1];
+
+  function renderTree(){
+    document.getElementById('tree').innerHTML = types.map(t => `
+      <div class="tn${t[0]===selected?' sel':''}" data-type="${t[0]}"><span class="dot"></span>[${t[0]}] ${t[1]}</div>`).join('');
+    document.querySelectorAll('#tree .tn').forEach(el =>
+      el.addEventListener('click', () => { selected = el.dataset.type; renderAll(); }));
+  }
+
+  function renderTable(){
+    const rows = data.filter(r => r[4] === selected);
+    document.getElementById('rows').innerHTML = rows.map(r => `
+      <tr>
+        <td class="code">${r[0]}</td>
+        <td>${r[1]}</td>
+        <td>${r[2]}</td>
+        <td><span class="status"><span class="sd"></span>Hoạt động</span></td>
+        <td class="c-act"><span class="row-act">${kebab}</span></td>
+      </tr>`).join('');
+    document.getElementById('cnt').textContent = rows.length + ' bản ghi được tìm thấy';
+    document.getElementById('catBadge').textContent = '[' + selected + '] ' + typeName(selected);
+  }
+
+  function renderAll(){ renderTree(); renderTable(); }
+  renderAll();
+
+  // Mở / đóng form Thêm nhóm mặt hàng
+  const listView = document.getElementById('listView');
+  const formView = document.getElementById('formView');
+  const treeCol  = document.getElementById('treeCol');
+  function showForm(show){
+    listView.style.display = show ? 'none' : 'flex';
+    formView.style.display = show ? 'flex' : 'none';
+    treeCol.style.display  = show ? 'none' : 'flex';
+  }
+  document.getElementById('addBtn').addEventListener('click', () => showForm(true));
+  document.getElementById('backBtn').addEventListener('click', () => showForm(false));
+</script>
+</body>
+</html>
