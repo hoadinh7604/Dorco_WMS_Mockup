@@ -1,0 +1,557 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PDA – Nhập mua</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --teal-900:#0e5a4f; --teal-700:#16806f; --teal-600:#1d8f7c;
+    --tile:#dcf2ec; --ink:#111827; --muted:#4b5563; --line:#e3e6ea;
+    --bg:#f3f4f7; --lime:#c5ef6a; --lime-ink:#1a2e05;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:#e6e8eb;font-family:Roboto,system-ui,sans-serif;color:var(--ink)}
+  .page{padding:32px 40px 60px}
+  .page>h1{margin:0 0 4px;font-size:26px}
+  .page>p{margin:0 0 28px;color:var(--muted);font-size:14px}
+
+  .flow-sec{margin-bottom:56px}
+  .flow-sec>h2{margin:0 0 4px;font-size:22px}
+  .flow-sec>p{margin:0 0 20px;color:var(--muted);font-size:14px}
+  .toc{display:flex;gap:10px;margin:0 0 28px;flex-wrap:wrap}
+  .toc a{display:inline-flex;align-items:center;height:36px;padding:0 14px;border-radius:18px;background:#fff;border:1px solid var(--line);color:var(--teal-900);font-weight:500;font-size:14px;text-decoration:none}
+  .toc a:hover{border-color:var(--teal-600)}
+  /* Luồng các bước */
+  .flow{display:flex;align-items:flex-start;gap:28px;flex-wrap:wrap}
+  .step{display:flex;flex-direction:column;gap:12px}
+  .step-head{display:flex;align-items:center;gap:10px}
+  .step-no{width:32px;height:32px;border-radius:50%;background:var(--teal-700);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center}
+  .step-title{font-size:16px;font-weight:700}
+  .step-note{font-size:13px;color:var(--muted)}
+  .arrow{align-self:center;color:var(--teal-700);margin-top:40px}
+
+  /* Thiết bị */
+  .phone{width:433px;height:829px;background:#111;border-radius:34px;padding:10px 12px 14px}
+  .phone .screen{border-radius:24px}
+  .tablet{width:1180px;height:700px;background:#111;border-radius:28px;padding:14px}
+  .tablet .screen{border-radius:14px}
+  .screen{width:100%;height:100%;background:var(--bg);overflow:hidden;display:flex;flex-direction:column}
+  .status{height:26px;background:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 14px;font-size:13px;color:#374151}
+  .status .ic{display:flex;gap:5px;align-items:center}
+  header{background:#fff;height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 16px 4px}
+  .left{display:flex;align-items:center;gap:14px}
+  .brand{display:flex;align-items:center;gap:10px;font-size:20px;font-weight:700}
+  .logo{width:34px;height:34px;border-radius:8px;background:linear-gradient(160deg,#1d8f7c,#0e5a4f);display:flex;align-items:center;justify-content:center;color:#fff}
+  .brand b{color:var(--teal-700)}
+  .actions{display:flex;align-items:center;gap:14px}
+  .lang{display:flex;align-items:center;gap:6px;height:30px;padding:0 12px;border:1px solid var(--line);border-radius:15px;background:#fff;font:inherit;font-size:13px;font-weight:700;color:var(--ink);cursor:pointer}
+  .icon-btn{all:unset;display:flex;width:36px;height:36px;align-items:center;justify-content:center;border-radius:50%;cursor:pointer;color:#111}
+  main{flex:1;overflow-y:auto;padding:14px 14px 20px}
+  main h2{margin:0 0 6px;font-size:21px;font-weight:700}
+  .sub{margin:0 0 12px;font-size:13.5px;color:var(--muted)}
+  .cols{display:flex;justify-content:space-between;padding:4px 8px 8px;font-size:12.5px;font-weight:700;letter-spacing:.04em;color:#374151}
+  .list{display:flex;flex-direction:column;gap:10px;list-style:none;margin:0;padding:0}
+
+  .card{display:flex;align-items:center;gap:14px;width:100%;min-height:80px;padding:12px 14px 12px 12px;background:#fff;border:1px solid var(--line);border-radius:12px;text-align:left;font:inherit;color:inherit;cursor:pointer}
+  .card:focus-visible{outline:3px solid #7cc5b6;outline-offset:2px}
+  .tile{flex:none;width:44px;height:44px;border-radius:8px;background:var(--tile);color:var(--teal-900);display:flex;align-items:center;justify-content:center}
+  .txt{flex:1;min-width:0}
+  .t{display:flex;align-items:center;gap:8px;font-size:15.5px;font-weight:700;margin-bottom:3px}
+  .d{font-size:13px;line-height:1.4;color:var(--muted)}
+  .chev{flex:none;color:#111}
+  .badge{font-size:11px;font-weight:700;background:var(--lime);color:var(--lime-ink);padding:1px 7px;border-radius:9px}
+  .count{flex:none;width:46px;height:46px;border-radius:8px;background:#e6f6ef;color:#0f7a43;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1}
+  .count small{font-size:9.5px;font-weight:700;margin-bottom:4px}
+  .count strong{font-size:18px}
+
+  /* Bước 3: danh sách yêu cầu */
+  .page-title{font-size:18px;font-weight:500}
+  .list-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}
+  .list-head h2{margin:0 0 2px}
+  .list-head .sub{margin:0}
+  .total{font-size:26px;font-weight:700}
+  .req{display:block;width:100%;padding:14px 14px 12px;background:#fff;border:1px solid var(--line);border-radius:14px;text-align:left;font:inherit;color:inherit;cursor:pointer}
+  .req:focus-visible{outline:3px solid #7cc5b6;outline-offset:2px}
+  .req-no{font-size:16px;font-weight:700;margin-bottom:8px}
+  .pill{display:inline-block;font-size:13px;font-weight:700;background:#f2fbd9;color:var(--lime-ink);padding:4px 10px;border-radius:14px;margin-bottom:8px}
+  .pill.new{background:#e3efff;color:#1e4fa3}
+  .pill.doing{background:#fff1dc;color:#8a4b00}
+  .partner{display:flex;align-items:center;gap:8px;font-size:14.5px;margin-bottom:4px}
+  .date{font-size:13.5px;color:#374151}
+  .bottom{background:#fff;border-top:1px solid var(--line);padding:8px 14px 10px;display:flex;gap:8px}
+  .seg{flex:1;height:48px;display:flex;align-items:center;justify-content:center;gap:8px;border-radius:10px;border:1px solid var(--line);background:#fff;font:inherit;font-size:15px;font-weight:500;color:var(--ink);cursor:pointer}
+  .seg.on{background:#ccf55e;border-color:#ccf55e;color:var(--lime-ink)}
+
+  .req.active{border:2px solid var(--teal-600);background:#f2fbf8;box-shadow:0 2px 8px rgba(22,128,111,.15);padding:13px 13px 11px}
+  .req.active .req-no{color:var(--teal-900)}
+
+  /* Bước 4: chi tiết yêu cầu */
+  .tabs{display:flex;gap:4px;padding:4px;margin:0 14px;background:#e7eaee;border-radius:10px}
+  .tab{flex:1;height:40px;border:none;border-radius:8px;background:transparent;font:inherit;font-size:15px;font-weight:500;color:#374151;cursor:pointer}
+  .tab.on{background:#fff;color:var(--teal-900);font-weight:700;box-shadow:0 1px 3px rgba(0,0,0,.12)}
+  .panel{background:#fff;border:1px solid var(--line);border-radius:12px;padding:6px 14px}
+  .field{display:grid;grid-template-columns:124px 1fr;align-items:center;gap:10px;min-height:48px;border-bottom:1px solid #eef0f3}
+  .field:last-child{border-bottom:none}
+  .field label{font-size:14px;color:var(--muted);white-space:nowrap}
+  .field label.strong{color:var(--ink);font-weight:700}
+  .field .val{font-size:14.5px;color:#374151}
+  .field .val.input{display:flex;align-items:center;gap:8px;height:38px;padding:0 6px 0 10px;border:1.5px solid var(--teal-600);border-radius:8px;color:var(--ink);font-weight:500}
+  .field .val.input span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .scan{all:unset;flex:none;display:flex;width:30px;height:30px;align-items:center;justify-content:center;border-radius:6px;background:var(--tile);color:var(--teal-900);cursor:pointer}
+  .sum{display:flex;justify-content:flex-end;gap:6px;font-size:14px;color:var(--muted);margin:14px 4px 8px}
+  .sum strong{color:var(--ink)}
+  .item{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+  .item-name{font-size:15px;font-weight:700;color:var(--teal-900);margin-bottom:8px}
+  .row{display:flex;justify-content:space-between;font-size:13.5px;color:var(--muted);line-height:1.7}
+  .row b{color:var(--ink);font-weight:500}
+
+  /* Bước 5: tab chi tiết */
+  .scan-field{display:grid;grid-template-columns:80px 1fr;align-items:center;gap:10px;min-height:52px}
+  .scan-field label{font-size:14px;font-weight:700;color:var(--ink)}
+  .scan-box{display:flex;align-items:center;gap:8px;height:40px;padding:0 5px 0 10px;border:1.5px solid var(--line);border-radius:8px;background:#f9fafb}
+  .scan-box.focus{border-color:var(--teal-600);background:#fff;box-shadow:0 0 0 3px rgba(29,143,124,.15)}
+  .scan-box input{flex:1;min-width:0;border:none;background:transparent;font:inherit;font-size:14px;color:var(--ink);outline:none}
+  .scan-box input::placeholder{color:#6b7280}
+  .item-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+  .del{all:unset;flex:none;display:flex;width:32px;height:32px;margin:-4px -6px 0 0;align-items:center;justify-content:center;border-radius:6px;color:#b42318;cursor:pointer}
+  .del:hover{background:#fdecea}
+  .del:focus-visible{outline:2px solid #b42318}
+  .foot{background:#fff;border-top:1px solid var(--line);padding:10px 14px 12px}
+  .primary{width:100%;height:48px;border:none;border-radius:10px;background:#ccf55e;color:var(--lime-ink);font:inherit;font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer}
+
+  .qty{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:2px 0 4px;font-size:13.5px;color:var(--muted)}
+  .qty-box{display:flex;align-items:center;gap:6px;height:38px;padding:0 10px;border:1.5px solid var(--teal-600);border-radius:8px;background:#fff}
+  .qty-box input{width:90px;border:none;background:transparent;font:inherit;font-size:15px;font-weight:700;color:var(--ink);text-align:right;outline:none}
+  .qty-box span{font-size:13px;color:var(--muted)}
+
+  .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  .qty-box.editing{box-shadow:0 0 0 3px rgba(29,143,124,.25)}
+  .scrim{position:absolute;inset:0;background:rgba(17,24,39,.45)}
+  .sheet{position:absolute;left:0;right:0;bottom:0;background:#fff;border-radius:20px 20px 0 0;padding:8px 16px 14px;box-shadow:0 -6px 24px rgba(0,0,0,.18)}
+  .grab{width:40px;height:4px;border-radius:2px;background:#d1d5db;margin:0 auto 6px}
+  .sh-head{display:flex;align-items:center;justify-content:space-between}
+  .sh-head h3{margin:0;font-size:17px}
+  .sh-item{font-size:14px;font-weight:700;color:var(--teal-900);margin:2px 0 12px;line-height:1.35}
+  .sh-item span{display:block;font-weight:400;color:var(--muted);font-size:13px;margin-top:2px}
+  .stepper{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+  .stp{flex:none;width:52px;height:52px;border:1px solid var(--line);border-radius:12px;background:var(--tile);color:var(--teal-900);font:inherit;font-size:26px;font-weight:700;cursor:pointer}
+  .big{flex:1;display:flex;align-items:baseline;justify-content:center;gap:6px;height:52px;border:2px solid var(--teal-600);border-radius:12px;padding:0 12px}
+  .big input{width:100%;min-width:0;border:none;background:transparent;font:inherit;font-size:30px;font-weight:700;color:var(--ink);text-align:right;outline:none;line-height:52px}
+  .big span{font-size:15px;color:var(--muted)}
+  .note{margin-bottom:12px}
+  .note label{display:block;font-size:14px;font-weight:700;margin-bottom:6px}
+  .note .must{color:#b42318}
+  .note textarea{box-sizing:border-box;width:100%;min-height:52px;padding:8px 10px;border:1.5px solid var(--line);border-radius:10px;font:inherit;font-size:14px;color:var(--ink);resize:none}
+  .note textarea:focus{outline:none;border-color:var(--teal-600)}
+  .note small{display:block;margin-top:4px;font-size:12px;color:var(--muted)}
+  .pad{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:12px}
+  .pad button{height:44px;border:1px solid var(--line);border-radius:10px;background:#f9fafb;font:inherit;font-size:20px;font-weight:500;color:var(--ink);display:flex;align-items:center;justify-content:center;cursor:pointer}
+  .pad button:active{background:var(--tile)}
+  .sh-act{display:flex;gap:10px}
+  .sh-act .ghost{flex:1;height:48px;border:1px solid var(--line);border-radius:10px;background:#fff;font:inherit;font-size:15px;font-weight:500;cursor:pointer}
+  .sh-act .primary{flex:2}
+
+  .foot.two{display:flex;gap:10px}
+  .foot.two .primary{flex:3}
+  .ghost-btn{flex:2;height:48px;border:1.5px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);font:inherit;font-size:15px;font-weight:500;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer}
+
+  .field .val.ro{display:flex;align-items:center;height:38px;padding:0 10px;border:1px solid var(--line);border-radius:8px;background:#f1f3f5;color:#6b7280;font-weight:500}
+
+  .req-top{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:8px}
+  .req-top .req-no{margin:0}
+  .req-top .date{flex:none;font-size:13px}
+
+  .tem-no{font-size:15.5px;font-weight:700;color:var(--teal-900);font-variant-numeric:tabular-nums;letter-spacing:.01em}
+  .item-sub{font-size:13.5px;line-height:1.35;color:#374151;margin:2px 0 8px}
+
+  .row.ref b{color:var(--muted);font-weight:500}
+  .ton-row{display:flex;justify-content:space-between;align-items:center;height:36px;padding:0 12px;margin-bottom:10px;border-radius:8px;background:#f3f4f6;font-size:14px;color:var(--muted)}
+  .ton-row b{color:var(--ink);font-weight:600}
+
+  /* Trạng thái đang chọn */
+  .card.active{border:2px solid var(--teal-600);background:#f2fbf8;box-shadow:0 2px 8px rgba(22,128,111,.15);padding:11px 13px 11px 11px}
+  .card.active .tile{background:var(--teal-700);color:#fff}
+  .card.active .t{color:var(--teal-900)}
+  .card.active .chev{color:var(--teal-700)}
+  .card.active .count{background:var(--teal-700);color:#fff}
+  /* Nhúng vào trang TSD: lưới 3 màn mỗi hàng, co theo bề ngang khung */
+  html,body{background:#eef0f2}
+  body{display:block;min-height:0}
+  .page{width:1467px;box-sizing:border-box;padding:24px}
+  .flow{display:grid;grid-template-columns:repeat(3,433px);gap:32px 60px;align-items:start}
+  .flow>.arrow{display:none}
+</style>
+</head>
+<body>
+<div class="page">
+<div class="flow">
+
+    <!-- ===== BƯỚC 1 ===== -->
+    <section class="step" aria-label="Bước 1">
+      <div class="step-head"><span class="step-no">1</span><div><div class="step-title">Chọn nhóm công việc</div><div class="step-note">Chạm vào “Nhập kho”</div></div></div>
+      <div class="phone"><div class="screen">
+        <div class="status"><span>8:55</span><span class="ic" aria-hidden="true">
+          <svg width="8" height="8" viewBox="0 0 10 10"><path d="M5 9 0 2h10z" fill="#111"/></svg>
+          <svg width="10" height="10" viewBox="0 0 10 10"><path d="M10 0v10H0z" fill="#111"/></svg>
+          <svg width="7" height="11" viewBox="0 0 7 11"><rect width="7" height="11" rx="1" fill="#111"/></svg></span></div>
+        <header>
+          <div class="brand"><span class="logo" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 4l9 6.5V20H3z"/><path d="M9 20v-6h6v6"/></svg></span><span>DC <b>WMS</b></span></div>
+          <div class="actions">
+            <button class="lang" type="button" aria-label="Ngôn ngữ: Tiếng Việt"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>VI<svg width="8" height="8" viewBox="0 0 10 10" aria-hidden="true"><path d="M0 3h10L5 8z" fill="currentColor"/></svg></button>
+            <button class="icon-btn" type="button" aria-label="Tài khoản"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><circle cx="12" cy="10" r="3.2"/><path d="M6 18.5c1.5-2.2 3.6-3.3 6-3.3s4.5 1.1 6 3.3"/></svg></button>
+          </div>
+        </header>
+        <main>
+          <h2>Nhóm công việc</h2>
+          <p class="sub">Chọn một nhóm để xem các chức năng kho bên trong.</p>
+          <ul class="list">
+            <li><button class="card" type="button"><span class="tile" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="5" rx="1"/><path d="M5 9v10h14V9M10 13h4"/></svg></span><span class="txt"><span class="t">Quản lý hàng hóa</span><span class="d">Nhập, giao và nhận lại thành phẩm; quản lý pallet.</span></span><svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button></li>
+            <li><button class="card active" type="button" aria-current="true"><span class="tile" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M4 14h4l1.5 2.5h5L16 14h4"/><path d="M12 6v6M9 9.5l3 3 3-3"/></svg></span><span class="txt"><span class="t">Nhập kho</span><span class="d">Nhận nguyên vật liệu vào kho, gồm cả trả về từ sản xuất.</span></span><svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button></li>
+            <li><button class="card" type="button"><span class="tile" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M4 14h4l1.5 2.5h5L16 14h4"/><path d="M12 12V6M9 8.5l3-3 3 3"/></svg></span><span class="txt"><span class="t">Xuất kho</span><span class="d">Xuất nguyên vật liệu cho sản xuất hoặc trả hàng nhà cung cấp.</span></span><svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button></li>
+            <li><button class="card" type="button"><span class="tile" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h10M18 7h2M4 12h4M12 12h8M4 17h12"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="17" r="2"/></svg></span><span class="txt"><span class="t">Điều chỉnh tồn kho</span><span class="d">Kiểm đếm thực tế để đối chiếu và điều chỉnh trên Web.</span></span><svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button></li>
+            <li><button class="card" type="button"><span class="tile" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h15l-4-4M20 15H5l4 4"/></svg></span><span class="txt"><span class="t">Giao dịch kho</span><span class="d">Chuyển tồn kho hoặc thay đổi lô, cấp chất lượng và mã vạch.</span></span><svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button></li>
+            <li><button class="card" type="button"><span class="tile" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.3"/></svg></span><span class="txt"><span class="t">Tách / gộp tem <span class="badge">Mới</span></span><span class="d">Chia một tem thành nhiều tem hoặc gom nhiều tem về một tem.</span></span><svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button></li>
+          </ul>
+        </main>
+      </div></div>
+    </section>
+
+    <svg class="arrow" width="40" height="24" viewBox="0 0 40 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12h34M28 4l8 8-8 8"/></svg>
+
+    <!-- ===== BƯỚC 2 ===== -->
+    <section class="step" aria-label="Bước 2">
+      <div class="step-head"><span class="step-no">2</span><div><div class="step-title">Chọn loại nhập kho</div><div class="step-note">Chạm vào “Nhập mua”</div></div></div>
+      <div class="phone"><div class="screen">
+        <div class="status"><span>11:28</span><span class="ic" aria-hidden="true">
+          <svg width="12" height="10" viewBox="0 0 12 10"><path d="M6 10 0 2.5a9 9 0 0 1 12 0z" fill="#374151"/></svg>
+          <svg width="10" height="10" viewBox="0 0 10 10"><path d="M10 0v10H0z" fill="#374151"/></svg>
+          <svg width="7" height="11" viewBox="0 0 7 11"><rect width="7" height="11" rx="1" fill="#374151"/></svg></span></div>
+        <header>
+          <div class="left">
+            <button class="icon-btn" type="button" aria-label="Quay lại"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12H4M10 6l-6 6 6 6"/></svg></button>
+            <div class="brand"><span class="logo" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 4l9 6.5V20H3z"/><path d="M9 20v-6h6v6"/></svg></span><span>DC <b>WMS</b></span></div>
+          </div>
+          <div class="actions">
+            <button class="lang" type="button" aria-label="Ngôn ngữ: Tiếng Việt"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>VI<svg width="8" height="8" viewBox="0 0 10 10" aria-hidden="true"><path d="M0 3h10L5 8z" fill="currentColor"/></svg></button>
+            <button class="icon-btn" type="button" aria-label="Tài khoản"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><circle cx="12" cy="10" r="3.2"/><path d="M6 18.5c1.5-2.2 3.6-3.3 6-3.3s4.5 1.1 6 3.3"/></svg></button>
+          </div>
+        </header>
+        <main>
+          <h2>Nhập mua</h2>
+          <p class="sub">Nhận nguyên vật liệu vào kho, gồm cả trả về từ sản xuất.</p>
+          <div class="cols"><span>CHỨC NĂNG</span><span>CÔNG VIỆC</span></div>
+          <ul class="list">
+            <li><button class="card active" type="button" aria-current="true">
+              <span class="tile" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h2l2.2 11h11l2-8H6.2"/><circle cx="9" cy="19.5" r="1.3"/><circle cx="17" cy="19.5" r="1.3"/></svg></span>
+              <span class="txt"><span class="t">Nhập mua</span><span class="d">Nhập nguyên vật liệu và vật tư tiêu hao mua từ nhà cung cấp</span></span>
+              <span class="count" aria-label="8 công việc đã gửi"><small>GỬI</small><strong>8</strong></span>
+            </button></li>
+            <li><button class="card" type="button">
+              <span class="tile" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7v4a3 3 0 0 1-3 3H5"/><path d="m9 10-4 4 4 4"/></svg></span>
+              <span class="txt"><span class="t">Nhập trả từ sản xuất</span><span class="d">Trả nguyên vật liệu chưa dùng từ sản xuất về kho</span></span>
+              <span class="count" aria-label="4 công việc đã gửi"><small>GỬI</small><strong>4</strong></span>
+            </button></li>
+            <li><button class="card" type="button">
+              <span class="tile" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M12 8v8M8 12h8"/></svg></span>
+              <span class="txt"><span class="t">Nhập khác</span><span class="d">Nhập kho theo yêu cầu khác (Other In)</span></span>
+              <span class="count" aria-label="3 công việc đã gửi"><small>GỬI</small><strong>3</strong></span>
+            </button></li>
+          </ul>
+        </main>
+      </div></div>
+    </section>
+
+    <svg class="arrow" width="40" height="24" viewBox="0 0 40 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12h34M28 4l8 8-8 8"/></svg>
+
+    <!-- ===== BƯỚC 3 ===== -->
+    <section class="step" aria-label="Bước 3">
+      <div class="step-head"><span class="step-no">3</span><div><div class="step-title">Danh sách yêu cầu nhập mua</div><div class="step-note">Chọn yêu cầu cần nhập, hoặc chuyển sang “Quét”</div></div></div>
+      <div class="phone"><div class="screen">
+        <div class="status"><span>11:32</span><span class="ic" aria-hidden="true">
+          <svg width="12" height="10" viewBox="0 0 12 10"><path d="M6 10 0 2.5a9 9 0 0 1 12 0z" fill="#374151"/></svg>
+          <svg width="10" height="10" viewBox="0 0 10 10"><path d="M10 0v10H0z" fill="#374151"/></svg>
+          <svg width="7" height="11" viewBox="0 0 7 11"><rect width="7" height="11" rx="1" fill="#374151"/></svg></span></div>
+        <header>
+          <div class="left">
+            <button class="icon-btn" type="button" aria-label="Quay lại"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12H4M10 6l-6 6 6 6"/></svg></button>
+            <span class="page-title">Nhập mua</span>
+          </div>
+          <div class="actions">
+            <button class="lang" type="button" aria-label="Ngôn ngữ: Tiếng Việt"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>VI<svg width="8" height="8" viewBox="0 0 10 10" aria-hidden="true"><path d="M0 3h10L5 8z" fill="currentColor"/></svg></button>
+          </div>
+        </header>
+        <main>
+          <div class="list-head">
+            <div><h2>Công việc nhập hàng</h2><p class="sub">Danh sách yêu cầu nhập mua</p></div>
+            <span class="total" aria-label="8 yêu cầu">8</span>
+          </div>
+          <ul class="list">
+            <li><button class="req active" type="button" aria-current="true">
+              <div class="req-top"><span class="req-no">YCNK-2610-00005</span><span class="date">19/10/2026</span></div>
+              <span class="pill new">Tạo mới</span>
+              <div class="partner"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4b5563" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20V10l5 3V10l5 3V6h4l1 14z"/><path d="M3 20h18M8 17h1M12 17h1M16 17h1"/></svg>NCC00001 · Công ty TNHH ABC</div>
+            </button></li>
+            <li><button class="req" type="button">
+              <div class="req-top"><span class="req-no">YCNK-2610-00004</span><span class="date">07/10/2026</span></div>
+              <span class="pill doing">Đang xử lý</span>
+              <div class="partner"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4b5563" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20V10l5 3V10l5 3V6h4l1 14z"/><path d="M3 20h18M8 17h1M12 17h1M16 17h1"/></svg>NCC00003 · Công ty TNHH XYZ</div>
+            </button></li>
+            <li><button class="req" type="button">
+              <div class="req-top"><span class="req-no">YCNK-2610-00002</span><span class="date">02/10/2026</span></div>
+              <span class="pill doing">Đang xử lý</span>
+              <div class="partner"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4b5563" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20V10l5 3V10l5 3V6h4l1 14z"/><path d="M3 20h18M8 17h1M12 17h1M16 17h1"/></svg>NCC00002 · Công ty TNHH DEF</div>
+            </button></li>
+          </ul>
+        </main>
+        <nav class="bottom" aria-label="Chế độ xem">
+          <button class="seg on" type="button" aria-pressed="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg>Danh sách</button>
+          <button class="seg" type="button" aria-pressed="false"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8V4h4M16 4h4v4M20 16v4h-4M8 20H4v-4"/><rect x="8" y="8" width="3" height="3"/><rect x="13" y="8" width="3" height="3"/><rect x="8" y="13" width="3" height="3"/><path d="M13 13h3v3"/></svg>Quét</button>
+        </nav>
+      </div></div>
+    </section>
+
+    <svg class="arrow" width="40" height="24" viewBox="0 0 40 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12h34M28 4l8 8-8 8"/></svg>
+
+    <!-- ===== BƯỚC 4 ===== -->
+    <section class="step" aria-label="Bước 4">
+      <div class="step-head"><span class="step-no">4</span><div><div class="step-title">Chi tiết yêu cầu – tab Tổng hợp</div><div class="step-note">Mặc định mở tab “Tổng hợp” · chạm “Chi tiết” để quét</div></div></div>
+      <div class="phone"><div class="screen">
+        <div class="status"><span>11:33</span><span class="ic" aria-hidden="true">
+          <svg width="12" height="10" viewBox="0 0 12 10"><path d="M6 10 0 2.5a9 9 0 0 1 12 0z" fill="#374151"/></svg>
+          <svg width="10" height="10" viewBox="0 0 10 10"><path d="M10 0v10H0z" fill="#374151"/></svg>
+          <svg width="7" height="11" viewBox="0 0 7 11"><rect width="7" height="11" rx="1" fill="#374151"/></svg></span></div>
+        <header>
+          <div class="left">
+            <button class="icon-btn" type="button" aria-label="Quay lại"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12H4M10 6l-6 6 6 6"/></svg></button>
+            <span class="page-title">Nhập mua</span>
+          </div>
+          <div class="actions">
+          </div>
+        </header>
+        <div style="background:#fff;padding:0 0 10px">
+          <div class="tabs" role="tablist" aria-label="Chế độ xem yêu cầu">
+            <button class="tab on" type="button" role="tab" aria-selected="true">Tổng hợp</button>
+            <button class="tab" type="button" role="tab" aria-selected="false">Chi tiết</button>
+          </div>
+        </div>
+        <main>
+          <div class="panel">
+            <div class="field"><label>Phiếu YC</label><span class="val ro" aria-readonly="true">YCNK-2610-00005</span></div>
+            <div class="field"><label>Kho nhập</label><span class="val">Kho 1000</span></div>
+            <div class="field"><label>Nhà cung cấp</label><span class="val">NCC00001 · Công ty TNHH ABC</span></div>
+          </div>
+
+          <div class="sum">Tổng số lượng đã quét: <strong>0.00</strong></div>
+
+          <ul class="list">
+            <li class="item">
+              <div class="item-name">#1 · 3242663 – ST300-5P BLUE EX STD 10000 OB</div>
+              <div class="row"><span>Số lượng yêu cầu</span><b>500.00 PC</b></div>
+              <div class="row"><span>Số lượng</span><b>0.00 PC</b></div>
+            </li>
+            <li class="item">
+              <div class="item-name">#2 · 3247939 – LTRA1002-PP MTC ROSSMANN 42 OB</div>
+              <div class="row"><span>Số lượng yêu cầu</span><b>1,000.00 PC</b></div>
+              <div class="row"><span>Số lượng</span><b>0.00 PC</b></div>
+            </li>
+          </ul>
+        </main>
+        <div class="foot">
+          <button class="primary" type="button"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5L20 7"/></svg>Lưu phiếu</button>
+        </div>
+      </div></div>
+    </section>
+
+    <svg class="arrow" width="40" height="24" viewBox="0 0 40 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12h34M28 4l8 8-8 8"/></svg>
+
+    <!-- ===== BƯỚC 5 ===== -->
+    <section class="step" aria-label="Bước 5">
+      <div class="step-head"><span class="step-no">5</span><div><div class="step-title">Chi tiết yêu cầu – tab Chi tiết</div><div class="step-note">Quét vị trí và mã tem, sau đó “Lưu phiếu”</div></div></div>
+      <div class="phone"><div class="screen">
+        <div class="status"><span>11:35</span><span class="ic" aria-hidden="true">
+          <svg width="12" height="10" viewBox="0 0 12 10"><path d="M6 10 0 2.5a9 9 0 0 1 12 0z" fill="#374151"/></svg>
+          <svg width="10" height="10" viewBox="0 0 10 10"><path d="M10 0v10H0z" fill="#374151"/></svg>
+          <svg width="7" height="11" viewBox="0 0 7 11"><rect width="7" height="11" rx="1" fill="#374151"/></svg></span></div>
+        <header>
+          <div class="left">
+            <button class="icon-btn" type="button" aria-label="Quay lại"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12H4M10 6l-6 6 6 6"/></svg></button>
+            <span class="page-title">Nhập mua</span>
+          </div>
+          <div class="actions">
+          </div>
+        </header>
+        <div style="background:#fff;padding:0 0 10px">
+          <div class="tabs" role="tablist" aria-label="Chế độ xem yêu cầu">
+            <button class="tab" type="button" role="tab" aria-selected="false">Tổng hợp</button>
+            <button class="tab on" type="button" role="tab" aria-selected="true">Chi tiết</button>
+          </div>
+        </div>
+        <main>
+          <div class="panel">
+            <div class="scan-field"><label for="s5-loc">Vị trí</label>
+              <div class="scan-box focus"><input id="s5-loc" type="text" placeholder="Quét mã">
+                <button class="scan" type="button" aria-label="Quét mã vị trí"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8V4h4M16 4h4v4M20 16v4h-4M8 20H4v-4"/><rect x="8" y="8" width="3" height="3"/><rect x="13" y="8" width="3" height="3"/><rect x="8" y="13" width="3" height="3"/><path d="M13 13h3v3"/></svg></button>
+              </div>
+            </div>
+            <div class="scan-field"><label for="s5-item">Mã tem</label>
+              <div class="scan-box"><input id="s5-item" type="text" placeholder="Quét mã">
+                <button class="scan" type="button" aria-label="Quét mã tem"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8V4h4M16 4h4v4M20 16v4h-4M8 20H4v-4"/><rect x="8" y="8" width="3" height="3"/><rect x="13" y="8" width="3" height="3"/><rect x="8" y="13" width="3" height="3"/><path d="M13 13h3v3"/></svg></button>
+              </div>
+            </div>
+          </div>
+
+          <div class="sum">Đã quét: <strong>3 dòng</strong></div>
+
+          <ul class="list">
+            <li class="item">
+              <div class="item-top">
+                <div class="tem-no">#1 · TEM-2610-000101</div>
+                <button class="del" type="button" aria-label="Xóa dòng 1"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button>
+              </div>
+              <div class="item-sub">3242663 – ST300-5P BLUE EX STD 10000 OB</div>
+              <div class="qty"><label for="q1-1">Số lượng</label><span class="qty-box"><input id="q1-1" type="text" inputmode="decimal" value="300.00"><span>PC</span></span></div>
+              <div class="row"><span>Vị trí</span><b>A001</b></div>
+            </li>
+            <li class="item">
+              <div class="item-top">
+                <div class="tem-no">#2 · TEM-2610-000102</div>
+                <button class="del" type="button" aria-label="Xóa dòng 2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button>
+              </div>
+              <div class="item-sub">3242663 – ST300-5P BLUE EX STD 10000 OB</div>
+              <div class="qty"><label for="q1-2">Số lượng</label><span class="qty-box"><input id="q1-2" type="text" inputmode="decimal" value="200.00"><span>PC</span></span></div>
+              <div class="row"><span>Vị trí</span><b>A003</b></div>
+            </li>
+            <li class="item">
+              <div class="item-top">
+                <div class="tem-no">#3 · TEM-2610-000103</div>
+                <button class="del" type="button" aria-label="Xóa dòng 3"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button>
+              </div>
+              <div class="item-sub">3247939 – LTRA1002-PP MTC ROSSMANN 42 OB</div>
+              <div class="qty"><label for="q1-3">Số lượng</label><span class="qty-box"><input id="q1-3" type="text" inputmode="decimal" value="1,000.00"><span>PC</span></span></div>
+              <div class="row"><span>Vị trí</span><b>A002</b></div>
+            </li>
+          </ul>
+        </main>
+        <div class="foot">
+          <button class="primary" type="button"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5L20 7"/></svg>Lưu phiếu</button>
+        </div>
+      </div></div>
+    </section>
+
+    <svg class="arrow" width="40" height="24" viewBox="0 0 40 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12h34M28 4l8 8-8 8"/></svg>
+
+    <!-- ===== BƯỚC 5a ===== -->
+    <section class="step" aria-label="Bước 5a">
+      <div class="step-head"><span class="step-no" style="width:auto;padding:0 9px;border-radius:16px">5a</span><div><div class="step-title">Sửa số lượng</div><div class="step-note">Chạm vào ô số lượng của dòng hàng</div></div></div>
+      <div class="phone"><div class="screen" style="position:relative">
+        <div class="status"><span>11:35</span><span class="ic" aria-hidden="true">
+          <svg width="12" height="10" viewBox="0 0 12 10"><path d="M6 10 0 2.5a9 9 0 0 1 12 0z" fill="#374151"/></svg>
+          <svg width="10" height="10" viewBox="0 0 10 10"><path d="M10 0v10H0z" fill="#374151"/></svg>
+          <svg width="7" height="11" viewBox="0 0 7 11"><rect width="7" height="11" rx="1" fill="#374151"/></svg></span></div>
+        <header>
+          <div class="left">
+            <button class="icon-btn" type="button" aria-label="Quay lại"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12H4M10 6l-6 6 6 6"/></svg></button>
+            <span class="page-title">Nhập mua</span>
+          </div>
+          <div class="actions">
+          </div>
+        </header>
+        <div style="background:#fff;padding:0 0 10px">
+          <div class="tabs" role="tablist" aria-label="Chế độ xem yêu cầu">
+            <button class="tab" type="button" role="tab" aria-selected="false">Tổng hợp</button>
+            <button class="tab on" type="button" role="tab" aria-selected="true">Chi tiết</button>
+          </div>
+        </div>
+        <main>
+          <div class="panel">
+            <div class="scan-field"><label for="s5-loca">Vị trí</label>
+              <div class="scan-box"><input id="s5-loca" type="text" placeholder="Quét mã">
+                <button class="scan" type="button" aria-label="Quét mã vị trí"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8V4h4M16 4h4v4M20 16v4h-4M8 20H4v-4"/><rect x="8" y="8" width="3" height="3"/><rect x="13" y="8" width="3" height="3"/><rect x="8" y="13" width="3" height="3"/><path d="M13 13h3v3"/></svg></button>
+              </div>
+            </div>
+            <div class="scan-field"><label for="s5-itema">Mã tem</label>
+              <div class="scan-box"><input id="s5-itema" type="text" placeholder="Quét mã">
+                <button class="scan" type="button" aria-label="Quét mã tem"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8V4h4M16 4h4v4M20 16v4h-4M8 20H4v-4"/><rect x="8" y="8" width="3" height="3"/><rect x="13" y="8" width="3" height="3"/><rect x="8" y="13" width="3" height="3"/><path d="M13 13h3v3"/></svg></button>
+              </div>
+            </div>
+          </div>
+
+          <div class="sum">Đã quét: <strong>3 dòng</strong></div>
+
+          <ul class="list">
+            <li class="item">
+              <div class="item-top">
+                <div class="tem-no">#1 · TEM-2610-000101</div>
+                <button class="del" type="button" aria-label="Xóa dòng 1"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button>
+              </div>
+              <div class="item-sub">3242663 – ST300-5P BLUE EX STD 10000 OB</div>
+              <div class="qty"><label for="q1-1a">Số lượng</label><span class="qty-box editing"><input id="q1-1a" type="text" inputmode="decimal" value="300.00"><span>PC</span></span></div>
+              <div class="row"><span>Vị trí</span><b>A001</b></div>
+            </li>
+            <li class="item">
+              <div class="item-top">
+                <div class="tem-no">#2 · TEM-2610-000102</div>
+                <button class="del" type="button" aria-label="Xóa dòng 2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button>
+              </div>
+              <div class="item-sub">3242663 – ST300-5P BLUE EX STD 10000 OB</div>
+              <div class="qty"><label for="q1-2a">Số lượng</label><span class="qty-box"><input id="q1-2a" type="text" inputmode="decimal" value="200.00"><span>PC</span></span></div>
+              <div class="row"><span>Vị trí</span><b>A003</b></div>
+            </li>
+            <li class="item">
+              <div class="item-top">
+                <div class="tem-no">#3 · TEM-2610-000103</div>
+                <button class="del" type="button" aria-label="Xóa dòng 3"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button>
+              </div>
+              <div class="item-sub">3247939 – LTRA1002-PP MTC ROSSMANN 42 OB</div>
+              <div class="qty"><label for="q1-3a">Số lượng</label><span class="qty-box"><input id="q1-3a" type="text" inputmode="decimal" value="1,000.00"><span>PC</span></span></div>
+              <div class="row"><span>Vị trí</span><b>A002</b></div>
+            </li>
+          </ul>
+        </main>
+        <div class="foot">
+          <button class="primary" type="button"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5L20 7"/></svg>Lưu phiếu</button>
+        </div>
+        <div class="scrim" aria-hidden="true"></div>
+        <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sh-t">
+          <div class="grab" aria-hidden="true"></div>
+          <div class="sh-head">
+            <h3 id="sh-t">Số lượng</h3>
+            <button class="icon-btn" type="button" aria-label="Đóng"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+          </div>
+          <div class="sh-item">TEM-2610-000101<span>3242663 – ST300-5P BLUE EX STD 10000 OB · Vị trí A001</span></div>
+          <div class="stepper">
+            <button type="button" class="stp" aria-label="Giảm 1">−</button>
+            <label class="sr" for="sh-q">Số lượng</label>
+            <div class="big"><input id="sh-q" type="text" inputmode="decimal" value="280" readonly><span>PC</span></div>
+            <button type="button" class="stp" aria-label="Tăng 1">+</button>
+          </div>
+          <div class="note">
+            <label for="sh-note">Lý do sửa số lượng</label>
+            <textarea id="sh-note" rows="2" placeholder="Nhập lý do (không bắt buộc)">Thiếu 20 PC so với tem khi đếm thực tế</textarea>
+            <small>Lý do sẽ lưu vào ghi chú của dòng hàng này trên phiếu.</small>
+          </div>
+          <div class="pad" role="group" aria-label="Bàn phím số">
+            <button type="button">1</button><button type="button">2</button><button type="button">3</button>
+            <button type="button">4</button><button type="button">5</button><button type="button">6</button>
+            <button type="button">7</button><button type="button">8</button><button type="button">9</button>
+            <button type="button">.</button><button type="button">0</button>
+            <button type="button" aria-label="Xóa ký tự"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 5H9l-6 7 6 7h12z"/><path d="m12 9 6 6M18 9l-6 6"/></svg></button>
+          </div>
+          <div class="sh-act">
+            <button type="button" class="ghost">Hủy</button>
+            <button type="button" class="primary">Xác nhận</button>
+          </div>
+        </div>
+      </div></div>
+    </section>
+
+    <!-- BƯỚC 6 trở đi: thêm <section class="step"> mới ở đây -->
+  </div>
+</div>
+<script>
+(function(){var W=1467;function fit(){var z=Math.min(window.innerWidth/W,1.3);document.documentElement.style.zoom=z;}fit();window.addEventListener('resize',fit);})();
+</script>
+</body>
+</html>
