@@ -28,7 +28,7 @@ window.TSD_MENU = [
 
     // ===== Mục 1 – (người phụ trách: chưa chia) =====
     { no: "1", title: "Master data", page: "01", href: "pages/01-master-data.html",
-      desc: "Công ty, nhà máy, kho, vị trí, đối tác kinh doanh",
+      desc: "Công ty, nhà máy, kho, vị trí, đối tác, mặt hàng, nhóm hàng, loại hàng",
       screens: [
         { no: "1.1", title: "Danh mục công ty",   id: "m-company" },
         { no: "1.2", title: "Danh mục nhà máy",   id: "m-plant" },
@@ -41,17 +41,16 @@ window.TSD_MENU = [
       ]},
 
     // ===== Mục 2 – sơ đồ quy trình 1 – (người phụ trách: chưa chia) =====
-    { no: "2", title: "Quy trình mua", page: "02", href: "pages/02-quy-trinh-mua.html",
+    { no: "2", title: "Quy trình nhập mua", page: "02", href: "pages/02-quy-trinh-mua.html",
       desc: "Inbound từ NCC",
       screens: [
-        { no: "2.1", title: "Danh sách yêu cầu nhập mua", id: "p-yc-list" },
-        { no: "2.2", title: "Yêu cầu nhập mua", id: "p-yc" },
-        { no: "2.3", title: "Danh sách phiếu nhập mua", id: "p-pn-list" },
+        { no: "2.1", title: "Yêu cầu nhập mua", id: "p-yc" },
+        { no: "2.2", title: "Phát hành in tem", id: "p-tem" },
+        { no: "2.3", title: "Nhập mua trên PDA", id: "p-pda-nm" },
         { no: "2.4", title: "Phiếu nhập mua", id: "p-pn" },
-        { no: "2.5", title: "Danh sách yêu cầu xuất trả NCC", id: "p-yctl-list" },
-        { no: "2.6", title: "Tạo yêu cầu trả nhà cung cấp", id: "p-yctl" },
-        { no: "2.7", title: "Danh sách phiếu xuất trả NCC", id: "p-xtl-list" },
-        { no: "2.8", title: "Phiếu xuất trả nhà cung cấp", id: "p-xtl" }
+        { no: "2.5", title: "Yêu cầu xuất trả nhà cung cấp", id: "p-yctl" },
+        { no: "2.6", title: "Xuất trả nhà cung cấp trên PDA", id: "p-pda-xtl" },
+        { no: "2.7", title: "Phiếu xuất trả nhà cung cấp", id: "p-xtl" }
       ]},
 
     // ===== Mục 3 – sơ đồ quy trình 2 – (người phụ trách: chưa chia) =====
@@ -60,17 +59,26 @@ window.TSD_MENU = [
       screens: [
         { no: "3.1", title: "Danh sách yêu cầu xuất vào sản xuất", id: "xsx-ds" },
         { no: "3.2", title: "Chi tiết yêu cầu xuất vào sản xuất", id: "xsx-yc" },
-        { no: "3.3", title: "Danh sách phiếu xuất kho vào sản xuất", id: "xsx-pds" },
-        { no: "3.4", title: "Phiếu xuất kho vào sản xuất", id: "xsx-phieu" },
-        { no: "3.5", title: "Danh sách yêu cầu nhập trả từ sản xuất", id: "ntsx-ds" },
-        { no: "3.6", title: "Chi tiết yêu cầu nhập trả từ sản xuất", id: "ntsx-yc" },
-        { no: "3.7", title: "Danh sách phiếu nhập trả từ sản xuất", id: "ntsx-pds" },
-        { no: "3.8", title: "Phiếu nhập trả từ sản xuất", id: "ntsx-phieu" }
+        { no: "3.3", title: "Xuất kho vào sản xuất trên PDA", id: "xsx-pda" },
+        { no: "3.4", title: "Danh sách phiếu xuất kho vào sản xuất", id: "xsx-pds" },
+        { no: "3.5", title: "Phiếu xuất kho vào sản xuất", id: "xsx-phieu" },
+        { no: "3.6", title: "Danh sách yêu cầu nhập trả từ sản xuất", id: "ntsx-ds" },
+        { no: "3.7", title: "Chi tiết yêu cầu nhập trả từ sản xuất", id: "ntsx-yc" },
+        { no: "3.8", title: "Nhập trả từ sản xuất trên PDA", id: "ntsx-pda" },
+        { no: "3.9", title: "Danh sách phiếu nhập trả từ sản xuất", id: "ntsx-pds" },
+        { no: "3.10", title: "Phiếu nhập trả từ sản xuất", id: "ntsx-phieu" }
       ]},
 
     // ===== Mục 4 – sơ đồ quy trình 3 – (người phụ trách: chưa chia) =====
-    { no: "4", title: "Quy trình gia công", page: "04", href: "pages/04-gia-cong.html", soon: true,
-      desc: "Xuất đi & nhận về" },
+    { no: "4", title: "Quy trình gia công", page: "04", href: "pages/04-gia-cong.html",
+      desc: "Xuất đi & nhận về",
+      screens: [
+        { no: "4.1", title: "Yêu cầu xuất nguyên liệu đi gia công", id: "gc-yc-xuat" },
+        { no: "4.2", title: "Phiếu xuất nguyên liệu đi gia công", id: "gc-px" },
+        { no: "4.3", title: "Yêu cầu nhập hàng gia công về", id: "gc-yc-nhap" },
+        { no: "4.4", title: "In tem hàng nhập gia công về", id: "gc-tem" },
+        { no: "4.5", title: "Phiếu nhập hàng gia công về", id: "gc-pn" }
+      ]},
 
     // ===== Mục 5 – sơ đồ quy trình 4 – (người phụ trách: chưa chia) =====
     { no: "5", title: "Quy trình nhập kho thành phẩm / bán thành phẩm", page: "05", href: "pages/05-nhap-kho-thanh-pham.html",

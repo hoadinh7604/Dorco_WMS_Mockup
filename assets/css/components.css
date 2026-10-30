@@ -76,7 +76,8 @@ tr:last-child td{border-bottom:0}
 
 .note{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:15px 18px}
 .note h3{font-size:15px;margin:0 0 6px}
-.note p,.note ul{font-size:15px;margin:0;color:#2E4A3C;max-width:95ch}
+.note p,.note ul{font-size:15px;margin:0;color:#2E4A3C}
+.note p+ul{margin-top:6px}
 .note--biz{background:var(--goldbg);border-color:var(--goldline)}
 .note--biz h3{color:var(--gold)}
 
