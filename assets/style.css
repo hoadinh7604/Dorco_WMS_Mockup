@@ -95,6 +95,8 @@ table.t tr:last-child td{border-bottom:0}
 
 /* desktop window mock */
 .win{width:100%;min-width:760px;max-width:1040px;background:#fff;border-radius:8px;box-shadow:0 2px 0 var(--ink),0 18px 40px -20px rgba(17,32,43,.5);border:2px solid var(--ink);overflow:hidden;font-size:13.5px;line-height:1.45;color:#1b2a35}
+.winframe{width:100%;max-width:1180px;background:#fff;border-radius:8px;box-shadow:0 2px 0 var(--ink),0 18px 40px -20px rgba(17,32,43,.5);border:2px solid var(--ink);overflow:hidden}
+.winframe iframe{display:block;width:100%;height:760px;border:0}
 .win .bar{background:var(--ink);color:#cfdbe2;padding:7px 12px;display:flex;gap:8px;align-items:center;font-size:12.5px}
 .win .bar i{width:10px;height:10px;border-radius:50%;background:#546b7b;display:inline-block}
 .win .bar span{margin-left:8px}
