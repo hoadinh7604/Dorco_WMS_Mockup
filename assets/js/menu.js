@@ -28,21 +28,42 @@ window.TSD_MENU = [
 
     // ===== Mục 1 – (người phụ trách: chưa chia) =====
     { no: "1", title: "Master data", page: "01", href: "pages/01-master-data.html",
-      desc: "Tổ chức, kho, vị trí, đối tác kinh doanh",
+      desc: "Công ty, nhà máy, kho, vị trí, đối tác kinh doanh",
       screens: [
-        { no: "1.1", title: "Danh mục tổ chức",   id: "m-org" },
-        { no: "1.2", title: "Danh mục kho",       id: "m-warehouse" },
-        { no: "1.3", title: "Danh mục vị trí",    id: "m-location" },
-        { no: "1.4", title: "Đối tác kinh doanh", id: "m-partner" }
+        { no: "1.1", title: "Danh mục công ty",   id: "m-company" },
+        { no: "1.2", title: "Danh mục nhà máy",   id: "m-plant" },
+        { no: "1.3", title: "Danh mục kho",       id: "m-warehouse" },
+        { no: "1.4", title: "Danh mục vị trí",    id: "m-location" },
+        { no: "1.5", title: "Đối tác kinh doanh", id: "m-partner" }
       ]},
 
     // ===== Mục 2 – sơ đồ quy trình 1 – (người phụ trách: chưa chia) =====
-    { no: "2", title: "Quy trình mua", page: "02", href: "pages/02-quy-trinh-mua.html", soon: true,
-      desc: "Inbound từ NCC" },
+    { no: "2", title: "Quy trình mua", page: "02", href: "pages/02-quy-trinh-mua.html",
+      desc: "Inbound từ NCC",
+      screens: [
+        { no: "2.1", title: "Danh sách yêu cầu nhập mua", id: "p-yc-list" },
+        { no: "2.2", title: "Yêu cầu nhập mua", id: "p-yc" },
+        { no: "2.3", title: "Danh sách phiếu nhập mua", id: "p-pn-list" },
+        { no: "2.4", title: "Phiếu nhập mua", id: "p-pn" },
+        { no: "2.5", title: "Danh sách yêu cầu xuất trả NCC", id: "p-yctl-list" },
+        { no: "2.6", title: "Tạo yêu cầu trả nhà cung cấp", id: "p-yctl" },
+        { no: "2.7", title: "Danh sách phiếu xuất trả NCC", id: "p-xtl-list" },
+        { no: "2.8", title: "Phiếu xuất trả nhà cung cấp", id: "p-xtl" }
+      ]},
 
     // ===== Mục 3 – sơ đồ quy trình 2 – (người phụ trách: chưa chia) =====
-    { no: "3", title: "Quy trình nhập xuất dùng", page: "03", href: "pages/03-nhap-xuat-dung.html", soon: true,
-      desc: "Cấp Nguyên vật liệu cho sản xuất" },
+    { no: "3", title: "Quy trình nhập xuất dùng", page: "03", href: "pages/03-nhap-xuat-dung.html",
+      desc: "Xuất vào sản xuất · nhập trả từ sản xuất",
+      screens: [
+        { no: "3.1", title: "Danh sách yêu cầu xuất vào sản xuất", id: "xsx-ds" },
+        { no: "3.2", title: "Chi tiết yêu cầu xuất vào sản xuất", id: "xsx-yc" },
+        { no: "3.3", title: "Danh sách phiếu xuất kho vào sản xuất", id: "xsx-pds" },
+        { no: "3.4", title: "Phiếu xuất kho vào sản xuất", id: "xsx-phieu" },
+        { no: "3.5", title: "Danh sách yêu cầu nhập trả từ sản xuất", id: "ntsx-ds" },
+        { no: "3.6", title: "Chi tiết yêu cầu nhập trả từ sản xuất", id: "ntsx-yc" },
+        { no: "3.7", title: "Danh sách phiếu nhập trả từ sản xuất", id: "ntsx-pds" },
+        { no: "3.8", title: "Phiếu nhập trả từ sản xuất", id: "ntsx-phieu" }
+      ]},
 
     // ===== Mục 4 – sơ đồ quy trình 3 – (người phụ trách: chưa chia) =====
     { no: "4", title: "Quy trình gia công", page: "04", href: "pages/04-gia-cong.html", soon: true,

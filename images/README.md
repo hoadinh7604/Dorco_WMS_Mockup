@@ -9,6 +9,13 @@ Quy ước thư mục: mỗi mục một thư mục (01-master-data, 02-quy-trin
 
 | Ảnh | Trạng thái | Ngày |
 |---|---|---|
-| 01-master-data/1.png | Đã sửa | 2026-10-16 |
-| 01-master-data/2.png | Đã sửa | 2026-10-16 |
-| 01-master-data/5.png | Đã sửa | 2026-10-16 |
+| 02-quy-trinh-mua/1.png | Mới | 2026-10-23 |
+| 01-master-data/1.png | Mới | 2026-10-30 |
+| 01-master-data/1-cay.png | Mới | 2026-10-30 |
+| 01-master-data/2.png | Mới | 2026-10-30 |
+| 01-master-data/2-cay.png | Mới | 2026-10-30 |
+| 01-master-data/3.png | Mới | 2026-10-30 |
+| 01-master-data/3-cay.png | Mới | 2026-10-30 |
+| 01-master-data/4.png | Đã sửa | 2026-10-30 |
+| 01-master-data/5.png | Đã sửa | 2026-10-30 |
+| 01-master-data/6.png | Đã sửa | 2026-10-30 |
