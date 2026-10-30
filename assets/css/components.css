@@ -80,6 +80,16 @@ tr:last-child td{border-bottom:0}
 .note--biz{background:var(--goldbg);border-color:var(--goldline)}
 .note--biz h3{color:var(--gold)}
 
+/* Ảnh có vùng cuộn: một phần màn hình dài hơn ảnh (vd. Cây tổ chức). Vị trí vùng cuộn ghi bằng % trong style của .shot__scroll */
+.shot__frame{position:relative;line-height:0}
+.shot__scroll{position:absolute;overflow-y:auto;overflow-x:hidden;background:#fff;scrollbar-width:thin;scrollbar-color:#B9C7BF transparent}
+.shot__scroll::-webkit-scrollbar{width:6px}
+.shot__scroll::-webkit-scrollbar-thumb{background:#B9C7BF;border-radius:3px}
+.shot .shot__scroll img{cursor:default}
+
+/* Mockup tương tác nhúng bằng iframe: bảng cuộn ngang, bấm nút mở popup... File mockup đặt ở mockups/NN-ten-muc/N.html */
+.shot__live{display:block;width:100%;aspect-ratio:1920/915;border:0;background:#fff}
+
 /* Mockup minh họa (khi chưa có ảnh thật) */
 .demo{padding:14px;font-size:13.5px}
 .demo table{font-size:13px}
