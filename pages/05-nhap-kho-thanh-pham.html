@@ -26,12 +26,73 @@
   <p class="screen__path">Kho vận › Nhập kho thành phẩm</p>
   <div class="screen__body">
     <div class="screen__shots">
-      <figure class="shot"><figcaption>Giao diện WMS · Nhập kho thành phẩm — kéo ngang bảng để xem hết cột, bấm một dòng để xem chi tiết, bấm “+ Thêm yêu cầu” để tạo mới<a class="btn shot__zoom" href="../mockups/05-nhap-kho-thanh-pham/1.html" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption>
-        <iframe class="shot__live" src="../mockups/05-nhap-kho-thanh-pham/1.html" title="Yêu cầu nhập kho thành phẩm" loading="lazy"></iframe></figure>
+      <figure class="shot"><figcaption>Ảnh chụp chi tiết · Danh sách yêu cầu nhập kho (tab Theo yêu cầu). Số trên ảnh ứng với chú thích bên dưới</figcaption>
+        <div class="anno">
+          <img src="../images/05-nhap-kho-thanh-pham/1-yeu-cau.png" alt="Màn hình Nhập kho thành phẩm, tab Theo yêu cầu, có đánh số 9 vùng chính">
+          <span class="anno__box" style="left:17.57%;top:9.27%;width:81.53%;height:10.95%"></span><span class="anno__pin" style="left:17.57%;top:9.27%">1</span>
+          <span class="anno__box" style="left:17.57%;top:20.83%;width:81.53%;height:25.21%"></span><span class="anno__pin" style="left:17.57%;top:20.83%">2</span>
+          <span class="anno__box" style="left:17.57%;top:46.31%;width:81.53%;height:4.9%"></span><span class="anno__pin" style="left:17.57%;top:46.31%">3</span>
+          <span class="anno__box" style="left:82.58%;top:52.61%;width:15.64%;height:4.08%"></span><span class="anno__pin" style="left:82.58%;top:52.61%">4</span>
+          <span class="anno__box" style="left:28%;top:56.61%;width:6.32%;height:4.47%"></span><span class="anno__pin" style="left:28%;top:56.61%">5</span>
+          <span class="anno__box" style="left:39.08%;top:56.61%;width:10.63%;height:4.47%"></span><span class="anno__pin" style="left:39.08%;top:56.61%">6</span>
+          <span class="anno__box" style="left:77.19%;top:56.61%;width:8.09%;height:4.47%"></span><span class="anno__pin" style="left:77.19%;top:56.61%">7</span>
+          <span class="anno__box" style="left:84.58%;top:56.61%;width:10.7%;height:4.47%"></span><span class="anno__pin" style="left:84.58%;top:56.61%">8</span>
+          <span class="anno__box" style="left:94.58%;top:56.61%;width:4.46%;height:4.47%"></span><span class="anno__pin" style="left:94.58%;top:56.61%">9</span>
+        </div>
+        <ol class="anno-legend">
+          <li><span class="n">1</span><span><b>Thẻ tổng hợp:</b> số yêu cầu đã xác nhận, phiếu chờ phê duyệt, phiếu đã phê duyệt, yêu cầu hoàn tất và tỷ lệ hoàn tất trong khoảng lọc.</span></li>
+          <li><span class="n">2</span><span><b>Bộ lọc:</b> số yêu cầu, số phiếu, lệnh SX, ngày yêu cầu, kho; thêm hai lọc mới theo trạng thái đồng bộ của yêu cầu và của phiếu.</span></li>
+          <li><span class="n">3</span><span><b>Tab Theo yêu cầu / Theo phiếu:</b> cùng một màn hình. Tab Theo phiếu là danh sách phiếu nhập kho (mục 5.4).</span></li>
+          <li><span class="n">4</span><span><b>Xuất và + Thêm yêu cầu:</b> xuất danh sách ra Excel; tạo yêu cầu thủ công trên WMS.</span></li>
+          <li><span class="n">5</span><span><b>Nguồn:</b> Đồng bộ SAP hoặc Tạo tại WMS, cho biết yêu cầu đến từ đâu.</span></li>
+          <li><span class="n">6</span><span><b>Trạng thái đồng bộ SAP:</b> chỉ có với yêu cầu nguồn SAP; yêu cầu tạo tại WMS để trống (—).</span></li>
+          <li><span class="n">7</span><span><b>Tiến độ nhập kho:</b> thanh tiến độ số lượng đã nhập so với số lượng yêu cầu.</span></li>
+          <li><span class="n">8</span><span><b>Phiếu nhập thành phẩm:</b> số phiếu đã được duyệt trên tổng số phiếu lập cho yêu cầu (một yêu cầu có thể nhập nhiều lần).</span></li>
+          <li><span class="n">9</span><span><b>Thao tác (⋮):</b> In, Sửa, Gửi, Xóa, Thêm phiếu… Nút hiện tùy theo nguồn và tình trạng của yêu cầu. Dấu + đầu dòng mở các dòng mặt hàng và tem.</span></li>
+        </ol>
+      </figure>
+      <figure class="shot"><figcaption>Ảnh chụp chi tiết · Chi tiết một yêu cầu nhập kho (bấm số yêu cầu ở danh sách). Số tiếp nối ảnh trên</figcaption>
+        <div class="anno">
+          <img src="../images/05-nhap-kho-thanh-pham/1b-yeu-cau-chi-tiet.png" alt="Màn hình chi tiết yêu cầu nhập kho REQ-5000-2610-00001, có đánh số 6 vùng chính">
+          <span class="anno__box" style="left:18.9%;top:11.49%;width:17.3%;height:5.21%"></span><span class="anno__pin" style="left:18.9%;top:11.49%">10</span>
+          <span class="anno__box" style="left:89.77%;top:10.96%;width:9.28%;height:6.27%"></span><span class="anno__pin" style="left:89.77%;top:10.96%">11</span>
+          <span class="anno__box" style="left:17.57%;top:18.23%;width:81.48%;height:7.71%"></span><span class="anno__pin" style="left:17.57%;top:18.23%">12</span>
+          <span class="anno__box" style="left:17.62%;top:36.64%;width:81.43%;height:34.15%"></span><span class="anno__pin" style="left:17.62%;top:36.64%">13</span>
+          <span class="anno__box" style="left:17.62%;top:76.18%;width:81.43%;height:19.91%"></span><span class="anno__pin" style="left:98.6%;top:76.18%">14</span>
+          <span class="anno__box" style="left:19.85%;top:76.18%;width:6.22%;height:6.8%"></span><span class="anno__pin" style="left:19.85%;top:76.18%">15</span>
+        </div>
+        <ol class="anno-legend">
+          <li><span class="n">10</span><span><b>Số yêu cầu:</b> số do WMS sinh, hiện trên tiêu đề.</span></li>
+          <li><span class="n">11</span><span><b>Nút thao tác:</b> In yêu cầu, Sửa (chỉ yêu cầu tạo tại WMS), + Thêm phiếu để lập phiếu nhập kho từ yêu cầu này.</span></li>
+          <li><span class="n">12</span><span><b>Tab Yêu cầu / Phiếu nhập kho:</b> tab thứ hai liệt kê các phiếu nhập đã lập cho yêu cầu, kèm số đếm.</span></li>
+          <li><span class="n">13</span><span><b>Thông tin yêu cầu:</b> Lệnh SX, Ngày SX, Kho nhận, Ngày yêu cầu, Ngày nhập kho dự kiến, Ghi chú. Mỗi yêu cầu ứng với đúng một lệnh SX. Yêu cầu nguồn SAP chỉ xem.</span></li>
+          <li><span class="n">14</span><span><b>Danh sách mặt hàng:</b> mã, tên, Model, Màu sắc, Inter SO, Vina SO, Khách hàng, PO, Batch, Số lô, Số lượng yêu cầu… Kéo ngang để xem hết cột.</span></li>
+          <li><span class="n">15</span><span><b>Mã vạch / QR:</b> “Đã ánh xạ N”, bấm để xem tem của dòng, vị trí và lịch sử tem.</span></li>
+        </ol>
+      </figure>
     </div>
-    <aside class="screen__notes">
-      <div class="note"><h3>Mô tả</h3><p>Màn hình quản lý nhập kho thành phẩm / bán thành phẩm. Danh sách liệt kê các yêu cầu nhập kho đồng bộ từ sản xuất; bấm “+ Thêm yêu cầu” để tạo yêu cầu mới hoặc bấm một dòng để xem chi tiết. Từ chi tiết yêu cầu có thể phát hành tem và lập phiếu nhập kho.</p></div>
-      <div class="note note--biz"><h3>Lưu ý nghiệp vụ</h3><ul><li>Yêu cầu nhập kho thành phẩm tạo theo số lượng đã QC đạt, đồng bộ từ SAP sang WMS.</li></ul></div>
+    <aside class="screen__notes spec">
+      <div class="note note--src note--wide"><h3>Nguồn dữ liệu</h3><p>Yêu cầu nhập kho thành phẩm / bán thành phẩm có hai nguồn, phân biệt ở cột Nguồn (vùng 5).</p>
+        <div class="tw"><table>
+          <thead><tr><th>Nguồn</th><th>Ghi chú</th></tr></thead>
+          <tbody>
+            <tr><td><span class="src src--sap">Đồng bộ từ SAP</span></td><td>SAP gửi sang theo số lượng QC đạt. Không sửa trên WMS.</td></tr>
+            <tr><td><span class="src src--wms">Tạo thủ công trên WMS</span></td><td>Bấm + Thêm yêu cầu (vùng 4). Mặt hàng chọn từ danh mục mặt hàng.</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="note note--sync"><h3>Trạng thái đồng bộ SAP</h3><p>Chỉ áp dụng cho yêu cầu nguồn SAP (vùng 6).</p><ul>
+<li><b>Đã đồng bộ:</b> dữ liệu trên WMS khớp với SAP.</li>
+<li><b>Có thay đổi chưa nhận:</b> SAP sửa yêu cầu sau khi đã có phiếu nhập. WMS từ chối thay đổi, yêu cầu vẫn chạy theo dữ liệu cũ. Khi phiếu nhập bị hủy hoặc xóa, SAP gửi lại thay đổi.</li>
+<li><b>Chưa có phiếu nhập:</b> WMS nhận thay đổi từ SAP và cập nhật thẳng vào yêu cầu. Tem đã phát hành bị ảnh hưởng (đổi thông tin in trên tem, giảm số lượng…) thì gắn cờ Cần xử lý: hủy tem rồi phát hành lại.</li>
+<li><b>— (trống):</b> yêu cầu tạo tại WMS.</li>
+<li>Lọc nhanh theo trạng thái này ở ô “Trạng thái đồng bộ của yêu cầu” trong bộ lọc (vùng 2).</li>
+</ul></div>
+      <div class="note note--rule"><h3>Quy tắc khác</h3><ul>
+<li><b>Một yêu cầu, một kho:</b> mỗi yêu cầu gắn một kho, lệnh SX (có thể trống) và các dòng mặt hàng.</li>
+<li><b>Nhập từng phần:</b> một yêu cầu có nhiều phiếu nhập. Tiến độ chỉ tính phần đã được phê duyệt; phiếu bị hủy hoặc xóa không tính.</li>
+<li><b>Tem của dòng:</b> cột Mã vạch/QR hiện “Đã ánh xạ N”, bấm để xem danh sách tem, vị trí và lịch sử tem. Gom tem của mọi phiếu nhập cho dòng đó (popup ghi phiếu của từng tem); chưa có phiếu thì “Đã ánh xạ 0”.</li>
+</ul></div>
     </aside>
   </div>
 </section>
@@ -42,8 +103,7 @@
   <p class="screen__path">Phát hành nhãn › Phát hành tem thành phẩm / bán thành phẩm</p>
   <div class="screen__body">
     <aside class="screen__notes">
-      <div class="note"><h3>Mô tả</h3><p>Bước phát hành và dán tem thành phẩm / bán thành phẩm dùng chung màn hình <a href="11-phat-hanh-tem-nhan.html#t-tp">11.2 Phát hành tem thành phẩm / bán thành phẩm</a> (mục 11. Phát hành tem nhãn). Xem màn hình và mô tả chi tiết tại mục đó.</p></div>
-      <div class="note note--biz"><h3>Lưu ý nghiệp vụ</h3><ul><li>BP Sản xuất phát hành tem trên WMS rồi dán vào hàng trước khi kho quét nhập.</li></ul></div>
+      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Bước phát hành và dán tem thành phẩm / bán thành phẩm dùng chung màn hình <a href="11-phat-hanh-tem-nhan.html#t-tp">11.2 Phát hành tem thành phẩm / bán thành phẩm</a> (mục 11. Phát hành tem nhãn). Xem màn hình và mô tả chi tiết tại mục đó.</p><ul><li>BP Sản xuất phát hành tem trên WMS rồi dán vào hàng trước khi kho quét nhập.</li></ul></div>
     </aside>
   </div>
 </section>
@@ -55,11 +115,32 @@
   <div class="screen__body">
     <div class="screen__shots">
       <figure class="shot"><figcaption>Giao diện PDA · Quét tem nhập kho thành phẩm — bấm các nút trên máy để chạy thử từng bước<a class="btn shot__zoom" href="../mockups/05-nhap-kho-thanh-pham/2.html" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption>
-        <iframe class="shot__live" src="../mockups/05-nhap-kho-thanh-pham/2.html" title="Quét tem nhập kho thành phẩm trên PDA" loading="lazy"></iframe></figure>
+        <div class="shot__fit"><iframe class="shot__live" src="../mockups/05-nhap-kho-thanh-pham/2.html" title="Quét tem nhập kho thành phẩm trên PDA" loading="lazy"></iframe></div></figure>
+      <figure class="shot-steps"><figcaption>Ảnh chụp theo từng bước thao tác. Kéo ngang để xem hết, bấm ảnh để phóng to</figcaption>
+        <div class="pda-steps">
+          <figure class="pda-step"><img src="../images/05-nhap-kho-thanh-pham/2-pda-1-req_list.png" alt="Bước 1: danh sách yêu cầu nhập kho trên PDA" loading="lazy"><figcaption><b><span class="k">1</span>Chọn yêu cầu</b>Danh sách yêu cầu đang chờ nhập. Icon góc phải thanh tiêu đề mở Phiếu đã lưu (bước 7).</figcaption></figure>
+          <figure class="pda-step"><img src="../images/05-nhap-kho-thanh-pham/2-pda-2-req_scan.png" alt="Bước 2: quét QR yêu cầu" loading="lazy"><figcaption><b><span class="k">2</span>Hoặc quét QR yêu cầu</b>Quét mã QR in trên yêu cầu để mở thẳng yêu cầu đó.</figcaption></figure>
+          <figure class="pda-step"><img src="../images/05-nhap-kho-thanh-pham/2-pda-3-scan.png" alt="Bước 3: màn quét tem pallet" loading="lazy"><figcaption><b><span class="k">3</span>Quét tem pallet</b>Tem tự rơi vào đúng dòng mặt hàng. Thêm yêu cầu cùng kho ở dòng xanh trên cùng. Bật Quét hàng loạt theo vị trí để quét bin một lần cho nhiều pallet.</figcaption></figure>
+          <figure class="pda-step"><img src="../images/05-nhap-kho-thanh-pham/2-pda-4-bin.png" alt="Bước 4: chọn vị trí nhận hàng cho tem" loading="lazy"><figcaption><b><span class="k">4</span>Chọn vị trí nhận (Bin)</b>Khi tắt quét hàng loạt, mỗi tem mở màn này: quét bin hoặc chọn trong danh sách, rồi Xác nhận.</figcaption></figure>
+          <figure class="pda-step"><img src="../images/05-nhap-kho-thanh-pham/2-pda-5-review.png" alt="Bước 5: kiểm tra trước khi lưu" loading="lazy"><figcaption><b><span class="k">5</span>Kiểm tra trước khi lưu</b>Xem tem theo yêu cầu và mặt hàng, bỏ tem bằng ✕. Chọn Lưu và Gửi, Quét thêm nhãn hoặc Lưu phiếu.</figcaption></figure>
+          <figure class="pda-step"><img src="../images/05-nhap-kho-thanh-pham/2-pda-6-done.png" alt="Bước 6: màn đã lưu phiếu" loading="lazy"><figcaption><b><span class="k">6</span>Đã lưu phiếu</b>Máy cấp số phiếu GR. Gửi phiếu ngay hoặc bắt đầu Phiên mới.</figcaption></figure>
+          <figure class="pda-step"><img src="../images/05-nhap-kho-thanh-pham/2-pda-7-slips.png" alt="Bước 7: danh sách phiếu đã lưu" loading="lazy"><figcaption><b><span class="k">7</span>Phiếu đã lưu</b>Chỉ liệt kê phiếu do chính người đang dùng máy lưu, chưa gửi.</figcaption></figure>
+          <figure class="pda-step"><img src="../images/05-nhap-kho-thanh-pham/2-pda-8-slip.png" alt="Bước 8: chi tiết phiếu" loading="lazy"><figcaption><b><span class="k">8</span>Chi tiết phiếu</b>Chỉ xem. Hai nút Quét tiếp (quay về bước 3) và Gửi phiếu.</figcaption></figure>
+          <figure class="pda-step pda-step--err"><img src="../images/05-nhap-kho-thanh-pham/2-pda-9-chan.png" alt="Ví dụ: tem bị chặn khi quét" loading="lazy"><figcaption><b><span class="k">!</span>Ví dụ tem bị chặn</b>Thẻ đỏ ghi số tem, lý do và nút Quét lại.</figcaption></figure>
+        </div>
+      </figure>
     </div>
-    <aside class="screen__notes">
-      <div class="note"><h3>Mô tả</h3><p>Kho dùng PDA quét tem thành phẩm đã dán để nhập kho. WMS tự sinh phiếu nhập kho thành phẩm theo các tem đã quét; văn phòng kho xác nhận phiếu để tăng tồn và đồng bộ sang SAP.</p></div>
-      <div class="note note--biz"><h3>Lưu ý nghiệp vụ</h3><ul><li>Quét tem trên PDA là thao tác chính của kho; phiếu nhập sinh tự động từ kết quả quét.</li></ul></div>
+    <aside class="screen__notes spec">
+      <div class="note note--biz note--wide"><h3>Nghiệp vụ</h3><ul>
+<li><b>Gom yêu cầu:</b> một phiếu gom nhiều yêu cầu cùng kho. Kho của phiên khóa theo yêu cầu đầu tiên.</li>
+<li><b>Khớp tem:</b> tem tự rơi vào đúng dòng của yêu cầu đang quét. Tem thuộc yêu cầu khác không tự kéo vào: máy báo tem thuộc yêu cầu nào, người dùng chạm để chuyển yêu cầu.</li>
+<li><b>Số lượng còn lại</b> = SL dòng − đã nhận − đã quét trong phiên.</li>
+<li><b>Vị trí nhận:</b> mặc định mỗi tem chọn hoặc quét bin. Bật “Quét hàng loạt theo vị trí” thì quét bin trước rồi quét liên tiếp tem; quét mã vị trí mới để đổi khu.</li>
+<li><b>Sau khi lưu:</b> tem được giữ chỗ cho phiếu, máy khác không quét được. Đã gửi lên Web thì không sửa trên máy được nữa.</li>
+<li><b>Phiếu đã lưu:</b> chi tiết phiếu chỉ xem; không xóa, không sửa đầu phiếu hay số lượng, không duyệt trên máy.</li>
+<li><b>Quét tiếp phiếu đã lưu:</b> chỉ sửa bằng quét thêm tem hoặc bỏ tem (✕); lưu lại giữ nguyên số phiếu, tem bị bỏ thì nhả giữ chỗ. Tem đang do chính phiếu này giữ vẫn quét lại được. Rời màn khi chưa lưu thì bỏ thay đổi, phiếu giữ như lần lưu trước.</li>
+<li><b>Không có Lưu nháp:</b> thoát khi chưa lưu thì mất các tem đã quét.</li>
+</ul></div>
     </aside>
   </div>
 </section>
@@ -70,12 +151,69 @@
   <p class="screen__path">Kho vận › Nhập kho thành phẩm › Phiếu nhập kho</p>
   <div class="screen__body">
     <div class="screen__shots">
-      <figure class="shot"><figcaption>Giao diện WMS · Phiếu nhập kho thành phẩm — cùng màn hình 5.1: mở tab/nút “+ Thêm phiếu”, hoặc bấm một phiếu để xem chi tiết<a class="btn shot__zoom" href="../mockups/05-nhap-kho-thanh-pham/1.html?tab=phieu" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption>
-        <iframe class="shot__live" src="../mockups/05-nhap-kho-thanh-pham/1.html?tab=phieu" title="Lập phiếu nhập kho thành phẩm" loading="lazy"></iframe></figure>
+      <figure class="shot"><figcaption>Ảnh chụp chi tiết · Danh sách phiếu nhập kho (tab Theo phiếu). Số trên ảnh ứng với chú thích bên dưới</figcaption>
+        <div class="anno">
+          <img src="../images/05-nhap-kho-thanh-pham/3-phieu-danh-sach.png" alt="Màn hình Nhập kho thành phẩm, tab Theo phiếu, có đánh số 7 vùng chính">
+          <span class="anno__box" style="left:17.57%;top:46.31%;width:81.53%;height:4.9%"></span><span class="anno__pin" style="left:17.57%;top:46.31%">1</span>
+          <span class="anno__box" style="left:75.08%;top:52.61%;width:8.39%;height:4.08%"></span><span class="anno__pin" style="left:75.08%;top:52.61%">2</span>
+          <span class="anno__box" style="left:87.4%;top:52.61%;width:6.65%;height:4.08%"></span><span class="anno__pin" style="left:87.4%;top:52.61%">3</span>
+          <span class="anno__box" style="left:17.62%;top:56.61%;width:2.78%;height:4.55%"></span><span class="anno__pin" style="left:17.62%;top:56.61%">4</span>
+          <span class="anno__box" style="left:36.12%;top:56.61%;width:12.06%;height:4.55%"></span><span class="anno__pin" style="left:36.12%;top:56.61%">5</span>
+          <span class="anno__box" style="left:80.36%;top:56.61%;width:8.65%;height:4.55%"></span><span class="anno__pin" style="left:80.36%;top:56.61%">6</span>
+          <span class="anno__box" style="left:94.58%;top:56.61%;width:4.46%;height:4.55%"></span><span class="anno__pin" style="left:94.58%;top:56.61%">7</span>
+        </div>
+        <ol class="anno-legend">
+          <li><span class="n">1</span><span><b>Tab Theo phiếu:</b> danh sách phiếu nhập kho, cùng màn hình với yêu cầu (5.1).</span></li>
+          <li><span class="n">2</span><span><b>Đồng bộ lại SAP:</b> gửi lại nhiều phiếu một lần cho các phiếu đã chọn ở cột 4.</span></li>
+          <li><span class="n">3</span><span><b>+ Thêm phiếu:</b> lập phiếu trên Web khi không quét bằng PDA.</span></li>
+          <li><span class="n">4</span><span><b>Ô chọn phiếu:</b> chỉ chọn được phiếu Chưa đồng bộ hoặc Đồng bộ lỗi; phiếu khác ô mờ, rê chuột để xem lý do.</span></li>
+          <li><span class="n">5</span><span><b>Trạng thái đồng bộ SAP</b> của từng phiếu.</span></li>
+          <li><span class="n">6</span><span><b>Số lượng nhập:</b> tổng số lượng của phiếu. Dấu + cạnh số phiếu mở các dòng mặt hàng.</span></li>
+          <li><span class="n">7</span><span><b>Thao tác (⋮):</b> In, Phê duyệt, Đồng bộ lại SAP, Hủy phiếu… Nút hiện tùy theo tình trạng của phiếu.</span></li>
+        </ol>
+      </figure>
+      <figure class="shot"><figcaption>Ảnh chụp chi tiết · Chi tiết phiếu nhập kho (bấm số phiếu ở danh sách). Số tiếp nối ảnh trên</figcaption>
+        <div class="anno">
+          <img src="../images/05-nhap-kho-thanh-pham/4-phieu-chi-tiet.png" alt="Màn hình chi tiết phiếu nhập kho thành phẩm, có đánh số 5 vùng chính">
+          <span class="anno__box" style="left:37.48%;top:14.72%;width:5.47%;height:5.01%"></span><span class="anno__pin" style="left:37.48%;top:14.72%">8</span>
+          <span class="anno__box" style="left:90.22%;top:13.51%;width:8.88%;height:7.42%"></span><span class="anno__pin" style="left:90.22%;top:13.51%">9</span>
+          <span class="anno__box" style="left:17.62%;top:33.88%;width:81.43%;height:29.27%"></span><span class="anno__pin" style="left:17.62%;top:33.88%">10</span>
+          <span class="anno__box" style="left:19.85%;top:71.11%;width:8.6%;height:8.06%"></span><span class="anno__pin" style="left:19.85%;top:71.11%">11</span>
+          <span class="anno__box" style="left:31.35%;top:71.11%;width:6.22%;height:8.06%"></span><span class="anno__pin" style="left:31.35%;top:71.11%">12</span>
+        </div>
+        <ol class="anno-legend">
+          <li><span class="n">8</span><span><b>Trạng thái đồng bộ SAP</b> của phiếu, hiện ngay cạnh số phiếu.</span></li>
+          <li><span class="n">9</span><span><b>Nút thao tác:</b> In phiếu và nút xử lý phiếu (Lưu, Gửi, Phê duyệt…) tùy tình trạng.</span></li>
+          <li><span class="n">10</span><span><b>Thông tin phiếu:</b> Số phiếu (tự sinh), Ngày nhập kho, Kho, Người phụ trách, Loại phiếu, Ca làm việc, Ghi chú.</span></li>
+          <li><span class="n">11</span><span><b>Số yêu cầu và Lệnh SX trên từng dòng:</b> một phiếu gom dòng của nhiều yêu cầu cùng kho; dòng tóm tắt ghi số yêu cầu, lệnh SX, số dòng.</span></li>
+          <li><span class="n">12</span><span><b>Mã vạch / QR:</b> “Đã ánh xạ N”, bấm để xem tem của dòng. Kéo ngang bảng để thấy Số lượng nhập và Vị trí (Bin).</span></li>
+        </ol>
+      </figure>
     </div>
-    <aside class="screen__notes">
-      <div class="note"><h3>Mô tả</h3><p>Phiếu nhập kho (GR) được lập ngay trên màn hình Nhập kho thành phẩm: bấm “+ Thêm phiếu” để lập phiếu mới, hoặc bấm một phiếu để xem chi tiết. Văn phòng kho xác nhận phiếu để tăng tồn thành phẩm và đồng bộ sang SAP.</p></div>
-      <div class="note note--biz"><h3>Lưu ý nghiệp vụ</h3><ul><li>Phiếu nhập kho do hệ thống sinh từ kết quả quét PDA; văn phòng kho kiểm tra và xác nhận.</li></ul></div>
+    <aside class="screen__notes spec">
+      <div class="note note--src note--wide"><h3>Nguồn dữ liệu</h3><p>Phiếu nhập kho thành phẩm (GR) có hai nguồn.</p>
+        <div class="tw"><table>
+          <thead><tr><th>Nguồn</th><th>Ghi chú</th></tr></thead>
+          <tbody>
+            <tr><td><span class="src src--wms">Tạo trên WMS (PDA)</span></td><td>Kho quét tem bằng PDA (mục 5.3); tem và Bin lấy từ lần quét.</td></tr>
+            <tr><td><span class="src src--wms">Tạo thủ công trên WMS</span></td><td>+ Thêm phiếu (vùng 3), rồi Thêm từ yêu cầu (lấy dòng của yêu cầu) hoặc Thêm mặt hàng. Nút Thêm từ lệnh sản xuất đang khóa.</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="note note--sync"><h3>Trạng thái đồng bộ SAP</h3><p>Chưa đồng bộ › Đang đồng bộ › Đã đồng bộ hoặc Đồng bộ lỗi (vùng 5 và 8).</p><ul>
+<li><b>Chưa đồng bộ:</b> phiếu chưa gửi về SAP.</li>
+<li><b>Đang đồng bộ:</b> đang gửi; nút Hủy phiếu ẩn, không đồng bộ lại được.</li>
+<li><b>Đã đồng bộ:</b> SAP đã nhận kết quả nhập kho.</li>
+<li><b>Đồng bộ lỗi:</b> rê chuột vào nhãn để xem lỗi. Bấm Đồng bộ lại SAP (vùng 2 hoặc menu ⋮).</li>
+<li><b>Đồng bộ lại:</b> chọn được nhiều phiếu; chỉ áp dụng phiếu Chưa đồng bộ hoặc Đồng bộ lỗi.</li>
+</ul></div>
+      <div class="note note--rule"><h3>Quy tắc khác</h3><ul>
+<li><b>Số phiếu:</b> WMS tự sinh GR-{mã kho}-{YYMM}-{NNNNN}.</li>
+<li><b>Gom yêu cầu:</b> một phiếu gom dòng của nhiều yêu cầu cùng kho; mỗi dòng ghi Số yêu cầu, Lệnh SX và Bin.</li>
+<li><b>Tồn kho:</b> chỉ khi phiếu được phê duyệt thì tem mới chuyển Trong kho và ghi ngày nhập thực tế lên tem, tồn tăng và kết quả gửi SAP.</li>
+<li><b>Hủy phiếu đã duyệt:</b> đảo tồn, xóa ngày nhập thực tế; tem về Đã in, giữ chỗ cho dòng yêu cầu (yêu cầu đã đóng thì về Đã in, chưa giữ chỗ) và yêu cầu mở lại. Chặn nếu tem đã xuất lẻ hoặc đã bị kiểm kê điều chỉnh; tem đã tách/gộp vẫn hủy được, số lượng trừ vào tem gốc / tem đích.</li>
+<li><b>Tem của dòng:</b> mọi dòng phiếu đều có ánh xạ Mã vạch/QR. Phiếu chưa duyệt thì tem ở Đã in, giữ chỗ và chưa có SL nhập; phiếu đã hủy giữ ánh xạ, ghi chú tem đã nhả giữ chỗ.</li>
+</ul></div>
     </aside>
   </div>
 </section>

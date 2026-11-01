@@ -4,6 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Giao hang PDA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap">
 <style>
 :root{color-scheme:light}html,body{margin:0}img{max-width:100%}
 
@@ -288,6 +291,12 @@ button,input{font-family:inherit}
 .tryrow .chips .b{justify-content:flex-start;flex-direction:column;align-items:flex-start;gap:1px;font-size:12.5px}
 .lrow{cursor:pointer}
 .lrow:hover{border-color:var(--d-outline)}
+.bbar.stack{flex-direction:column;gap:8px}
+.bbar.stack>.b{width:100%}
+.bbar.stack .r2{display:flex;gap:10px;width:100%}
+.bbar.stack .r2>.b{flex:1}
+.abar .ib{position:relative}
+.abar .ib .bdg{position:absolute;top:1px;right:1px;min-width:15px;height:15px;padding:0 3px;border-radius:8px;background:var(--d-lime);color:var(--d-lime-ink);font-size:9.5px;font-weight:800;display:flex;align-items:center;justify-content:center;line-height:1}
 </style>
 </head>
 <body>
@@ -383,18 +392,39 @@ var LBL0 = [
   {no:'FGL-260105-0082', code:'1014358', so:'', unit:'EA', kho:'5000', loc:'A-06-02', con:3780, st:'in', gan:{doNo:'DO-5000-2601-00001', line:'10'}, giu:[{slip:'GI-2601-00009', qty:3780}]},
   {no:'FGL-260105-0083', code:'1015472', so:'', unit:'EA', kho:'5000', loc:'A-02-04', con:16800, st:'in', gan:{doNo:'DO-5000-2601-00001', line:'20'}}
 ];
-var SLP0 = [];
+var ME = 'Super Administrator';
+var SLP = {saved:['Đã lưu','c-draft'], submitted:['Đã gửi','c-sub'], approved:['Đã duyệt','c-scanned']};
+function schip(st){ return '<span class="chip ' + SLP[st][1] + '">' + SLP[st][0] + '</span>'; }
+/* Phiếu Đã lưu dựng sẵn: tem của chúng đã mang giu trong LBL0 nên không cộng thêm giữ chỗ */
+var SLP0 = [
+  {no:'GI-2601-00009', when:'05/01/2026 15:40', st:'saved', nguoi:'Super Administrator',
+   dos:['DO-SAP-81692474','DO-SAP-81692475','DO-5000-2601-00001'], khs:['MERCADONA'], khos:['5000'], pallets:4, qty:'31.380 EA',
+   items:[{no:'FGL-260102-0016', doNo:'DO-SAP-81692474', line:'10', qty:16800},
+          {no:'FGL-260102-0017', doNo:'DO-SAP-81692475', line:'10', qty:6600},
+          {no:'FGL-260103-0023', doNo:'DO-SAP-81692475', line:'20', qty:4200},
+          {no:'FGL-260105-0082', doNo:'DO-5000-2601-00001', line:'10', qty:3780}]},
+  /* phiếu của người khác: không hiện trong Phiếu đã lưu của tôi */
+  {no:'GI-2601-00008', when:'05/01/2026 11:12', st:'saved', nguoi:'Trần Văn Kho',
+   dos:['DO-SAP-81692474'], khs:['MERCADONA'], khos:['5000'], pallets:1, qty:'8.400 EA',
+   items:[{no:'FGL-260102-0012', doNo:'DO-SAP-81692474', line:'10', qty:8400}]}
+];
 
 var D, L, SLIPS, giN = 10;
 function seed(){
   D = {}; DO0.forEach(function(d){ var c = {}, k; for (k in d) c[k] = d[k]; c.lines = d.lines.map(function(x){ var y = {}, j; for (j in x) y[j] = x[j]; return y; }); D[d.no] = c; });
   L = {}; LBL0.forEach(function(l){ var c = {}, k; for (k in l) c[k] = l[k]; L[l.no] = c; });
-  SLIPS = SLP0.map(function(s){ var c = {}, k; for (k in s) c[k] = s[k]; return c; });
+  SLIPS = SLP0.map(function(s){ var c = {}, k; for (k in s) c[k] = s[k];
+    c.items = (s.items || []).map(function(i){ var o = {}, j; for (j in i) o[j] = i[j]; return o; }); return c; });
+  /* giữ chỗ của phiếu Đã lưu: chỉ thêm nếu tem chưa mang sẵn trong LBL0 */
+  SLIPS.forEach(function(sl){ sl.items.forEach(function(i){
+    var l = L[i.no]; if (!l) return;
+    if (!(l.giu || []).some(function(g){ return g.slip === sl.no; })) l.giu = (l.giu || []).concat([{slip:sl.no, qty:i.qty}]);
+  }); });
 }
 seed();
 
 var S;
-function reset(){ S = {screen:'groups', cur:null, doList:[], items:[], pend:null, err:null, warn:null, open:false, scanVal:'', created:null, snack:null, dlg:null, lastLine:null, pickMode:'add'}; }
+function reset(){ S = {screen:'groups', cur:null, doList:[], items:[], pend:null, err:null, warn:null, open:false, scanVal:'', created:null, snack:null, dlg:null, lastLine:null, pickMode:'add', editSlip:null, slipNo:null}; }
 reset();
 
 function line(dno, id){ return D[dno].lines.filter(function(x){ return x.id === id; })[0]; }
@@ -403,7 +433,8 @@ function sumQty(list){ return list.reduce(function(a, i){ return a + i.qty; }, 0
 function dos(){ var o = S.doList.slice(); S.items.forEach(function(i){ if (o.indexOf(i.doNo) < 0) o.push(i.doNo); }); if (S.cur && o.indexOf(S.cur) < 0) o.push(S.cur); return o; }
 function conCanGiao(dno, id){ var ln = line(dno, id); return ln.qty - ln.giao - sumQty(items(dno, id)); }
 function daLay(no){ return S.items.filter(function(i){ return i.no === no; }).reduce(function(a, i){ return a + i.qty; }, 0); }
-function giuKhac(l){ return (l.giu || []).reduce(function(a, g){ return a + g.qty; }, 0); }
+/* C5: phần đang bị chính phiếu đang sửa giữ thì không tính là phiếu khác giữ */
+function giuKhac(l){ return (l.giu || []).reduce(function(a, g){ return a + (g.slip === S.editSlip ? 0 : g.qty); }, 0); }
 function khaDung(l){ return l.con - giuKhac(l) - daLay(l.no); }
 function qtyText(list){
   var m = {}, order = [];
@@ -474,8 +505,8 @@ function scan(raw){
   if (!l){ S.err = {no:no, msg:'Không tìm thấy tem có số này trong hệ thống (NOT_FOUND).'}; S.warn = null; return render(); }
   /* GH9: tem đã có trong phiếu thì chặn hẳn, không mở sheet sửa SL nữa (X08) */
   if (daLay(no) > 0){
-    S.err = {no:no, msg:'Tem này đã quét rồi, đang có trong phiếu với ' + fmt(daLay(no)) + ' ' + l.unit +
-      '. Mỗi tem chỉ quét một lần — mở dòng hàng và bỏ tem khỏi phiếu nếu cần quét lại.'};
+    S.err = {no:no, msg:'Tem đã có trong phiếu với ' + fmt(daLay(no)) + ' ' + l.unit +
+      '. Bỏ tem khỏi phiếu rồi quét lại nếu cần đổi.'};
     S.warn = null; return render();
   }
   var w = viSao(l);
@@ -500,6 +531,25 @@ function barFn(title){
     LANG + '</div>';
 }
 function head(t, sub){ return '<div class="ph"><h2>' + t + '</h2>' + (sub ? '<p>' + sub + '</p>' : '') + '</div>'; }
+/* Khuôn chung: hàng trên Lưu và Gửi, hàng dưới Quét thêm | Lưu phiếu */
+function actStack(main, left, right){
+  return '<div class="bbar stack">' +
+    '<button class="b b-lime" type="button" data-act="' + main[0] + '"' + (main[2] ? ' disabled' : '') + '>' + svg('check') + main[1] + '</button>' +
+    '<div class="r2"><button class="b b-out" type="button" data-act="' + left[0] + '">' + svg('qr') + left[1] + '</button>' +
+    '<button class="b b-navy" type="button" data-act="' + right[0] + '"' + (right[2] ? ' disabled' : '') + '>' + svg('save') + right[1] + '</button></div></div>';
+}
+function nSaved(){ return SLIPS.filter(function(x){ return x.st === 'saved' && x.nguoi === ME; }).length; }
+/* Lối vào màn Phiếu đã lưu: icon kèm badge trên thanh tiêu đề danh sách lệnh */
+function barFnSlips(title){
+  var k = nSaved();
+  return '<div class="abar"><button class="ib" type="button" data-act="back" aria-label="Quay lại">' + svg('back') + '</button><span class="ttl">' + title + '</span><div class="sp"></div>' +
+    '<button class="ib" type="button" data-act="toslips" aria-label="Phiếu đã lưu">' + svg('list') + (k ? '<span class="bdg">' + k + '</span>' : '') + '</button>' + LANG + '</div>';
+}
+function dlgSend(title, after){
+  S.dlg = {title:title, text:'Gửi xong phiếu chuyển sang Đã gửi, chờ duyệt trên Web, không sửa trên máy được nữa.',
+    acts:[['Đóng','b-out',function(){ S.dlg = null; render(); }], ['Gửi phiếu','b-lime',function(){ S.dlg = null; after(); }]]};
+  render();
+}
 function navBar(active, scanAct){
   return '<div class="bbar"><button class="b ' + (active === 'list' ? 'b-lime' : 'b-out') + '" type="button" data-act="tolist">' + svg('list') + 'Danh sách</button>' +
     '<button class="b ' + (active === 'scan' ? 'b-lime' : 'b-out') + '" type="button" data-act="' + scanAct + '">' + svg('qr') + 'Quét</button></div>';
@@ -509,7 +559,7 @@ function errCard(e){ return e ? '<div class="banner bn-err"><b>' + esc(e.no) + '
 function doCard(d, tag, act){
   return '<div class="card doccard' + (act ? '' : ' off') + '"' + (act ? ' data-act="' + act + '" data-no="' + d.no + '" role="button" tabindex="0"' : '') + '>' +
     '<div class="t"><b>' + d.no + '</b>' + svg('chev', 'chev') + '</div>' +
-    '<div class="row" style="justify-content:flex-start;gap:6px">' + (tag || '<span class="chip c-sub">Đã trình</span>') + '</div>' +
+    '<div class="row" style="justify-content:flex-start;gap:6px">' + (tag || '<span class="chip c-sub">Đã gửi</span>') + '</div>' +
     '<div class="meta">' + svg('cust') + uq(d.lines, 'kh').join(', ') + '</div>' +
     (uq(d.lines, 'so').length ? '<div class="meta">' + svg('doc') + 'SO ' + uq(d.lines, 'so').join(', ') + '</div>' : '') +
     '<div class="meta">' + svg('wh') + '<b>' + d.lines.map(function(x){ return x.kho; }).filter(function(v, j, a){ return a.indexOf(v) === j; }).join(', ') + '</b> · Ngày DO ' + d.lines.map(function(x){ return x.gi; }).filter(function(v, j, a){ return a.indexOf(v) === j; }).join(', ') + '</div>' +
@@ -530,7 +580,7 @@ V.groups = function(){
 V.group_goods = function(){
   function f(ic, t, s, n, act, hot){
     return '<button class="card navcard' + (hot ? ' hot' : '') + '" type="button" data-act="' + (act || 'oos') + '"><span class="ic">' + svg(ic) + '</span>' +
-      '<span class="tx"><b>' + t + '</b><span>' + s + '</span></span><span class="badge"><small>ĐÃ TRÌNH</small><b>' + n + '</b></span></button>';
+      '<span class="tx"><b>' + t + '</b><span>' + s + '</span></span><span class="badge"><small>ĐÃ GỬI</small><b>' + n + '</b></span></button>';
   }
   return barHome(true) + '<div class="body">' + head('Quản lý hàng hóa', 'Nhập, giao và nhận lại thành phẩm; quản lý pallet.') +
     '<div class="cols-head"><span>CHỨC NĂNG</span><span>CÔNG VIỆC</span></div>' +
@@ -539,12 +589,12 @@ V.group_goods = function(){
     f('back2', 'Hàng khách trả', 'Tiếp nhận hàng khách trả', '6', 'oos') + '</div>';
 };
 V.do_list = function(){
-  return barFn('Lệnh giao hàng') + '<div class="body">' +
+  return barFnSlips('Lệnh giao hàng') + '<div class="body">' +
     DO0.map(function(d){ return doCard(D[d.no], null, 'pickdo'); }).join('') +
     '</div>' + navBar('list', 'todoscan');
 };
 V.do_scan = function(){
-  return barFn('Lệnh giao hàng') + '<div class="body">' +
+  return barFnSlips('Lệnh giao hàng') + '<div class="body">' +
     '<div class="card"><div class="row" style="justify-content:flex-start;gap:11px"><span class="sbtn" style="width:40px;height:40px;background:var(--d-lime);color:var(--d-lime-ink)">' + svg('qr') + '</span><b style="font-size:16px">Quét QR lệnh giao hàng</b></div>' +
     '<div class="scanbox on"><input id="scanIn" placeholder="Quét hoặc nhập Số DO" value="' + esc(S.scanVal) + '" autocomplete="off">' +
     '<button class="sbtn" type="button" data-act="scando" aria-label="Mở lệnh">' + svg('chev') + '</button></div></div>' +
@@ -565,9 +615,10 @@ V.scan = function(){
   var khos = {}; S.items.forEach(function(i){ khos[L[i.no].kho] = 1; });
   var nKho = Object.keys(khos).length;
   return barFn('Giao hàng thành phẩm') + '<div class="body">' +
+    (S.editSlip ? '<div class="banner bn-warn">Đang sửa phiếu <b>' + S.editSlip + '</b>. Quét thêm hoặc bỏ tem rồi Lưu phiếu, số phiếu giữ nguyên.</div>' : '') +
     '<div class="sesswrap"><span class="l">' + ses.length + ' lệnh · ' + S.items.length + ' pallet<span>Phiếu giao' + (nKho > 1 ? ' · ' + nKho + ' kho' : '') + '</span></span>' +
     '<button class="addbtn" type="button" data-act="todopick">' + svg('plus') + 'Thêm DO</button></div>' +
-    '<div class="card"><div class="row"><span class="no">' + S.cur + '</span><span class="chip c-sub">Đã trình</span></div>' +
+    '<div class="card"><div class="row"><span class="no">' + S.cur + '</span><span class="chip c-sub">Đã gửi</span></div>' +
     '<div class="divider"></div>' +
     '<div class="collap' + (S.open ? ' open' : '') + '" data-act="toggle" role="button" tabindex="0">Thông tin lệnh giao hàng' + svg('down') + '</div>' +
     (S.open ? (uq(d.lines, 'so').length ? '<div class="kv"><span>Số SO</span><b>' + uq(d.lines, 'so').join(', ') + '</b></div>' : '') +
@@ -641,7 +692,7 @@ V.do_pick = function(){
   var show = DO0.filter(function(d0){ return add ? inSlip.indexOf(d0.no) < 0 : inSlip.indexOf(d0.no) >= 0; });
   function card(d0){
     var d = D[d0.no], n = items(d.no).length;
-    var tag = d.no === S.cur ? '<span class="chip c-scanned">Đang quét</span>' : (n ? '<span class="chip c-reserved">' + n + ' pallet</span>' : '<span class="chip c-sub">Đã trình</span>');
+    var tag = d.no === S.cur ? '<span class="chip c-scanned">Đang quét</span>' : (n ? '<span class="chip c-reserved">' + n + ' pallet</span>' : '<span class="chip c-sub">Đã gửi</span>');
     return doCard(d, tag, 'pickdo');
   }
   return barFn(add ? 'Thêm lệnh giao hàng' : 'Chuyển lệnh giao hàng') + '<div class="body">' +
@@ -649,7 +700,7 @@ V.do_pick = function(){
     (add ? '<div class="card"><div class="scanbox on"><input id="scanIn" placeholder="Nhập số DO" value="' + esc(S.scanVal) + '" autocomplete="off">' +
       '<button class="sbtn" type="button" data-act="scando" aria-label="Mở lệnh">' + svg('chev') + '</button></div></div>' : '') +
     errCard(S.err) +
-    '<div class="sec">' + (add ? 'LỆNH ĐÃ TRÌNH' : 'TRONG PHIẾU (' + show.length + ')') + '</div>' +
+    '<div class="sec">' + (add ? 'LỆNH ĐÃ GỬI' : 'TRONG PHIẾU (' + show.length + ')') + '</div>' +
     (show.length ? show.map(card).join('') : '<div class="empty">' + (add ? 'Không còn lệnh nào khác.' : 'Phiếu mới có một lệnh.') + '</div>') +
     '</div>' + actBar([['back', 'Quay lại quét tem', 'b-out']]);
 };
@@ -680,26 +731,82 @@ V.review = function(){
         '<div class="msrow">' + svg('wh') + '<span>Kho lấy hàng<b>' + its.map(function(i){ return L[i.no].kho; }).filter(function(v, j, a){ return a.indexOf(v) === j; }).join(', ') + '</b></span></div>' +
         '<div class="msrow">' + svg('scale') + '<span>Số lượng xuất<b>' + qtyText(its) + '</b></span></div></div>' + blocks;
     }).join('') +
-    '</div>' + actBar([['back', 'Quét thêm tem', 'b-out', false, 'qr'], ['save', 'Lưu phiếu', 'b-navy', !S.items.length, 'save']]);
+    '<div class="note-c">Lưu phiếu tạo phiếu Đã lưu để mở lại quét tiếp. Lưu và Gửi chuyển phiếu sang chờ duyệt. Tồn kho chỉ thay đổi khi phiếu được duyệt trên Web.</div>' +
+    (S.editSlip && !S.items.length ? '<div class="banner bn-err">Phiếu phải còn ít nhất 1 tem. Muốn bỏ cả phiếu thì xóa trên Web.</div>' : '') +
+    '</div>' + actStack(['savesend','Lưu và Gửi', !S.items.length], ['back','Quét thêm tem'], ['save','Lưu phiếu', !S.items.length]);
+};
+V.slips = function(){
+  var mine = SLIPS.filter(function(x){ return x.st === 'saved' && x.nguoi === ME; });
+  return barFn('Phiếu giao hàng') + '<div class="body">' +
+    head('Phiếu đã lưu', 'Phiếu Đã lưu của bạn. Mở phiếu để quét tiếp hoặc gửi. Phiếu đã gửi không hiện ở đây.') +
+    (mine.length ? mine.map(function(x){
+      return '<div class="card doccard" data-act="openslip" data-no="' + x.no + '" role="button" tabindex="0">' +
+        '<div class="t"><b>' + x.no + '</b>' + schip(x.st) + '</div><div class="l">' + x.dos.join(', ') + '</div>' +
+        '<div class="l">' + x.khs.join(', ') + ' · kho ' + x.khos.join(', ') + ' · ' + x.when + '</div>' +
+        '<div class="k">' + x.pallets + ' pallet · ' + x.qty + '</div></div>';
+    }).join('') : '<div class="hint">' + svg('list') + 'Bạn không có phiếu Đã lưu nào.</div>') +
+    '</div>' + actBar([['back', 'Quay lại', 'b-out'], ['newsess', 'Phiên mới', 'b-lime', false, 'qr']]);
+};
+V.slip = function(){
+  var sl = SLIPS.filter(function(x){ return x.no === S.slipNo; })[0] || SLIPS[0];
+  var by = {}, order = [];
+  (sl.items || []).forEach(function(i){
+    if (!by[i.doNo]){ by[i.doNo] = {lines:{}, order:[]}; order.push(i.doNo); }
+    var g = by[i.doNo]; if (!g.lines[i.line]){ g.lines[i.line] = []; g.order.push(i.line); }
+    g.lines[i.line].push(i);
+  });
+  return barFn(sl.no) + '<div class="body">' +
+    '<div class="card"><div class="row"><span class="no">' + sl.no + '</span>' + schip(sl.st) + '</div>' +
+    '<div class="kv"><span>Khách hàng</span><b>' + sl.khs.join(', ') + '</b></div>' +
+    '<div class="kv"><span>Kho lấy hàng</span><b>' + sl.khos.join(', ') + '</b></div>' +
+    '<div class="kv"><span>Lưu lúc</span><b>' + sl.when + '</b></div>' +
+    '<div class="kv"><span>Người lưu</span><b>' + sl.nguoi + '</b></div>' +
+    '<div class="kv"><span>Nội dung</span><b>' + sl.pallets + ' pallet · ' + sl.qty + '</b></div></div>' +
+    order.map(function(q){
+      var d = D[q], g = by[q];
+      return '<div class="minisum"><span class="no">' + q + '</span>' +
+        '<div class="msrow">' + svg('box') + '<span>Lệnh giao<b>' + (d && d.od ? 'OD ' + d.od : 'Tạo tại WMS') + '</b></span></div></div>' +
+        g.order.map(function(id){
+          var its = g.lines[id], ln = d ? line(q, id) : null, u = ln ? ln.unit : '';
+          return '<div class="lnblk"><div class="hd"><span class="nm">' + (ln ? ln.code + ' · ' + ln.ten : 'Item ' + id) + '</span>' +
+            '<span class="chip c-scanned">' + its.length + ' pallet</span></div>' +
+            '<div class="sum"><span>Số lượng xuất</span><b>' + fmt(its.reduce(function(a, i){ return a + i.qty; }, 0)) + ' ' + u + '</b></div>' +
+            '<div class="divider"></div><div class="grid2">' + its.map(function(i){
+              return '<div class="tile"><span class="no">' + i.no + '</span><span class="q">' + fmt(i.qty) + ' ' + u + '</span><span class="lo">' + (L[i.no] ? L[i.no].loc : '') + '</span></div>';
+            }).join('') + '</div></div>';
+        }).join('');
+    }).join('') +
+    '<div class="note-c">Phiếu chỉ xem tại đây. Quét tiếp để thêm hoặc bỏ tem; Gửi phiếu để chuyển sang chờ duyệt trên Web. Sửa đầu phiếu, xóa phiếu và duyệt làm trên Web.</div>' +
+    '</div>' + actBar([['editslip', 'Quét tiếp', 'b-out', false, 'qr'], ['sendslip', 'Gửi phiếu', 'b-lime', false, 'check']]);
 };
 V.done = function(){
   var c = S.created;
   return barFn(c.no) + '<div class="body">' +
     '<div class="card"><div class="okmark">' + svg('check') + '</div>' +
-    '<div class="row" style="justify-content:center"><b style="font-size:17px">Đã lưu phiếu giao</b></div>' +
-    '<div class="row" style="justify-content:center"><span class="no">' + c.no + '</span>' + (c.st === 'submitted' ? '<span class="chip c-sub">Đã trình</span>' : '<span class="chip c-draft">Đã lưu</span>') + '</div>' +
+    '<div class="row" style="justify-content:center"><b style="font-size:17px">' + (c.st === 'submitted' ? 'Đã gửi phiếu giao' : 'Đã lưu phiếu giao') + '</b></div>' +
+    '<div class="row" style="justify-content:center"><span class="no">' + c.no + '</span>' + (c.st === 'submitted' ? '<span class="chip c-sub">Đã gửi</span>' : '<span class="chip c-draft">Đã lưu</span>') + '</div>' +
     '<div class="mut" style="text-align:center">' + c.dos.length + ' lệnh · ' + c.khs.length + ' khách hàng · ' + c.khos.length + ' kho · ' + c.pallets + ' pallet</div></div>' +
     '<div class="sec">DÒNG PHIẾU THEO LỆNH</div>' +
     c.lines.map(function(x){ return '<div class="li"><div class="l"><span class="no">' + x.doNo + '</span><span class="mut">' + x.kh + ' · kho ' + x.khos + ' · ' + x.pallets + ' pallet</span></div><span class="q">' + x.qty + '</span></div>'; }).join('') +
+    (c.st === 'submitted'
+      ? '<div class="banner bn-info">Phiếu Đã gửi, chờ duyệt trên Web. Không sửa trên máy được nữa.</div>'
+      : '<div class="banner bn-info">Phiếu Đã lưu: Gửi ngay tại đây hoặc mở lại từ Phiếu đã lưu để quét tiếp. Tồn giảm và kết quả đẩy SAP khi phiếu được duyệt trên Web.</div>') +
     '</div>' + actBar(c.st === 'submitted'
-      ? [['newsess', 'Phiên mới', 'b-out'], ['todolist', 'Về danh sách lệnh', 'b-lime']]
+      ? [['newsess', 'Phiên mới', 'b-out'], ['todolist', 'Về danh sách', 'b-lime']]
       : [['newsess', 'Phiên mới', 'b-out'], ['submitdone', 'Gửi phiếu', 'b-lime', false, 'check']]);
 };
 
 /* ---------- thao tác ---------- */
-var BACK = {groups:null, group_goods:'groups', do_list:'group_goods', do_scan:'do_list', scan:'do_list', qty:'scan', line:'scan', do_pick:'scan', review:'scan', done:'do_list'};
+var BACK = {groups:null, group_goods:'groups', do_list:'group_goods', do_scan:'do_list', scan:'do_list', qty:'scan', line:'scan', do_pick:'scan', review:'scan', done:'do_list', slips:'do_list', slip:'slips'};
 function go(sc){ S.screen = sc; S.dlg = null; render(); var b = document.querySelector('#screen .body'); if (b) b.scrollTop = 0; }
 function back(){
+  if (S.screen === 'scan' && S.editSlip){
+    var eno = S.editSlip;
+    S.dlg = {title:'Rời màn sửa phiếu?', text:'Thay đổi chưa lưu sẽ bị bỏ, phiếu giữ nguyên như lần lưu trước.',
+      acts:[['Tiếp tục quét','b-out',function(){ S.dlg = null; render(); }],
+            ['Bỏ thay đổi','b-lime',function(){ var sn = SLIPS, g = giN; reset(); SLIPS = sn; giN = g; S.slipNo = eno; go('slip'); }]]};
+    return render();
+  }
   if (S.screen === 'scan' && S.items.length){
     S.dlg = {title:'Rời màn quét?', text:S.items.length + ' pallet đã lấy sẽ bị bỏ vì chưa lưu thành phiếu. Lưu phiếu trước rồi quay lại quét tiếp.',
       acts:[['Tiếp tục quét','b-out',function(){ S.dlg = null; render(); }], ['Bỏ và thoát','b-lime',function(){ var sn = SLIPS, g = giN; reset(); SLIPS = sn; giN = g; go('do_list'); }]]};
@@ -719,15 +826,29 @@ function openDo(no){
   if (S.doList.indexOf(no) < 0) S.doList.push(no);
   S.cur = no; S.lastLine = null; go('scan'); snack('Đang quét cho lệnh ' + no);
 }
-function mkSlip(){
+/* Lưu phiếu: tạo mới, hoặc cập nhật đúng phiếu đang sửa (giữ nguyên số phiếu) */
+function mkSlip(submit){
   var list = dos().filter(function(q){ return items(q).length; });
+  var st = submit ? 'submitted' : 'saved';
   var khs = [], khos = [];
   S.items.forEach(function(i){ var k = line(i.doNo, i.line).kh, w = L[i.no].kho; if (khs.indexOf(k) < 0) khs.push(k); if (khos.indexOf(w) < 0) khos.push(w); });
-  var c = {no:'GI-2610-' + ('0000' + (giN++)).slice(-5), st:'saved', when:'29/10/2026 09:24', dos:list, khs:khs, khos:khos, pallets:S.items.length,
-    lines:list.map(function(q){ var its = items(q); return {doNo:q, kh:khList(D[q].lines.filter(function(ln){ return items(q, ln.id).length; })).join(', '), khos:its.map(function(i){ return L[i.no].kho; }).filter(function(v, j, a){ return a.indexOf(v) === j; }).join(', '), pallets:its.length, qty:qtyText(its)}; })};
-  SLIPS.unshift({no:c.no, when:c.when, st:'saved', dos:list, khs:khs, khos:khos, pallets:c.pallets, qty:qtyText(S.items)});
-  S.items.forEach(function(i){ var l = L[i.no]; l.giu = (l.giu || []).concat([{slip:c.no, qty:i.qty}]); });
-  S.created = c; S.items = []; S.cur = null; S.doList = [];
+  var its = S.items.map(function(i){ var o = {}, k; for (k in i) o[k] = i[k]; return o; });
+  var qt = qtyText(S.items);
+  var lines = list.map(function(q){ var x = items(q); return {doNo:q, kh:khList(D[q].lines.filter(function(ln){ return items(q, ln.id).length; })).join(', '), khos:x.map(function(i){ return L[i.no].kho; }).filter(function(v, j, a){ return a.indexOf(v) === j; }).join(', '), pallets:x.length, qty:qtyText(x)}; });
+  var no, sl;
+  if (S.editSlip){
+    no = S.editSlip; sl = SLIPS.filter(function(x){ return x.no === no; })[0];
+    /* tem bị bỏ khỏi phiếu thì nhả giữ chỗ */
+    for (var k in L){ var lb = L[k]; if (lb.giu) lb.giu = lb.giu.filter(function(g){ return g.slip !== no; }); }
+    sl.st = st; sl.dos = list; sl.khs = khs; sl.khos = khos; sl.pallets = its.length; sl.qty = qt; sl.items = its;
+  } else {
+    no = 'GI-2610-' + ('0000' + (giN++)).slice(-5);
+    sl = {no:no, when:'29/10/2026 09:24', st:st, nguoi:ME, dos:list, khs:khs, khos:khos, pallets:its.length, qty:qt, items:its};
+    SLIPS.unshift(sl);
+  }
+  its.forEach(function(i){ var l = L[i.no]; l.giu = (l.giu || []).concat([{slip:no, qty:i.qty}]); });
+  S.created = {no:no, st:st, when:sl.when, dos:list, khs:khs, khos:khos, pallets:its.length, lines:lines};
+  S.items = []; S.cur = null; S.doList = []; S.editSlip = null;
   go('done');
 }
 var ACT = {
@@ -737,9 +858,28 @@ var ACT = {
   todo: function(){ go('do_list'); },
   todolist: function(){ go('do_list'); },
   openline: function(el){ S.lineView = el.dataset.line; go('line'); },
+  savesend: function(){
+    S.dlg = {title:'Lưu và Gửi phiếu', text:'Gửi xong phiếu chuyển sang Đã gửi, chờ duyệt trên Web, không sửa trên máy được nữa.',
+      acts:[['Đóng','b-out',function(){ S.dlg = null; render(); }], ['Lưu và Gửi','b-lime',function(){ S.dlg = null; mkSlip(true); }]]};
+    render();
+  },
+  toslips: function(){ go('slips'); },
+  openslip: function(el){ S.slipNo = el.dataset.no; go('slip'); },
+  sendslip: function(){
+    var sl = SLIPS.filter(function(x){ return x.no === S.slipNo; })[0]; if (!sl) return;
+    dlgSend('Gửi phiếu ' + sl.no, function(){ sl.st = 'submitted'; go('slips'); snack('Đã gửi phiếu ' + sl.no + ' lên Web để duyệt.'); });
+  },
+  /* C5: mở lại phiếu Đã lưu để quét tiếp, giữ nguyên số phiếu */
+  editslip: function(){
+    var sl = SLIPS.filter(function(x){ return x.no === S.slipNo; })[0]; if (!sl) return;
+    S.editSlip = sl.no; S.created = null;
+    S.items = sl.items.map(function(i){ var o = {}, k; for (k in i) o[k] = i[k]; return o; });
+    S.doList = sl.dos.slice(); S.cur = sl.dos[0];
+    go('scan'); snack('Đang sửa phiếu ' + sl.no + '. Quét thêm hoặc bỏ tem rồi lưu lại.');
+  },
   submitdone: function(){
     var c = S.created;
-    S.dlg = {title:'Gửi phiếu ' + c.no + '?', text:'Phiếu chuyển sang Đã trình và không sửa được trên máy nữa. Người duyệt xử lý trên Web; duyệt xong tồn mới giảm và kết quả đẩy sang SAP.',
+    S.dlg = {title:'Gửi phiếu ' + c.no + '?', text:'Gửi xong phiếu chuyển sang Đã gửi, chờ duyệt trên Web, không sửa trên máy được nữa. Duyệt xong tồn mới giảm và kết quả đẩy sang SAP.',
       acts:[['Để sau','b-out',function(){ S.dlg = null; render(); }], ['Gửi phiếu','b-lime',function(){ c.st = 'submitted'; SLIPS.forEach(function(x){ if (x.no === c.no) x.st = 'submitted'; }); S.dlg = null; render(); snack('Đã gửi phiếu ' + c.no + ' lên Web để duyệt.'); }]]};
     render();
   },
@@ -774,7 +914,7 @@ var ACT = {
     render(); snack('Đã bỏ ' + no + ' khỏi phiếu; số lượng trả về khả dụng.');
   },
   toreview: function(){ S.err = null; go('review'); },
-  save: mkSlip,
+  save: function(){ mkSlip(false); },
   newsess: function(){ var sn = SLIPS, g = giN; reset(); SLIPS = sn; giN = g; go('do_list'); },
   demo: function(el){ var i = $('scanIn'); if (i){ i.value = el.dataset.code; } scan(el.dataset.code); }
 };
@@ -790,19 +930,23 @@ var STEPS = [
   ['line', 'Chi tiết dòng hàng', 'Quét'],
   ['do_pick', 'Thêm / chuyển DO', 'Quét'],
   ['review', 'Kiểm tra phiếu', 'Lưu'],
-  ['done', 'Đã lưu · Gửi phiếu', 'Lưu']
+  ['done', 'Đã lưu · Gửi phiếu', 'Lưu'],
+  ['slips', 'Phiếu đã lưu', 'Lưu'],
+  ['slip', 'Chi tiết phiếu', 'Lưu']
 ];
 var NOTES = {
-  groups: {h:'Đường vào', li:['Giữ nguyên cây menu của app hiện tại: Nhóm công việc → Quản lý hàng hóa → Giao hàng.', 'App dev đã có sẵn mục Giao hàng ở đây, kèm số việc Đã trình.']},
+  groups: {h:'Đường vào', li:['Giữ nguyên cây menu của app hiện tại: Nhóm công việc → Quản lý hàng hóa → Giao hàng.', 'App dev đã có sẵn mục Giao hàng ở đây, kèm số việc Đã gửi.']},
   group_goods: {h:'Quản lý hàng hóa', li:['Ba chức năng: Nhập kho thành phẩm, Giao hàng, Hàng khách trả.', 'Mapping pallet và Tách pallet bị ẩn khỏi menu (To-be, mục ảnh hưởng hệ thống).']},
   line: {h:'Chi tiết dòng hàng', li:['Chạm một mặt hàng để xem các pallet đã lấy cho Item đó và bỏ bớt nếu quét nhầm.', 'Hiện kho lấy hàng, SL yêu cầu, đã giao trước đó, phiên này đã lấy, còn cần giao.']},
   do_list: {h:'Chọn DO trước khi quét', li:['Máy không phân biệt lệnh đồng bộ từ SAP hay tạo tại WMS: người kho quét tem như nhau. Cột Nguồn chỉ nằm bên Web (A1).', 'Một DO mang nhiều khách hàng, nhiều kho: khách hàng, kho, ngày giao dự kiến nằm trên từng Item như màn chi tiết DO bên web. Thẻ DO liệt kê đầy đủ khách hàng và số SO của các Item, không rút gọn.', 'DO-SAP-81692475 có Item 30 của DORCO EUROPE ở kho 5003 để thử.', 'Lệnh tạo tại WMS (DO-5000-2601-00001) không có Vina SO; tem được gán vào Item ngay lúc tạo lệnh nên quét vẫn vào đúng dòng.', 'Kho trên lệnh SAP chỉ là kho dự kiến, không dùng để chặn tem lúc quét (F2, Q30).']},
   do_scan: {h:'Quét QR lệnh', li:['App hiện tại bắt buộc quét QR DO trước khi quét tem. Giữ lại làm đường vào nhanh.', 'Lệnh từ SAP không in QR nên thực tế sẽ gõ số hoặc chọn trong danh sách.']},
   scan: {h:'Màn quét tem', li:['Thanh phiên trên cùng: số lệnh, số pallet, số kho. Thêm DO và Chuyển DO như bên nhập kho.', 'Không khóa kho của phiên: một phiếu giao chứa nhiều kho, nhiều khách hàng (chốt 28/10, X05, GH04).', 'Tem thuộc DO khác bị chặn, báo rõ DO nào rồi để người kho tự chuyển.', 'Mỗi mặt hàng hiện Item, SO, kho lấy hàng, khách hàng và SL đã lấy trên SL cần giao. Bỏ thanh phần trăm.']},
   qty: {h:'Sheet số lượng xuất', li:['Gắn tem chạy hai tầng, theo as-is form 3010030. Tầng 1: tem đã gán sẵn vào Item lúc tạo lệnh (isMappedToThisLine) thì vào đúng Item đó, không xét SO — đường của lệnh tạo tại WMS. Tầng 2: tem chưa gán thì theo khóa mã hàng + Vina SO + ĐVT (eligibleRequestLineIds) — đường của lệnh đồng bộ SAP.', 'Nhiều dòng cùng khớp thì vào dòng số thứ tự nhỏ nhất còn thiếu SL.', 'Luật nằm ở server Block12, không ở máy: payload tem của app as-is không có trường SO.', 'Mở sheet cho mọi pallet; SL điền sẵn = số nhỏ hơn giữa khả dụng của tem và SL còn cần giao (X01, X14).', 'Sửa giảm để xuất lẻ, phần còn lại vẫn trên pallet đó (X02, X15).', 'Sheet nói thẳng tem còn bao nhiêu và đang bị phiếu nào giữ — chỗ này nới điểm chốt #21, cần xác nhận lại với team.', 'Quét lại tem đã có trong phiếu thì bị chặn, báo đã quét rồi; muốn sửa thì bỏ tem khỏi phiếu rồi quét lại (X08, GH9).']},
-  do_pick: {h:'Thêm và chuyển DO', li:['Thêm DO: lệnh Đã trình chưa có trong phiếu, không lọc theo kho hay khách hàng.', 'Chuyển DO: các lệnh đang có trong phiếu, giống Chuyển yêu cầu bên nhập kho.']},
-  review: {h:'Kiểm tra trước khi lưu', li:['Gom theo lệnh giao hàng, mỗi lệnh hiện khách hàng và các kho đã lấy hàng.', 'Mỗi ô tem hiện SL lấy, kho, vị trí và dấu lẻ khi không lấy trọn pallet.', 'Bỏ tem khỏi phiếu thì SL trả về khả dụng ngay (X09).']},
-  done: {h:'Sau khi lưu', li:['Máy không có màn danh sách phiếu: lưu xong gửi luôn tại đây, mọi việc còn lại làm trên Web.', 'Số phiếu dùng dãy GI-{YYMM}-{00001}, không gắn mã kho (B4), khớp dãy của mockup web.', 'Lưu mới chỉ giữ chỗ SL trên tem; duyệt làm trên Web rồi mới trừ tồn và đẩy SAP (GH13).', 'PDA không duyệt, chỉ Lưu và Gửi.']},
+  do_pick: {h:'Thêm và chuyển DO', li:['Thêm DO: lệnh Đã gửi chưa có trong phiếu, không lọc theo kho hay khách hàng.', 'Chuyển DO: các lệnh đang có trong phiếu, giống Chuyển yêu cầu bên nhập kho.']},
+  review: {h:'Kiểm tra trước khi lưu', li:['Ba nút theo khuôn chung: Lưu và Gửi ở hàng trên, Quét thêm tem và Lưu phiếu chia đôi hàng dưới. Lưu và Gửi hỏi xác nhận trước khi chuyển phiếu sang Đã gửi.', 'Gom theo lệnh giao hàng, mỗi lệnh hiện khách hàng và các kho đã lấy hàng.', 'Mỗi ô tem hiện SL lấy, kho, vị trí và dấu lẻ khi không lấy trọn pallet.', 'Bỏ tem khỏi phiếu thì SL trả về khả dụng ngay (X09).']},
+  done: {h:'Sau khi lưu', li:['Phiếu Đã lưu: Gửi ngay tại đây, hoặc mở lại từ Phiếu đã lưu để quét tiếp.', 'Gửi xong thì màn đổi thành Đã gửi và hai nút còn Phiên mới | Về danh sách.', 'Số phiếu dùng dãy GI-{YYMM}-{00001}, không gắn mã kho (B4), khớp dãy của mockup web.', 'Lưu mới chỉ giữ chỗ SL trên tem; duyệt làm trên Web rồi mới trừ tồn và đẩy SAP (GH13).', 'PDA không duyệt.']},
+  slips: {h:'Phiếu đã lưu', li:['Lối vào là icon danh sách ở góc phải thanh tiêu đề màn Lệnh giao hàng, badge đếm số phiếu Đã lưu của người đang dùng máy.', 'Chỉ liệt kê phiếu Đã lưu do chính người đó tạo. Phiếu đã gửi và phiếu của người khác không hiện — dữ liệu mẫu có GI-2601-00008 của người khác để thấy nó bị ẩn.', 'Bấm vào thẻ để mở chi tiết phiếu, không gửi thẳng từ danh sách.']},
+  slip: {h:'Chi tiết phiếu', li:['Đầu phiếu và các dòng chỉ xem. Không sửa đầu phiếu, không sửa số lượng, không xóa phiếu, không duyệt — những việc đó làm trên Web.', 'Quét tiếp nạp lại tem của phiếu vào phiên và quay về màn quét; lưu lại giữ nguyên số phiếu, tem bị bỏ thì nhả giữ chỗ.', 'Tem đang bị chính phiếu này giữ thì quét lại được, không báo là phiếu khác đang giữ.', 'Gửi phiếu hỏi xác nhận rồi chuyển phiếu sang Đã gửi.']},
 };
 var DEMO = {
   do_scan: [['DO-SAP-81692474', 'MERCADONA · kho 5000'], ['DO-SAP-81698792', 'DORCO EUROPE · kho 5003']],
