@@ -42,11 +42,22 @@
   <div class="screen__body">
     <div class="screen__shots">
       <figure class="shot"><figcaption>Giao diện WMS · Phát hành tem thành phẩm / bán thành phẩm — kéo ngang bảng để xem hết cột, bấm nút để mở popup, đóng popup bằng nút ✕<a class="btn shot__zoom" href="../mockups/11-phat-hanh-tem-nhan/2.html" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption>
-        <iframe class="shot__live" src="../mockups/11-phat-hanh-tem-nhan/2.html" title="Phát hành tem thành phẩm / bán thành phẩm" loading="lazy"></iframe></figure>
+        <div class="shot__fit"><iframe class="shot__live" src="../mockups/11-phat-hanh-tem-nhan/2.html" title="Phát hành tem thành phẩm / bán thành phẩm" loading="lazy"></iframe></div></figure>
     </div>
     <aside class="screen__notes">
-      <div class="note"><h3>Mô tả</h3><p>BP Sản xuất phát hành tem QR cho thành phẩm / bán thành phẩm trên WMS: chọn yêu cầu nhập kho, hệ thống tính số tem theo quy cách và in tem để dán vào hàng. Tem gồm mã hàng, tên hàng, ngày sản xuất, lô, Batch no (theo yêu cầu khách) và SO.</p></div>
-      <div class="note note--biz"><h3>Lưu ý nghiệp vụ</h3><ul><li>Dùng chung một mẫu tem cho Hưng Yên và Hà Nam; đề xuất dán tem theo thùng và gộp tem theo pallet.</li><li>Màn hình này được mục 5.2 (Quy trình nhập kho thành phẩm) tham chiếu tới.</li></ul></div>
+      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Phát hành tem QR theo yêu cầu: chọn Loại nguồn (Nhập kho TP/BTP từ sản xuất – mục 5.2, hoặc Thành phẩm trả lại – mục 6.5), chọn một hoặc nhiều yêu cầu Đã trình của kho, nhập SL cần dán tem cho từng dòng rồi chia pallet. Mỗi pallet là một tem. Tạo tem sinh serial vĩnh viễn FGL-{YYMMDD}-{NNNN}; in xong tem chuyển sang Đã in, giữ chỗ để chờ kho quét nhập.</p><ul>
+<li><b>Chọn chứng từ:</b> bắt buộc chọn kho (mặc định K03 cho TP/BTP, 5900 cho hàng trả). Chỉ hiện yêu cầu Đã trình còn dòng thiếu tem. Đổi Loại nguồn khi đã chọn yêu cầu thì hệ thống hỏi lại và xóa toàn bộ số đang nhập.</li>
+<li><b>Theo nguồn:</b> TP/BTP có Số lệnh SX, Batch no (theo yêu cầu khách), SO. Hàng trả lại đồng bộ từ SAP, không có SO và Batch no, header hiện Khách hàng, Lý do trả hàng, kho nhận 5900; mẫu tem cố định “Thành phẩm trả về”.</li>
+<li><b>Giới hạn số lượng:</b> Còn lại = SL yêu cầu − tổng SL các tem chưa hủy của cùng yêu cầu và mã hàng. SL cần dán phải &gt; 0 và ≤ Còn lại; dòng đủ tem không nạp lên nữa.</li>
+<li><b>Chia pallet:</b> mỗi dòng có nhiều nhóm Số pallet × SL/pallet (kèm Số thùng/pallet). Tổng các nhóm phải bằng đúng SL cần dán, nếu không thì báo Thiếu/Dư và chưa cho tạo tem. Vd 5.472 SET = 5 × 1.000 + 1 × 472 → 6 tem, tem lẻ 472. Người dùng tự thêm nhóm cho tem lẻ.</li>
+<li><b>Đánh số:</b> số thứ tự tính tiếp theo ngày, kể cả tem đã hủy, nên serial không bao giờ dùng lại.</li>
+<li><b>Trạng thái tem:</b> Đã phát hành › Đã in, giữ chỗ › Trong kho (sau khi quét nhập) › Đã xuất hết; hủy được thành Đã hủy. Tem nguồn bị gộp chuyển Đã hủy với lý do “GỘP”.</li>
+<li><b>In:</b> chọn máy in, khổ giấy (A4 decal 4 tem hoặc tem cuộn 100×70), mẫu, số bản. Trạng thái chỉ cập nhật sau khi người dùng xác nhận đã in thành công. In lại giữ nguyên trạng thái, cộng số lần in; tem Trong kho vẫn in lại được.</li>
+<li><b>Hủy tem:</b> chỉ hủy được tem chưa vào kho (Đã phát hành / Đã in), bắt buộc nhập lý do, không hoàn tác. Số lượng trả về dòng yêu cầu để phát hành bù. Hủy hàng loạt tự bỏ qua tem đã vào kho, đã xuất hết hoặc đã hủy.</li>
+<li><b>Cờ “Cần xử lý”:</b> khi SAP thay đổi chứng từ (đổi Buyer, giảm SL dòng…), tem bị gắn cờ, chặn cả in lần đầu và in lại; xử lý bằng cách hủy rồi phát hành lại.</li>
+<li><b>Nội dung tem:</b> TP gồm Inter SO / Vina SO / Lệnh SX, mã và tên hàng, Ngày nhập kho, Ngày SX, Buyer, Batch no, Số lượng / số thùng, QR. BTP bỏ Checklist và Batch no. TP trả về chỉ có mã, tên, ngày nhập, số lượng. Ngày nhập in ngày thực tế nếu đã vào kho, ngày dự kiến nếu chưa.</li>
+<li><b>Cần chốt:</b> khi nào tem ở trạng thái Đã in, chưa giữ chỗ; có tự chia pallet theo quy cách đóng gói không; phân biệt TP/BTP trên dữ liệu (hiện chọn tay mẫu khi in); hàng trả có giới hạn chỉ trường hợp không nguyên pallet; điều kiện và phân quyền in lại tem đã vào kho; có cho chọn yêu cầu của nhiều kho cùng lúc.</li>
+</ul></div>
     </aside>
   </div>
 </section>

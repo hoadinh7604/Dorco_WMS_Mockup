@@ -27,11 +27,17 @@
   <div class="screen__body">
     <div class="screen__shots">
       <figure class="shot"><figcaption>Giao diện WMS · Giao hàng — tab “Theo lệnh giao hàng”; kéo ngang bảng để xem hết cột, bấm một dòng để xem chi tiết<a class="btn shot__zoom" href="../mockups/06-ban-hang/1.html?tab=do" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption>
-        <iframe class="shot__live" src="../mockups/06-ban-hang/1.html?tab=do" title="Yêu cầu giao hàng" loading="lazy"></iframe></figure>
+        <div class="shot__fit"><iframe class="shot__live" src="../mockups/06-ban-hang/1.html?tab=do" title="Yêu cầu giao hàng" loading="lazy"></iframe></div></figure>
     </div>
     <aside class="screen__notes">
-      <div class="note"><h3>Mô tả</h3><p>Màn hình quản lý giao hàng, mở sẵn tab Theo lệnh giao hàng. Lệnh giao hàng lập từ đơn bán hàng nội bộ (Vina SO) đồng bộ từ SAP; một SO giao được nhiều lần, theo pallet hoặc lẻ thùng. Bấm một dòng để xem chi tiết lệnh và gán mã vạch tem cho từng mã hàng.</p></div>
-      <div class="note note--biz"><h3>Lưu ý nghiệp vụ</h3><ul><li>Kho lập lệnh giao từ SO; nhân viên kho lấy lệnh ra thực hiện trên PDA.</li></ul></div>
+      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Lệnh giao hàng (DO) có hai nguồn: đồng bộ từ SAP (số DO-SAP-{Outbound Delivery}, chỉ đọc; dòng mang Inter SO, Vina SO, Item, PO khách) hoặc tạo tại WMS (số DO-{kho}-{YYMM}-{NNNNN}, thêm dòng từ SO / kế hoạch giao hoặc từ tồn kho). Trạng thái Đã lưu › Đã gửi › Đã đóng; DO đồng bộ từ SAP vào thẳng Đã gửi. Chỉ DO Đã gửi mới lập được phiếu giao. Khách hàng và kho nằm trên từng dòng, nên một DO có thể nhiều khách, nhiều kho.</p><ul>
+<li><b>Thao tác theo trạng thái:</b> DO WMS Đã lưu được Sửa, Gửi, In, Xóa; DO SAP chỉ Xem, In. Đã gửi được Tạo phiếu từ DO, In. Đã đóng / Đã xóa chỉ Xem, In.</li>
+<li><b>Tạo DO tại WMS:</b> phải chọn Khách hàng và Kho (dùng làm bộ lọc) mới thêm được hàng; Lưu/Gửi cần ít nhất một dòng. Số lô không bắt buộc; cột Phẩm cấp (Grade) đã ẩn khỏi màn lệnh và phiếu.</li>
+<li><b>Tem gán sẵn:</b> chỉ DO tạo tại WMS gán sẵn tem cho dòng; DO SAP không có tem, kho quét khi giao.</li>
+<li><b>Số lượng:</b> Còn lại = SL yêu cầu − Đã giao. Một DO giao nhiều lần; tiến độ tính theo phiếu Đã duyệt.</li>
+<li><b>SAP sửa DO khi đang có phiếu chưa xong:</b> DO hiện “Có thay đổi chưa nhận” kèm số phiếu đang chặn.</li>
+<li><b>Cần chốt:</b> quy tắc đóng DO (tự đóng khi giao đủ hay đóng tay); DO WMS đã gửi có còn sửa được không; bước gán tem khi tạo DO WMS; kho 5900 (hàng trả lại) có được chọn làm kho giao không.</li>
+</ul></div>
     </aside>
   </div>
 </section>
@@ -43,11 +49,17 @@
   <div class="screen__body">
     <div class="screen__shots">
       <figure class="shot"><figcaption>Giao diện PDA · Quét tem giao hàng — bấm các nút trên máy để chạy thử từng bước<a class="btn shot__zoom" href="../mockups/06-ban-hang/2.html" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption>
-        <iframe class="shot__live" src="../mockups/06-ban-hang/2.html" title="Quét tem giao hàng trên PDA" loading="lazy"></iframe></figure>
+        <div class="shot__fit"><iframe class="shot__live" src="../mockups/06-ban-hang/2.html" title="Quét tem giao hàng trên PDA" loading="lazy"></iframe></div></figure>
     </div>
     <aside class="screen__notes">
-      <div class="note"><h3>Mô tả</h3><p>Kho dùng PDA quét tem thành phẩm theo lệnh giao hàng. Quét sai mã hàng hoặc sai đơn sẽ bị chặn; WMS tự sinh phiếu giao hàng từ kết quả quét.</p></div>
-      <div class="note note--biz"><h3>Lưu ý nghiệp vụ</h3><ul><li>Giao theo pallet hoặc lẻ thùng; mỗi lần giao ghi số lượng thực tế.</li></ul></div>
+      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Kho chọn hoặc nhập số DO Đã gửi, quét tem pallet, nhập SL lấy cho từng tem, kiểm tra rồi lưu. Màn Kiểm tra có <b>Lưu và Gửi</b> (hỏi xác nhận, tạo phiếu Đã gửi) và <b>Quét thêm tem</b> | <b>Lưu phiếu</b> (tạo phiếu Đã lưu, chỉ giữ chỗ trên tem). Số phiếu GI-{YYMM}-{NNNNN}; duyệt trên Web (mục 6.3) mới trừ tồn và đẩy SAP. Một phiếu gom được nhiều DO, nhiều kho, nhiều khách hàng; kho trên DO SAP chỉ là dự kiến, không dùng để chặn tem.</p><ul>
+<li><b>Khớp tem vào dòng:</b> tem đã gán sẵn cho dòng thì vào đúng dòng đó; tem chưa gán thì khớp theo mã hàng + Vina SO + ĐVT (xuất đích danh theo SO). Nhiều dòng cùng khớp thì vào dòng có số thứ tự nhỏ nhất còn thiếu.</li>
+<li><b>Xuất lẻ:</b> SL điền sẵn = min(khả dụng của tem, còn cần giao). Khả dụng = SL trên tem − SL phiếu khác đang giữ − SL phiên này đã lấy. Sửa giảm được, phần còn lại vẫn nằm trên pallet, không tách tem.</li>
+<li><b>Các trường hợp tem bị chặn:</b> không tìm thấy, quét trùng, đã xuất hết, đã hủy, thuộc DO khác (chạm Chuyển DO), gán sẵn cho dòng khác, khác SO, khác mã hàng, hết khả dụng (báo phiếu nào đang giữ), dòng đã đủ SL.</li>
+<li><b>Bỏ tem:</b> SL trả về khả dụng ngay. Rời màn quét khi chưa lưu thì mất các pallet đã lấy. Quét lại tem đã có trong phiếu thì bị chặn, muốn đổi SL thì bỏ tem rồi quét lại.</li>
+<li><b>Phiếu đã lưu:</b> mở từ icon danh sách (kèm số đếm) trên thanh tiêu đề màn Lệnh giao hàng; chỉ liệt kê phiếu Đã lưu của chính người dùng máy. Chi tiết phiếu chỉ xem, có Quét tiếp | Gửi phiếu. Quét tiếp chỉ thêm hoặc bỏ tem, lưu lại giữ nguyên số phiếu; tem do chính phiếu này giữ vẫn quét lại được; phiếu phải còn ít nhất 1 tem.</li>
+<li><b>Cần chốt:</b> “còn cần giao” chưa trừ SL phiếu khác chưa duyệt đang giữ cho cùng dòng (nguy cơ giao vượt); có hiện số phiếu đang giữ tem trên PDA không; có cần tách thùng lẻ không (hiện chỉ có tem pallet).</li>
+</ul></div>
     </aside>
   </div>
 </section>
@@ -59,11 +71,18 @@
   <div class="screen__body">
     <div class="screen__shots">
       <figure class="shot"><figcaption>Giao diện WMS · Giao hàng — tab “Theo phiếu”; kéo ngang bảng để xem hết cột, bấm một phiếu để xem chi tiết<a class="btn shot__zoom" href="../mockups/06-ban-hang/1.html?tab=slip" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption>
-        <iframe class="shot__live" src="../mockups/06-ban-hang/1.html?tab=slip" title="Phiếu giao hàng" loading="lazy"></iframe></figure>
+        <div class="shot__fit"><iframe class="shot__live" src="../mockups/06-ban-hang/1.html?tab=slip" title="Phiếu giao hàng" loading="lazy"></iframe></div></figure>
     </div>
     <aside class="screen__notes">
-      <div class="note"><h3>Mô tả</h3><p>Cùng màn hình Giao hàng, mở sẵn tab Theo phiếu. Phiếu giao hàng do PDA sinh sau khi quét; văn phòng kho xác nhận phiếu để giảm tồn và đồng bộ kết quả sang SAP.</p></div>
-      <div class="note note--biz"><h3>Lưu ý nghiệp vụ</h3><ul><li>SAP quản lý đơn vị cái; một SO có thể có nhiều phiếu giao.</li></ul></div>
+      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Phiếu giao hàng do PDA tạo hoặc lập trên Web: chọn dòng còn SL của các DO Đã gửi (gom nhiều DO, kho, khách), rồi quét hoặc gán tem. Trạng thái Đã lưu › Đã gửi › Đã duyệt, hủy được thành Đã hủy. Chỉ khi duyệt mới trừ SL trên tem và đồng bộ SAP.</p><ul>
+<li><b>Nạp dòng:</b> “Tạo phiếu từ DO này” nạp mọi dòng còn SL. Dòng DO WMS có tem gán sẵn thì tem đi theo dòng (mỗi tem lấy min(khả dụng, phần còn thiếu)); dòng DO SAP phải quét tem, cùng luật khớp như PDA.</li>
+<li><b>Sửa SL trên tem:</b> từ 1 đến min(khả dụng của tem, còn cần giao − SL các tem khác của dòng); vượt thì tự hạ về tối đa.</li>
+<li><b>Gửi:</b> phải có ít nhất một dòng có tem. Dòng chưa có tem tự bỏ khỏi phiếu, vẫn còn trên DO để lập phiếu sau; dòng chưa đủ SL vẫn gửi được (giao từng phần).</li>
+<li><b>Thao tác theo trạng thái:</b> Đã lưu được Sửa, Gửi, Xóa. Đã gửi chỉ Amend (Ghi chú, remark dòng, xóa dòng) và Phê duyệt, không có Trả lại. Đã duyệt được Đồng bộ lại SAP (khi Chưa đồng bộ / Lỗi) và Hủy phiếu (ẩn khi Đang đồng bộ).</li>
+<li><b>Số lượng:</b> phiếu Đã lưu / Đã gửi giữ chỗ trên tem (tem vẫn Trong kho). Duyệt trừ SL khỏi tem, lấy trọn thì tem thành Đã xuất hết. Hủy cộng SL lại về tem.</li>
+<li><b>Hủy phiếu đã duyệt:</b> chỉ cần một tem đã nằm trong yêu cầu / phiếu trả hàng, đã chuyển sang kho khác hoặc đã hủy do kiểm kê là chặn hủy cả phiếu; không hủy một phần.</li>
+<li><b>Cần chốt:</b> hủy phiếu có đẩy bút toán đảo sang SAP không; Sửa phiếu Đã hủy tạo bản mới hay mở lại; DO có tự đóng sau khi duyệt đủ không.</li>
+</ul></div>
     </aside>
   </div>
 </section>
@@ -75,11 +94,16 @@
   <div class="screen__body">
     <div class="screen__shots">
       <figure class="shot"><figcaption>Giao diện WMS · Trả hàng — tab “Theo yêu cầu”; kéo ngang bảng để xem hết cột, bấm một dòng để xem chi tiết<a class="btn shot__zoom" href="../mockups/06-ban-hang/3.html?tab=req" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption>
-        <iframe class="shot__live" src="../mockups/06-ban-hang/3.html?tab=req" title="Yêu cầu hàng bán trả lại" loading="lazy"></iframe></figure>
+        <div class="shot__fit"><iframe class="shot__live" src="../mockups/06-ban-hang/3.html?tab=req" title="Yêu cầu hàng bán trả lại" loading="lazy"></iframe></div></figure>
     </div>
     <aside class="screen__notes">
-      <div class="note"><h3>Mô tả</h3><p>Màn hình quản lý hàng bán bị trả lại, mở sẵn tab Theo yêu cầu. Khi XNK xong tờ khai nhập khẩu, lập yêu cầu trả hàng từ PO trả hàng SAP, từ phiếu giao hàng hoặc thủ công. Hàng nhận về kho 5900 ở vị trí tạm.</p></div>
-      <div class="note note--biz"><h3>Lưu ý nghiệp vụ</h3><ul><li>Trả nguyên pallet dùng tem cũ; trả không nguyên pallet thì in và dán tem mới.</li></ul></div>
+      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Yêu cầu hàng bán trả lại chủ yếu đồng bộ từ SAP (chỉ đọc, sửa trên SAP rồi đồng bộ lại), nhận về kho 5900, có Ngày nhập kho dự kiến và Checklist. Yêu cầu tạo tại WMS sinh từ phiếu giao hàng (G/D Slip). Trạng thái Đã lưu › Đã gửi › Đã đóng (yêu cầu từ SAP vào thẳng Đã gửi); số REQ-{kho}-{YYMM}-{NNNNN}. Chỉ yêu cầu Đã gửi mới lập được phiếu trả hàng.</p><ul>
+<li><b>Tem cũ hay tem mới:</b> yêu cầu tạo từ G/D Slip dùng lại tem gốc đã xuất. Yêu cầu từ SAP phải phát hành tem mới (mục 6.5 / 11.2); cột “Đã dán tem” X/Y theo dõi SL đã có tem.</li>
+<li><b>Thao tác:</b> yêu cầu SAP chỉ Xem, In. Yêu cầu WMS Đã lưu được Sửa, Gửi, In, Xóa; Đã gửi / Đã đóng chỉ Xem, In.</li>
+<li><b>SAP đổi SL sau khi đã phát hành tem:</b> yêu cầu hiện “Có thay đổi chưa nhận”, tem dư gắn cờ Cần xử lý, phải hủy tem rồi phát hành lại.</li>
+<li><b>Nhận từng phần:</b> một yêu cầu có nhiều phiếu trả; tiến độ nhận chỉ tính phiếu đã duyệt.</li>
+<li><b>Cần chốt:</b> quy tắc đóng yêu cầu (hiện có yêu cầu Đã đóng trong khi phiếu còn Đồng bộ lỗi); có cần lưu số PO trả hàng / tờ khai nhập khẩu trên yêu cầu không; điều kiện “không nguyên pallet mới in tem mới” chưa thể hiện trong prototype.</li>
+</ul></div>
     </aside>
   </div>
 </section>
@@ -90,8 +114,7 @@
   <p class="screen__path">Phát hành nhãn › Phát hành tem thành phẩm / bán thành phẩm</p>
   <div class="screen__body">
     <aside class="screen__notes">
-      <div class="note"><h3>Mô tả</h3><p>Bước phát hành tem cho hàng bán trả lại (khi trả không nguyên pallet) dùng chung màn hình <a href="11-phat-hanh-tem-nhan.html#t-tp">11.2 Phát hành tem thành phẩm / bán thành phẩm</a>, với <b>Nguồn: Thành phẩm trả lại</b>. Xem màn hình và mô tả chi tiết tại mục đó.</p></div>
-      <div class="note note--biz"><h3>Lưu ý nghiệp vụ</h3><ul><li>Chỉ in tem mới khi trả không nguyên pallet; trả nguyên pallet dùng lại tem cũ.</li></ul></div>
+      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Bước phát hành tem cho hàng bán trả lại (khi trả không nguyên pallet) dùng chung màn hình <a href="11-phat-hanh-tem-nhan.html#t-tp">11.2 Phát hành tem thành phẩm / bán thành phẩm</a>, với <b>Nguồn: Thành phẩm trả lại</b>. Xem màn hình và mô tả chi tiết tại mục đó.</p><ul><li>Chỉ in tem mới khi trả không nguyên pallet; trả nguyên pallet dùng lại tem cũ.</li></ul></div>
     </aside>
   </div>
 </section>
@@ -103,11 +126,19 @@
   <div class="screen__body">
     <div class="screen__shots">
       <figure class="shot"><figcaption>Giao diện WMS · Trả hàng — tab “Theo phiếu”; kéo ngang bảng để xem hết cột, bấm nút để mở popup (đóng bằng nút ✕)<a class="btn shot__zoom" href="../mockups/06-ban-hang/3.html?tab=slip" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption>
-        <iframe class="shot__live" src="../mockups/06-ban-hang/3.html?tab=slip" title="Lập phiếu trả hàng" loading="lazy"></iframe></figure>
+        <div class="shot__fit"><iframe class="shot__live" src="../mockups/06-ban-hang/3.html?tab=slip" title="Lập phiếu trả hàng" loading="lazy"></iframe></div></figure>
     </div>
     <aside class="screen__notes">
-      <div class="note"><h3>Mô tả</h3><p>Cùng màn hình Trả hàng, mở sẵn tab Theo phiếu. Lập phiếu trả hàng từ yêu cầu; hàng về đặt ở vị trí tạm trong kho 5900. Văn phòng kho xác nhận phiếu để tăng tồn và đồng bộ sang SAP.</p></div>
-      <div class="note note--biz"><h3>Lưu ý nghiệp vụ</h3><ul><li>Phiếu trả hàng bám theo nhánh SAP (PO trả hàng / tờ khai nhập khẩu).</li></ul></div>
+      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Chọn Khách hàng, rồi “Thêm từ yêu cầu hàng trả” để chọn tem thuộc các yêu cầu Đã gửi của khách đó. Phiếu đi qua Đã lưu › Đã gửi › Đã duyệt; duyệt mới tăng tồn và đẩy SAP. Số phiếu {mã kho}-{YYMM}-{NNNNN}. Hàng chưa về hoặc đang thông quan đặt ở vị trí tạm 5900-TEMP-01, về thực tế thì chuyển vị trí (mục 6.7).</p><ul>
+<li><b>Trường bắt buộc:</b> Ngày nhận, Khách hàng, Lý do trả hàng, Người phụ trách, ít nhất một dòng. Loại trả hàng: Khách hàng trả / Đại lý trả / Trả nội bộ.</li>
+<li><b>Một phiếu một kho, một khách:</b> kho lấy theo yêu cầu của tem đầu tiên và khóa lại. Chưa chọn khách thì chưa thêm được hàng; đổi khách thì xóa hết dòng.</li>
+<li><b>Nhận nguyên tem:</b> SL dòng = SL trên tem, không nhập SL; nhận một phần nghĩa là chọn ít tem hơn. Tem đang nằm trong phiếu trả khác chưa hủy không hiện để chọn.</li>
+<li><b>Grade kiểm định</b> (A Bán lại được / B Sửa chữa, đóng gói lại / C Hủy), Tình trạng bên ngoài và Vị trí nhập ở header, áp xuống mọi dòng.</li>
+<li><b>Thao tác theo trạng thái:</b> Đã lưu được Sửa, Gửi, Xóa. Đã gửi chỉ Amend (ghi chú, remark dòng, xóa dòng) và Duyệt. Đã duyệt được Đồng bộ lại SAP (khi Chưa đồng bộ / Lỗi), In, Hủy (ẩn khi Đang đồng bộ). Đã hủy: Sửa tạo bản mới Đã lưu.</li>
+<li><b>Trạng thái tem:</b> phiếu Đã lưu / Đã gửi thì tem Đã in, giữ chỗ; duyệt thì tem Trong kho.</li>
+<li><b>Hủy phiếu đã duyệt:</b> tem đã có giao dịch sau phiếu (vd đã chuyển sang kho 5000) thì không hủy được vì lệch tồn giữa hai kho.</li>
+<li><b>Cần chốt:</b> sau khi hủy, tem về Đã hủy hay Đã in, giữ chỗ (Q38); hủy một phần hay chặn cả phiếu (bên giao hàng đang chặn cả phiếu); phiếu gom tem nhiều yêu cầu cần giữ liên kết tới tất cả yêu cầu; Grade / Vị trí có cần nhập theo từng tem không.</li>
+</ul></div>
     </aside>
   </div>
 </section>
@@ -118,8 +149,7 @@
   <p class="screen__path">Ứng dụng PDA › Chuyển vị trí</p>
   <div class="screen__body">
     <aside class="screen__notes">
-      <div class="note"><h3>Mô tả</h3><p>Khi hàng bán trả lại thực tế về kho, nhân viên quét QR tem và chuyển hàng từ vị trí tạm (5900) sang vị trí thật. Thao tác này dùng chung màn hình <a href="08-chuyen-kho.html#ck-vitri">8.2 Chuyển vị trí</a> (mục 8. Quy trình chuyển kho). Xem chi tiết tại mục đó.</p></div>
-      <div class="note note--biz"><h3>Lưu ý nghiệp vụ</h3><ul><li>Chuyển vị trí trong kho không đồng bộ SAP (SAP không quản lý vị trí).</li></ul></div>
+      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Khi hàng bán trả lại thực tế về kho, nhân viên quét QR tem và chuyển hàng từ vị trí tạm (5900) sang vị trí thật. Thao tác này dùng chung màn hình <a href="08-chuyen-kho.html#ck-vitri">8.3 Chuyển vị trí</a> (mục 8. Quy trình chuyển kho). Xem chi tiết tại mục đó.</p><ul><li>Chuyển vị trí trong kho không đồng bộ SAP (SAP không quản lý vị trí).</li></ul></div>
     </aside>
   </div>
 </section>

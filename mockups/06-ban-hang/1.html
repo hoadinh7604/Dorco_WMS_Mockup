@@ -756,7 +756,7 @@ function ndPicker(){
         <td>${esc(r.iso)}</td><td>${r.so}</td><td>${r.item}</td>
         <td>${r.code}</td><td>${r.name}</td><td>${r.uom}</td><td>${num(r.qty)}</td></tr>`).join('')}
       </tbody></table></div>
-      <p class="hint">Số lô và Phẩm cấp không bắt buộc (điểm chốt #32).</p>
+      <p class="hint">Số lô không bắt buộc; cột Phẩm cấp đã ẩn khỏi màn lệnh và phiếu (điểm chốt #32, 01/11).</p>
     </div>
     <div class="modal-footer"><button class="btn btn-secondary" data-close>Đóng</button>
       <button class="btn btn-primary" data-act="ndadd">Thêm vào lệnh</button></div>`);
@@ -1141,6 +1141,44 @@ document.addEventListener('keydown', e=>{
 $('#scrim').addEventListener('click', e=>{ if(e.target.id==='scrim') closeModal(); });
 render();
 
+</script>
+<script>
+/* Điểm chốt #32 (chốt 01/11): ẩn cột Grade trên màn yêu cầu / lệnh / PDA.
+   Giữ nguyên cột Số lô. Phiếu trả vẫn giữ trường "Grade kiểm định" (TH3) vì đó là
+   trường nhập của phiếu, không phải cột Grade của dòng hàng.
+   Ẩn ở tầng hiển thị cho dễ bật lại: đổi GRADE_LABELS thành [] là cột hiện lại. */
+(function(){
+  var GRADE_LABELS = ['Phân hạng', 'Phẩm cấp', 'Cấp chất lượng', 'Grade'];
+  function hideGrade(){
+    var tables = document.querySelectorAll('table');
+    for (var t = 0; t < tables.length; t++){
+      var tb = tables[t], hr = tb.tHead && tb.tHead.rows.length ? tb.tHead.rows[0] : null;
+      if (!hr) continue;
+      var span = false, i;
+      for (i = 0; i < hr.cells.length; i++){ if (hr.cells[i].colSpan > 1) span = true; }
+      if (span) continue;                      /* bảng có gộp ô thì bỏ qua cho an toàn */
+      for (i = 0; i < hr.cells.length; i++){
+        if (GRADE_LABELS.indexOf((hr.cells[i].textContent || '').trim()) < 0) continue;
+        hr.cells[i].style.display = 'none';
+        for (var b = 0; b < tb.tBodies.length; b++){
+          var rows = tb.tBodies[b].rows;
+          for (var r = 0; r < rows.length; r++){
+            var c = rows[r].cells[i];
+            if (c && c.colSpan === 1) c.style.display = 'none';
+          }
+        }
+      }
+    }
+  }
+  function boot(){
+    hideGrade();
+    if (window.MutationObserver){
+      new MutationObserver(hideGrade).observe(document.body, {childList:true, subtree:true});
+    }
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
 </script>
 <script>
 window.addEventListener("load",function(){try{var p=new URLSearchParams(location.search),t=p.get("tab");if(!t){var m=(location.hash||"").match(/tab=([\w-]+)/);t=m&&m[1];}if(!t)return;var el=document.querySelector('[data-tab="'+t+'"]');if(el)el.click();}catch(e){}});

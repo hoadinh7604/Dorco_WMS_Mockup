@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>7. Quy trình nhập xuất khác – Dorco WMS TSD</title>
+<title>7. Quy trình xuất khác – Dorco WMS TSD</title>
 <meta name="description" content="Dorco WMS – To-Be Solution Design: giải pháp quản lý kho cho Dorco Vina và Dorco Living.">
 <link rel="stylesheet" href="../assets/css/tokens.css">
 <link rel="stylesheet" href="../assets/css/base.css">
@@ -16,12 +16,80 @@
 
 <div class="page-head">
   <small>Giải pháp hệ thống</small>
-  <h1>7. Quy trình nhập xuất khác</h1>
-  <p>Nhập khác · xuất mẫu, xuất hủy.</p>
+  <h1>7. Quy trình xuất khác</h1>
+  <p>Xuất khác (xuất mẫu, xuất hủy và các lý do khác): yêu cầu xuất khác tạo thủ công hoặc upload Excel, kho quét tem lấy hàng trên PDA, phiếu xuất khác duyệt trên Web thì trừ tồn theo tem và đồng bộ SAP.</p>
 </div>
 
-<!-- ===== Khi có nội dung: xóa khối "Sắp có" bên dưới, chép khối <section class="screen"> từ pages/_mau-trang-muc.html ===== -->
-<div class="soon"><b>Sắp có</b>Nội dung và màn hình của mục này sẽ được bổ sung khi có ảnh hệ thống thật.</div>
+<!-- ===== BẮT ĐẦU: 7.1 Yêu cầu xuất khác ===== -->
+<section class="screen" id="xk-yc">
+  <h2 class="screen__title"><span class="no">7.1</span>Yêu cầu xuất khác</h2>
+  <p class="screen__path">Giao dịch kho › Xuất kho › tab Xuất khác</p>
+  <div class="screen__body">
+    <div class="screen__shots">
+      <figure class="shot"><figcaption>Giao diện WMS · Xuất kho — tab “Theo yêu cầu xuất”; bấm Nhập Excel để thử upload, bấm một số yêu cầu để xem chi tiết<a class="btn shot__zoom" href="../mockups/07-xuat-khac/1.html" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption>
+        <div class="shot__fit"><iframe class="shot__live" src="../mockups/07-xuat-khac/1.html" title="Yêu cầu xuất khác" loading="lazy"></iframe></div></figure>
+    </div>
+    <aside class="screen__notes">
+      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Bộ phận có nhu cầu (Sales gửi mẫu, QC hủy hàng…) lập yêu cầu xuất khác bằng tay hoặc upload Excel theo template của WMS (tiêu đề cột theo ngôn ngữ Việt / Anh / Hàn). Yêu cầu đi qua các trạng thái Đã lưu › Đã gửi › Đã đóng (khi đã xuất đủ). Số yêu cầu sinh tự động YQKH-{mã kho}-{YYMM}-{NNNNN}.</p><ul>
+        <li><b>Lý do chính quyết định thông tin cần nhập.</b> Hàng mẫu / Demo: thêm người yêu cầu, mail, người nhận, công ty, địa chỉ, SĐT; dòng có Số KG, Số kiện, Xuất xứ. Hư hỏng / lỗi: dòng có Đơn giá, Thành tiền, Số tờ khai, Ngày tờ khai, Nhà cung cấp, Checklist, Ngày sản xuất, Tình trạng, Số KG, Giá trị thu hồi. Lý do Khác: bắt buộc nhập Mô tả lý do.</li>
+        <li><b>Upload là tất cả hoặc không:</b> có lỗi ở bất kỳ dòng nào thì không tạo yêu cầu nào; người dùng tải file lỗi (cột Note ghi lỗi từng dòng), sửa rồi upload lại. Upload thành công tạo yêu cầu thẳng ở trạng thái Đã gửi, không qua Đã lưu, không cần bấm Gửi. Chỉ yêu cầu tạo thủ công trên Web mới đi Đã lưu › Gửi.</li>
+        <li><b>Gom yêu cầu khi upload:</b> các dòng cùng Số yêu cầu (upload) thành một yêu cầu. Cùng số nhưng khác Ngày, Kho, Người phụ trách, Lý do, Mô tả lý do hoặc Ghi chú thì báo lỗi; Số yêu cầu (upload) đã dùng cho yêu cầu khác cũng báo lỗi.</li>
+        <li><b>Kiểm tra từng dòng upload:</b> thiếu cột bắt buộc; kho không tồn tại hoặc ngoài phạm vi kho của người dùng; lý do không có trong danh mục; mã hàng không có; ĐVT khác ĐVT của mặt hàng; SL không phải số hoặc âm; ĐVT EA không được có số lẻ; Đơn giá phải là số nguyên VND.</li>
+        <li><b>Gửi:</b> mọi dòng phải có SL &gt; 0. Sau khi Gửi, chỉ còn sửa được Ghi chú (header và dòng); muốn sửa nội dung khác thì phải xử lý trước khi Gửi.</li>
+        <li>Một yêu cầu xuất nhiều lần, mỗi lần là một phiếu (mục 7.3). Danh sách hiện SL yêu cầu, Đã thực hiện, Còn lại và các phiếu liên kết.</li>
+      </ul></div>
+    </aside>
+  </div>
+</section>
+<!-- ===== KẾT THÚC: 7.1 Yêu cầu xuất khác ===== -->
+<!-- ===== BẮT ĐẦU: 7.2 Quét tem xuất khác ===== -->
+<section class="screen" id="xk-quet">
+  <h2 class="screen__title"><span class="no">7.2</span>Quét tem xuất khác</h2>
+  <p class="screen__path">Ứng dụng PDA › Xuất kho › Xuất kho khác</p>
+  <div class="screen__body">
+    <div class="screen__shots">
+      <figure class="shot"><figcaption>Giao diện PDA · Xuất kho khác — bấm các nút trên máy hoặc mã gợi ý bên phải để chạy thử<a class="btn shot__zoom" href="../mockups/07-xuat-khac/2.html" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption>
+        <div class="shot__fit"><iframe class="shot__live" src="../mockups/07-xuat-khac/2.html" title="Xuất kho khác trên PDA" loading="lazy"></iframe></div></figure>
+    </div>
+    <aside class="screen__notes">
+      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Kho chọn yêu cầu xuất khác Đã gửi trong danh sách, hoặc quét QR in trên yêu cầu / nhập Số yêu cầu hay Số yêu cầu (upload). Sau đó quét nhãn để lấy hàng, kiểm tra rồi lưu: màn Kiểm tra có <b>Lưu và Gửi</b> (hỏi xác nhận, tạo phiếu Đã gửi) và <b>Quét thêm nhãn</b> | <b>Lưu phiếu</b> (tạo phiếu Đã lưu). Toàn bộ việc lấy hàng làm bằng quét nhãn; hàng chưa có nhãn phải phát hành nhãn trước. PDA không có Lưu nháp: thoát màn quét khi chưa lưu thì mất các lần lấy.</p><ul>
+        <li><b>Gom yêu cầu trong một phiên:</b> thêm được nhiều yêu cầu vào cùng một phiếu, nhưng chỉ yêu cầu cùng kho và cùng Lý do chính. Yêu cầu khác kho hoặc khác lý do không hiện trong danh sách thêm; quét trúng thì báo lỗi.</li>
+        <li><b>Khớp nhãn với dòng:</b> theo mã hàng + ĐVT (không xét Lot và Grade). Nhãn phải cùng kho với yêu cầu.</li>
+        <li><b>Xuất lẻ:</b> SL điền sẵn bằng số nhỏ hơn giữa SL khả dụng của nhãn và SL dòng còn cần; sửa giảm được, phần còn lại vẫn nằm trên nhãn. Quét lại nhãn đã có trong phiếu thì bị chặn; muốn đổi SL thì bỏ nhãn (✕ ở Chi tiết dòng hàng hoặc màn Kiểm tra) rồi quét lại.</li>
+        <li><b>Chặn khi quét nhãn:</b> nhãn không có trong hệ thống; đã xuất hết; đã hủy; chưa nhập kho (mới phát hành, chưa có tồn); khác kho; mã hàng không có trong yêu cầu (nếu khớp yêu cầu khác thì gợi ý chuyển yêu cầu); hết SL khả dụng do phiếu khác đang giữ chỗ; dòng đã đủ SL.</li>
+        <li><b>Chặn khi mở yêu cầu:</b> yêu cầu Đã đóng, không tìm thấy, hoặc ngoài phạm vi kho được phân quyền.</li>
+        <li><b>Lưu phiếu:</b> phiếu ở trạng thái Đã lưu, giữ chỗ SL trên nhãn, tồn chưa giảm. Đơn giá, thông tin hủy và người nhận không nhập trên PDA mà lấy từ dòng yêu cầu. Duyệt làm trên Web (mục 7.3).</li>
+        <li><b>Phiếu đã lưu:</b> mở từ icon danh sách (kèm số đếm) trên thanh tiêu đề màn Yêu cầu xuất khác; chỉ liệt kê phiếu Đã lưu của chính người dùng máy. Chi tiết phiếu chỉ xem, có Quét tiếp | Gửi phiếu. Quét tiếp chỉ thêm hoặc bỏ nhãn, lưu lại giữ nguyên số phiếu; nhãn do chính phiếu này giữ vẫn quét lại được; phiếu phải còn ít nhất 1 nhãn.</li>
+        <li><b>Cần chốt:</b> có cho nhập Số yêu cầu (upload) trên PDA không (nếu trùng nhiều yêu cầu thì xử lý ra sao).</li>
+      </ul></div>
+    </aside>
+  </div>
+</section>
+<!-- ===== KẾT THÚC: 7.2 Quét tem xuất khác ===== -->
+<!-- ===== BẮT ĐẦU: 7.3 Phiếu xuất khác ===== -->
+<section class="screen" id="xk-phieu">
+  <h2 class="screen__title"><span class="no">7.3</span>Phiếu xuất khác</h2>
+  <p class="screen__path">Giao dịch kho › Xuất kho › tab Xuất khác</p>
+  <div class="screen__body">
+    <div class="screen__shots">
+      <figure class="shot"><figcaption>Giao diện WMS · Xuất kho — tab “Theo phiếu xuất”; bấm một số phiếu để xem chi tiết, bấm ⋮ để Đồng bộ lại SAP hoặc Hủy phiếu<a class="btn shot__zoom" href="../mockups/07-xuat-khac/1.html?tab=slip" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption>
+        <div class="shot__fit"><iframe class="shot__live" src="../mockups/07-xuat-khac/1.html?tab=slip" title="Phiếu xuất khác" loading="lazy"></iframe></div></figure>
+    </div>
+    <aside class="screen__notes">
+      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Phiếu xuất khác lập từ các dòng còn SL của yêu cầu Đã gửi (trên Web, hoặc do PDA tạo). Phiếu đi qua các trạng thái Đã lưu › Đã gửi › Đã duyệt, hủy được thành Đã hủy. Chỉ khi duyệt mới trừ tồn trên tem và đồng bộ sang SAP. Số phiếu PKH-OUT-{YYMM}-{NNNNN}.</p><ul>
+        <li><b>Gom yêu cầu:</b> một phiếu lấy dòng từ nhiều yêu cầu, nhưng chỉ khi cùng kho và cùng Lý do xuất khác (giống PDA).</li>
+        <li><b>Web cũng xuất theo tem:</b> quét hoặc nhập số tem ở màn lập phiếu. Khớp tem theo mã hàng + ĐVT, tem cùng kho với phiếu; SL điền sẵn là số nhỏ hơn giữa SL khả dụng và SL còn cần, sửa giảm được để xuất lẻ. Vị trí của tem thành vị trí của dòng.</li>
+        <li><b>Giữ chỗ:</b> phiếu Đã lưu hoặc Đã gửi giữ chỗ SL trên tem nên phiếu khác không lấy trùng được. SL khả dụng = SL còn trên tem − SL đang bị phiếu khác giữ.</li>
+        <li><b>Chặn khi gán tem:</b> tem không tồn tại, đã hủy, đã xuất hết, khác kho, đã có trong phiếu, hết SL khả dụng, không khớp dòng nào, hoặc các dòng của mã hàng đó đã đủ SL.</li>
+        <li><b>Lưu / Gửi:</b> mọi dòng phải có tem; SL xuất không vượt SL còn lại của dòng yêu cầu; Đơn giá là số nguyên VND. Thành tiền = SL xuất × Đơn giá.</li>
+        <li><b>Duyệt:</b> trừ SL trên từng tem (tem về 0 thì thành Đã xuất hết), cộng vào Đã thực hiện của yêu cầu; yêu cầu xuất đủ mọi dòng thì tự chuyển Đã đóng. Phiếu chuyển Đang đồng bộ, rồi Đã đồng bộ hoặc Đồng bộ lỗi.</li>
+        <li><b>Đồng bộ lại SAP:</b> chỉ cho phiếu Đã duyệt đang ở Chưa đồng bộ hoặc Đồng bộ lỗi; chọn nhiều phiếu một lần được. Rê chuột vào Đồng bộ lỗi để xem lý do SAP trả về.</li>
+        <li><b>Hủy phiếu đã duyệt:</b> cộng lại SL vào tem (tem Đã xuất hết quay về Trong kho), trừ Đã thực hiện của yêu cầu, yêu cầu Đã đóng mở lại thành Đã gửi. Không hủy được khi phiếu đang đồng bộ.</li>
+      </ul></div>
+    </aside>
+  </div>
+</section>
+<!-- ===== KẾT THÚC: 7.3 Phiếu xuất khác ===== -->
 
 </main>
 

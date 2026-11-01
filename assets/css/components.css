@@ -77,7 +77,7 @@ tr:last-child td{border-bottom:0}
 .note{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:15px 18px}
 .note h3{font-size:15px;margin:0 0 6px}
 .note p,.note ul{font-size:15px;margin:0;color:#2E4A3C}
-.note p+ul{margin-top:6px}
+.note p+ul,.note p+p{margin-top:6px}
 .note--biz{background:var(--goldbg);border-color:var(--goldline)}
 .note--biz h3{color:var(--gold)}
 
@@ -90,6 +90,9 @@ tr:last-child td{border-bottom:0}
 
 /* Mockup tương tác nhúng bằng iframe: bảng cuộn ngang, bấm nút mở popup... File mockup đặt ở mockups/NN-ten-muc/N.html */
 .shot__live{display:block;width:100%;aspect-ratio:1920/915;border:0;background:#fff}
+/* Màn hình HTML hiển thị như ảnh chụp 1920×915: iframe dựng ở 1920px rồi thu nhỏ vừa khung (tỉ lệ đặt trong layout.js) */
+.shot__fit{position:relative;aspect-ratio:1920/915;overflow:hidden}
+.shot__fit .shot__live{position:absolute;left:0;top:0;width:1920px;height:915px;aspect-ratio:auto;transform-origin:0 0}
 
 /* Mockup minh họa (khi chưa có ảnh thật) */
 .demo{padding:14px;font-size:13.5px}

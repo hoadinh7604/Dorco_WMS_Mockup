@@ -17,11 +17,69 @@
 <div class="page-head">
   <small>Giải pháp hệ thống</small>
   <h1>8. Quy trình chuyển kho</h1>
-  <p>Chuyển kho · chuyển vị trí.</p>
+  <p>Chuyển hàng giữa các kho (theo yêu cầu, phiếu chuyển kho, phê duyệt và đồng bộ SAP) và chuyển vị trí trong cùng một kho.</p>
 </div>
 
-<!-- ===== Khi có nội dung: xóa khối "Sắp có" bên dưới, chép khối <section class="screen"> từ pages/_mau-trang-muc.html ===== -->
-<div class="soon"><b>Sắp có</b>Nội dung và màn hình của mục này sẽ được bổ sung khi có ảnh hệ thống thật.</div>
+<!-- ===== BẮT ĐẦU: 8.1 Chuyển sang kho khác ===== -->
+<section class="screen" id="ck-kho">
+  <h2 class="screen__title"><span class="no">8.1</span>Chuyển sang kho khác</h2>
+  <p class="screen__path">Giao dịch kho › Chuyển kho</p>
+  <div class="screen__body">
+    <div class="screen__shots">
+      <figure class="shot"><figcaption>Giao diện WMS · Chuyển kho — tab “Theo yêu cầu” và “Theo phiếu”; bấm ⋮ ở một dòng để tạo phiếu, phê duyệt, hủy duyệt<a class="btn shot__zoom" href="../mockups/08-chuyen-kho/1.html" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption>
+        <div class="shot__fit"><iframe class="shot__live" src="../mockups/08-chuyen-kho/1.html" title="Chuyển kho" loading="lazy"></iframe></div></figure>
+    </div>
+    <aside class="screen__notes">
+      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Chuyển hàng từ kho xuất sang kho nhận. Lập yêu cầu chuyển kho (kho xuất, kho nhận, lý do, mặt hàng, vị trí nguồn và vị trí đến), gửi yêu cầu rồi tạo một hoặc nhiều phiếu chuyển kho từ yêu cầu; cũng lập được phiếu độc lập. Phiếu đi qua các bước Lưu › Gửi duyệt › Phê duyệt; khi duyệt, tồn kho xuất giảm, tồn kho nhận tăng ngay và kết quả đồng bộ sang SAP.</p><ul><li>Chuyển nguyên tem, tem không bắt buộc: dòng có gán tem thì số lượng bằng tổng tem; dòng không gán tem chỉ lấy tồn không tem ở vị trí nguồn. Tem đang bị giữ không chuyển được.</li><li>Kho nhận không quản lý vị trí thì không nhập vị trí đến; người dùng chọn có theo dõi tồn theo tem ở kho nhận hay không.</li><li>Hủy duyệt trả tồn về như trước khi chuyển; đồng bộ SAP lỗi thì bấm Đồng bộ lại.</li></ul></div>
+    </aside>
+  </div>
+</section>
+<!-- ===== KẾT THÚC: 8.1 Chuyển sang kho khác ===== -->
+<!-- ===== BẮT ĐẦU: 8.2 Quét tem chuyển kho ===== -->
+<section class="screen" id="ck-kho-pda">
+  <h2 class="screen__title"><span class="no">8.2</span>Quét tem chuyển kho</h2>
+  <p class="screen__path">Ứng dụng PDA › Giao dịch kho › Chuyển kho</p>
+  <div class="screen__body">
+    <div class="screen__shots">
+      <figure class="shot"><figcaption>Giao diện PDA · Chuyển kho — bấm các nút trên máy hoặc chọn từng màn bên trái để chạy thử<a class="btn shot__zoom" href="../mockups/08-chuyen-kho/3.html" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption>
+        <div class="shot__fit"><iframe class="shot__live" src="../mockups/08-chuyen-kho/3.html" title="Chuyển kho trên PDA" loading="lazy"></iframe></div></figure>
+    </div>
+    <aside class="screen__notes">
+      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Kho dùng PDA mở yêu cầu chuyển kho đã trình (chọn trong danh sách hoặc quét QR in trên yêu cầu), quét các tem cần chuyển, kiểm tra rồi lưu phiếu. Phiếu lưu từ máy ở trạng thái Đã lưu; gửi duyệt thực hiện trên Web (mục 8.1).</p><ul><li>Kho nhận có vị trí: quét vị trí đến hàng loạt rồi quét liên tiếp các tem; muốn đổi vị trí đến thì quét mã vị trí mới. Kho nhận không có vị trí thì bỏ qua bước này.</li><li>Mỗi tem tự tính vào mặt hàng tương ứng của yêu cầu. Quét vượt số yêu cầu thì máy cảnh báo nhưng vẫn cho lưu phiếu.</li><li>Chặn tem không có trong hệ thống, khác kho xuất, đã hết tồn, đang bị giữ, quét trùng hoặc mặt hàng không có trong yêu cầu.</li><li>Kho nhận không theo dõi tem (vd. kho gia công): ở bước kiểm tra được sửa số lượng chuyển của từng tem, tối đa bằng số lượng tem.</li></ul></div>
+    </aside>
+  </div>
+</section>
+<!-- ===== KẾT THÚC: 8.2 Quét tem chuyển kho ===== -->
+<!-- ===== BẮT ĐẦU: 8.3 Chuyển vị trí ===== -->
+<section class="screen" id="ck-vitri">
+  <h2 class="screen__title"><span class="no">8.3</span>Chuyển vị trí</h2>
+  <p class="screen__path">Giao dịch kho › Chuyển vị trí</p>
+  <div class="screen__body">
+    <div class="screen__shots">
+      <figure class="shot"><figcaption>Giao diện WMS · Chuyển vị trí — bấm “Thêm phiếu chuyển vị trí” hoặc một số phiếu để xem chi tiết<a class="btn shot__zoom" href="../mockups/08-chuyen-kho/2.html" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption>
+        <div class="shot__fit"><iframe class="shot__live" src="../mockups/08-chuyen-kho/2.html" title="Chuyển vị trí" loading="lazy"></iframe></div></figure>
+    </div>
+    <aside class="screen__notes">
+      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Chuyển hàng giữa các vị trí trong cùng một kho. Quét mã tem hoặc chọn từ tồn kho nguồn; mỗi dòng có vị trí nguồn và vị trí đến riêng. Lưu là ghi nhận ngay, không có bước gửi hay duyệt.</p><ul><li>Dòng có gán tem thì chuyển nguyên tem, số lượng bằng tổng tem; dòng không gắn tem thì nhập số lượng, tối đa bằng tồn không tem ở vị trí nguồn.</li><li>Tem khác kho, hết tồn hoặc đang bị giữ không thêm vào phiếu được; chuyển giữa các kho dùng màn Chuyển kho.</li><li>Sửa hoặc xóa phiếu: hệ thống hoàn lại vị trí cũ rồi ghi nhận lại. Chuyển vị trí không đồng bộ SAP (SAP không quản lý vị trí).</li></ul></div>
+    </aside>
+  </div>
+</section>
+<!-- ===== KẾT THÚC: 8.3 Chuyển vị trí ===== -->
+<!-- ===== BẮT ĐẦU: 8.4 Chuyển vị trí trên PDA ===== -->
+<section class="screen" id="ck-vitri-pda">
+  <h2 class="screen__title"><span class="no">8.4</span>Chuyển vị trí trên PDA</h2>
+  <p class="screen__path">Ứng dụng PDA › Giao dịch kho › Chuyển vị trí</p>
+  <div class="screen__body">
+    <div class="screen__shots">
+      <figure class="shot"><figcaption>Giao diện PDA · Chuyển vị trí — bấm các nút trên máy hoặc chọn từng màn bên trái để chạy thử<a class="btn shot__zoom" href="../mockups/08-chuyen-kho/4.html" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption>
+        <div class="shot__fit"><iframe class="shot__live" src="../mockups/08-chuyen-kho/4.html" title="Chuyển vị trí trên PDA" loading="lazy"></iframe></div></figure>
+    </div>
+    <aside class="screen__notes">
+      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Kho dùng PDA chuyển vị trí trong cùng một kho, không cần yêu cầu: quét vị trí đến hàng loạt, quét các tem cần chuyển, kiểm tra rồi lưu phiếu. Lưu là ghi nhận ngay (số phiếu CVT-), tồn kho cập nhật theo vị trí mới.</p><ul><li>Vị trí nguồn lấy từ vị trí hiện tại của tem. Một phiếu chuyển được nhiều tem, nhiều vị trí đến: quét mã vị trí mới rồi quét tiếp các tem.</li><li>Chặn tem không có trong hệ thống, khác kho của phiếu, đã hết tồn, đang bị giữ, quét trùng hoặc đang nằm sẵn ở vị trí đến.</li><li>Ở bước kiểm tra, các dòng gộp theo mặt hàng và tuyến vị trí; đổi vị trí đến được cho cả nhóm.</li></ul></div>
+    </aside>
+  </div>
+</section>
+<!-- ===== KẾT THÚC: 8.4 Chuyển vị trí trên PDA ===== -->
 
 </main>
 

@@ -166,6 +166,17 @@
     }
   });
 
+  /* ---------- Màn hình HTML thu nhỏ vừa khung (.shot__fit) ---------- */
+  function fitLive() {
+    $$(".shot__fit").forEach(function (box) {
+      var fr = $("iframe", box);
+      if (fr) fr.style.transform = "scale(" + box.clientWidth / 1920 + ")";
+    });
+  }
+  fitLive();
+  if (window.ResizeObserver) { var ro = new ResizeObserver(fitLive); $$(".shot__fit").forEach(function (b) { ro.observe(b); }); }
+  else window.addEventListener("resize", fitLive);
+
   document.addEventListener("keydown", function (e) {
     if (e.key === "Escape") { if (lb.classList.contains("is-open")) closeLb(); else setMenu(false); }
   });

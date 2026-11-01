@@ -27,11 +27,17 @@
   <div class="screen__body">
     <div class="screen__shots">
       <figure class="shot"><figcaption>Giao diện WMS · Nhập kho thành phẩm — kéo ngang bảng để xem hết cột, bấm một dòng để xem chi tiết, bấm “+ Thêm yêu cầu” để tạo mới<a class="btn shot__zoom" href="../mockups/05-nhap-kho-thanh-pham/1.html" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption>
-        <iframe class="shot__live" src="../mockups/05-nhap-kho-thanh-pham/1.html" title="Yêu cầu nhập kho thành phẩm" loading="lazy"></iframe></figure>
+        <div class="shot__fit"><iframe class="shot__live" src="../mockups/05-nhap-kho-thanh-pham/1.html" title="Yêu cầu nhập kho thành phẩm" loading="lazy"></iframe></div></figure>
     </div>
     <aside class="screen__notes">
-      <div class="note"><h3>Mô tả</h3><p>Màn hình quản lý nhập kho thành phẩm / bán thành phẩm. Danh sách liệt kê các yêu cầu nhập kho đồng bộ từ sản xuất; bấm “+ Thêm yêu cầu” để tạo yêu cầu mới hoặc bấm một dòng để xem chi tiết. Từ chi tiết yêu cầu có thể phát hành tem và lập phiếu nhập kho.</p></div>
-      <div class="note note--biz"><h3>Lưu ý nghiệp vụ</h3><ul><li>Yêu cầu nhập kho thành phẩm tạo theo số lượng đã QC đạt, đồng bộ từ SAP sang WMS.</li></ul></div>
+      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Yêu cầu nhập kho thành phẩm / bán thành phẩm đến từ hai nguồn: đồng bộ từ SAP (theo số lượng QC đạt) hoặc tạo tay tại WMS. Mỗi yêu cầu gắn một kho, lệnh SX (có thể trống) và các dòng mặt hàng. Trạng thái Đã lưu › Đã gửi › Đã đóng (khi nhập đủ); yêu cầu đồng bộ từ SAP vào thẳng Đã gửi, không qua Đã lưu. Số yêu cầu sinh tự động REQ-{mã kho}-{YYMM}-{NNNNN}.</p><ul>
+<li><b>Thao tác theo trạng thái:</b> Đã lưu (chỉ yêu cầu tạo tại WMS) được Sửa, Gửi, In, Xóa; Đã gửi được Thêm phiếu, In; Đã đóng chỉ In. Yêu cầu nguồn SAP không sửa trên WMS.</li>
+<li><b>Trường bắt buộc khi tạo:</b> Ngày nhập kho dự kiến, Kho nhận, Người phụ trách, Mức ưu tiên (Bình thường / Cao / Khẩn cấp). Lệnh SX, Ngày SX, Ghi chú không bắt buộc.</li>
+<li><b>SAP sửa yêu cầu sau khi đã có phiếu nhập:</b> WMS từ chối, yêu cầu hiện “Có thay đổi chưa nhận” và vẫn chạy theo dữ liệu cũ. Khi phiếu bị hủy/xóa, SAP gửi lại thay đổi.</li>
+<li><b>Nhập từng phần:</b> một yêu cầu có nhiều phiếu nhập. Tiến độ chỉ tính phiếu Đã duyệt; phiếu Đã hủy/Đã xóa không tính.</li>
+<li><b>Tem của dòng:</b> cột Mã vạch/QR hiện “Đã ánh xạ N”, bấm để xem danh sách tem, vị trí và lịch sử tem. Yêu cầu đã có phiếu nhập thì dòng luôn có ánh xạ, gom tem của mọi phiếu nhập cho dòng đó (popup ghi phiếu của từng tem); chưa có phiếu thì “Đã ánh xạ 0”. Cột Phân hạng (Grade) đã ẩn, giữ cột Số lô. Tem có 6 trạng thái: Đã phát hành, Đã in chưa giữ chỗ, Đã in giữ chỗ, Trong kho, Đã xuất hết, Đã hủy.</li>
+<li><b>Cần chốt:</b> yêu cầu Đã đóng có mở lại khi hủy phiếu đã duyệt không; xử lý tem thừa đã phát hành sau khi yêu cầu đóng; quy tắc đóng yêu cầu (đủ số lượng hay đóng tay); xóa yêu cầu đã có tem.</li>
+</ul></div>
     </aside>
   </div>
 </section>
@@ -42,8 +48,7 @@
   <p class="screen__path">Phát hành nhãn › Phát hành tem thành phẩm / bán thành phẩm</p>
   <div class="screen__body">
     <aside class="screen__notes">
-      <div class="note"><h3>Mô tả</h3><p>Bước phát hành và dán tem thành phẩm / bán thành phẩm dùng chung màn hình <a href="11-phat-hanh-tem-nhan.html#t-tp">11.2 Phát hành tem thành phẩm / bán thành phẩm</a> (mục 11. Phát hành tem nhãn). Xem màn hình và mô tả chi tiết tại mục đó.</p></div>
-      <div class="note note--biz"><h3>Lưu ý nghiệp vụ</h3><ul><li>BP Sản xuất phát hành tem trên WMS rồi dán vào hàng trước khi kho quét nhập.</li></ul></div>
+      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Bước phát hành và dán tem thành phẩm / bán thành phẩm dùng chung màn hình <a href="11-phat-hanh-tem-nhan.html#t-tp">11.2 Phát hành tem thành phẩm / bán thành phẩm</a> (mục 11. Phát hành tem nhãn). Xem màn hình và mô tả chi tiết tại mục đó.</p><ul><li>BP Sản xuất phát hành tem trên WMS rồi dán vào hàng trước khi kho quét nhập.</li></ul></div>
     </aside>
   </div>
 </section>
@@ -55,11 +60,20 @@
   <div class="screen__body">
     <div class="screen__shots">
       <figure class="shot"><figcaption>Giao diện PDA · Quét tem nhập kho thành phẩm — bấm các nút trên máy để chạy thử từng bước<a class="btn shot__zoom" href="../mockups/05-nhap-kho-thanh-pham/2.html" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption>
-        <iframe class="shot__live" src="../mockups/05-nhap-kho-thanh-pham/2.html" title="Quét tem nhập kho thành phẩm trên PDA" loading="lazy"></iframe></figure>
+        <div class="shot__fit"><iframe class="shot__live" src="../mockups/05-nhap-kho-thanh-pham/2.html" title="Quét tem nhập kho thành phẩm trên PDA" loading="lazy"></iframe></div></figure>
     </div>
     <aside class="screen__notes">
-      <div class="note"><h3>Mô tả</h3><p>Kho dùng PDA quét tem thành phẩm đã dán để nhập kho. WMS tự sinh phiếu nhập kho thành phẩm theo các tem đã quét; văn phòng kho xác nhận phiếu để tăng tồn và đồng bộ sang SAP.</p></div>
-      <div class="note note--biz"><h3>Lưu ý nghiệp vụ</h3><ul><li>Quét tem trên PDA là thao tác chính của kho; phiếu nhập sinh tự động từ kết quả quét.</li></ul></div>
+      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Kho mở yêu cầu Đã gửi (chọn trong danh sách hoặc quét QR yêu cầu), quét QR tem pallet và gán vị trí nhận, kiểm tra rồi lưu. Màn Kiểm tra có <b>Lưu và Gửi</b> (hỏi xác nhận, tạo phiếu ở Đã gửi) và <b>Quét thêm nhãn</b> | <b>Lưu phiếu</b> (tạo phiếu Đã lưu, lưu thẳng không hỏi). Số phiếu GR-{mã kho}-{YYMM}-{NNNNN}; tồn chưa tăng, chỉ tăng và đẩy SAP khi phiếu được duyệt trên Web (mục 5.4). PDA không có Lưu nháp: thoát khi chưa lưu thì mất các tem đã quét.</p><ul>
+<li><b>Gom yêu cầu:</b> một phiếu gom nhiều yêu cầu cùng kho. Kho của phiên khóa theo yêu cầu đầu tiên; mở yêu cầu khác kho bị chặn, phải lưu phiếu rồi mở phiên mới.</li>
+<li><b>Khớp tem:</b> tem tự rơi vào đúng dòng của yêu cầu. Tem thuộc yêu cầu khác không tự kéo vào, người dùng phải chạm để chuyển yêu cầu.</li>
+<li><b>Chặn nhập vượt:</b> SL còn lại = SL dòng − đã nhận − đã quét trong phiên; tem vượt phần còn lại bị chặn.</li>
+<li><b>Các trường hợp tem bị chặn:</b> quét trùng trong phiên, tem có cờ Cần xử lý (hủy và phát hành lại trên Web), tem chưa xác nhận in, tem Đã in chưa giữ chỗ, đã nhập kho, đã xuất hết, đã hủy, đang nằm trong phiếu nhập khác chưa duyệt, khác kho, không tìm thấy. Tem in bản cũ chỉ cảnh báo.</li>
+<li><b>Vị trí nhận:</b> mặc định mỗi tem mở popup chọn/quét bin, chưa chọn bin thì không xác nhận được. Bật “Quét hàng loạt theo vị trí” thì quét bin trước rồi quét liên tiếp tem; quét mã vị trí mới để đổi; bin khác kho bị chặn.</li>
+<li><b>Sau khi lưu:</b> tem giữ chỗ cho phiếu, máy khác không quét được. Phiếu Đã lưu thì Gửi phiếu ngay tại màn kết thúc hoặc để sau; Gửi xong phiếu chuyển Đã gửi, không sửa trên máy được nữa.</li>
+<li><b>Phiếu đã lưu:</b> mở từ icon danh sách (kèm số đếm) trên thanh tiêu đề màn yêu cầu; chỉ liệt kê phiếu Đã lưu của chính người đang dùng máy. Chi tiết phiếu chỉ xem, có hai nút Quét tiếp | Gửi phiếu; không xóa, không sửa đầu phiếu hay số lượng, không duyệt trên máy.</li>
+<li><b>Quét tiếp phiếu Đã lưu:</b> chỉ sửa bằng quét thêm tem hoặc bỏ tem (✕); lưu lại giữ nguyên số phiếu, tem bị bỏ thì nhả giữ chỗ. Tem đang do chính phiếu này giữ vẫn quét lại được. Bỏ hết tem thì không lưu được, muốn bỏ cả phiếu thì xóa trên Web. Rời màn khi chưa lưu thì bỏ thay đổi, phiếu giữ như lần lưu trước.</li>
+<li><b>Cần chốt:</b> tem Đã in chưa giữ chỗ có được nhập không (Web coi là tem chờ nhập, PDA đang chặn); SL còn lại có trừ phần đang giữ chỗ ở phiếu Đã lưu/Đã gửi khác không.</li>
+</ul></div>
     </aside>
   </div>
 </section>
@@ -71,11 +85,18 @@
   <div class="screen__body">
     <div class="screen__shots">
       <figure class="shot"><figcaption>Giao diện WMS · Phiếu nhập kho thành phẩm — cùng màn hình 5.1: mở tab/nút “+ Thêm phiếu”, hoặc bấm một phiếu để xem chi tiết<a class="btn shot__zoom" href="../mockups/05-nhap-kho-thanh-pham/1.html?tab=phieu" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption>
-        <iframe class="shot__live" src="../mockups/05-nhap-kho-thanh-pham/1.html?tab=phieu" title="Lập phiếu nhập kho thành phẩm" loading="lazy"></iframe></figure>
+        <div class="shot__fit"><iframe class="shot__live" src="../mockups/05-nhap-kho-thanh-pham/1.html?tab=phieu" title="Lập phiếu nhập kho thành phẩm" loading="lazy"></iframe></div></figure>
     </div>
     <aside class="screen__notes">
-      <div class="note"><h3>Mô tả</h3><p>Phiếu nhập kho (GR) được lập ngay trên màn hình Nhập kho thành phẩm: bấm “+ Thêm phiếu” để lập phiếu mới, hoặc bấm một phiếu để xem chi tiết. Văn phòng kho xác nhận phiếu để tăng tồn thành phẩm và đồng bộ sang SAP.</p></div>
-      <div class="note note--biz"><h3>Lưu ý nghiệp vụ</h3><ul><li>Phiếu nhập kho do hệ thống sinh từ kết quả quét PDA; văn phòng kho kiểm tra và xác nhận.</li></ul></div>
+      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Phiếu nhập kho thành phẩm (GR) do PDA tạo hoặc lập trên Web (Thêm từ yêu cầu / Thêm mặt hàng). Một phiếu gom dòng của nhiều yêu cầu cùng kho, mỗi dòng ghi Số yêu cầu, Lệnh SX và Bin. Trạng thái Đã lưu › Đã gửi › Đã duyệt, hủy được thành Đã hủy; phiếu Đã lưu xóa được thành Đã xóa. Chỉ khi duyệt tem mới chuyển Trong kho, tồn tăng và kết quả gửi SAP.</p><ul>
+<li><b>Trường bắt buộc:</b> Ngày nhập kho, Kho, Người phụ trách, Loại phiếu (Thành phẩm / Hàng lỗi / Phế phẩm), Bin trên từng dòng. Ca và Ghi chú không bắt buộc.</li>
+<li><b>Thao tác theo trạng thái:</b> Đã lưu được Sửa, Gửi, In, Xóa; Đã gửi chỉ Phê duyệt, In; Đã duyệt được In, Hủy phiếu và Đồng bộ lại SAP (khi lỗi); Đã xóa chỉ xem.</li>
+<li><b>Đồng bộ SAP:</b> Chưa đồng bộ › Đang đồng bộ › Đã đồng bộ / Đồng bộ lỗi. Đồng bộ lại chọn được nhiều phiếu, chỉ áp dụng phiếu Chưa đồng bộ hoặc Đồng bộ lỗi; phiếu đang đồng bộ khóa cả Hủy và Đồng bộ lại.</li>
+<li><b>Hủy phiếu đã duyệt:</b> đảo tồn và đảo SAP; tem về Đã in, chưa giữ chỗ. Chặn nếu tem đã xuất lẻ hoặc đã bị kiểm kê điều chỉnh; tem đã tách/gộp vẫn hủy được, số lượng trừ vào tem gốc/tem đích.</li>
+<li><b>Sửa phiếu Đã hủy:</b> tạo bản sửa mới ở trạng thái Đã lưu.</li>
+<li><b>Tem của dòng:</b> mọi dòng phiếu đều có ánh xạ Mã vạch/QR, kể cả phiếu Đã lưu và Đã gửi. Phiếu chưa duyệt thì tem ở Đã in, giữ chỗ và chưa có SL nhập; phiếu Đã hủy giữ ánh xạ, ghi chú tem đã nhả giữ chỗ.</li>
+<li><b>Cần chốt:</b> có kiểm tra nhập vượt/thiếu so với yêu cầu trên Web không; có gửi SAP trước khi duyệt không (danh sách đang cho chọn đồng bộ lại cả phiếu chưa duyệt); tem đã xuất hết có chặn hủy phiếu không; xử lý khi đảo SAP lỗi; bản sửa mới giữ số phiếu cũ hay sinh số mới; phân quyền Phê duyệt / Hủy.</li>
+</ul></div>
     </aside>
   </div>
 </section>
