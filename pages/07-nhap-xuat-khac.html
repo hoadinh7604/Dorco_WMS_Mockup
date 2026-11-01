@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>7. Quy trình nhập xuất khác – Dorco WMS TSD</title>
+<title>7. Quy trình xuất khác – Dorco WMS TSD</title>
 <meta name="description" content="Dorco WMS – To-Be Solution Design: giải pháp quản lý kho cho Dorco Vina và Dorco Living.">
 <link rel="stylesheet" href="../assets/css/tokens.css">
 <link rel="stylesheet" href="../assets/css/base.css">
@@ -16,12 +16,203 @@
 
 <div class="page-head">
   <small>Giải pháp hệ thống</small>
-  <h1>7. Quy trình nhập xuất khác</h1>
-  <p>Nhập khác · xuất mẫu, xuất hủy.</p>
+  <h1>7. Quy trình xuất khác</h1>
+  <p>Xuất khác (xuất mẫu, xuất hủy và các lý do khác): yêu cầu xuất khác tạo thủ công hoặc upload Excel, kho quét tem lấy hàng trên PDA, phiếu xuất khác duyệt trên Web thì trừ tồn theo tem và đồng bộ SAP.</p>
 </div>
 
-<!-- ===== Khi có nội dung: xóa khối "Sắp có" bên dưới, chép khối <section class="screen"> từ pages/_mau-trang-muc.html ===== -->
-<div class="soon"><b>Sắp có</b>Nội dung và màn hình của mục này sẽ được bổ sung khi có ảnh hệ thống thật.</div>
+<!-- ===== BẮT ĐẦU: 7.1 Yêu cầu xuất khác ===== -->
+<section class="screen" id="xk-yc">
+  <h2 class="screen__title"><span class="no">7.1</span>Yêu cầu xuất khác</h2>
+  <p class="screen__path">Giao dịch kho › Xuất kho › tab Xuất khác</p>
+  <div class="screen__body">
+    <div class="screen__shots">
+      <figure class="shot"><figcaption>Ảnh chụp chi tiết · Danh sách yêu cầu xuất khác (tab Theo yêu cầu xuất). Số trên ảnh ứng với chú thích bên dưới</figcaption>
+        <div class="anno">
+          <img src="../images/07-nhap-xuat-khac/1-yeu-cau.png" alt="Màn hình Xuất kho, tab Xuất khác, Theo yêu cầu xuất, có đánh số 9 vùng chính">
+          <span class="anno__box" style="left:16.79%;top:18.04%;width:82.26%;height:11.59%"></span><span class="anno__pin" style="left:16.79%;top:18.04%">1</span>
+          <span class="anno__box" style="left:16.79%;top:30.14%;width:82.26%;height:25.19%"></span><span class="anno__pin" style="left:16.79%;top:30.14%">2</span>
+          <span class="anno__box" style="left:17.57%;top:57.35%;width:81.17%;height:5.77%"></span><span class="anno__pin" style="left:17.57%;top:57.35%">3</span>
+          <span class="anno__box" style="left:17.57%;top:63.39%;width:18.69%;height:5.31%"></span><span class="anno__pin" style="left:17.57%;top:63.39%">4</span>
+          <span class="anno__box" style="left:70.99%;top:63.45%;width:7.85%;height:5.19%"></span><span class="anno__pin" style="left:70.99%;top:63.45%">5</span>
+          <span class="anno__box" style="left:78.56%;top:63.45%;width:11.07%;height:5.19%"></span><span class="anno__pin" style="left:78.56%;top:63.45%">6</span>
+          <span class="anno__box" style="left:71.35%;top:68.86%;width:16.68%;height:4.9%"></span><span class="anno__pin" style="left:71.35%;top:68.86%">7</span>
+          <span class="anno__box" style="left:87.33%;top:68.86%;width:7.08%;height:4.9%"></span><span class="anno__pin" style="left:87.33%;top:68.86%">8</span>
+          <span class="anno__box" style="left:94.12%;top:68.86%;width:4.56%;height:4.9%"></span><span class="anno__pin" style="left:94.12%;top:68.86%">9</span>
+        </div>
+        <ol class="anno-legend">
+          <li><span class="n">1</span><span><b>Thẻ tổng hợp:</b> số yêu cầu đã gửi, phiếu chờ duyệt, phiếu đã duyệt, tổng số phiếu xuất và tỷ lệ phê duyệt trong khoảng lọc.</span></li>
+          <li><span class="n">2</span><span><b>Bộ lọc:</b> ngày yêu cầu, kho xuất, lý do xuất khác, số lô, L/S/M, số yêu cầu / phiếu / mặt hàng / chứng từ tham chiếu, trạng thái đồng bộ SAP của phiếu.</span></li>
+          <li><span class="n">3</span><span><b>Tab Theo yêu cầu xuất / Theo phiếu xuất:</b> cùng một màn hình. Tab Theo phiếu xuất là danh sách phiếu xuất khác (mục 7.3).</span></li>
+          <li><span class="n">4</span><span><b>Serial QR / Quét barcode / QR:</b> quét QR in trên yêu cầu hoặc nhập số để lọc nhanh đúng yêu cầu.</span></li>
+          <li><span class="n">5</span><span><b>Nhập Excel:</b> Tải Template hoặc Nhập từ Excel để tạo yêu cầu hàng loạt.</span></li>
+          <li><span class="n">6</span><span><b>+ Tạo Yêu cầu xuất khác:</b> tạo yêu cầu thủ công trên WMS.</span></li>
+          <li><span class="n">7</span><span><b>SL yêu cầu / Đã thực hiện / Còn lại:</b> tổng của yêu cầu; các dòng khác ĐVT thì hiện “Nhiều ĐVT”.</span></li>
+          <li><span class="n">8</span><span><b>Phiếu liên kết:</b> số phiếu đã duyệt trên tổng số phiếu lập cho yêu cầu. Dấu + đầu dòng mở danh sách phiếu. Kéo ngang bảng để thấy cột Nguồn và Số yêu cầu (upload).</span></li>
+          <li><span class="n">9</span><span><b>Thao tác (⋮):</b> Chi tiết, In, Tạo phiếu (khi yêu cầu còn số lượng chưa xuất).</span></li>
+        </ol>
+      </figure>
+      <figure class="shot"><figcaption>Ảnh chụp chi tiết · Chi tiết một yêu cầu xuất khác (bấm số yêu cầu ở danh sách). Số tiếp nối ảnh trên</figcaption>
+        <div class="anno">
+          <img src="../images/07-nhap-xuat-khac/1b-yeu-cau-chi-tiet.png" alt="Màn hình chi tiết yêu cầu xuất khác YQKH-KHO01-2610-00001, có đánh số 7 vùng chính">
+          <span class="anno__box" style="left:76.33%;top:8.38%;width:22.41%;height:5.24%"></span><span class="anno__pin" style="left:76.33%;top:8.38%">10</span>
+          <span class="anno__box" style="left:16.79%;top:15.2%;width:82.26%;height:5.83%"></span><span class="anno__pin" style="left:16.79%;top:15.2%">11</span>
+          <span class="anno__box" style="left:58.11%;top:35.32%;width:40.62%;height:8.18%"></span><span class="anno__pin" style="left:58.11%;top:35.32%">12</span>
+          <span class="anno__box" style="left:17.57%;top:44.03%;width:20.35%;height:8.18%"></span><span class="anno__pin" style="left:17.57%;top:44.03%">13</span>
+          <span class="anno__box" style="left:17.57%;top:87.91%;width:81.17%;height:9.59%"></span><span class="anno__pin" style="left:17.57%;top:87.91%">14</span>
+          <span class="anno__box" style="left:56.35%;top:88.03%;width:16.26%;height:4.94%"></span><span class="anno__pin" style="left:56.35%;top:88.03%">15</span>
+          <span class="anno__box" style="left:81.49%;top:88.03%;width:15.86%;height:4.94%"></span><span class="anno__pin" style="left:81.49%;top:88.03%">16</span>
+        </div>
+        <ol class="anno-legend">
+          <li><span class="n">10</span><span><b>Nút thao tác:</b> Sửa, In, + Tạo phiếu xuất khác (lập phiếu từ các dòng còn số lượng). Nút hiện tùy tình trạng của yêu cầu.</span></li>
+          <li><span class="n">11</span><span><b>Tab Yêu cầu xuất khác / Phiếu xuất khác:</b> tab thứ hai liệt kê các phiếu đã lập cho yêu cầu, kèm trạng thái đồng bộ SAP và số đếm.</span></li>
+          <li><span class="n">12</span><span><b>Nguồn và Số yêu cầu (upload):</b> Upload Excel hoặc Tạo thủ công; Số yêu cầu (upload) là số ghi trong file Excel.</span></li>
+          <li><span class="n">13</span><span><b>Lý do chính:</b> quyết định các ô thông tin hiện thêm ở đầu yêu cầu và các cột của dòng mặt hàng.</span></li>
+          <li><span class="n">14</span><span><b>Mặt hàng yêu cầu:</b> mã, tên, quy cách, ĐVT, vị trí, số giao hàng… Kéo ngang để xem hết cột.</span></li>
+          <li><span class="n">15</span><span><b>SL yêu cầu / Đã thực hiện / Còn lại</b> của từng dòng.</span></li>
+          <li><span class="n">16</span><span><b>Cột theo lý do:</b> Hư hỏng / lỗi có Đơn giá, Thành tiền, Số tờ khai, Ngày tờ khai, Nhà cung cấp, Checklist, Ngày sản xuất, Tình trạng, Số KG, Giá trị thu hồi; Hàng mẫu / Demo có Số KG, Số kiện, Xuất xứ.</span></li>
+        </ol>
+      </figure>
+    </div>
+    <aside class="screen__notes spec">
+      <div class="note note--src note--wide"><h3>Nguồn dữ liệu</h3><p>Yêu cầu xuất khác do bộ phận có nhu cầu lập (Sales gửi mẫu, QC hủy hàng…), có hai nguồn, phân biệt ở ô Nguồn (vùng 12).</p>
+        <div class="tw"><table>
+          <thead><tr><th>Nguồn</th><th>Ghi chú</th></tr></thead>
+          <tbody>
+            <tr><td><span class="src src--wms">Upload Excel lên WMS</span></td><td>Nhập Excel (vùng 5): tải template của WMS (tiêu đề cột theo tiếng Việt / Anh / Hàn), điền rồi Nhập từ Excel. Các dòng cùng Số yêu cầu (upload) gom thành một yêu cầu.</td></tr>
+            <tr><td><span class="src src--wms">Tạo thủ công trên WMS</span></td><td>+ Tạo Yêu cầu xuất khác (vùng 6), rồi Thêm mặt hàng hoặc Thêm từ tồn kho.</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="note note--rule"><h3>Quy tắc khác</h3><ul>
+<li><b>Lý do chính quyết định thông tin cần nhập:</b> Hàng mẫu / Demo thêm người yêu cầu, mail, người nhận, công ty, địa chỉ, SĐT; Hư hỏng / lỗi thêm thông tin hủy trên từng dòng (vùng 16); lý do Khác phải ghi Mô tả lý do.</li>
+<li><b>Upload là tất cả hoặc không:</b> có lỗi ở bất kỳ dòng nào thì không tạo yêu cầu nào. Người dùng tải file lỗi (cột Note ghi lỗi từng dòng), sửa rồi upload lại. Upload thành công thì kho xử lý được ngay, không cần bấm Gửi; yêu cầu tạo thủ công phải bấm Gửi.</li>
+<li><b>Gom yêu cầu khi upload:</b> các dòng cùng Số yêu cầu (upload) mà khác Ngày, Kho, Người phụ trách, Lý do, Mô tả lý do hoặc Ghi chú thì báo lỗi. Số yêu cầu (upload) đã dùng cho yêu cầu khác cũng báo lỗi.</li>
+<li><b>Kiểm tra từng dòng upload:</b> thiếu cột; kho không tồn tại hoặc ngoài phạm vi kho của người dùng; lý do không có trong danh mục; mã hàng không có; ĐVT khác ĐVT của mặt hàng; SL không phải số hoặc âm; ĐVT EA không có số lẻ; Đơn giá là số nguyên VND.</li>
+<li><b>Gửi:</b> mọi dòng phải có SL &gt; 0.</li>
+<li><b>Xuất nhiều lần:</b> một yêu cầu xuất nhiều lần, mỗi lần là một phiếu (mục 7.3). Danh sách hiện SL yêu cầu, Đã thực hiện, Còn lại và các phiếu liên kết.</li>
+</ul></div>
+    </aside>
+  </div>
+</section>
+<!-- ===== KẾT THÚC: 7.1 Yêu cầu xuất khác ===== -->
+<!-- ===== BẮT ĐẦU: 7.2 Quét tem xuất khác ===== -->
+<section class="screen" id="xk-quet">
+  <h2 class="screen__title"><span class="no">7.2</span>Quét tem xuất khác</h2>
+  <p class="screen__path">Ứng dụng PDA › Xuất kho › Xuất kho khác</p>
+  <div class="screen__body">
+    <div class="screen__shots">
+      <figure class="shot"><figcaption>Giao diện PDA · Xuất kho khác — bấm các nút trên máy hoặc mã gợi ý bên phải để chạy thử<a class="btn shot__zoom" href="../mockups/07-xuat-khac/2.html" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption>
+        <div class="shot__fit"><iframe class="shot__live" src="../mockups/07-xuat-khac/2.html" title="Xuất kho khác trên PDA" loading="lazy"></iframe></div></figure>
+      <figure class="shot-steps"><figcaption>Ảnh chụp theo từng bước thao tác. Kéo ngang để xem hết, bấm ảnh để phóng to</figcaption>
+        <div class="pda-steps">
+          <figure class="pda-step"><img src="../images/07-nhap-xuat-khac/2-pda-1-req_list.png" alt="Bước 1: danh sách yêu cầu xuất khác trên PDA" loading="lazy"><figcaption><b><span class="k">1</span>Chọn yêu cầu</b>Danh sách yêu cầu chờ xuất, mỗi thẻ ghi Lý do và người nhận (mẫu) hoặc số biên bản (hủy). Icon góc phải thanh tiêu đề mở Phiếu đã lưu (bước 8).</figcaption></figure>
+          <figure class="pda-step"><img src="../images/07-nhap-xuat-khac/2-pda-2-req_scan.png" alt="Bước 2: quét QR yêu cầu" loading="lazy"><figcaption><b><span class="k">2</span>Hoặc quét QR yêu cầu</b>Quét mã QR in trên yêu cầu hoặc nhập số yêu cầu để mở thẳng yêu cầu đó.</figcaption></figure>
+          <figure class="pda-step"><img src="../images/07-nhap-xuat-khac/2-pda-3-scan.png" alt="Bước 3: màn lấy hàng" loading="lazy"><figcaption><b><span class="k">3</span>Quét nhãn lấy hàng</b>Nhãn tự rơi vào đúng dòng. Mở “Thông tin yêu cầu và người nhận” để xem địa chỉ gửi mẫu. Chạm một dòng để xem và bỏ nhãn đã lấy.</figcaption></figure>
+          <figure class="pda-step"><img src="../images/07-nhap-xuat-khac/2-pda-4-qty.png" alt="Bước 4: nhập số lượng lấy từ nhãn" loading="lazy"><figcaption><b><span class="k">4</span>Số lượng lấy</b>SL điền sẵn, sửa giảm được để xuất lẻ. Xác nhận để đưa vào phiếu, Bỏ qua để không lấy.</figcaption></figure>
+          <figure class="pda-step"><img src="../images/07-nhap-xuat-khac/2-pda-5-req_pick.png" alt="Bước 5: thêm yêu cầu vào phiếu" loading="lazy"><figcaption><b><span class="k">5</span>Thêm yêu cầu</b>Bấm Thêm yêu cầu ở dòng xanh trên cùng màn lấy hàng. Chỉ hiện yêu cầu cùng kho và cùng lý do.</figcaption></figure>
+          <figure class="pda-step"><img src="../images/07-nhap-xuat-khac/2-pda-6-review.png" alt="Bước 6: kiểm tra trước khi lưu" loading="lazy"><figcaption><b><span class="k">6</span>Kiểm tra trước khi lưu</b>Xem nhãn theo yêu cầu và dòng, bỏ nhãn bằng ✕. Chọn Lưu và Gửi, Quét thêm nhãn hoặc Lưu phiếu.</figcaption></figure>
+          <figure class="pda-step"><img src="../images/07-nhap-xuat-khac/2-pda-7-done.png" alt="Bước 7: màn đã lưu phiếu" loading="lazy"><figcaption><b><span class="k">7</span>Đã lưu phiếu</b>Máy cấp số phiếu xuất khác. Gửi phiếu ngay hoặc bắt đầu Phiên mới.</figcaption></figure>
+          <figure class="pda-step"><img src="../images/07-nhap-xuat-khac/2-pda-8-slips.png" alt="Bước 8: danh sách phiếu đã lưu" loading="lazy"><figcaption><b><span class="k">8</span>Phiếu đã lưu</b>Chỉ liệt kê phiếu do chính người đang dùng máy lưu, chưa gửi.</figcaption></figure>
+          <figure class="pda-step"><img src="../images/07-nhap-xuat-khac/2-pda-9-slip.png" alt="Bước 9: chi tiết phiếu" loading="lazy"><figcaption><b><span class="k">9</span>Chi tiết phiếu</b>Chỉ xem. Hai nút Quét tiếp (quay về bước 3) và Gửi phiếu.</figcaption></figure>
+          <figure class="pda-step pda-step--err"><img src="../images/07-nhap-xuat-khac/2-pda-10-chan.png" alt="Ví dụ: nhãn bị chặn khi quét" loading="lazy"><figcaption><b><span class="k">!</span>Ví dụ nhãn bị chặn</b>Thẻ đỏ ghi số nhãn, lý do (ở đây là khác kho) và nút Quét lại.</figcaption></figure>
+        </div>
+      </figure>
+    </div>
+    <aside class="screen__notes spec">
+      <div class="note note--biz note--wide"><h3>Nghiệp vụ</h3><ul>
+<li><b>Chọn yêu cầu:</b> chọn trong danh sách hoặc quét QR in trên yêu cầu. Yêu cầu đã xuất đủ, không tìm thấy hoặc ngoài phạm vi kho được phân quyền thì bị chặn.</li>
+<li><b>Gom yêu cầu trong một phiên:</b> một phiếu gom được nhiều yêu cầu, nhưng chỉ yêu cầu cùng kho và cùng Lý do chính. Yêu cầu khác kho hoặc khác lý do không hiện trong danh sách thêm; quét trúng thì báo lỗi.</li>
+<li><b>Chỉ lấy hàng bằng quét nhãn:</b> hàng chưa có nhãn phải phát hành nhãn trước mới xuất được.</li>
+<li><b>Khớp nhãn với dòng:</b> theo mã hàng + ĐVT (không xét Lot và Grade). Nhãn phải cùng kho với yêu cầu. Nhãn khớp dòng của yêu cầu khác thì máy gợi ý chuyển yêu cầu.</li>
+<li><b>Xuất lẻ:</b> SL điền sẵn bằng số nhỏ hơn giữa SL khả dụng của nhãn và SL dòng còn cần; sửa giảm được, phần còn lại vẫn nằm trên nhãn. Quét lại nhãn đã có trong phiếu thì bị chặn; muốn đổi SL thì bỏ nhãn (✕ ở Chi tiết dòng hàng hoặc màn Kiểm tra) rồi quét lại.</li>
+<li><b>Nhãn bị chặn:</b> nhãn không còn hàng để xuất, chưa nhập kho, khác kho, không khớp dòng, đã bị phiếu khác giữ hết, hoặc dòng đã đủ SL. Thẻ đỏ ghi rõ lý do.</li>
+<li><b>Sau khi lưu:</b> phiếu giữ chỗ SL trên nhãn, tồn chưa giảm. Đơn giá, thông tin hủy và người nhận không nhập trên PDA mà lấy từ dòng yêu cầu. Duyệt và trừ tồn làm trên Web (mục 7.3).</li>
+<li><b>Phiếu đã lưu:</b> chi tiết phiếu chỉ xem; không sửa đầu phiếu hay số lượng, không xóa, không duyệt trên máy.</li>
+<li><b>Quét tiếp phiếu đã lưu:</b> chỉ thêm hoặc bỏ nhãn; lưu lại giữ nguyên số phiếu, nhãn bị bỏ thì nhả giữ chỗ. Nhãn do chính phiếu này giữ vẫn quét lại được. Phiếu phải còn ít nhất 1 nhãn.</li>
+<li><b>Không có Lưu nháp:</b> thoát màn quét khi chưa lưu thì mất các lần lấy.</li>
+</ul></div>
+    </aside>
+  </div>
+</section>
+<!-- ===== KẾT THÚC: 7.2 Quét tem xuất khác ===== -->
+<!-- ===== BẮT ĐẦU: 7.3 Phiếu xuất khác ===== -->
+<section class="screen" id="xk-phieu">
+  <h2 class="screen__title"><span class="no">7.3</span>Phiếu xuất khác</h2>
+  <p class="screen__path">Giao dịch kho › Xuất kho › tab Xuất khác</p>
+  <div class="screen__body">
+    <div class="screen__shots">
+      <figure class="shot"><figcaption>Ảnh chụp chi tiết · Danh sách phiếu xuất khác (tab Theo phiếu xuất). Số trên ảnh ứng với chú thích bên dưới</figcaption>
+        <div class="anno">
+          <img src="../images/07-nhap-xuat-khac/3-phieu-danh-sach.png" alt="Màn hình Xuất kho, tab Xuất khác, Theo phiếu xuất, có đánh số 8 vùng chính">
+          <span class="anno__box" style="left:71.56%;top:47.73%;width:13.68%;height:8.44%"></span><span class="anno__pin" style="left:71.56%;top:47.73%">1</span>
+          <span class="anno__box" style="left:17.57%;top:60.17%;width:81.17%;height:6%"></span><span class="anno__pin" style="left:17.57%;top:60.17%">2</span>
+          <span class="anno__box" style="left:70.77%;top:66.51%;width:8.78%;height:5.39%"></span><span class="anno__pin" style="left:70.77%;top:66.51%">3</span>
+          <span class="anno__box" style="left:79.27%;top:66.51%;width:10.36%;height:5.39%"></span><span class="anno__pin" style="left:79.27%;top:66.51%">4</span>
+          <span class="anno__box" style="left:17.62%;top:72.12%;width:6.27%;height:5.57%"></span><span class="anno__pin" style="left:17.62%;top:72.12%">5</span>
+          <span class="anno__box" style="left:41.06%;top:72.12%;width:10.26%;height:5.57%"></span><span class="anno__pin" style="left:41.06%;top:72.12%">6</span>
+          <span class="anno__box" style="left:64.2%;top:72.12%;width:19.15%;height:5.57%"></span><span class="anno__pin" style="left:64.2%;top:72.12%">7</span>
+          <span class="anno__box" style="left:94.12%;top:72.12%;width:4.56%;height:5.57%"></span><span class="anno__pin" style="left:94.12%;top:72.12%">8</span>
+        </div>
+        <ol class="anno-legend">
+          <li><span class="n">1</span><span><b>Lọc theo trạng thái đồng bộ SAP của phiếu</b> trong bộ lọc chung.</span></li>
+          <li><span class="n">2</span><span><b>Tab Theo phiếu xuất:</b> danh sách phiếu xuất khác, cùng màn hình với yêu cầu (7.1).</span></li>
+          <li><span class="n">3</span><span><b>Đồng bộ lại SAP:</b> gửi lại nhiều phiếu một lần cho các phiếu đã chọn ở cột 5.</span></li>
+          <li><span class="n">4</span><span><b>+ Tạo Phiếu xuất khác:</b> lập phiếu trên Web khi không quét bằng PDA.</span></li>
+          <li><span class="n">5</span><span><b>Ô chọn phiếu:</b> chỉ chọn được phiếu Chưa đồng bộ hoặc Đồng bộ lỗi; phiếu khác ô mờ, rê chuột để xem lý do.</span></li>
+          <li><span class="n">6</span><span><b>Trạng thái đồng bộ SAP</b> của từng phiếu.</span></li>
+          <li><span class="n">7</span><span><b>Chứng từ tham chiếu / Yêu cầu liên kết:</b> số vận đơn, biên bản… và các yêu cầu mà phiếu lấy dòng.</span></li>
+          <li><span class="n">8</span><span><b>Thao tác (⋮):</b> Chi tiết, In, Đồng bộ lại SAP, Hủy phiếu… Nút hiện tùy theo tình trạng của phiếu.</span></li>
+        </ol>
+      </figure>
+      <figure class="shot"><figcaption>Ảnh chụp chi tiết · Chi tiết phiếu xuất khác (bấm số phiếu ở danh sách). Số tiếp nối ảnh trên</figcaption>
+        <div class="anno">
+          <img src="../images/07-nhap-xuat-khac/4-phieu-chi-tiet.png" alt="Màn hình chi tiết phiếu xuất khác PKH-OUT-2610-00002, có đánh số 5 vùng chính">
+          <span class="anno__box" style="left:80.62%;top:9.71%;width:18.11%;height:5.85%"></span><span class="anno__pin" style="left:80.62%;top:9.71%">9</span>
+          <span class="anno__box" style="left:17.57%;top:23.9%;width:81.17%;height:45.71%"></span><span class="anno__pin" style="left:17.57%;top:23.9%">10</span>
+          <span class="anno__box" style="left:57.92%;top:78.63%;width:13.2%;height:5.51%"></span><span class="anno__pin" style="left:57.92%;top:78.63%">11</span>
+          <span class="anno__box" style="left:70.42%;top:78.63%;width:4.16%;height:5.51%"></span><span class="anno__pin" style="left:70.42%;top:78.63%">12</span>
+          <span class="anno__box" style="left:79.17%;top:78.63%;width:8.89%;height:5.51%"></span><span class="anno__pin" style="left:79.17%;top:78.63%">13</span>
+        </div>
+        <ol class="anno-legend">
+          <li><span class="n">9</span><span><b>Nút thao tác:</b> Lưu, Gửi, Duyệt, Đồng bộ lại SAP, Hủy phiếu… tùy tình trạng của phiếu.</span></li>
+          <li><span class="n">10</span><span><b>Thông tin phiếu:</b> Số phiếu, Ngày thực hiện, Kho xuất, Yêu cầu liên kết, Người phụ trách, Bộ phận, Chứng từ tham chiếu, Lý do chính, Mô tả lý do, Ghi chú.</span></li>
+          <li><span class="n">11</span><span><b>Tem đã gắn:</b> các tem của dòng và số lượng lấy từ mỗi tem.</span></li>
+          <li><span class="n">12</span><span><b>Vị trí:</b> lấy theo vị trí của tem.</span></li>
+          <li><span class="n">13</span><span><b>Đơn giá / Thành tiền:</b> Thành tiền = SL xuất × Đơn giá. Kéo ngang để xem các cột theo lý do và người nhận (hàng mẫu).</span></li>
+        </ol>
+      </figure>
+    </div>
+    <aside class="screen__notes spec">
+      <div class="note note--src note--wide"><h3>Nguồn dữ liệu</h3><p>Phiếu xuất khác lập từ các dòng còn số lượng của yêu cầu xuất khác, có hai nguồn.</p>
+        <div class="tw"><table>
+          <thead><tr><th>Nguồn</th><th>Ghi chú</th></tr></thead>
+          <tbody>
+            <tr><td><span class="src src--wms">Tạo trên WMS (PDA)</span></td><td>Kho quét nhãn bằng PDA (mục 7.2); tem, SL và vị trí lấy từ lần quét. Đơn giá, thông tin hủy và người nhận mang từ dòng yêu cầu.</td></tr>
+            <tr><td><span class="src src--wms">Tạo thủ công trên WMS</span></td><td>+ Tạo Phiếu xuất khác (vùng 4) hoặc Tạo phiếu từ yêu cầu, chọn dòng yêu cầu rồi quét hoặc nhập số tem cho từng dòng.</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="note note--sync"><h3>Trạng thái đồng bộ SAP</h3><p>Chưa đồng bộ › Đang đồng bộ › Đã đồng bộ hoặc Đồng bộ lỗi (vùng 1 và 6).</p><ul>
+<li><b>Chưa đồng bộ:</b> phiếu chưa gửi về SAP.</li>
+<li><b>Đang đồng bộ:</b> đang gửi; nút Hủy phiếu ẩn.</li>
+<li><b>Đã đồng bộ:</b> SAP đã nhận kết quả xuất kho.</li>
+<li><b>Đồng bộ lỗi:</b> rê chuột vào nhãn để xem lý do SAP trả về. Bấm Đồng bộ lại SAP (vùng 3, menu ⋮ hoặc vùng 9).</li>
+<li><b>Đồng bộ lại:</b> chọn được nhiều phiếu một lần; chỉ áp dụng phiếu Chưa đồng bộ hoặc Đồng bộ lỗi.</li>
+</ul></div>
+      <div class="note note--rule"><h3>Quy tắc khác</h3><ul>
+<li><b>Một phiếu một kho:</b> khác phiếu giao hàng, phiếu xuất khác chỉ có một kho.</li>
+<li><b>Gom yêu cầu:</b> một phiếu lấy dòng từ nhiều yêu cầu, nhưng chỉ khi cùng kho và cùng Lý do xuất khác (giống PDA).</li>
+<li><b>Web cũng xuất theo tem:</b> khớp tem theo mã hàng + ĐVT, tem cùng kho với phiếu. SL điền sẵn là số nhỏ hơn giữa SL khả dụng và SL còn cần, sửa giảm được để xuất lẻ. Vị trí của tem thành vị trí của dòng (vùng 12).</li>
+<li><b>Giữ chỗ:</b> phiếu chưa duyệt giữ chỗ SL trên tem nên phiếu khác không lấy trùng được. SL khả dụng = SL còn trên tem − SL đang bị phiếu khác giữ.</li>
+<li><b>Gán tem bị chặn:</b> tem không tồn tại, không còn hàng, khác kho, đã có trong phiếu, hết SL khả dụng, không khớp dòng nào, hoặc các dòng của mã hàng đó đã đủ SL.</li>
+<li><b>Lưu phiếu:</b> mọi dòng phải có tem; SL xuất không vượt SL còn lại của dòng yêu cầu; Đơn giá là số nguyên VND.</li>
+<li><b>Tồn kho:</b> chỉ khi phiếu được duyệt mới trừ SL trên từng tem, cộng vào Đã thực hiện của yêu cầu và gửi kết quả sang SAP.</li>
+<li><b>Hủy phiếu đã duyệt:</b> cộng lại SL vào tem, trừ Đã thực hiện của yêu cầu để yêu cầu xuất tiếp được; tem đã xuất hết về lại Trong kho. Nút Hủy phiếu ẩn khi phiếu đang đồng bộ.</li>
+</ul></div>
+    </aside>
+  </div>
+</section>
+<!-- ===== KẾT THÚC: 7.3 Phiếu xuất khác ===== -->
 
 </main>
 

@@ -151,9 +151,25 @@
   /* ---------- Phóng to ảnh ---------- */
   var lb = el("div", { "class": "lightbox", role: "dialog", "aria-modal": "true", "aria-label": "Ảnh phóng to" }, '<img alt=""><button class="btn" type="button">Đóng (Esc)</button>');
   body.appendChild(lb);
-  var lbImg = $("img", lb), lastFocus = null;
-  function openLb(img) { lastFocus = document.activeElement; lbImg.src = img.currentSrc || img.src; lbImg.alt = img.alt; lb.classList.add("is-open"); $("button", lb).focus(); }
+  var lbImg = $("img", lb), lbAnno = null, lastFocus = null;
+  function openLb(img) {
+    lastFocus = document.activeElement;
+    /* Ảnh có đánh số vùng (.anno): phóng to cả khung để giữ số và khung vùng */
+    var a = img.closest(".anno");
+    if (lbAnno) { lbAnno.remove(); lbAnno = null; }
+    if (a) {
+      lbAnno = a.cloneNode(true);
+      lbAnno.style.width = "min(100%, calc((100vh - 48px) * " + (img.naturalWidth / img.naturalHeight) + "))";
+      lb.insertBefore(lbAnno, lbImg);
+      lbImg.style.display = "none";
+    } else {
+      lbImg.style.display = "";
+      lbImg.src = img.currentSrc || img.src; lbImg.alt = img.alt;
+    }
+    lb.classList.add("is-open"); $("button", lb).focus();
+  }
   function closeLb() { lb.classList.remove("is-open"); if (lastFocus) lastFocus.focus(); }
+  $$(".pda-step img").forEach(function (img) { img.addEventListener("click", function () { openLb(img); }); });
   lb.addEventListener("click", closeLb);
   $$(".shot").forEach(function (f) {
     var img = $("img", f), cap = $("figcaption", f);
@@ -165,6 +181,17 @@
       cap.appendChild(b);
     }
   });
+
+  /* ---------- Màn hình HTML thu nhỏ vừa khung (.shot__fit) ---------- */
+  function fitLive() {
+    $$(".shot__fit").forEach(function (box) {
+      var fr = $("iframe", box);
+      if (fr) fr.style.transform = "scale(" + box.clientWidth / 1920 + ")";
+    });
+  }
+  fitLive();
+  if (window.ResizeObserver) { var ro = new ResizeObserver(fitLive); $$(".shot__fit").forEach(function (b) { ro.observe(b); }); }
+  else window.addEventListener("resize", fitLive);
 
   document.addEventListener("keydown", function (e) {
     if (e.key === "Escape") { if (lb.classList.contains("is-open")) closeLb(); else setMenu(false); }

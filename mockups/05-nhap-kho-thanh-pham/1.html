@@ -1757,11 +1757,86 @@ const GR = {
   'GR-K03-2610-00008': {st:'cancelled', sy:null, kho:'K03 - Kho TP', date:'20/10/2026 15:40', by:'Trần Thị B', ca:1, note:'Hủy do nhập nhầm lệnh sản xuất',
     rows:[{req:'REQ-K03-2610-00003', mo:'1349171', it:'B', qty:'500', box:'1 thùng', bin:'K03-A-01-03', map:'GR-K03-2610-00008#1'}]},
   'GR-K03-2610-00009': {st:'deleted', sy:null, kho:'K03 - Kho TP', date:'20/10/2026 10:02', by:'Trần Thị B', ca:1, note:'Phiếu nháp đã xóa',
-    rows:[{req:'REQ-K03-2610-00002', mo:'1349170', it:'A', qty:'500', box:'21 thùng', bin:'K03-A-01-02', map:'GR-K03-2610-00009#1'}]}
+    rows:[{req:'REQ-K03-2610-00002', mo:'1349170', it:'A', qty:'500', box:'21 thùng', bin:'K03-A-01-02'}]}
 };
 
 /* ===== Popup "Barcode/QR đã ánh xạ" (điểm chốt 11) ===== */
+/* Chốt 01/11: mọi dòng của phiếu đều có ánh xạ Mã vạch/QR, kể cả phiếu Đã lưu và Đã gửi.
+   Phiếu chưa duyệt thì tem ở trạng thái Đã in, giữ chỗ và chưa có SL nhập. */
 const QRMAP = {
+  'GR-K03-2610-00003#1': {doc:'GR-K03-2610-00003', req:'REQ-K03-2610-00006', line:'1', it:'C', uom:'SET',
+    rows:[
+      {no:'FGL-261005-0101', nhap:'40', con:'40', st:'stock', bin:'K03-A-01-04', note:''},
+      {no:'FGL-261005-0102', nhap:'40', con:'40', st:'stock', bin:'K03-A-01-04', note:''},
+      {no:'FGL-261005-0103', nhap:'40', con:'40', st:'stock', bin:'K03-A-01-04', note:''},
+      {no:'FGL-261005-0104', nhap:'40', con:'40', st:'stock', bin:'K03-A-01-04', note:''},
+      {no:'FGL-261005-0105', nhap:'40', con:'40', st:'stock', bin:'K03-A-01-04', note:''},
+      {no:'FGL-261005-0106', nhap:'40', con:'40', st:'stock', bin:'K03-A-01-04', note:''}
+    ]},
+  'GR-K03-2610-00003#2': {doc:'GR-K03-2610-00003', req:'REQ-K03-2610-00006', line:'2', it:'D', uom:'SET',
+    rows:[
+      {no:'FGL-261005-0201', nhap:'50', con:'50', st:'stock', bin:'K03-A-01-05', note:''},
+      {no:'FGL-261005-0202', nhap:'50', con:'50', st:'stock', bin:'K03-A-01-05', note:''},
+      {no:'FGL-261005-0203', nhap:'50', con:'50', st:'stock', bin:'K03-A-01-05', note:''},
+      {no:'FGL-261005-0204', nhap:'50', con:'50', st:'stock', bin:'K03-A-01-05', note:''},
+      {no:'FGL-261005-0205', nhap:'50', con:'50', st:'stock', bin:'K03-A-01-05', note:''},
+      {no:'FGL-261005-0206', nhap:'50', con:'50', st:'stock', bin:'K03-A-01-05', note:''}
+    ]},
+  'GR-K03-2610-00005#1': {doc:'GR-K03-2610-00005', req:'REQ-K03-2610-00007', line:'1', it:'A', uom:'SET',
+    rows:[
+      {no:'FGL-261006-0201', nhap:'200', con:'200', st:'stock', bin:'K03-A-02-01', note:''},
+      {no:'FGL-261006-0202', nhap:'200', con:'200', st:'stock', bin:'K03-A-02-01', note:''},
+      {no:'FGL-261006-0203', nhap:'200', con:'200', st:'stock', bin:'K03-A-02-01', note:''},
+      {no:'FGL-261006-0204', nhap:'200', con:'200', st:'stock', bin:'K03-A-02-01', note:''},
+      {no:'FGL-261006-0205', nhap:'200', con:'200', st:'stock', bin:'K03-A-02-01', note:''},
+      {no:'FGL-261006-0206', nhap:'200', con:'200', st:'stock', bin:'K03-A-02-01', note:''}
+    ]},
+  'GR-5000-2610-00001#1': {doc:'GR-5000-2610-00001', req:'REQ-5000-2610-00001', line:'1', it:'A', uom:'SET',
+    rows:[
+      {no:'FGL-261014-0001', nhap:'—', con:'912', st:'reserved', bin:'HY-A-03-12', note:'Đang giữ chỗ cho phiếu Đã gửi, chờ duyệt trên Web'},
+      {no:'FGL-261014-0002', nhap:'—', con:'912', st:'reserved', bin:'HY-A-03-12', note:'Đang giữ chỗ cho phiếu Đã gửi, chờ duyệt trên Web'},
+      {no:'FGL-261014-0003', nhap:'—', con:'912', st:'reserved', bin:'HY-A-03-12', note:'Đang giữ chỗ cho phiếu Đã gửi, chờ duyệt trên Web'},
+      {no:'FGL-261014-0004', nhap:'—', con:'912', st:'reserved', bin:'HY-A-03-12', note:'Đang giữ chỗ cho phiếu Đã gửi, chờ duyệt trên Web'},
+      {no:'FGL-261014-0005', nhap:'—', con:'912', st:'reserved', bin:'HY-A-03-12', note:'Đang giữ chỗ cho phiếu Đã gửi, chờ duyệt trên Web'},
+      {no:'FGL-261014-0006', nhap:'—', con:'912', st:'reserved', bin:'HY-A-03-12', note:'Đang giữ chỗ cho phiếu Đã gửi, chờ duyệt trên Web'}
+    ]},
+  'GR-5000-2610-00001#2': {doc:'GR-5000-2610-00001', req:'REQ-5000-2610-00001', line:'2', it:'B', uom:'SET',
+    rows:[
+      {no:'FGL-261014-0101', nhap:'—', con:'8.000', st:'reserved', bin:'HY-A-03-13', note:'Đang giữ chỗ cho phiếu Đã gửi, chờ duyệt trên Web'},
+      {no:'FGL-261014-0102', nhap:'—', con:'8.000', st:'reserved', bin:'HY-A-03-13', note:'Đang giữ chỗ cho phiếu Đã gửi, chờ duyệt trên Web'},
+      {no:'FGL-261014-0103', nhap:'—', con:'8.000', st:'reserved', bin:'HY-A-03-13', note:'Đang giữ chỗ cho phiếu Đã gửi, chờ duyệt trên Web'},
+      {no:'FGL-261014-0104', nhap:'—', con:'8.000', st:'reserved', bin:'HY-A-03-13', note:'Đang giữ chỗ cho phiếu Đã gửi, chờ duyệt trên Web'},
+      {no:'FGL-261014-0105', nhap:'—', con:'8.000', st:'reserved', bin:'HY-A-03-13', note:'Đang giữ chỗ cho phiếu Đã gửi, chờ duyệt trên Web'},
+      {no:'FGL-261014-0106', nhap:'—', con:'8.000', st:'reserved', bin:'HY-A-03-13', note:'Đang giữ chỗ cho phiếu Đã gửi, chờ duyệt trên Web'},
+      {no:'FGL-261014-0107', nhap:'—', con:'8.000', st:'reserved', bin:'HY-A-03-13', note:'Đang giữ chỗ cho phiếu Đã gửi, chờ duyệt trên Web'},
+      {no:'FGL-261014-0108', nhap:'—', con:'8.000', st:'reserved', bin:'HY-A-03-13', note:'Đang giữ chỗ cho phiếu Đã gửi, chờ duyệt trên Web'}
+    ]},
+  'GR-K03-2610-00006#1': {doc:'GR-K03-2610-00006', req:'REQ-K03-2610-00002', line:'1', it:'A', uom:'SET',
+    rows:[
+      {no:'FGL-261016-0001', nhap:'—', con:'100', st:'reserved', bin:'K03-A-01-02', note:'Đang giữ chỗ cho phiếu Đã gửi, chờ duyệt trên Web'},
+      {no:'FGL-261016-0002', nhap:'—', con:'100', st:'reserved', bin:'K03-A-01-02', note:'Đang giữ chỗ cho phiếu Đã gửi, chờ duyệt trên Web'},
+      {no:'FGL-261016-0003', nhap:'—', con:'100', st:'reserved', bin:'K03-A-01-02', note:'Đang giữ chỗ cho phiếu Đã gửi, chờ duyệt trên Web'},
+      {no:'FGL-261016-0004', nhap:'—', con:'100', st:'reserved', bin:'K03-A-01-02', note:'Đang giữ chỗ cho phiếu Đã gửi, chờ duyệt trên Web'},
+      {no:'FGL-261016-0005', nhap:'—', con:'100', st:'reserved', bin:'K03-A-01-02', note:'Đang giữ chỗ cho phiếu Đã gửi, chờ duyệt trên Web'},
+      {no:'FGL-261016-0006', nhap:'—', con:'100', st:'reserved', bin:'K03-A-01-02', note:'Đang giữ chỗ cho phiếu Đã gửi, chờ duyệt trên Web'}
+    ]},
+  'GR-K03-2610-00006#2': {doc:'GR-K03-2610-00006', req:'REQ-K03-2610-00003', line:'1', it:'B', uom:'SET',
+    rows:[
+      {no:'FGL-261016-0101', nhap:'—', con:'300', st:'reserved', bin:'K03-A-01-03', note:'Thùng lẻ; đang giữ chỗ cho phiếu Đã gửi'}
+    ]},
+  'GR-K03-2610-00007#1': {doc:'GR-K03-2610-00007', req:'REQ-K03-2610-00002', line:'1', it:'A', uom:'SET',
+    rows:[
+      {no:'FGL-261021-0001', nhap:'—', con:'100', st:'reserved', bin:'K03-A-01-02', note:'Đang giữ chỗ cho phiếu Đã lưu, chưa ghi tồn'},
+      {no:'FGL-261021-0002', nhap:'—', con:'100', st:'reserved', bin:'K03-A-01-02', note:'Đang giữ chỗ cho phiếu Đã lưu, chưa ghi tồn'},
+      {no:'FGL-261021-0003', nhap:'—', con:'100', st:'reserved', bin:'K03-A-01-02', note:'Đang giữ chỗ cho phiếu Đã lưu, chưa ghi tồn'},
+      {no:'FGL-261021-0004', nhap:'—', con:'100', st:'reserved', bin:'K03-A-01-02', note:'Đang giữ chỗ cho phiếu Đã lưu, chưa ghi tồn'},
+      {no:'FGL-261021-0005', nhap:'—', con:'100', st:'reserved', bin:'K03-A-01-02', note:'Đang giữ chỗ cho phiếu Đã lưu, chưa ghi tồn'}
+    ]},
+  'GR-K03-2610-00008#1': {doc:'GR-K03-2610-00008', req:'REQ-K03-2610-00003', line:'1', it:'B', uom:'SET',
+    rows:[
+      {no:'FGL-261020-0001', nhap:'—', con:'500', st:'printed', bin:'—', note:'Phiếu đã hủy, tem đã nhả giữ chỗ'}
+    ]},
+
   'GR-K03-2610-00004#1': {doc:'GR-K03-2610-00004', req:'REQ-K03-2610-00004', line:'1', it:'B', uom:'SET',
     rows:[
       {no:'FGL-261006-0001', nhap:'200', con:'200', st:'stock',    bin:'K03-A-01-02', note:''},
@@ -1777,95 +1852,6 @@ const QRMAP = {
     rows:[
       {no:'FGL-261005-0011', nhap:'160', con:'160', st:'stock', bin:'K03-A-01-01', note:''},
       {no:'FGL-261005-0012', nhap:'160', con:'160', st:'stock', bin:'K03-A-01-01', note:''}
-    ]},
-  'REQ-5000-2610-00001#1': {doc:'GR-5000-2610-00001', req:'REQ-5000-2610-00001', line:'1', it:'A', uom:'SET',
-    rows:[
-      {no:'FGL-261014-0101', nhap:'—', con:'2.736', st:'reserved', bin:'—', note:'Đang giữ chỗ theo phiếu GR-5000-2610-00001, chưa nhập kho'},
-      {no:'FGL-261014-0102', nhap:'—', con:'2.736', st:'reserved', bin:'—', note:'Đang giữ chỗ theo phiếu GR-5000-2610-00001, chưa nhập kho'}
-    ]},
-  'REQ-5000-2610-00001#2': {doc:'GR-5000-2610-00001', req:'REQ-5000-2610-00001', line:'2', it:'B', uom:'SET',
-    rows:[
-      {no:'FGL-261014-0103', nhap:'—', con:'32.000', st:'reserved', bin:'—', note:'Đang giữ chỗ theo phiếu GR-5000-2610-00001, chưa nhập kho'},
-      {no:'FGL-261014-0104', nhap:'—', con:'32.000', st:'reserved', bin:'—', note:'Đang giữ chỗ theo phiếu GR-5000-2610-00001, chưa nhập kho'}
-    ]},
-  'REQ-K03-2610-00002#1': {doc:'GR-K03-2610-00006, GR-K03-2610-00007', req:'REQ-K03-2610-00002', line:'1', it:'A', uom:'SET',
-    rows:[
-      {no:'FGL-261005-0201', nhap:'—', con:'300', st:'reserved', bin:'—', note:'Đang giữ chỗ theo phiếu GR-K03-2610-00006, chưa nhập kho'},
-      {no:'FGL-261005-0202', nhap:'—', con:'300', st:'reserved', bin:'—', note:'Đang giữ chỗ theo phiếu GR-K03-2610-00006, chưa nhập kho'},
-      {no:'FGL-261005-0203', nhap:'—', con:'250', st:'reserved', bin:'—', note:'Đang giữ chỗ theo phiếu GR-K03-2610-00007, chưa nhập kho'},
-      {no:'FGL-261005-0204', nhap:'—', con:'250', st:'reserved', bin:'—', note:'Đang giữ chỗ theo phiếu GR-K03-2610-00007, chưa nhập kho'},
-      {no:'FGL-261005-0205', nhap:'—', con:'100', st:'printed', bin:'—', note:'Chưa lập phiếu nhập kho cho phần còn lại'}
-    ]},
-  'REQ-K03-2610-00003#1': {doc:'GR-K03-2610-00006', req:'REQ-K03-2610-00003', line:'1', it:'B', uom:'SET',
-    rows:[
-      {no:'FGL-261005-0301', nhap:'—', con:'150', st:'reserved', bin:'—', note:'Đang giữ chỗ theo phiếu GR-K03-2610-00006, chưa nhập kho'},
-      {no:'FGL-261005-0302', nhap:'—', con:'150', st:'reserved', bin:'—', note:'Đang giữ chỗ theo phiếu GR-K03-2610-00006, chưa nhập kho'},
-      {no:'FGL-261005-0303', nhap:'—', con:'300', st:'printed', bin:'—', note:'Chưa lập phiếu nhập kho cho phần còn lại'}
-    ]},
-  'REQ-K03-2610-00006#1': {doc:'GR-K03-2610-00003', req:'REQ-K03-2610-00006', line:'1', it:'C', uom:'SET',
-    rows:[
-      {no:'FGL-261006-0601', nhap:'120', con:'120', st:'stock', bin:'K03-A-01-04', note:''},
-      {no:'FGL-261006-0602', nhap:'120', con:'120', st:'stock', bin:'K03-A-01-04', note:''}
-    ]},
-  'REQ-K03-2610-00006#2': {doc:'GR-K03-2610-00003', req:'REQ-K03-2610-00006', line:'2', it:'D', uom:'SET',
-    rows:[
-      {no:'FGL-261006-0603', nhap:'150', con:'150', st:'stock', bin:'K03-A-01-05', note:''},
-      {no:'FGL-261006-0604', nhap:'150', con:'150', st:'stock', bin:'K03-A-01-05', note:''}
-    ]},
-  'REQ-K03-2610-00007#1': {doc:'GR-K03-2610-00005', req:'REQ-K03-2610-00007', line:'1', it:'A', uom:'SET',
-    rows:[
-      {no:'FGL-261006-0701', nhap:'600', con:'600', st:'stock', bin:'K03-A-02-01', note:''},
-      {no:'FGL-261006-0702', nhap:'600', con:'600', st:'stock', bin:'K03-A-02-01', note:''}
-    ]},
-  'GR-5000-2610-00001#1': {doc:'GR-5000-2610-00001', req:'REQ-5000-2610-00001', line:'1', it:'A', uom:'SET',
-    rows:[
-      {no:'FGL-261014-0101', nhap:'—', con:'2.736', st:'reserved', bin:'—', note:'Đang giữ chỗ theo phiếu GR-5000-2610-00001, chưa nhập kho'},
-      {no:'FGL-261014-0102', nhap:'—', con:'2.736', st:'reserved', bin:'—', note:'Đang giữ chỗ theo phiếu GR-5000-2610-00001, chưa nhập kho'}
-    ]},
-  'GR-5000-2610-00001#2': {doc:'GR-5000-2610-00001', req:'REQ-5000-2610-00001', line:'2', it:'B', uom:'SET',
-    rows:[
-      {no:'FGL-261014-0103', nhap:'—', con:'32.000', st:'reserved', bin:'—', note:'Đang giữ chỗ theo phiếu GR-5000-2610-00001, chưa nhập kho'},
-      {no:'FGL-261014-0104', nhap:'—', con:'32.000', st:'reserved', bin:'—', note:'Đang giữ chỗ theo phiếu GR-5000-2610-00001, chưa nhập kho'}
-    ]},
-  'GR-K03-2610-00003#1': {doc:'GR-K03-2610-00003', req:'REQ-K03-2610-00006', line:'1', it:'C', uom:'SET',
-    rows:[
-      {no:'FGL-261006-0601', nhap:'120', con:'120', st:'stock', bin:'K03-A-01-04', note:''},
-      {no:'FGL-261006-0602', nhap:'120', con:'120', st:'stock', bin:'K03-A-01-04', note:''}
-    ]},
-  'GR-K03-2610-00003#2': {doc:'GR-K03-2610-00003', req:'REQ-K03-2610-00006', line:'2', it:'D', uom:'SET',
-    rows:[
-      {no:'FGL-261006-0603', nhap:'150', con:'150', st:'stock', bin:'K03-A-01-05', note:''},
-      {no:'FGL-261006-0604', nhap:'150', con:'150', st:'stock', bin:'K03-A-01-05', note:''}
-    ]},
-  'GR-K03-2610-00005#1': {doc:'GR-K03-2610-00005', req:'REQ-K03-2610-00007', line:'1', it:'A', uom:'SET',
-    rows:[
-      {no:'FGL-261006-0701', nhap:'600', con:'600', st:'stock', bin:'K03-A-02-01', note:''},
-      {no:'FGL-261006-0702', nhap:'600', con:'600', st:'stock', bin:'K03-A-02-01', note:''}
-    ]},
-  'GR-K03-2610-00006#1': {doc:'GR-K03-2610-00006', req:'REQ-K03-2610-00002', line:'1', it:'A', uom:'SET',
-    rows:[
-      {no:'FGL-261005-0201', nhap:'—', con:'300', st:'reserved', bin:'—', note:'Đang giữ chỗ theo phiếu GR-K03-2610-00006, chưa nhập kho'},
-      {no:'FGL-261005-0202', nhap:'—', con:'300', st:'reserved', bin:'—', note:'Đang giữ chỗ theo phiếu GR-K03-2610-00006, chưa nhập kho'}
-    ]},
-  'GR-K03-2610-00006#2': {doc:'GR-K03-2610-00006', req:'REQ-K03-2610-00003', line:'2', it:'B', uom:'SET',
-    rows:[
-      {no:'FGL-261005-0301', nhap:'—', con:'150', st:'reserved', bin:'—', note:'Đang giữ chỗ theo phiếu GR-K03-2610-00006, chưa nhập kho'},
-      {no:'FGL-261005-0302', nhap:'—', con:'150', st:'reserved', bin:'—', note:'Đang giữ chỗ theo phiếu GR-K03-2610-00006, chưa nhập kho'}
-    ]},
-  'GR-K03-2610-00007#1': {doc:'GR-K03-2610-00007', req:'REQ-K03-2610-00002', line:'1', it:'A', uom:'SET',
-    rows:[
-      {no:'FGL-261005-0203', nhap:'—', con:'250', st:'reserved', bin:'—', note:'Đang giữ chỗ theo phiếu GR-K03-2610-00007, chưa nhập kho'},
-      {no:'FGL-261005-0204', nhap:'—', con:'250', st:'reserved', bin:'—', note:'Đang giữ chỗ theo phiếu GR-K03-2610-00007, chưa nhập kho'}
-    ]},
-  'GR-K03-2610-00008#1': {doc:'GR-K03-2610-00008', req:'REQ-K03-2610-00003', line:'1', it:'B', uom:'SET',
-    rows:[
-      {no:'FGL-261005-8001', nhap:'—', con:'250', st:'printed', bin:'—', note:'Đã bỏ giữ chỗ do phiếu GR-K03-2610-00008 bị hủy'},
-      {no:'FGL-261005-8002', nhap:'—', con:'250', st:'printed', bin:'—', note:'Đã bỏ giữ chỗ do phiếu GR-K03-2610-00008 bị hủy'}
-    ]},
-  'GR-K03-2610-00009#1': {doc:'GR-K03-2610-00009', req:'REQ-K03-2610-00002', line:'1', it:'A', uom:'SET',
-    rows:[
-      {no:'FGL-261005-9001', nhap:'—', con:'250', st:'printed', bin:'—', note:'Đã bỏ giữ chỗ do phiếu GR-K03-2610-00009 bị xóa'},
-      {no:'FGL-261005-9002', nhap:'—', con:'250', st:'printed', bin:'—', note:'Đã bỏ giữ chỗ do phiếu GR-K03-2610-00009 bị xóa'}
     ]}
 };
 
@@ -1905,94 +1891,35 @@ const TEM = {
     ['05/10/2026 09:40','Nhập kho','GR-K03-2610-00002','160','Trần Thị B','Vào vị trí K03-A-01-01']]},
   'FGL-261005-0012': {src:'YÊU CẦU', issued:'04/10/2026 16:40', qty:'160', hist:[
     ['04/10/2026 16:40','Phát hành tem','REQ-K03-2610-00005','160','Nguyễn Văn A',''],
-    ['05/10/2026 09:40','Nhập kho','GR-K03-2610-00002','160','Trần Thị B','Vào vị trí K03-A-01-01']]},
-  'FGL-261014-0101': {src:'YÊU CẦU', issued:'14/10/2026 08:00', qty:'2.736', hist:[
-    ['14/10/2026 08:00','Phát hành tem','REQ-5000-2610-00001','2.736','Nguyễn Văn A','Phát hành từ màn 3010050'],
-    ['14/10/2026 09:00','In tem lần đầu','—','2.736','Nguyễn Văn A','Chuyển Đã in, giữ chỗ'],
-    ['14/10/2026 16:10','Ánh xạ vào phiếu','GR-5000-2610-00001','2.736','Trần Thị B','Chờ phê duyệt phiếu']]},
-  'FGL-261014-0102': {src:'YÊU CẦU', issued:'14/10/2026 08:00', qty:'2.736', hist:[
-    ['14/10/2026 08:00','Phát hành tem','REQ-5000-2610-00001','2.736','Nguyễn Văn A','Phát hành từ màn 3010050'],
-    ['14/10/2026 09:00','In tem lần đầu','—','2.736','Nguyễn Văn A','Chuyển Đã in, giữ chỗ'],
-    ['14/10/2026 16:10','Ánh xạ vào phiếu','GR-5000-2610-00001','2.736','Trần Thị B','Chờ phê duyệt phiếu']]},
-  'FGL-261014-0103': {src:'YÊU CẦU', issued:'14/10/2026 08:00', qty:'32.000', hist:[
-    ['14/10/2026 08:00','Phát hành tem','REQ-5000-2610-00001','32.000','Nguyễn Văn A','Phát hành từ màn 3010050'],
-    ['14/10/2026 09:00','In tem lần đầu','—','32.000','Nguyễn Văn A','Chuyển Đã in, giữ chỗ'],
-    ['14/10/2026 16:10','Ánh xạ vào phiếu','GR-5000-2610-00001','32.000','Trần Thị B','Chờ phê duyệt phiếu']]},
-  'FGL-261014-0104': {src:'YÊU CẦU', issued:'14/10/2026 08:00', qty:'32.000', hist:[
-    ['14/10/2026 08:00','Phát hành tem','REQ-5000-2610-00001','32.000','Nguyễn Văn A','Phát hành từ màn 3010050'],
-    ['14/10/2026 09:00','In tem lần đầu','—','32.000','Nguyễn Văn A','Chuyển Đã in, giữ chỗ'],
-    ['14/10/2026 16:10','Ánh xạ vào phiếu','GR-5000-2610-00001','32.000','Trần Thị B','Chờ phê duyệt phiếu']]},
-  'FGL-261005-0201': {src:'YÊU CẦU', issued:'05/10/2026 08:00', qty:'300', hist:[
-    ['05/10/2026 08:00','Phát hành tem','REQ-K03-2610-00002','300','Nguyễn Văn A','Phát hành từ màn 3010050'],
-    ['05/10/2026 09:00','In tem lần đầu','—','300','Nguyễn Văn A','Chuyển Đã in, giữ chỗ'],
-    ['16/10/2026 10:15','Ánh xạ vào phiếu','GR-K03-2610-00006','300','Trần Thị B','Chờ phê duyệt phiếu']]},
-  'FGL-261005-0202': {src:'YÊU CẦU', issued:'05/10/2026 08:00', qty:'300', hist:[
-    ['05/10/2026 08:00','Phát hành tem','REQ-K03-2610-00002','300','Nguyễn Văn A','Phát hành từ màn 3010050'],
-    ['05/10/2026 09:00','In tem lần đầu','—','300','Nguyễn Văn A','Chuyển Đã in, giữ chỗ'],
-    ['16/10/2026 10:15','Ánh xạ vào phiếu','GR-K03-2610-00006','300','Trần Thị B','Chờ phê duyệt phiếu']]},
-  'FGL-261005-0203': {src:'YÊU CẦU', issued:'05/10/2026 08:00', qty:'250', hist:[
-    ['05/10/2026 08:00','Phát hành tem','REQ-K03-2610-00002','250','Nguyễn Văn A','Phát hành từ màn 3010050'],
-    ['05/10/2026 09:00','In tem lần đầu','—','250','Nguyễn Văn A','Chuyển Đã in, giữ chỗ'],
-    ['21/10/2026 09:05','Ánh xạ vào phiếu','GR-K03-2610-00007','250','Trần Thị B','Chờ phê duyệt phiếu']]},
-  'FGL-261005-0204': {src:'YÊU CẦU', issued:'05/10/2026 08:00', qty:'250', hist:[
-    ['05/10/2026 08:00','Phát hành tem','REQ-K03-2610-00002','250','Nguyễn Văn A','Phát hành từ màn 3010050'],
-    ['05/10/2026 09:00','In tem lần đầu','—','250','Nguyễn Văn A','Chuyển Đã in, giữ chỗ'],
-    ['21/10/2026 09:05','Ánh xạ vào phiếu','GR-K03-2610-00007','250','Trần Thị B','Chờ phê duyệt phiếu']]},
-  'FGL-261005-0205': {src:'YÊU CẦU', issued:'05/10/2026 08:00', qty:'100', hist:[
-    ['05/10/2026 08:00','Phát hành tem','REQ-K03-2610-00002','100','Nguyễn Văn A','Phát hành từ màn 3010050'],
-    ['05/10/2026 09:00','In tem lần đầu','—','100','Nguyễn Văn A','Chuyển Đã in, chưa giữ chỗ']]},
-  'FGL-261005-0301': {src:'YÊU CẦU', issued:'05/10/2026 08:00', qty:'150', hist:[
-    ['05/10/2026 08:00','Phát hành tem','REQ-K03-2610-00003','150','Nguyễn Văn A','Phát hành từ màn 3010050'],
-    ['05/10/2026 09:00','In tem lần đầu','—','150','Nguyễn Văn A','Chuyển Đã in, giữ chỗ'],
-    ['16/10/2026 10:15','Ánh xạ vào phiếu','GR-K03-2610-00006','150','Trần Thị B','Chờ phê duyệt phiếu']]},
-  'FGL-261005-0302': {src:'YÊU CẦU', issued:'05/10/2026 08:00', qty:'150', hist:[
-    ['05/10/2026 08:00','Phát hành tem','REQ-K03-2610-00003','150','Nguyễn Văn A','Phát hành từ màn 3010050'],
-    ['05/10/2026 09:00','In tem lần đầu','—','150','Nguyễn Văn A','Chuyển Đã in, giữ chỗ'],
-    ['16/10/2026 10:15','Ánh xạ vào phiếu','GR-K03-2610-00006','150','Trần Thị B','Chờ phê duyệt phiếu']]},
-  'FGL-261005-0303': {src:'YÊU CẦU', issued:'05/10/2026 08:00', qty:'300', hist:[
-    ['05/10/2026 08:00','Phát hành tem','REQ-K03-2610-00003','300','Nguyễn Văn A','Phát hành từ màn 3010050'],
-    ['05/10/2026 09:00','In tem lần đầu','—','300','Nguyễn Văn A','Chuyển Đã in, chưa giữ chỗ']]},
-  'FGL-261006-0601': {src:'YÊU CẦU', issued:'06/10/2026 08:00', qty:'120', hist:[
-    ['06/10/2026 08:00','Phát hành tem','REQ-K03-2610-00006','120','Nguyễn Văn A','Phát hành từ màn 3010050'],
-    ['06/10/2026 09:00','In tem lần đầu','—','120','Nguyễn Văn A','Chuyển Đã in, giữ chỗ'],
-    ['05/10/2026 10:05','Nhập kho','GR-K03-2610-00003','120','Trần Thị B','Vào vị trí K03-A-01-04']]},
-  'FGL-261006-0602': {src:'YÊU CẦU', issued:'06/10/2026 08:00', qty:'120', hist:[
-    ['06/10/2026 08:00','Phát hành tem','REQ-K03-2610-00006','120','Nguyễn Văn A','Phát hành từ màn 3010050'],
-    ['06/10/2026 09:00','In tem lần đầu','—','120','Nguyễn Văn A','Chuyển Đã in, giữ chỗ'],
-    ['05/10/2026 10:05','Nhập kho','GR-K03-2610-00003','120','Trần Thị B','Vào vị trí K03-A-01-04']]},
-  'FGL-261006-0603': {src:'YÊU CẦU', issued:'06/10/2026 08:00', qty:'150', hist:[
-    ['06/10/2026 08:00','Phát hành tem','REQ-K03-2610-00006','150','Nguyễn Văn A','Phát hành từ màn 3010050'],
-    ['06/10/2026 09:00','In tem lần đầu','—','150','Nguyễn Văn A','Chuyển Đã in, giữ chỗ'],
-    ['05/10/2026 10:05','Nhập kho','GR-K03-2610-00003','150','Trần Thị B','Vào vị trí K03-A-01-05']]},
-  'FGL-261006-0604': {src:'YÊU CẦU', issued:'06/10/2026 08:00', qty:'150', hist:[
-    ['06/10/2026 08:00','Phát hành tem','REQ-K03-2610-00006','150','Nguyễn Văn A','Phát hành từ màn 3010050'],
-    ['06/10/2026 09:00','In tem lần đầu','—','150','Nguyễn Văn A','Chuyển Đã in, giữ chỗ'],
-    ['05/10/2026 10:05','Nhập kho','GR-K03-2610-00003','150','Trần Thị B','Vào vị trí K03-A-01-05']]},
-  'FGL-261006-0701': {src:'YÊU CẦU', issued:'06/10/2026 08:00', qty:'600', hist:[
-    ['06/10/2026 08:00','Phát hành tem','REQ-K03-2610-00007','600','Nguyễn Văn A','Phát hành từ màn 3010050'],
-    ['06/10/2026 09:00','In tem lần đầu','—','600','Nguyễn Văn A','Chuyển Đã in, giữ chỗ'],
-    ['06/10/2026 15:40','Nhập kho','GR-K03-2610-00005','600','Trần Thị B','Vào vị trí K03-A-02-01']]},
-  'FGL-261006-0702': {src:'YÊU CẦU', issued:'06/10/2026 08:00', qty:'600', hist:[
-    ['06/10/2026 08:00','Phát hành tem','REQ-K03-2610-00007','600','Nguyễn Văn A','Phát hành từ màn 3010050'],
-    ['06/10/2026 09:00','In tem lần đầu','—','600','Nguyễn Văn A','Chuyển Đã in, giữ chỗ'],
-    ['06/10/2026 15:40','Nhập kho','GR-K03-2610-00005','600','Trần Thị B','Vào vị trí K03-A-02-01']]},
-  'FGL-261005-8001': {src:'YÊU CẦU', issued:'05/10/2026 08:00', qty:'250', hist:[
-    ['05/10/2026 08:00','Phát hành tem','REQ-K03-2610-00003','250','Nguyễn Văn A','Phát hành từ màn 3010050'],
-    ['05/10/2026 09:00','In tem lần đầu','—','250','Nguyễn Văn A','Chuyển Đã in, giữ chỗ'],
-    ['20/10/2026 15:40','Bỏ giữ chỗ','GR-K03-2610-00008','250','Trần Thị B','Phiếu bị hủy, tem về Đã in, chưa giữ chỗ']]},
-  'FGL-261005-8002': {src:'YÊU CẦU', issued:'05/10/2026 08:00', qty:'250', hist:[
-    ['05/10/2026 08:00','Phát hành tem','REQ-K03-2610-00003','250','Nguyễn Văn A','Phát hành từ màn 3010050'],
-    ['05/10/2026 09:00','In tem lần đầu','—','250','Nguyễn Văn A','Chuyển Đã in, giữ chỗ'],
-    ['20/10/2026 15:40','Bỏ giữ chỗ','GR-K03-2610-00008','250','Trần Thị B','Phiếu bị hủy, tem về Đã in, chưa giữ chỗ']]},
-  'FGL-261005-9001': {src:'YÊU CẦU', issued:'05/10/2026 08:00', qty:'250', hist:[
-    ['05/10/2026 08:00','Phát hành tem','REQ-K03-2610-00002','250','Nguyễn Văn A','Phát hành từ màn 3010050'],
-    ['05/10/2026 09:00','In tem lần đầu','—','250','Nguyễn Văn A','Chuyển Đã in, giữ chỗ'],
-    ['20/10/2026 10:02','Bỏ giữ chỗ','GR-K03-2610-00009','250','Trần Thị B','Phiếu bị xóa, tem về Đã in, chưa giữ chỗ']]},
-  'FGL-261005-9002': {src:'YÊU CẦU', issued:'05/10/2026 08:00', qty:'250', hist:[
-    ['05/10/2026 08:00','Phát hành tem','REQ-K03-2610-00002','250','Nguyễn Văn A','Phát hành từ màn 3010050'],
-    ['05/10/2026 09:00','In tem lần đầu','—','250','Nguyễn Văn A','Chuyển Đã in, giữ chỗ'],
-    ['20/10/2026 10:02','Bỏ giữ chỗ','GR-K03-2610-00009','250','Trần Thị B','Phiếu bị xóa, tem về Đã in, chưa giữ chỗ']]}
+    ['05/10/2026 09:40','Nhập kho','GR-K03-2610-00002','160','Trần Thị B','Vào vị trí K03-A-01-01']]}
 };
+
+/* Chốt 01/11: yêu cầu đã có phiếu đính kèm thì dòng hàng phải có ánh xạ Mã vạch/QR.
+   Gom tem từ chính ánh xạ của các phiếu nhập cho dòng đó, nên số liệu không lệch nhau. */
+(function () {
+  function gom(key, req, line, it, uom, parts) {
+    var rows = [], docs = [];
+    parts.forEach(function (k) {
+      var d = QRMAP[k];
+      if (!d) return;
+      if (docs.indexOf(d.doc) < 0) docs.push(d.doc);
+      (d.rows || []).forEach(function (r) {
+        var c = {}, j;
+        for (j in r) c[j] = r[j];
+        c.doc = d.doc;                 /* tem này nằm trong phiếu nào */
+        rows.push(c);
+      });
+    });
+    QRMAP[key] = {doc: docs.join(', '), req: req, line: line, it: it, uom: uom, rows: rows};
+  }
+  gom('REQ-5000-2610-00001#1', 'REQ-5000-2610-00001', '1', 'A', 'SET', ['GR-5000-2610-00001#1']);
+  gom('REQ-5000-2610-00001#2', 'REQ-5000-2610-00001', '2', 'B', 'SET', ['GR-5000-2610-00001#2']);
+  gom('REQ-K03-2610-00002#1', 'REQ-K03-2610-00002', '1', 'A', 'SET', ['GR-K03-2610-00006#1', 'GR-K03-2610-00007#1']);
+  gom('REQ-K03-2610-00003#1', 'REQ-K03-2610-00003', '1', 'B', 'SET', ['GR-K03-2610-00006#2']);
+  gom('REQ-K03-2610-00006#1', 'REQ-K03-2610-00006', '1', 'C', 'SET', ['GR-K03-2610-00003#1']);
+  gom('REQ-K03-2610-00006#2', 'REQ-K03-2610-00006', '2', 'D', 'SET', ['GR-K03-2610-00003#2']);
+  gom('REQ-K03-2610-00007#1', 'REQ-K03-2610-00007', '1', 'A', 'SET', ['GR-K03-2610-00005#1']);
+})();
 
 function ycSetVal(id, val) { const e = document.getElementById(id); if (e) e.value = val; }
 
@@ -2164,7 +2091,7 @@ function openTem(no, key) {
   const d = QRMAP[key], row = d.rows.filter(function (r) { return r.no === no; })[0], t = TEM[no] || {};
   const it = YC_ITEMS[d.it], ts = TST[row.st];
   const kv = [['Mã mặt hàng', it.code], ['Tên mặt hàng', it.name], ['ĐVT', d.uom],
-    ['Nguồn tem', t.src || 'YÊU CẦU'], ['Yêu cầu nguồn', d.req], ['Phiếu nhập', d.doc],
+    ['Nguồn tem', t.src || 'YÊU CẦU'], ['Yêu cầu nguồn', d.req], ['Phiếu nhập', row.doc || d.doc],
     ['SL phát hành', (t.qty || row.con) + ' ' + d.uom], ['SL còn lại', row.con + ' ' + d.uom],
     ['Trạng thái tem', '<span class="badge ' + ts[1] + '">' + ts[0] + '</span>'], ['Vị trí', row.bin],
     ['Ngày phát hành', t.issued || '—'], ['Ghi chú', row.note || '—']];
@@ -2325,6 +2252,44 @@ window.addEventListener('scroll', function () { if (actOpen && Date.now() - actO
   }
   openPhieu('GR-5000-2610-00001');
   showView('view-list');
+})();
+</script>
+<script>
+/* Điểm chốt #32 (chốt 01/11): ẩn cột Grade trên màn yêu cầu / lệnh / PDA.
+   Giữ nguyên cột Số lô. Phiếu trả vẫn giữ trường "Grade kiểm định" (TH3) vì đó là
+   trường nhập của phiếu, không phải cột Grade của dòng hàng.
+   Ẩn ở tầng hiển thị cho dễ bật lại: đổi GRADE_LABELS thành [] là cột hiện lại. */
+(function(){
+  var GRADE_LABELS = ['Phân hạng', 'Phẩm cấp', 'Cấp chất lượng', 'Grade'];
+  function hideGrade(){
+    var tables = document.querySelectorAll('table');
+    for (var t = 0; t < tables.length; t++){
+      var tb = tables[t], hr = tb.tHead && tb.tHead.rows.length ? tb.tHead.rows[0] : null;
+      if (!hr) continue;
+      var span = false, i;
+      for (i = 0; i < hr.cells.length; i++){ if (hr.cells[i].colSpan > 1) span = true; }
+      if (span) continue;                      /* bảng có gộp ô thì bỏ qua cho an toàn */
+      for (i = 0; i < hr.cells.length; i++){
+        if (GRADE_LABELS.indexOf((hr.cells[i].textContent || '').trim()) < 0) continue;
+        hr.cells[i].style.display = 'none';
+        for (var b = 0; b < tb.tBodies.length; b++){
+          var rows = tb.tBodies[b].rows;
+          for (var r = 0; r < rows.length; r++){
+            var c = rows[r].cells[i];
+            if (c && c.colSpan === 1) c.style.display = 'none';
+          }
+        }
+      }
+    }
+  }
+  function boot(){
+    hideGrade();
+    if (window.MutationObserver){
+      new MutationObserver(hideGrade).observe(document.body, {childList:true, subtree:true});
+    }
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
 })();
 </script>
 <script>

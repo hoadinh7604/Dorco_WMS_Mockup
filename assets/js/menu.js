@@ -77,7 +77,8 @@ window.TSD_MENU = [
         { no: "4.2", title: "Phiếu xuất nguyên liệu đi gia công", id: "gc-px" },
         { no: "4.3", title: "Yêu cầu nhập hàng gia công về", id: "gc-yc-nhap" },
         { no: "4.4", title: "In tem hàng nhập gia công về", id: "gc-tem" },
-        { no: "4.5", title: "Phiếu nhập hàng gia công về", id: "gc-pn" }
+        { no: "4.5", title: "Nhập mua trên PDA", id: "gc-pda" },
+        { no: "4.6", title: "Phiếu nhập hàng gia công về", id: "gc-pn" }
       ]},
 
     // ===== Mục 5 – sơ đồ quy trình 4 – (người phụ trách: chưa chia) =====
@@ -104,7 +105,7 @@ window.TSD_MENU = [
       ]},
 
     // ===== Mục 7 – sơ đồ quy trình 6 – (người phụ trách: chưa chia) =====
-    { no: "7", title: "Quy trình xuất khác", page: "07", href: "pages/07-nhap-xuat-khac.html", soon: true,
+    { no: "7", title: "Quy trình xuất khác", page: "07", href: "pages/07-nhap-xuat-khac.html",
       desc: "Xuất khác: xuất mẫu, xuất hủy",
       screens: [
         { no: "7.1", title: "Yêu cầu xuất khác", id: "xk-yc" },
@@ -113,11 +114,13 @@ window.TSD_MENU = [
       ]},
 
     // ===== Mục 8 – sơ đồ quy trình 7 – (người phụ trách: chưa chia) =====
-    { no: "8", title: "Quy trình chuyển kho", page: "08", href: "pages/08-chuyen-kho.html", soon: true,
+    { no: "8", title: "Quy trình chuyển kho", page: "08", href: "pages/08-chuyen-kho.html",
       desc: "Chuyển kho · chuyển vị trí",
       screens: [
         { no: "8.1", title: "Chuyển sang kho khác", id: "ck-kho" },
-        { no: "8.2", title: "Chuyển vị trí", id: "ck-vitri" }
+        { no: "8.2", title: "Quét tem chuyển kho", id: "ck-kho-pda" },
+        { no: "8.3", title: "Chuyển vị trí", id: "ck-vitri" },
+        { no: "8.4", title: "Chuyển vị trí trên PDA", id: "ck-vitri-pda" }
       ]},
 
     // ===== Mục 9 – sơ đồ quy trình 8 – (người phụ trách: chưa chia) =====

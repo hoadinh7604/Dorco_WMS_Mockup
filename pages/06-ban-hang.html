@@ -26,12 +26,78 @@
   <p class="screen__path">Kho vận › Giao hàng</p>
   <div class="screen__body">
     <div class="screen__shots">
-      <figure class="shot"><figcaption>Giao diện WMS · Giao hàng — tab “Theo lệnh giao hàng”; kéo ngang bảng để xem hết cột, bấm một dòng để xem chi tiết<a class="btn shot__zoom" href="../mockups/06-ban-hang/1.html?tab=do" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption>
-        <iframe class="shot__live" src="../mockups/06-ban-hang/1.html?tab=do" title="Yêu cầu giao hàng" loading="lazy"></iframe></figure>
+      <figure class="shot"><figcaption>Ảnh chụp chi tiết · Danh sách lệnh giao hàng (tab Theo lệnh giao hàng). Số trên ảnh ứng với chú thích bên dưới</figcaption>
+        <div class="anno">
+          <img src="../images/06-ban-hang/1-lenh-giao-hang.png" alt="Màn hình Giao hàng, tab Theo lệnh giao hàng, có đánh số 10 vùng chính">
+          <span class="anno__box" style="left:15.17%;top:9.27%;width:83.93%;height:11.03%"></span><span class="anno__pin" style="left:15.17%;top:9.27%">1</span>
+          <span class="anno__box" style="left:15.17%;top:20.92%;width:83.93%;height:31.12%"></span><span class="anno__pin" style="left:15.17%;top:20.92%">2</span>
+          <span class="anno__box" style="left:15.17%;top:52.31%;width:83.93%;height:4.9%"></span><span class="anno__pin" style="left:15.17%;top:52.31%">3</span>
+          <span class="anno__box" style="left:85.4%;top:58.61%;width:12.81%;height:3.55%"></span><span class="anno__pin" style="left:85.4%;top:58.61%">4</span>
+          <span class="anno__box" style="left:29.79%;top:62.09%;width:6.62%;height:4.55%"></span><span class="anno__pin" style="left:29.79%;top:62.09%">5</span>
+          <span class="anno__box" style="left:35.71%;top:62.09%;width:9.46%;height:4.55%"></span><span class="anno__pin" style="left:35.71%;top:62.09%">6</span>
+          <span class="anno__box" style="left:56.06%;top:62.09%;width:20.87%;height:4.55%"></span><span class="anno__pin" style="left:56.06%;top:62.09%">7</span>
+          <span class="anno__box" style="left:81.26%;top:62.09%;width:8.66%;height:4.55%"></span><span class="anno__pin" style="left:81.26%;top:62.09%">8</span>
+          <span class="anno__box" style="left:89.22%;top:62.09%;width:7.74%;height:4.55%"></span><span class="anno__pin" style="left:89.22%;top:62.09%">9</span>
+          <span class="anno__box" style="left:96.26%;top:62.09%;width:2.78%;height:4.55%"></span><span class="anno__pin" style="left:96.26%;top:62.09%">10</span>
+        </div>
+        <ol class="anno-legend">
+          <li><span class="n">1</span><span><b>Thẻ tổng hợp:</b> số lệnh giao hàng, phiếu chờ duyệt, phiếu đã duyệt, lệnh hoàn tất và số phiếu đồng bộ SAP lỗi.</span></li>
+          <li><span class="n">2</span><span><b>Bộ lọc:</b> số lệnh, số phiếu, số đơn bán hàng (Inter SO / Vina SO), hàng hóa, khách hàng, kho, nguồn, số chứng từ SAP (Outbound Delivery), ngày tạo, ngày DO; lọc theo trạng thái đồng bộ SAP của lệnh và của phiếu.</span></li>
+          <li><span class="n">3</span><span><b>Tab Theo lệnh giao hàng / Theo phiếu:</b> cùng một màn hình. Tab Theo phiếu là danh sách phiếu giao hàng (mục 6.3).</span></li>
+          <li><span class="n">4</span><span><b>Xuất và + Thêm lệnh giao hàng:</b> xuất danh sách ra Excel; tạo lệnh giao hàng thủ công trên WMS.</span></li>
+          <li><span class="n">5</span><span><b>Nguồn:</b> Đồng bộ SAP hoặc Tạo tại WMS, cho biết lệnh đến từ đâu.</span></li>
+          <li><span class="n">6</span><span><b>Đồng bộ SAP:</b> chỉ có với lệnh nguồn SAP; lệnh tạo tại WMS để trống. Rê chuột vào nhãn “Có thay đổi chưa nhận” để xem số phiếu đang chặn.</span></li>
+          <li><span class="n">7</span><span><b>Khách hàng và Kho:</b> lấy theo các dòng của lệnh; lệnh có nhiều khách hàng hoặc nhiều kho hiện thêm dấu +N.</span></li>
+          <li><span class="n">8</span><span><b>Tiến độ:</b> thanh tiến độ số lượng đã giao so với số lượng yêu cầu.</span></li>
+          <li><span class="n">9</span><span><b>Phiếu giao hàng:</b> số phiếu đã duyệt trên tổng số phiếu lập cho lệnh (một lệnh có thể giao nhiều lần). Dấu + đầu dòng mở các phiếu liên kết.</span></li>
+          <li><span class="n">10</span><span><b>Thao tác (⋮):</b> Xem, Sửa, In DO, Tạo phiếu từ DO này… Nút hiện tùy theo nguồn và tình trạng của lệnh.</span></li>
+        </ol>
+      </figure>
+      <figure class="shot"><figcaption>Ảnh chụp chi tiết · Chi tiết một lệnh giao hàng tạo tại WMS (bấm số DO ở danh sách). Số tiếp nối ảnh trên</figcaption>
+        <div class="anno">
+          <img src="../images/06-ban-hang/1b-lenh-giao-hang-chi-tiet.png" alt="Màn hình chi tiết lệnh giao hàng DO-5000-2601-00001, có đánh số 7 vùng chính">
+          <span class="anno__box" style="left:15.17%;top:10.72%;width:24.6%;height:5%"></span><span class="anno__pin" style="left:15.17%;top:10.72%">11</span>
+          <span class="anno__box" style="left:86.63%;top:10.36%;width:12.47%;height:5.72%"></span><span class="anno__pin" style="left:86.63%;top:10.36%">12</span>
+          <span class="anno__box" style="left:15.17%;top:16.97%;width:83.93%;height:7.37%"></span><span class="anno__pin" style="left:15.17%;top:16.97%">13</span>
+          <span class="anno__box" style="left:15.22%;top:34.43%;width:83.83%;height:32.73%"></span><span class="anno__pin" style="left:15.22%;top:34.43%">14</span>
+          <span class="anno__box" style="left:15.22%;top:77.39%;width:83.83%;height:19.51%"></span><span class="anno__pin" style="left:98.6%;top:77.39%">15</span>
+          <span class="anno__box" style="left:17.66%;top:77.39%;width:6.44%;height:6.8%"></span><span class="anno__pin" style="left:17.66%;top:77.39%">16</span>
+          <span class="anno__box" style="left:56.98%;top:77.39%;width:16.44%;height:6.8%"></span><span class="anno__pin" style="left:56.98%;top:77.39%">17</span>
+        </div>
+        <ol class="anno-legend">
+          <li><span class="n">11</span><span><b>Số DO:</b> hiện trên tiêu đề, kèm nhãn nguồn (Tạo tại WMS / Đồng bộ SAP).</span></li>
+          <li><span class="n">12</span><span><b>Nút thao tác:</b> Sửa (chỉ lệnh tạo tại WMS), In DO, Thêm phiếu để lập phiếu giao hàng từ lệnh này.</span></li>
+          <li><span class="n">13</span><span><b>Tab Lệnh giao hàng / Phiếu giao hàng:</b> tab thứ hai liệt kê các phiếu giao đã lập cho lệnh, kèm số đếm.</span></li>
+          <li><span class="n">14</span><span><b>Thông tin lệnh giao hàng:</b> Số lệnh, Nguồn, Số Outbound Delivery (lệnh SAP), Ngày tạo, Ngày DO, Người phụ trách, Độ ưu tiên, Trạng thái đồng bộ SAP, Ghi chú. Lệnh nguồn SAP chỉ xem.</span></li>
+          <li><span class="n">15</span><span><b>Danh sách hàng:</b> Inter SO, Vina SO, Item, mã và tên hàng, Model, Màu, Kích cỡ, ĐVT, SL yêu cầu, Đã giao, Còn lại, Số lô, Số PO khách hàng, Đơn giá… Kéo ngang để xem hết cột.</span></li>
+          <li><span class="n">16</span><span><b>Mã vạch / QR:</b> “N đã gắn” là các tem gán sẵn cho dòng khi tạo lệnh tại WMS, bấm để xem tem. Lệnh nguồn SAP để trống.</span></li>
+          <li><span class="n">17</span><span><b>Khách hàng và Kho trên từng dòng:</b> một lệnh có thể giao cho nhiều khách, lấy từ nhiều kho.</span></li>
+        </ol>
+      </figure>
     </div>
-    <aside class="screen__notes">
-      <div class="note"><h3>Mô tả</h3><p>Màn hình quản lý giao hàng, mở sẵn tab Theo lệnh giao hàng. Lệnh giao hàng lập từ đơn bán hàng nội bộ (Vina SO) đồng bộ từ SAP; một SO giao được nhiều lần, theo pallet hoặc lẻ thùng. Bấm một dòng để xem chi tiết lệnh và gán mã vạch tem cho từng mã hàng.</p></div>
-      <div class="note note--biz"><h3>Lưu ý nghiệp vụ</h3><ul><li>Kho lập lệnh giao từ SO; nhân viên kho lấy lệnh ra thực hiện trên PDA.</li></ul></div>
+    <aside class="screen__notes spec">
+      <div class="note note--src note--wide"><h3>Nguồn dữ liệu</h3><p>Lệnh giao hàng (DO) có hai nguồn, phân biệt ở cột Nguồn (vùng 5).</p>
+        <div class="tw"><table>
+          <thead><tr><th>Nguồn</th><th>Ghi chú</th></tr></thead>
+          <tbody>
+            <tr><td><span class="src src--sap">Đồng bộ từ SAP</span></td><td>SAP gửi sang theo Outbound Delivery; dòng mang Inter SO, Vina SO, Item, PO khách. Không sửa trên WMS.</td></tr>
+            <tr><td><span class="src src--wms">Tạo thủ công trên WMS</span></td><td>Bấm + Thêm lệnh giao hàng (vùng 4), thêm dòng từ SO / kế hoạch giao hoặc từ tồn kho.</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="note note--sync"><h3>Trạng thái đồng bộ SAP</h3><p>Chỉ áp dụng cho lệnh nguồn SAP (vùng 6).</p><ul>
+<li><b>Đã đồng bộ:</b> dữ liệu trên WMS khớp với SAP.</li>
+<li><b>Có thay đổi chưa nhận:</b> SAP sửa lệnh khi lệnh đã có phiếu giao (kể cả giao một phần): WMS từ chối, lệnh chạy theo dữ liệu cũ. Rê chuột vào nhãn để xem số phiếu đang chặn. Muốn nhận thay đổi thì xóa phiếu chưa duyệt hoặc hủy phiếu đã duyệt, SAP tự gửi lại. Lệnh chưa có phiếu thì cập nhật thẳng.</li>
+<li><b>— (trống):</b> lệnh tạo tại WMS.</li>
+<li>Lọc nhanh theo trạng thái này ở ô “Đồng bộ SAP của lệnh giao hàng” trong bộ lọc (vùng 2).</li>
+</ul></div>
+      <div class="note note--rule"><h3>Quy tắc khác</h3><ul>
+<li><b>Nhiều khách, nhiều kho:</b> khách hàng và kho nằm trên từng dòng, nên một lệnh có thể nhiều khách, nhiều kho (vùng 17).</li>
+<li><b>Tạo lệnh tại WMS:</b> lệnh cần ít nhất một dòng mới lưu được; Khách hàng và Kho ghi trên từng dòng.</li>
+<li><b>Lệnh đã đóng:</b> chỉ xem và In DO, không lập thêm phiếu từ lệnh đó.</li>
+<li><b>Tem gán sẵn:</b> chỉ lệnh tạo tại WMS gán sẵn tem cho dòng (vùng 16); lệnh SAP không có tem, kho quét khi giao.</li>
+<li><b>Số lượng:</b> Còn lại = SL yêu cầu − Đã giao. Một lệnh giao nhiều lần; tiến độ chỉ tính phiếu đã được duyệt.</li>
+</ul></div>
     </aside>
   </div>
 </section>
@@ -43,11 +109,34 @@
   <div class="screen__body">
     <div class="screen__shots">
       <figure class="shot"><figcaption>Giao diện PDA · Quét tem giao hàng — bấm các nút trên máy để chạy thử từng bước<a class="btn shot__zoom" href="../mockups/06-ban-hang/2.html" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption>
-        <iframe class="shot__live" src="../mockups/06-ban-hang/2.html" title="Quét tem giao hàng trên PDA" loading="lazy"></iframe></figure>
+        <div class="shot__fit"><iframe class="shot__live" src="../mockups/06-ban-hang/2.html" title="Quét tem giao hàng trên PDA" loading="lazy"></iframe></div></figure>
+      <figure class="shot-steps"><figcaption>Ảnh chụp theo từng bước thao tác. Kéo ngang để xem hết, bấm ảnh để phóng to</figcaption>
+        <div class="pda-steps">
+          <figure class="pda-step"><img src="../images/06-ban-hang/2-pda-1-do_list.png" alt="Bước 1: danh sách lệnh giao hàng trên PDA" loading="lazy"><figcaption><b><span class="k">1</span>Chọn lệnh giao hàng</b>Thẻ lệnh ghi khách hàng, SO, kho, ngày DO và phần đã giao. Icon góc phải thanh tiêu đề mở Phiếu đã lưu (bước 8).</figcaption></figure>
+          <figure class="pda-step"><img src="../images/06-ban-hang/2-pda-2-do_scan.png" alt="Bước 2: quét hoặc nhập số lệnh giao hàng" loading="lazy"><figcaption><b><span class="k">2</span>Hoặc quét số DO</b>Quét QR hoặc gõ số DO để mở thẳng lệnh đó.</figcaption></figure>
+          <figure class="pda-step"><img src="../images/06-ban-hang/2-pda-3-scan.png" alt="Bước 3: màn quét tem pallet" loading="lazy"><figcaption><b><span class="k">3</span>Quét tem pallet</b>Tem tự rơi vào đúng dòng hàng. Dòng xanh trên cùng đếm số lệnh, số pallet và có nút Thêm DO.</figcaption></figure>
+          <figure class="pda-step"><img src="../images/06-ban-hang/2-pda-4-qty.png" alt="Bước 4: nhập số lượng lấy từ pallet" loading="lazy"><figcaption><b><span class="k">4</span>Số lượng lấy từ pallet</b>Mỗi tem mở màn này, số lượng điền sẵn mức tối đa lấy được. Sửa giảm để xuất lẻ rồi Xác nhận, hoặc Bỏ tem này.</figcaption></figure>
+          <figure class="pda-step"><img src="../images/06-ban-hang/2-pda-5-do_pick.png" alt="Bước 5: thêm lệnh giao hàng vào phiếu" loading="lazy"><figcaption><b><span class="k">5</span>Thêm / chuyển DO</b>Thêm lệnh khác vào cùng phiếu; khi phiếu có nhiều lệnh thì Chuyển DO để quét cho lệnh khác.</figcaption></figure>
+          <figure class="pda-step"><img src="../images/06-ban-hang/2-pda-6-review.png" alt="Bước 6: kiểm tra trước khi lưu" loading="lazy"><figcaption><b><span class="k">6</span>Kiểm tra trước khi lưu</b>Xem tem theo lệnh và mặt hàng, bỏ tem bằng ✕. Chọn Lưu và Gửi, Quét thêm tem hoặc Lưu phiếu.</figcaption></figure>
+          <figure class="pda-step"><img src="../images/06-ban-hang/2-pda-7-done.png" alt="Bước 7: màn đã lưu phiếu giao" loading="lazy"><figcaption><b><span class="k">7</span>Đã lưu phiếu</b>Máy cấp số phiếu giao hàng. Gửi phiếu ngay hoặc bắt đầu Phiên mới.</figcaption></figure>
+          <figure class="pda-step"><img src="../images/06-ban-hang/2-pda-8-slips.png" alt="Bước 8: danh sách phiếu đã lưu" loading="lazy"><figcaption><b><span class="k">8</span>Phiếu đã lưu</b>Chỉ liệt kê phiếu do chính người đang dùng máy lưu, chưa gửi.</figcaption></figure>
+          <figure class="pda-step"><img src="../images/06-ban-hang/2-pda-9-slip.png" alt="Bước 9: chi tiết phiếu" loading="lazy"><figcaption><b><span class="k">9</span>Chi tiết phiếu</b>Chỉ xem. Hai nút Quét tiếp (quay về bước 3) và Gửi phiếu.</figcaption></figure>
+          <figure class="pda-step pda-step--err"><img src="../images/06-ban-hang/2-pda-chan.png" alt="Ví dụ: tem bị chặn khi quét" loading="lazy"><figcaption><b><span class="k">!</span>Ví dụ tem bị chặn</b>Thẻ đỏ ghi số tem, lý do và nút Quét lại.</figcaption></figure>
+        </div>
+      </figure>
     </div>
-    <aside class="screen__notes">
-      <div class="note"><h3>Mô tả</h3><p>Kho dùng PDA quét tem thành phẩm theo lệnh giao hàng. Quét sai mã hàng hoặc sai đơn sẽ bị chặn; WMS tự sinh phiếu giao hàng từ kết quả quét.</p></div>
-      <div class="note note--biz"><h3>Lưu ý nghiệp vụ</h3><ul><li>Giao theo pallet hoặc lẻ thùng; mỗi lần giao ghi số lượng thực tế.</li></ul></div>
+    <aside class="screen__notes spec">
+      <div class="note note--biz note--wide"><h3>Nghiệp vụ</h3><ul>
+<li><b>Gom lệnh:</b> một phiếu gom được nhiều DO, nhiều kho, nhiều khách hàng. Kho trên DO SAP chỉ là dự kiến, không dùng để chặn tem.</li>
+<li><b>Khớp tem vào dòng:</b> tem đã gán sẵn cho dòng thì vào đúng dòng đó; tem chưa gán thì khớp theo mã hàng + Vina SO + ĐVT (xuất đích danh theo SO). Nhiều dòng cùng khớp thì vào dòng có số thứ tự nhỏ nhất còn thiếu.</li>
+<li><b>Tem của lệnh khác:</b> không tự kéo vào, máy báo tem thuộc DO nào; người dùng chạm Chuyển DO rồi quét lại. Tem khác mã hàng hoặc khác SO với mọi dòng đang giao thì bị chặn.</li>
+<li><b>Xuất lẻ:</b> SL điền sẵn = min(khả dụng của tem, còn cần giao). Khả dụng = SL trên tem − SL phiếu khác đang giữ − SL phiên này đã lấy. Sửa giảm được, phần còn lại vẫn nằm trên pallet, không tách tem.</li>
+<li><b>Bỏ tem:</b> SL trả về khả dụng ngay. Quét lại tem đã có trong phiếu thì bị chặn; muốn đổi SL thì bỏ tem rồi quét lại.</li>
+<li><b>Sau khi lưu:</b> phiếu chỉ giữ chỗ SL trên tem. Duyệt trên Web (mục 6.3) mới trừ tồn và đẩy SAP; PDA không duyệt. Đã gửi lên Web thì không sửa trên máy được nữa.</li>
+<li><b>Phiếu đã lưu:</b> mở từ icon danh sách (kèm số đếm) trên thanh tiêu đề màn Lệnh giao hàng. Chi tiết phiếu chỉ xem; không sửa đầu phiếu, số lượng, không xóa trên máy.</li>
+<li><b>Quét tiếp phiếu đã lưu:</b> chỉ thêm hoặc bỏ tem, lưu lại giữ nguyên số phiếu; tem do chính phiếu này giữ vẫn quét lại được; phiếu phải còn ít nhất 1 tem. Rời màn khi chưa lưu thì bỏ thay đổi, phiếu giữ như lần lưu trước.</li>
+<li><b>Không có Lưu nháp:</b> rời màn quét khi chưa lưu thì mất các pallet đã lấy.</li>
+</ul></div>
     </aside>
   </div>
 </section>
@@ -58,12 +147,72 @@
   <p class="screen__path">Kho vận › Giao hàng › Phiếu giao hàng</p>
   <div class="screen__body">
     <div class="screen__shots">
-      <figure class="shot"><figcaption>Giao diện WMS · Giao hàng — tab “Theo phiếu”; kéo ngang bảng để xem hết cột, bấm một phiếu để xem chi tiết<a class="btn shot__zoom" href="../mockups/06-ban-hang/1.html?tab=slip" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption>
-        <iframe class="shot__live" src="../mockups/06-ban-hang/1.html?tab=slip" title="Phiếu giao hàng" loading="lazy"></iframe></figure>
+      <figure class="shot"><figcaption>Ảnh chụp chi tiết · Danh sách phiếu giao hàng (tab Theo phiếu). Số trên ảnh ứng với chú thích bên dưới</figcaption>
+        <div class="anno">
+          <img src="../images/06-ban-hang/3-phieu-giao-danh-sach.png" alt="Màn hình Giao hàng, tab Theo phiếu, có đánh số 7 vùng chính">
+          <span class="anno__box" style="left:15.17%;top:52.31%;width:83.93%;height:4.9%"></span><span class="anno__pin" style="left:15.17%;top:52.31%">1</span>
+          <span class="anno__box" style="left:84.99%;top:58.61%;width:13.23%;height:3.55%"></span><span class="anno__pin" style="left:84.99%;top:58.61%">2</span>
+          <span class="anno__box" style="left:15.74%;top:66.67%;width:1.64%;height:2.69%"></span><span class="anno__pin" style="left:15.74%;top:66.67%">3</span>
+          <span class="anno__box" style="left:30.15%;top:62.09%;width:7.97%;height:4.55%"></span><span class="anno__pin" style="left:30.15%;top:62.09%">4</span>
+          <span class="anno__box" style="left:45.62%;top:62.09%;width:39.2%;height:4.55%"></span><span class="anno__pin" style="left:45.62%;top:62.09%">5</span>
+          <span class="anno__box" style="left:85.12%;top:62.09%;width:6.24%;height:4.55%"></span><span class="anno__pin" style="left:91%;top:62.09%">6</span>
+          <span class="anno__box" style="left:96.26%;top:62.09%;width:2.78%;height:4.55%"></span><span class="anno__pin" style="left:96.26%;top:62.09%">7</span>
+        </div>
+        <ol class="anno-legend">
+          <li><span class="n">1</span><span><b>Tab Theo phiếu:</b> danh sách phiếu giao hàng, cùng màn hình với lệnh giao hàng (6.1).</span></li>
+          <li><span class="n">2</span><span><b>Xuất và + Thêm phiếu giao hàng:</b> xuất danh sách ra Excel; lập phiếu trên Web khi không quét bằng PDA.</span></li>
+          <li><span class="n">3</span><span><b>Dấu +:</b> mở các lệnh giao hàng liên kết với phiếu và số lượng lấy cho phiếu từ từng lệnh.</span></li>
+          <li><span class="n">4</span><span><b>Đồng bộ SAP</b> của từng phiếu.</span></li>
+          <li><span class="n">5</span><span><b>Vina SO, Khách hàng, Số lượng mặt hàng, Kho:</b> gom từ các dòng của phiếu; phiếu có nhiều SO, khách hoặc kho hiện thêm dấu +N.</span></li>
+          <li><span class="n">6</span><span><b>SL đã giao:</b> tổng số lượng của phiếu; phiếu có nhiều ĐVT ghi “nhiều ĐVT”, không cộng tổng.</span></li>
+          <li><span class="n">7</span><span><b>Thao tác (⋮):</b> Xem, Sửa, Phê duyệt, Đồng bộ lại SAP, Hủy phiếu… Nút hiện tùy theo tình trạng của phiếu.</span></li>
+        </ol>
+      </figure>
+      <figure class="shot"><figcaption>Ảnh chụp chi tiết · Chi tiết phiếu giao hàng (bấm số phiếu ở danh sách). Số tiếp nối ảnh trên</figcaption>
+        <div class="anno">
+          <img src="../images/06-ban-hang/4-phieu-giao-chi-tiet.png" alt="Màn hình chi tiết phiếu giao hàng GI-2601-00007, có đánh số 7 vùng chính">
+          <span class="anno__box" style="left:15.17%;top:13.26%;width:26.79%;height:5.87%"></span><span class="anno__pin" style="left:15.17%;top:13.26%">8</span>
+          <span class="anno__box" style="left:85.07%;top:12.82%;width:14.03%;height:6.75%"></span><span class="anno__pin" style="left:85.07%;top:12.82%">9</span>
+          <span class="anno__box" style="left:15.22%;top:31.83%;width:83.83%;height:27.88%"></span><span class="anno__pin" style="left:15.22%;top:31.83%">10</span>
+          <span class="anno__box" style="left:15.22%;top:72.5%;width:83.83%;height:23.66%"></span><span class="anno__pin" style="left:98.6%;top:72.5%">11</span>
+          <span class="anno__box" style="left:17.52%;top:72.5%;width:6.12%;height:8.07%"></span><span class="anno__pin" style="left:17.52%;top:72.5%">12</span>
+          <span class="anno__box" style="left:22.94%;top:72.5%;width:31.9%;height:8.07%"></span><span class="anno__pin" style="left:22.94%;top:72.5%">13</span>
+          <span class="anno__box" style="left:55.1%;top:72.5%;width:4.35%;height:8.07%"></span><span class="anno__pin" style="left:55.1%;top:72.5%">14</span>
+        </div>
+        <ol class="anno-legend">
+          <li><span class="n">8</span><span><b>Số phiếu</b> trên tiêu đề, kèm nhãn trạng thái đồng bộ SAP của phiếu.</span></li>
+          <li><span class="n">9</span><span><b>Nút thao tác:</b> Đồng bộ lại SAP, Hủy phiếu; các nút Sửa, Duyệt… hiện tùy tình trạng phiếu.</span></li>
+          <li><span class="n">10</span><span><b>Thông tin phiếu:</b> Số phiếu (tự sinh), Ngày lập, Người phụ trách, Ca làm việc, Ghi chú.</span></li>
+          <li><span class="n">11</span><span><b>Danh sách hàng:</b> Inter SO, Vina SO, Item, mã và tên hàng, Model, Màu, Kích cỡ, ĐVT, SL đã xuất, Số PO khách hàng… Kéo ngang để xem hết cột.</span></li>
+          <li><span class="n">12</span><span><b>Mã vạch / QR:</b> “N đã gắn”, bấm để xem tem của dòng, số lượng lấy và số lượng còn lại trên tem.</span></li>
+          <li><span class="n">13</span><span><b>Số DO, Mã khách hàng, Khách hàng, Kho trên từng dòng:</b> một phiếu gom dòng của nhiều lệnh, nhiều khách, nhiều kho.</span></li>
+          <li><span class="n">14</span><span><b>Vị trí:</b> vị trí (bin) lấy hàng của tem.</span></li>
+        </ol>
+      </figure>
     </div>
-    <aside class="screen__notes">
-      <div class="note"><h3>Mô tả</h3><p>Cùng màn hình Giao hàng, mở sẵn tab Theo phiếu. Phiếu giao hàng do PDA sinh sau khi quét; văn phòng kho xác nhận phiếu để giảm tồn và đồng bộ kết quả sang SAP.</p></div>
-      <div class="note note--biz"><h3>Lưu ý nghiệp vụ</h3><ul><li>SAP quản lý đơn vị cái; một SO có thể có nhiều phiếu giao.</li></ul></div>
+    <aside class="screen__notes spec">
+      <div class="note note--src note--wide"><h3>Nguồn dữ liệu</h3><p>Phiếu giao hàng (GI) có hai nguồn.</p>
+        <div class="tw"><table>
+          <thead><tr><th>Nguồn</th><th>Ghi chú</th></tr></thead>
+          <tbody>
+            <tr><td><span class="src src--wms">Tạo trên WMS (PDA)</span></td><td>Kho quét tem bằng PDA (mục 6.2); tem, số lượng và vị trí lấy từ lần quét.</td></tr>
+            <tr><td><span class="src src--wms">Tạo thủ công trên WMS</span></td><td>+ Thêm phiếu giao hàng (vùng 2) hoặc “Tạo phiếu từ DO này”: chọn dòng còn SL của các lệnh, rồi quét hoặc gán tem.</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="note note--sync"><h3>Trạng thái đồng bộ SAP</h3><p>Chưa đồng bộ › Đang đồng bộ › Đã đồng bộ hoặc Đồng bộ lỗi (vùng 4 và 8).</p><ul>
+<li><b>Chưa đồng bộ:</b> phiếu chưa gửi về SAP.</li>
+<li><b>Đang đồng bộ:</b> đang gửi; nút Hủy phiếu ẩn hẳn.</li>
+<li><b>Đã đồng bộ:</b> SAP đã nhận kết quả giao hàng.</li>
+<li><b>Đồng bộ lỗi:</b> bấm Đồng bộ lại SAP (vùng 9 hoặc menu ⋮). Nút này chỉ bật khi phiếu Chưa đồng bộ hoặc Đồng bộ lỗi.</li>
+</ul></div>
+      <div class="note note--rule"><h3>Quy tắc khác</h3><ul>
+<li><b>Quét lại tem:</b> quét lại tem đã có trong phiếu thì bị chặn, cả trên Web lẫn PDA.</li>
+<li><b>Duyệt phiếu:</b> trừ SL từng tem, tem về 0 thì Đã xuất hết; lệnh giao đủ 100% thì tự đóng. Áp dụng như nhau cho phiếu từ cả hai nguồn.</li>
+<li><b>Amend:</b> chỉ sửa Ghi chú, remark dòng và xóa dòng.</li>
+<li><b>Tồn kho:</b> phiếu chưa duyệt chỉ giữ chỗ SL trên tem. Duyệt mới trừ SL khỏi tem và đồng bộ SAP; hủy phiếu cộng SL lại về tem và mở lại lệnh nếu tụt dưới 100%.</li>
+<li><b>Hủy phiếu đã duyệt:</b> chỉ cần một tem đã nằm trong yêu cầu / phiếu trả hàng, đã chuyển sang kho khác hoặc đã hủy do kiểm kê là chặn hủy cả phiếu; không hủy một phần.</li>
+</ul></div>
     </aside>
   </div>
 </section>
@@ -74,12 +223,75 @@
   <p class="screen__path">Kho vận › Trả hàng</p>
   <div class="screen__body">
     <div class="screen__shots">
-      <figure class="shot"><figcaption>Giao diện WMS · Trả hàng — tab “Theo yêu cầu”; kéo ngang bảng để xem hết cột, bấm một dòng để xem chi tiết<a class="btn shot__zoom" href="../mockups/06-ban-hang/3.html?tab=req" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption>
-        <iframe class="shot__live" src="../mockups/06-ban-hang/3.html?tab=req" title="Yêu cầu hàng bán trả lại" loading="lazy"></iframe></figure>
+      <figure class="shot"><figcaption>Ảnh chụp chi tiết · Danh sách yêu cầu hàng bán trả lại (tab Theo yêu cầu). Số trên ảnh ứng với chú thích bên dưới</figcaption>
+        <div class="anno">
+          <img src="../images/06-ban-hang/5-yeu-cau-tra.png" alt="Màn hình Trả hàng, tab Theo yêu cầu, có đánh số 9 vùng chính">
+          <span class="anno__box" style="left:15.17%;top:7.96%;width:83.93%;height:8.77%"></span><span class="anno__pin" style="left:15.17%;top:7.96%">1</span>
+          <span class="anno__box" style="left:15.17%;top:17.18%;width:83.93%;height:25.03%"></span><span class="anno__pin" style="left:15.17%;top:17.18%">2</span>
+          <span class="anno__box" style="left:15.17%;top:42.66%;width:15.4%;height:4.77%"></span><span class="anno__pin" style="left:15.17%;top:42.66%">3</span>
+          <span class="anno__box" style="left:87.55%;top:48.83%;width:10.56%;height:3.82%"></span><span class="anno__pin" style="left:87.55%;top:48.83%">4</span>
+          <span class="anno__box" style="left:31.28%;top:52.66%;width:6.35%;height:4.36%"></span><span class="anno__pin" style="left:31.28%;top:52.66%">5</span>
+          <span class="anno__box" style="left:36.94%;top:52.66%;width:8.94%;height:4.36%"></span><span class="anno__pin" style="left:36.94%;top:52.66%">6</span>
+          <span class="anno__box" style="left:52.25%;top:52.66%;width:8.86%;height:4.36%"></span><span class="anno__pin" style="left:52.25%;top:52.66%">7</span>
+          <span class="anno__box" style="left:71.49%;top:52.66%;width:8.51%;height:4.36%"></span><span class="anno__pin" style="left:71.49%;top:52.66%">8</span>
+          <span class="anno__box" style="left:93.57%;top:52.66%;width:5.65%;height:4.36%"></span><span class="anno__pin" style="left:93.57%;top:57.02%">9</span>
+        </div>
+        <ol class="anno-legend">
+          <li><span class="n">1</span><span><b>Thẻ tổng hợp:</b> số yêu cầu, phiếu chờ duyệt và phiếu đồng bộ SAP lỗi.</span></li>
+          <li><span class="n">2</span><span><b>Bộ lọc:</b> số yêu cầu, số phiếu, khách hàng, kho nhận, nguồn, ngày tạo yêu cầu, ngày nhập kho dự kiến; lọc theo đồng bộ SAP của yêu cầu và của phiếu.</span></li>
+          <li><span class="n">3</span><span><b>Tab Theo yêu cầu / Theo phiếu:</b> cùng một màn hình. Tab Theo phiếu là danh sách phiếu trả hàng (mục 6.6).</span></li>
+          <li><span class="n">4</span><span><b>Xuất và + Thêm yêu cầu:</b> xuất danh sách ra Excel; tạo yêu cầu tại WMS từ phiếu giao hàng (G/D Slip).</span></li>
+          <li><span class="n">5</span><span><b>Nguồn:</b> Đồng bộ SAP hoặc Tạo tại WMS.</span></li>
+          <li><span class="n">6</span><span><b>Đồng bộ SAP:</b> chỉ có với yêu cầu nguồn SAP; yêu cầu tạo tại WMS để trống (—). Rê chuột vào “Có thay đổi chưa nhận” để xem SAP đã đổi gì.</span></li>
+          <li><span class="n">7</span><span><b>Ngày nhập kho dự kiến:</b> ngày hàng trả dự kiến về kho, theo yêu cầu từ SAP.</span></li>
+          <li><span class="n">8</span><span><b>Kho nhận:</b> hàng bán trả lại nhận về kho 5900 - Kho hàng trả lại.</span></li>
+          <li><span class="n">9</span><span><b>Đã dán tem:</b> số lượng đã có tem trên tổng số lượng trả (X / Y). Kéo ngang để thấy Tiến độ nhận và Thao tác (⋮).</span></li>
+        </ol>
+      </figure>
+      <figure class="shot"><figcaption>Ảnh chụp chi tiết · Chi tiết một yêu cầu hàng bán trả lại nguồn SAP (bấm số yêu cầu ở danh sách). Số tiếp nối ảnh trên</figcaption>
+        <div class="anno">
+          <img src="../images/06-ban-hang/5b-yeu-cau-tra-chi-tiet.png" alt="Màn hình chi tiết yêu cầu hàng trả REQ-5900-2610-00003, có đánh số 8 vùng chính">
+          <span class="anno__box" style="left:17.36%;top:8.14%;width:17.3%;height:5.87%"></span><span class="anno__pin" style="left:17.36%;top:8.14%">10</span>
+          <span class="anno__box" style="left:38.13%;top:8.85%;width:5.1%;height:4.44%"></span><span class="anno__pin" style="left:43.23%;top:8.85%">11</span>
+          <span class="anno__box" style="left:96%;top:7.67%;width:3.1%;height:6.82%"></span><span class="anno__pin" style="left:96%;top:14.49%">12</span>
+          <span class="anno__box" style="left:15.17%;top:15.9%;width:16.08%;height:7.77%"></span><span class="anno__pin" style="left:15.17%;top:15.9%">13</span>
+          <span class="anno__box" style="left:15.17%;top:26.66%;width:83.93%;height:36.09%"></span><span class="anno__pin" style="left:15.17%;top:26.66%">14</span>
+          <span class="anno__box" style="left:15.17%;top:64.47%;width:83.93%;height:32.17%"></span><span class="anno__pin" style="left:15.17%;top:64.47%">15</span>
+          <span class="anno__box" style="left:18.55%;top:73.97%;width:20.23%;height:7.01%"></span><span class="anno__pin" style="left:18.55%;top:73.97%">16</span>
+          <span class="anno__box" style="left:59.34%;top:73.97%;width:9.8%;height:7.01%"></span><span class="anno__pin" style="left:59.34%;top:73.97%">17</span>
+        </div>
+        <ol class="anno-legend">
+          <li><span class="n">10</span><span><b>Số yêu cầu:</b> hiện trên tiêu đề.</span></li>
+          <li><span class="n">11</span><span><b>Nguồn:</b> nhãn Đồng bộ SAP / Tạo tại WMS. Yêu cầu nguồn SAP chỉ đọc (dòng chữ góc phải khung thông tin).</span></li>
+          <li><span class="n">12</span><span><b>Nút thao tác:</b> In yêu cầu. Sửa, Xóa chỉ hiện với yêu cầu tạo tại WMS, tùy tình trạng.</span></li>
+          <li><span class="n">13</span><span><b>Tab Yêu cầu hàng trả / Phiếu hàng trả:</b> tab thứ hai liệt kê các phiếu trả đã lập cho yêu cầu, kèm số đếm.</span></li>
+          <li><span class="n">14</span><span><b>Thông tin yêu cầu:</b> Số yêu cầu, Nguồn, Trạng thái đồng bộ SAP, Ngày tạo, Ngày nhập kho dự kiến, Khách hàng, Kho nhận, Lý do trả hàng, Loại trả hàng, Số đơn bán hàng, Ghi chú.</span></li>
+          <li><span class="n">15</span><span><b>Danh sách mặt hàng:</b> mã, tên, Checklist, Model, Màu, Size, Đơn vị, SL trả; dòng Tổng ở cuối bảng.</span></li>
+          <li><span class="n">16</span><span><b>Mã vạch / QR:</b> “Đã ánh xạ N”, bấm để xem tem của dòng. Nhãn đỏ “N cần xử lý” đánh dấu tem dư khi SAP đổi số lượng.</span></li>
+          <li><span class="n">17</span><span><b>Checklist:</b> mã checklist của dòng, nhận theo yêu cầu từ SAP.</span></li>
+        </ol>
+      </figure>
     </div>
-    <aside class="screen__notes">
-      <div class="note"><h3>Mô tả</h3><p>Màn hình quản lý hàng bán bị trả lại, mở sẵn tab Theo yêu cầu. Khi XNK xong tờ khai nhập khẩu, lập yêu cầu trả hàng từ PO trả hàng SAP, từ phiếu giao hàng hoặc thủ công. Hàng nhận về kho 5900 ở vị trí tạm.</p></div>
-      <div class="note note--biz"><h3>Lưu ý nghiệp vụ</h3><ul><li>Trả nguyên pallet dùng tem cũ; trả không nguyên pallet thì in và dán tem mới.</li></ul></div>
+    <aside class="screen__notes spec">
+      <div class="note note--src note--wide"><h3>Nguồn dữ liệu</h3><p>Yêu cầu hàng bán trả lại có hai nguồn, phân biệt ở cột Nguồn (vùng 5). Nguồn chính là SAP.</p>
+        <div class="tw"><table>
+          <thead><tr><th>Nguồn</th><th>Ghi chú</th></tr></thead>
+          <tbody>
+            <tr><td><span class="src src--sap">Đồng bộ từ SAP</span></td><td>Chỉ đọc, sửa trên SAP rồi đồng bộ lại. Nhận về kho 5900, có Ngày nhập kho dự kiến và Checklist.</td></tr>
+            <tr><td><span class="src src--wms">Tạo thủ công trên WMS</span></td><td>Bấm + Thêm yêu cầu (vùng 4), sinh từ phiếu giao hàng (G/D Slip).</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="note note--sync"><h3>Trạng thái đồng bộ SAP</h3><p>Chỉ áp dụng cho yêu cầu nguồn SAP (vùng 6).</p><ul>
+<li><b>Đã đồng bộ:</b> dữ liệu trên WMS khớp với SAP.</li>
+<li><b>Có thay đổi chưa nhận:</b> SAP sửa yêu cầu khi đã có phiếu trả: WMS từ chối, yêu cầu chạy theo dữ liệu cũ; muốn nhận thì xóa hoặc hủy phiếu trả, SAP tự gửi lại. Tem đã phát hành bị ảnh hưởng (đổi số lượng…) gắn cờ Cần xử lý (vùng 16): hủy tem rồi phát hành lại.</li>
+<li><b>— (trống):</b> yêu cầu tạo tại WMS.</li>
+<li>Lọc nhanh theo trạng thái này ở ô “Đồng bộ SAP — yêu cầu” trong bộ lọc (vùng 2).</li>
+</ul></div>
+      <div class="note note--rule"><h3>Quy tắc khác</h3><ul>
+<li><b>Tem cũ hay tem mới:</b> yêu cầu tạo từ G/D Slip dùng lại tem gốc đã xuất. Yêu cầu từ SAP phải phát hành tem mới (mục 6.5 / 11.2); cột Đã dán tem (vùng 9) theo dõi số lượng đã có tem.</li>
+<li><b>Nhận từng phần:</b> một yêu cầu có nhiều phiếu trả; tiến độ nhận chỉ tính phiếu đã được duyệt.</li>
+</ul></div>
     </aside>
   </div>
 </section>
@@ -89,9 +301,8 @@
   <h2 class="screen__title"><span class="no">6.5</span>Phát hành tem</h2>
   <p class="screen__path">Phát hành nhãn › Phát hành tem thành phẩm / bán thành phẩm</p>
   <div class="screen__body">
-    <aside class="screen__notes">
-      <div class="note"><h3>Mô tả</h3><p>Bước phát hành tem cho hàng bán trả lại (khi trả không nguyên pallet) dùng chung màn hình <a href="11-phat-hanh-tem-nhan.html#t-tp">11.2 Phát hành tem thành phẩm / bán thành phẩm</a>, với <b>Nguồn: Thành phẩm trả lại</b>. Xem màn hình và mô tả chi tiết tại mục đó.</p></div>
-      <div class="note note--biz"><h3>Lưu ý nghiệp vụ</h3><ul><li>Chỉ in tem mới khi trả không nguyên pallet; trả nguyên pallet dùng lại tem cũ.</li></ul></div>
+    <aside class="screen__notes spec">
+      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Bước phát hành tem cho hàng bán trả lại dùng chung màn hình <a href="11-phat-hanh-tem-nhan.html#t-tp">11.2 Phát hành tem thành phẩm / bán thành phẩm</a>, với <b>Nguồn: Thành phẩm trả lại</b>. Xem màn hình và mô tả chi tiết tại mục đó.</p><ul><li>Luôn phát hành và in tem mới cho hàng trả lại, không dùng lại tem cũ.</li></ul></div>
     </aside>
   </div>
 </section>
@@ -102,12 +313,78 @@
   <p class="screen__path">Kho vận › Trả hàng › Phiếu trả hàng</p>
   <div class="screen__body">
     <div class="screen__shots">
-      <figure class="shot"><figcaption>Giao diện WMS · Trả hàng — tab “Theo phiếu”; kéo ngang bảng để xem hết cột, bấm nút để mở popup (đóng bằng nút ✕)<a class="btn shot__zoom" href="../mockups/06-ban-hang/3.html?tab=slip" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption>
-        <iframe class="shot__live" src="../mockups/06-ban-hang/3.html?tab=slip" title="Lập phiếu trả hàng" loading="lazy"></iframe></figure>
+      <figure class="shot"><figcaption>Ảnh chụp chi tiết · Danh sách phiếu trả hàng (tab Theo phiếu). Số trên ảnh ứng với chú thích bên dưới</figcaption>
+        <div class="anno">
+          <img src="../images/06-ban-hang/6-phieu-tra-danh-sach.png" alt="Màn hình Trả hàng, tab Theo phiếu, có đánh số 7 vùng chính">
+          <span class="anno__box" style="left:15.17%;top:42.66%;width:15.4%;height:4.77%"></span><span class="anno__pin" style="left:15.17%;top:42.66%">1</span>
+          <span class="anno__box" style="left:88.14%;top:48.83%;width:9.97%;height:3.82%"></span><span class="anno__pin" style="left:98.11%;top:48.83%">2</span>
+          <span class="anno__box" style="left:16.84%;top:56.76%;width:1.74%;height:2.86%"></span><span class="anno__pin" style="left:16.84%;top:56.76%">3</span>
+          <span class="anno__box" style="left:34.23%;top:52.66%;width:9.14%;height:4.36%"></span><span class="anno__pin" style="left:34.23%;top:52.66%">4</span>
+          <span class="anno__box" style="left:51.44%;top:52.66%;width:25.52%;height:4.36%"></span><span class="anno__pin" style="left:51.44%;top:52.66%">5</span>
+          <span class="anno__box" style="left:82.56%;top:52.66%;width:4.77%;height:4.36%"></span><span class="anno__pin" style="left:82.56%;top:52.66%">6</span>
+          <span class="anno__box" style="left:93.58%;top:52.66%;width:4.48%;height:4.36%"></span><span class="anno__pin" style="left:93.58%;top:57.02%">7</span>
+        </div>
+        <ol class="anno-legend">
+          <li><span class="n">1</span><span><b>Tab Theo phiếu:</b> danh sách phiếu trả hàng, cùng màn hình với yêu cầu hàng trả (6.4).</span></li>
+          <li><span class="n">2</span><span><b>Xuất và + Thêm phiếu:</b> xuất danh sách ra Excel; lập phiếu trả hàng trên WMS.</span></li>
+          <li><span class="n">3</span><span><b>Dấu +:</b> mở yêu cầu hàng trả liên kết với phiếu.</span></li>
+          <li><span class="n">4</span><span><b>Đồng bộ SAP</b> của từng phiếu.</span></li>
+          <li><span class="n">5</span><span><b>Khách hàng và Kho nhận:</b> mỗi phiếu một khách, một kho.</span></li>
+          <li><span class="n">6</span><span><b>SL trả:</b> tổng số lượng của phiếu.</span></li>
+          <li><span class="n">7</span><span><b>Thao tác (⋮):</b> Xem chi tiết, Sửa, Duyệt, Đồng bộ lại SAP, In phiếu, Hủy phiếu… Nút hiện tùy theo tình trạng của phiếu.</span></li>
+        </ol>
+      </figure>
+      <figure class="shot"><figcaption>Ảnh chụp chi tiết · Chi tiết phiếu trả hàng (bấm số phiếu ở danh sách). Số tiếp nối ảnh trên</figcaption>
+        <div class="anno">
+          <img src="../images/06-ban-hang/6b-phieu-tra-chi-tiet.png" alt="Màn hình chi tiết phiếu trả hàng 5900-2610-00003, có đánh số 10 vùng chính">
+          <span class="anno__box" style="left:17.36%;top:9.37%;width:13.89%;height:6.54%"></span><span class="anno__pin" style="left:17.36%;top:9.37%">8</span>
+          <span class="anno__box" style="left:82.72%;top:8.83%;width:16.38%;height:7.62%"></span><span class="anno__pin" style="left:82.72%;top:8.83%">9</span>
+          <span class="anno__box" style="left:15.17%;top:18.21%;width:83.93%;height:41.01%"></span><span class="anno__pin" style="left:15.17%;top:18.21%">10</span>
+          <span class="anno__box" style="left:32.53%;top:37.53%;width:16.45%;height:8.88%"></span><span class="anno__pin" style="left:32.53%;top:37.53%">11</span>
+          <span class="anno__box" style="left:48.91%;top:37.53%;width:16.45%;height:8.88%"></span><span class="anno__pin" style="left:48.91%;top:37.53%">12</span>
+          <span class="anno__box" style="left:65.28%;top:37.53%;width:16.45%;height:8.88%"></span><span class="anno__pin" style="left:65.28%;top:37.53%">13</span>
+          <span class="anno__box" style="left:15.17%;top:61.35%;width:83.93%;height:34.78%"></span><span class="anno__pin" style="left:15.17%;top:61.35%">14</span>
+          <span class="anno__box" style="left:18.55%;top:70.56%;width:10.52%;height:7.84%"></span><span class="anno__pin" style="left:18.55%;top:70.56%">15</span>
+          <span class="anno__box" style="left:76.88%;top:70.56%;width:8.19%;height:7.84%"></span><span class="anno__pin" style="left:76.88%;top:70.56%">16</span>
+          <span class="anno__box" style="left:84.37%;top:70.56%;width:13.68%;height:7.84%"></span><span class="anno__pin" style="left:84.37%;top:70.56%">17</span>
+        </div>
+        <ol class="anno-legend">
+          <li><span class="n">8</span><span><b>Số phiếu:</b> hiện trên tiêu đề.</span></li>
+          <li><span class="n">9</span><span><b>Nút thao tác:</b> Đồng bộ lại SAP, Hủy phiếu, In phiếu; các nút Sửa, Duyệt… hiện tùy tình trạng phiếu.</span></li>
+          <li><span class="n">10</span><span><b>Thông tin phiếu:</b> Số phiếu (tự sinh), Ngày nhận, Khách hàng, Kho nhận, Loại trả hàng (Khách hàng trả / Đại lý trả / Trả nội bộ), Lý do trả hàng, Người tạo, Ngày và người duyệt, Ghi chú.</span></li>
+          <li><span class="n">11</span><span><b>Grade kiểm định:</b> A Bán lại được / B Sửa chữa, đóng gói lại / C Hủy; nhập ở đầu phiếu, áp cho mọi dòng.</span></li>
+          <li><span class="n">12</span><span><b>Số yêu cầu hàng trả liên kết:</b> bấm để mở yêu cầu.</span></li>
+          <li><span class="n">13</span><span><b>Trạng thái đồng bộ SAP</b> của phiếu.</span></li>
+          <li><span class="n">14</span><span><b>Danh sách mặt hàng:</b> mỗi dòng ứng với tem đã chọn, SL trả bằng SL trên tem; dòng Tổng ở cuối bảng.</span></li>
+          <li><span class="n">15</span><span><b>Mã vạch / QR:</b> “Đã ánh xạ N”, bấm để xem tem của dòng.</span></li>
+          <li><span class="n">16</span><span><b>Vị trí:</b> vị trí nhập của hàng; hàng chưa về hoặc đang thông quan đặt ở vị trí tạm 5900-TEMP-01.</span></li>
+          <li><span class="n">17</span><span><b>Tình trạng bên ngoài:</b> nhập ở đầu phiếu, áp xuống mọi dòng.</span></li>
+        </ol>
+      </figure>
     </div>
-    <aside class="screen__notes">
-      <div class="note"><h3>Mô tả</h3><p>Cùng màn hình Trả hàng, mở sẵn tab Theo phiếu. Lập phiếu trả hàng từ yêu cầu; hàng về đặt ở vị trí tạm trong kho 5900. Văn phòng kho xác nhận phiếu để tăng tồn và đồng bộ sang SAP.</p></div>
-      <div class="note note--biz"><h3>Lưu ý nghiệp vụ</h3><ul><li>Phiếu trả hàng bám theo nhánh SAP (PO trả hàng / tờ khai nhập khẩu).</li></ul></div>
+    <aside class="screen__notes spec">
+      <div class="note note--src note--wide"><h3>Nguồn dữ liệu</h3><p>Phiếu trả hàng lập trên WMS từ yêu cầu hàng bán trả lại (mục 6.4).</p>
+        <div class="tw"><table>
+          <thead><tr><th>Nguồn</th><th>Ghi chú</th></tr></thead>
+          <tbody>
+            <tr><td><span class="src src--wms">Tạo thủ công trên WMS</span></td><td>+ Thêm phiếu (vùng 2): chọn Khách hàng, rồi “Thêm từ yêu cầu hàng trả” để chọn tem thuộc các yêu cầu của khách đó.</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="note note--sync"><h3>Trạng thái đồng bộ SAP</h3><p>Chưa đồng bộ › Đang đồng bộ › Đã đồng bộ hoặc Đồng bộ lỗi (vùng 4 và 13).</p><ul>
+<li><b>Chưa đồng bộ:</b> phiếu chưa gửi về SAP.</li>
+<li><b>Đang đồng bộ:</b> đang gửi; nút Hủy phiếu ẩn hẳn.</li>
+<li><b>Đã đồng bộ:</b> SAP đã nhận kết quả nhập hàng trả.</li>
+<li><b>Đồng bộ lỗi:</b> bấm Đồng bộ lại SAP (vùng 9 hoặc menu ⋮). Nút này chỉ bật khi phiếu Chưa đồng bộ hoặc Đồng bộ lỗi.</li>
+</ul></div>
+      <div class="note note--rule"><h3>Quy tắc khác</h3><ul>
+<li><b>Một phiếu một kho, một khách:</b> kho lấy theo yêu cầu của tem đầu tiên và khóa lại. Chưa chọn khách thì chưa thêm được hàng; đổi khách thì xóa hết dòng.</li>
+<li><b>Nhận nguyên tem:</b> SL dòng = SL trên tem, không nhập SL; nhận một phần nghĩa là chọn ít tem hơn. Tem đang nằm trong phiếu trả khác chưa hủy không hiện để chọn.</li>
+<li><b>Grade kiểm định, Tình trạng bên ngoài và Vị trí nhập</b> nhập ở đầu phiếu, áp xuống mọi dòng; cả hai đều không bắt buộc.</li>
+<li><b>Tồn kho:</b> chỉ khi phiếu được duyệt mới tăng tồn và đẩy SAP.</li>
+<li><b>Duyệt khi thông quan xong:</b> duyệt được dù hàng chưa về kho; hàng được nhận vào một vị trí của kho nhận (dữ liệu mẫu dùng 5900-TEMP-01). Hàng về thực tế thì chuyển vị trí (mục 6.7).</li>
+<li><b>Hủy phiếu đã duyệt:</b> chặn nếu tem đã có giao dịch sau phiếu (vd đã chuyển sang kho 5000), trừ tách và gộp thì vẫn cho hủy, trừ SL vào tem gốc hoặc tem đích. Hủy xong trạng thái tem giữ nguyên.</li>
+</ul></div>
     </aside>
   </div>
 </section>
@@ -117,9 +394,8 @@
   <h2 class="screen__title"><span class="no">6.7</span>Hàng thực tế về</h2>
   <p class="screen__path">Ứng dụng PDA › Chuyển vị trí</p>
   <div class="screen__body">
-    <aside class="screen__notes">
-      <div class="note"><h3>Mô tả</h3><p>Khi hàng bán trả lại thực tế về kho, nhân viên quét QR tem và chuyển hàng từ vị trí tạm (5900) sang vị trí thật. Thao tác này dùng chung màn hình <a href="08-chuyen-kho.html#ck-vitri">8.2 Chuyển vị trí</a> (mục 8. Quy trình chuyển kho). Xem chi tiết tại mục đó.</p></div>
-      <div class="note note--biz"><h3>Lưu ý nghiệp vụ</h3><ul><li>Chuyển vị trí trong kho không đồng bộ SAP (SAP không quản lý vị trí).</li></ul></div>
+    <aside class="screen__notes spec">
+      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Khi hàng bán trả lại thực tế về kho, nhân viên quét QR tem và chuyển hàng từ vị trí tạm (5900) sang vị trí thật. Thao tác này dùng chung màn hình <a href="08-chuyen-kho.html#ck-vitri">8.3 Chuyển vị trí</a> (mục 8. Quy trình chuyển kho). Xem chi tiết tại mục đó.</p><ul><li>Chuyển vị trí trong kho không đồng bộ SAP (SAP không quản lý vị trí).</li></ul></div>
     </aside>
   </div>
 </section>
