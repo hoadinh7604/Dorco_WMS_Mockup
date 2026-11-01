@@ -70,11 +70,12 @@ window.TSD_MENU = [
       desc: "Xuất đi & nhận về",
       screens: [
         { no: "4.1", title: "Yêu cầu xuất nguyên liệu đi gia công", id: "gc-yc-xuat" },
-        { no: "4.2", title: "Phiếu xuất nguyên liệu đi gia công", id: "gc-px" },
-        { no: "4.3", title: "Yêu cầu nhập hàng gia công về", id: "gc-yc-nhap" },
-        { no: "4.4", title: "In tem hàng nhập gia công về", id: "gc-tem" },
-        { no: "4.5", title: "Nhập mua trên PDA", id: "gc-pda" },
-        { no: "4.6", title: "Phiếu nhập hàng gia công về", id: "gc-pn" }
+        { no: "4.2", title: "Quét tem chuyển kho", id: "gc-pda-xuat" },
+        { no: "4.3", title: "Phiếu xuất nguyên liệu đi gia công", id: "gc-px" },
+        { no: "4.4", title: "Yêu cầu nhập hàng gia công về", id: "gc-yc-nhap" },
+        { no: "4.5", title: "In tem hàng nhập gia công về", id: "gc-tem" },
+        { no: "4.6", title: "Nhập hàng gia công về kho bằng PDA", id: "gc-pda" },
+        { no: "4.7", title: "Phiếu nhập hàng gia công về", id: "gc-pn" }
       ]},
 
     // ===== Mục 5 – sơ đồ quy trình 4 – (người phụ trách: chưa chia) =====
