@@ -57,16 +57,12 @@ window.TSD_MENU = [
     { no: "3", title: "Quy trình nhập xuất dùng", page: "03", href: "pages/03-nhap-xuat-dung.html",
       desc: "Xuất vào sản xuất · nhập trả từ sản xuất",
       screens: [
-        { no: "3.1", title: "Danh sách yêu cầu xuất vào sản xuất", id: "xsx-ds" },
-        { no: "3.2", title: "Chi tiết yêu cầu xuất vào sản xuất", id: "xsx-yc" },
-        { no: "3.3", title: "Xuất kho vào sản xuất trên PDA", id: "xsx-pda" },
-        { no: "3.4", title: "Danh sách phiếu xuất kho vào sản xuất", id: "xsx-pds" },
-        { no: "3.5", title: "Phiếu xuất kho vào sản xuất", id: "xsx-phieu" },
-        { no: "3.6", title: "Danh sách yêu cầu nhập trả từ sản xuất", id: "ntsx-ds" },
-        { no: "3.7", title: "Chi tiết yêu cầu nhập trả từ sản xuất", id: "ntsx-yc" },
-        { no: "3.8", title: "Nhập trả từ sản xuất trên PDA", id: "ntsx-pda" },
-        { no: "3.9", title: "Danh sách phiếu nhập trả từ sản xuất", id: "ntsx-pds" },
-        { no: "3.10", title: "Phiếu nhập trả từ sản xuất", id: "ntsx-phieu" }
+        { no: "3.1", title: "Yêu cầu xuất kho vào sản xuất", id: "xsx-yc" },
+        { no: "3.2", title: "Xuất kho vào sản xuất trên PDA", id: "xsx-pda" },
+        { no: "3.3", title: "Phiếu xuất kho vào sản xuất", id: "xsx-phieu" },
+        { no: "3.4", title: "Yêu cầu nhập trả từ sản xuất", id: "ntsx-yc" },
+        { no: "3.5", title: "Nhập trả từ sản xuất trên PDA", id: "ntsx-pda" },
+        { no: "3.6", title: "Phiếu nhập trả từ sản xuất", id: "ntsx-phieu" }
       ]},
 
     // ===== Mục 4 – sơ đồ quy trình 3 – (người phụ trách: chưa chia) =====
