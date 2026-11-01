@@ -16,7 +16,7 @@
 
   function sysChip(s, ctx) {
     var u = ctx.util;
-    if (typeof s === 'string') return '<span class="app-sys" data-sys="' + u.esc(s) + '">' + u.esc(s === 'MANUAL' ? ctx.t(ctx.manualLabel) : s) + '</span>';
+    if (typeof s === 'string') return '<span class="app-sys" data-sys="' + u.esc(s) + '">' + u.esc(s === 'MANUAL' ? ctx.t(ctx.manualLabel) : s === 'KIOSK' ? 'Kiosk' : s) + '</span>';
     return '<span class="app-sys" data-sys="' + u.esc(s.sys || 'MANUAL') + '">' + u.esc(ctx.t(s.label)) + '</span>';
   }
 
@@ -30,8 +30,13 @@
       return '<div class="pf-case" data-tag="' + u.esc(c.tag) + '"><b>' + u.esc(c.tag) + '</b> ' + u.esc(t(c.text)) +
         (c.alert ? '<span class="pf-alert">' + u.esc(t(c.alert)) + '</span>' : '') + '</div>';
     }).join('');
+    // Nhãn nhà máy: bước không có ô HY/HN riêng thì áp dụng cho mọi nhà máy (hoặc ghi rõ st.plants).
+    var codes = ((ctx.config && ctx.config.plants) || []).map(function (pl) { return pl.code; });
+    var tagged = (st.cases || []).some(function (c) { return codes.indexOf(c.tag) >= 0; });
+    var plants = st.plants || (tagged ? [] : codes);
+    var ptags = plants.length ? '<span class="pf-plants">' + plants.map(function (c) { return '<b>' + u.esc(c) + '</b>'; }).join('') + '</span>' : '';
     return '<article class="' + cls + '"><header class="pf-step-hd"><span class="pf-num">' + n + '</span><h4>' + u.esc(t(st.title)) + '</h4></header>' +
-      '<div class="pf-meta">' + ctx.icon(st.icon) + '<div class="pf-sys">' + (st.systems || []).map(function (s) { return sysChip(s, ctx); }).join('') + '</div></div>' +
+      '<div class="pf-meta">' + ctx.icon(st.icon) + '<div class="pf-sys">' + (st.systems || []).map(function (s) { return sysChip(s, ctx); }).join('') + '</div></div>' + ptags +
       (bullets ? '<ul>' + bullets + '</ul>' : '') + cases + '</article>';
   }
 
@@ -85,7 +90,7 @@
       var sw = (lg.swatches || []).map(function (s) {
         return '<li><span class="pf-lg-sw" style="--pf-a:var(--pf-' + u.esc(s.color) + ')"></span>' + u.esc(t(s.text)) + '</li>';
       }).join('');
-      var chips = lg.systemsNote ? '<p class="pf-lg-sys">' + ['SAP', 'WMS', 'PDA'].map(function (s) { return sysChip(s, ctx); }).join('') + ' ' + u.esc(t(lg.systemsNote)) + '</p>' : '';
+      var chips = lg.systemsNote ? '<p class="pf-lg-sys">' + ['SAP', 'WMS', 'PDA', 'KIOSK'].map(function (s) { return sysChip(s, ctx); }).join('') + ' ' + u.esc(t(lg.systemsNote)) + '</p>' : '';
       out += '<div class="pf-panel pf-legend"><h3>' + u.esc(t(lg.title)) + '</h3><ul class="pf-lg">' + flows + sw + '</ul>' + chips + '</div>';
     }
     return '<div class="pf-panels">' + out + '</div>';
@@ -102,7 +107,7 @@
   }
 
   function render(data) {
-    var ctx = { t: t, util: util, icon: App.icon || function () { return ''; } };
+    var ctx = { t: t, util: util, icon: App.icon || function () { return ''; }, config: { plants: [{ code: 'HY' }, { code: 'HN' }] } };
     ctx.manualLabel = (data.panels && data.panels.legend && data.panels.legend.manualLabel) || 'Thủ công';
     return '<div class="pf-toolbar"><button type="button" class="btn pf-fit"></button><span>Đang thu nhỏ vừa màn hình · bấm để xem kích thước thật, kéo ngang để xem hết</span></div>' +
       '<div class="pf-scroll"><div class="pf-sheet">' +

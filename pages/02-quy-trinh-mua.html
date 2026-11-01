@@ -17,7 +17,7 @@
 <div class="page-head">
   <small>Giải pháp hệ thống</small>
   <h1>2. Quy trình nhập mua</h1>
-  <p>Inbound từ NCC: yêu cầu nhập mua, phiếu nhập mua và trả hàng cho nhà cung cấp. Các khung bên dưới là mockup tương tác: kéo ngang bảng để xem hết cột, bấm nút để mở popup; bấm ↗ Mở riêng để xem cỡ lớn.</p>
+  <p>Quy trình nhập hàng mua trong nước và nhập khẩu.</p>
 </div>
 
 <!-- ===== BẮT ĐẦU: 2.1 Yêu cầu nhập mua ===== -->
@@ -28,11 +28,12 @@
     <div class="screen__shots">
       <figure class="shot"><figcaption>Giao diện WMS · Danh sách yêu cầu nhập mua (kéo ngang bảng để xem hết cột; bấm Nhập Excel để mở menu)<a class="btn shot__zoom" href="../mockups/02-quy-trinh-mua/1.html" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption>
         <iframe class="shot__live" src="../mockups/02-quy-trinh-mua/1.html" title="Danh sách yêu cầu nhập mua" loading="lazy"></iframe></figure>
+      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Dùng để tạo và theo dõi yêu cầu nhập hàng mua trong nước và nhập khẩu.</p><ul><li>Yêu cầu nhập hàng Trong nước: người dùng nhập thủ công hoặc import từ <a href="../files/Template_Import_Yeu_cau_nhap_hang_mua.xlsx" download>Excel template</a> (bấm Nhập Excel › Tải Template).</li><li>Yêu cầu nhập hàng Nhập khẩu: tự động đồng bộ từ tờ khai nhập khẩu trên SAP về WMS (mỗi tờ khai tương ứng 1 yêu cầu nhập hàng nhập khẩu).</li><li>Người dùng chỉ nhìn thấy các yêu cầu nhập hàng của kho mà mình được phân quyền phụ trách.</li></ul></div>
       <figure class="shot"><figcaption>Giao diện WMS · Yêu cầu nhập mua (kéo ngang bảng để xem hết cột)<a class="btn shot__zoom" href="../mockups/02-quy-trinh-mua/2.html" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption>
         <iframe class="shot__live" src="../mockups/02-quy-trinh-mua/2.html" title="Yêu cầu nhập mua" loading="lazy"></iframe></figure>
     </div>
     <aside class="screen__notes">
-      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Tạo và theo dõi yêu cầu nhập mua; tạo trực tiếp trên WMS hoặc nhập từ Excel.</p><ul><li>Số yêu cầu dạng YCNK-YYMM-xxxxx.</li><li>Giao dịch Trong nước hoặc Nhập khẩu; yêu cầu nhập khẩu có số tờ khai, không có PO.</li><li>Trạng thái: Tạo mới, Hoàn thành. SL còn lại = SL yêu cầu − SL đã nhận.</li></ul></div>
+      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Chi tiết phiếu yêu cầu nhập hàng mua: hiển thị các thông tin kế hoạch nhập hàng. Kho tiếp nhận để in tem chuẩn bị nhập hàng.</p><p>Người dùng có thể sửa yêu cầu nhập hàng để nhập bổ sung thông tin &quot;Heat No&quot;, dùng để định danh vào tem nguyên liệu.</p></div>
     </aside>
   </div>
 </section>
@@ -53,7 +54,7 @@
         <iframe class="shot__live" src="../mockups/02-quy-trinh-mua/pda-nhap-mua.html" title="Nhập mua trên PDA" loading="lazy" style="aspect-ratio:1467/1834"></iframe></figure>
     </div>
     <aside class="screen__notes">
-      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Kho nhận hàng mua trên PDA theo yêu cầu nhập mua: quét vị trí và mã tem, sửa số lượng nếu cần, rồi Lưu phiếu.</p><ul><li>Mỗi dòng là một tem; một mặt hàng cất vào nhiều vị trí thì hiện nhiều dòng.</li><li>Lý do sửa số lượng không bắt buộc; nếu có thì lưu vào cột Lý do sửa SL nhập của phiếu nhập (2.4).</li></ul></div>
+      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Sau khi in và dán tem, kho nhập hàng mua bằng PDA: chọn đúng yêu cầu nhập hàng, quét vị trí và mã tem hàng nhập kho.</p><p>TH1: Nếu số lượng thực tế nhỏ hơn yêu cầu nhập: sửa trực tiếp số lượng trên PDA về số lượng thực tế (in lại tem vật lý hoặc dùng bút sửa lại số lượng).</p><p>TH2: Nếu số lượng thực tế lớn hơn hoặc bằng yêu cầu nhập: nhập số lượng bằng yêu cầu nhập hàng.</p><p>TH3: Trường hợp hàng về đã kiểm đếm đủ số lượng, nhập khu chờ QC: quét PDA nhập kho vào vị trí chờ. Sau khi QC sẽ làm phiếu chuyển vị trí.</p></div>
     </aside>
   </div>
 </section>
@@ -70,7 +71,7 @@
         <iframe class="shot__live" src="../mockups/02-quy-trinh-mua/4.html" title="Phiếu nhập mua" loading="lazy"></iframe></figure>
     </div>
     <aside class="screen__notes">
-      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Phiếu nhập mua sinh từ thao tác nhập trên PDA; văn phòng kho kiểm tra và duyệt.</p><ul><li>Số phiếu dạng NK-NVL-YYMM-xxxxx; mỗi phiếu gắn với một yêu cầu nhập mua.</li><li>Trạng thái: Tạo mới, Đã duyệt.</li><li>SL nhập khác SL yêu cầu thì ghi Lý do sửa SL nhập.</li></ul></div>
+      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Sau khi nhập hàng bằng PDA (lưu thành công), hệ thống tự động sinh phiếu nhập mua.</p><p>Văn phòng kho kiểm tra và phê duyệt phiếu. Hệ thống tự động đồng bộ phiếu nhập kho sang SAP.</p><p>Trường hợp phiếu nhập kho đã duyệt đẩy sang SAP bị sai:</p><ul><li>Nếu sai thiếu số lượng, làm phiếu nhập bổ sung.</li><li>Nếu sai mã hàng, làm phiếu xuất trả lại nhà cung cấp.</li></ul><p><b>=&gt; Không xóa hay hủy phiếu nhập kho đã duyệt trên WMS.</b></p></div>
     </aside>
   </div>
 </section>
@@ -87,7 +88,7 @@
         <iframe class="shot__live" src="../mockups/02-quy-trinh-mua/6.html" title="Tạo yêu cầu trả nhà cung cấp" loading="lazy"></iframe></figure>
     </div>
     <aside class="screen__notes">
-      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Tạo yêu cầu trả hàng cho nhà cung cấp, lấy dòng từ phiếu nhập kho, mặt hàng hoặc tồn kho.</p><ul><li>Số yêu cầu dạng YCTL-YYMM-xxxxx; trạng thái Tạo mới, Hoàn thành.</li><li>Mỗi dòng có lý do trả riêng, ngoài lý do trả chung của yêu cầu; dòng ghi phiếu nhập kho và PO gốc.</li></ul></div>
+      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>BP. Kho nhận thông tin từ P. Mua hàng, tạo yêu cầu trả hàng cho nhà cung cấp trên WMS.</p><p>Có thể tạo phiếu kế thừa thông tin từ phiếu nhập hàng mua.</p></div>
     </aside>
   </div>
 </section>
@@ -102,7 +103,7 @@
         <iframe class="shot__live" src="../mockups/02-quy-trinh-mua/pda-xuat-tra-ncc.html" title="Xuất trả nhà cung cấp trên PDA" loading="lazy" style="aspect-ratio:1467/1834"></iframe></figure>
     </div>
     <aside class="screen__notes">
-      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Kho xuất trả hàng cho nhà cung cấp trên PDA: chỉ quét mã tem, hệ thống tự lấy mặt hàng, kho và vị trí, rồi Lưu phiếu.</p><ul><li>Quét tem không thuộc mặt hàng trên phiếu, hoặc tem đã quét, thì báo lỗi ngay.</li></ul></div>
+      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Kho xuất trả hàng cho nhà cung cấp bằng PDA:</p><p>Chọn đúng yêu cầu trả hàng, quét mã tem, hệ thống tự fill mặt hàng, kho và vị trí tương ứng với ID tem.</p><p>Trường hợp tem quét không thuộc mặt hàng trên yêu cầu, hoặc không hợp lệ thì báo lỗi ngay.</p></div>
     </aside>
   </div>
 </section>
@@ -119,7 +120,7 @@
         <iframe class="shot__live" src="../mockups/02-quy-trinh-mua/8.html" title="Phiếu xuất trả nhà cung cấp" loading="lazy"></iframe></figure>
     </div>
     <aside class="screen__notes">
-      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Phiếu xuất trả sinh từ thao tác xuất trên PDA; văn phòng kho kiểm tra và duyệt.</p><ul><li>Số phiếu dạng XTL-YYMM-xxxxx; mỗi phiếu gắn với một yêu cầu trả NCC.</li><li>Trạng thái: Tạo mới, Đã duyệt.</li></ul></div>
+      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Phiếu xuất kho trả hàng cho nhà cung cấp tự động sinh từ thao tác xuất kho trả lại trên PDA.</p><p>Văn phòng kho kiểm tra và phê duyệt phiếu. Hệ thống tự động đồng bộ phiếu xuất kho sang SAP.</p></div>
     </aside>
   </div>
 </section>

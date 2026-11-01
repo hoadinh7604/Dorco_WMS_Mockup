@@ -35,21 +35,49 @@
 <!-- ===== BẮT ĐẦU: 4.3 Yêu cầu nhập hàng gia công về ===== -->
 <section class="screen" id="gc-yc-nhap">
   <h2 class="screen__title"><span class="no">4.3</span>Yêu cầu nhập hàng gia công về</h2>
-  <div class="soon">Đang cập nhật.</div>
+  <div class="screen__body">
+    <div class="screen__shots">
+      <figure class="shot"><figcaption>Giao diện WMS · Danh sách yêu cầu nhập mua (kéo ngang bảng để xem hết cột; bấm Nhập Excel để mở menu)<a class="btn shot__zoom" href="../mockups/02-quy-trinh-mua/1.html" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption>
+        <iframe class="shot__live" src="../mockups/02-quy-trinh-mua/1.html" title="Danh sách yêu cầu nhập mua" loading="lazy"></iframe></figure>
+      <figure class="shot"><figcaption>Giao diện WMS · Yêu cầu nhập mua (kéo ngang bảng để xem hết cột)<a class="btn shot__zoom" href="../mockups/02-quy-trinh-mua/2.html" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption>
+        <iframe class="shot__live" src="../mockups/02-quy-trinh-mua/2.html" title="Yêu cầu nhập mua" loading="lazy"></iframe></figure>
+    </div>
+  </div>
 </section>
 <!-- ===== KẾT THÚC: 4.3 Yêu cầu nhập hàng gia công về ===== -->
 <!-- ===== BẮT ĐẦU: 4.4 In tem hàng nhập gia công về ===== -->
 <section class="screen" id="gc-tem">
   <h2 class="screen__title"><span class="no">4.4</span>In tem hàng nhập gia công về</h2>
-  <div class="soon">Đang cập nhật.</div>
+  <div class="note"><p>Chi tiết phát hành và in tem theo logic chung tại mục <a href="11-phat-hanh-tem-nhan.html#t-nvl">11.1 – Phát hành tem nguyên vật liệu</a>.</p></div>
 </section>
 <!-- ===== KẾT THÚC: 4.4 In tem hàng nhập gia công về ===== -->
-<!-- ===== BẮT ĐẦU: 4.5 Phiếu nhập hàng gia công về ===== -->
-<section class="screen" id="gc-pn">
-  <h2 class="screen__title"><span class="no">4.5</span>Phiếu nhập hàng gia công về</h2>
-  <div class="soon">Đang cập nhật.</div>
+<!-- ===== BẮT ĐẦU: 4.5 Nhập mua trên PDA ===== -->
+<section class="screen" id="gc-pda">
+  <h2 class="screen__title"><span class="no">4.5</span>Nhập mua trên PDA</h2>
+  <div class="screen__body">
+    <div class="screen__shots">
+      <figure class="shot"><figcaption>Giao diện PDA · Nhập mua: 6 màn đánh số theo thứ tự thao tác<a class="btn shot__zoom" href="../mockups/02-quy-trinh-mua/pda-nhap-mua.html" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption>
+        <iframe class="shot__live" src="../mockups/02-quy-trinh-mua/pda-nhap-mua.html" title="Nhập mua trên PDA" loading="lazy" style="aspect-ratio:1467/1834"></iframe></figure>
+    </div>
+  </div>
 </section>
-<!-- ===== KẾT THÚC: 4.5 Phiếu nhập hàng gia công về ===== -->
+<!-- ===== KẾT THÚC: 4.5 Nhập mua trên PDA ===== -->
+<!-- ===== BẮT ĐẦU: 4.6 Phiếu nhập hàng gia công về ===== -->
+<section class="screen" id="gc-pn">
+  <h2 class="screen__title"><span class="no">4.6</span>Phiếu nhập hàng gia công về</h2>
+  <div class="screen__body">
+    <div class="screen__shots">
+      <figure class="shot"><figcaption>Giao diện WMS · Danh sách phiếu nhập mua (kéo ngang bảng để xem hết cột)<a class="btn shot__zoom" href="../mockups/02-quy-trinh-mua/3.html" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption>
+        <iframe class="shot__live" src="../mockups/02-quy-trinh-mua/3.html" title="Danh sách phiếu nhập mua" loading="lazy"></iframe></figure>
+      <figure class="shot"><figcaption>Giao diện WMS · Phiếu nhập mua (kéo ngang bảng để xem hết cột; bấm kính lúp ở cột Mã vạch/QR để mở chi tiết tem)<a class="btn shot__zoom" href="../mockups/02-quy-trinh-mua/4.html" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption>
+        <iframe class="shot__live" src="../mockups/02-quy-trinh-mua/4.html" title="Phiếu nhập mua" loading="lazy"></iframe></figure>
+    </div>
+    <aside class="screen__notes">
+      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Sau khi nhập hàng bằng PDA (lưu thành công), hệ thống tự động sinh phiếu nhập mua.</p><p>Văn phòng kho kiểm tra và phê duyệt phiếu. Hệ thống tự động đồng bộ phiếu nhập kho sang SAP.</p><p>Trường hợp phiếu nhập kho đã duyệt đẩy sang SAP bị sai:</p><ul><li>Nếu sai thiếu số lượng, làm phiếu nhập bổ sung.</li><li>Nếu sai mã hàng, làm phiếu xuất trả lại nhà cung cấp.</li></ul><p><b>=&gt; Không xóa hay hủy phiếu nhập kho đã duyệt trên WMS.</b></p></div>
+    </aside>
+  </div>
+</section>
+<!-- ===== KẾT THÚC: 4.6 Phiếu nhập hàng gia công về ===== -->
 
 </main>
 

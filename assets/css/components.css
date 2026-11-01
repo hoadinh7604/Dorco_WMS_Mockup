@@ -77,9 +77,11 @@ tr:last-child td{border-bottom:0}
 .note{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:15px 18px}
 .note h3{font-size:15px;margin:0 0 6px}
 .note p,.note ul{font-size:15px;margin:0;color:#2E4A3C}
-.note p+ul{margin-top:6px}
+.note p+ul,.note p+p,.note ul+p{margin-top:4px}
 .note--biz{background:var(--goldbg);border-color:var(--goldline)}
 .note--biz h3{color:var(--gold)}
+.note a{color:#1565D8;font-weight:600;text-decoration:underline;text-underline-offset:2px}
+.note a:hover{color:#0B4BA8}
 
 /* Ảnh có vùng cuộn: một phần màn hình dài hơn ảnh (vd. Cây tổ chức). Vị trí vùng cuộn ghi bằng % trong style của .shot__scroll */
 .shot__frame{position:relative;line-height:0}

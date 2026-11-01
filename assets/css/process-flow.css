@@ -3,7 +3,7 @@
 .pf-root{
   --c-card:var(--panel); --c-soft:#EEF3EF; --c-line:var(--line); --c-ink:var(--ink); --c-muted:var(--muted);
   --c-accent:var(--green); --c-sync:#B4532A;
-  --c-sap:#2B5F8A; --c-wms:#6A4A85; --c-pda:#2F6F6A; --c-manual:#6B7A72;
+  --c-sap:#2B5F8A; --c-wms:#6A4A85; --c-pda:#2F6F6A; --c-kiosk:#9A531C; --c-manual:#6B7A72;
   --pf-blue:#2F5D8A; --pf-green:#3B6B45; --pf-orange:#9A531C; --pf-red:#9E3A32; --pf-teal:#2F6A65;
   --pf-indigo:#474D8A; --pf-purple:#664784; --pf-cyan:#2A667A; --pf-slate:#525963;
   --fs-sm:13px; --r-card:12px; --r-lane:14px; --r-chip:999px;
@@ -14,7 +14,7 @@
 .pf-root p{margin:0}
 .app-icon{width:22px;height:22px;flex:none}
 .app-sys{display:inline-block;font-size:11px;font-weight:600;padding:1px 9px;border-radius:999px;background:var(--panel);border:1px solid currentColor;white-space:nowrap}
-.app-sys[data-sys=SAP]{color:var(--c-sap)} .app-sys[data-sys=WMS]{color:var(--c-wms)} .app-sys[data-sys=PDA]{color:var(--c-pda)}
+.app-sys[data-sys=SAP]{color:var(--c-sap)} .app-sys[data-sys=WMS]{color:var(--c-wms)} .app-sys[data-sys=PDA]{color:var(--c-pda)} .app-sys[data-sys=KIOSK]{color:var(--c-kiosk)}
 .app-sys[data-sys=MANUAL],.app-sys:not([data-sys]){color:var(--c-manual)}
 .pf-toolbar{display:flex;align-items:center;gap:12px;margin-bottom:14px;font-size:var(--fs-sm);color:var(--c-muted)}
 .pf-scroll{overflow-x:auto;padding-bottom:8px}
@@ -48,9 +48,13 @@
 .pf-step-hd{display:flex;gap:8px;align-items:flex-start;min-height:38px}
 .pf-num{flex:none;width:24px;height:24px;border-radius:50%;background:var(--pf-g,var(--pf-c));color:#fff;display:grid;place-items:center;font-size:12px;font-weight:600;margin-top:1px}
 .pf-step h4{font-size:15px;color:var(--c-ink)}
-.pf-meta{display:flex;align-items:center;gap:8px;margin:6px 0 8px;color:var(--pf-g,var(--pf-c))}
+.pf-plants{display:flex;gap:4px;margin:0 0 9px}
+.pf-plants b{font-size:10.5px;line-height:16px;color:#fff;background:var(--pf-c);border-radius:4px;padding:0 5px}
+.pf-meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;margin:6px 0 8px;color:var(--pf-g,var(--pf-c))}
+.pf-meta>.app-icon{flex:none}
 .pf-meta .app-icon{width:28px;height:28px}
-.pf-sys{display:flex;flex-wrap:wrap;gap:4px}
+.pf-sys{display:flex;flex-wrap:wrap;gap:4px;flex:1 1 auto;min-width:0}
+.pf-step .app-sys{max-width:100%;overflow:hidden;text-overflow:ellipsis}
 .pf-step ul{margin:0;padding-left:16px;font-size:13px;line-height:1.5;color:#4f453e}
 .pf-step li{margin:2px 0}
 .pf-step li.pf-sync{list-style:none;margin-left:-16px;color:var(--c-sync);font-weight:600}
