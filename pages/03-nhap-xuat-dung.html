@@ -22,39 +22,26 @@
   <p>Phiếu kết quả nhập xuất kho thực hiện bên WMS và đồng bộ sang SAP sau khi được duyệt.</p>
 </div>
 
-<!-- ===== BẮT ĐẦU: 3.1 Danh sách yêu cầu xuất vào sản xuất ===== -->
-<section class="screen" id="xsx-ds">
-  <h2 class="screen__title"><span class="no">3.1</span>Danh sách yêu cầu xuất vào sản xuất</h2>
+<!-- ===== BẮT ĐẦU: 3.1 Yêu cầu xuất kho vào sản xuất ===== -->
+<section class="screen" id="xsx-yc">
+  <h2 class="screen__title"><span class="no">3.1</span>Yêu cầu xuất kho vào sản xuất</h2>
   <p class="screen__path">Giao dịch kho › Xuất kho › Xuất vào sản xuất</p>
   <div class="screen__body">
     <div class="screen__shots">
       <figure class="shot"><figcaption>Giao diện WMS · Danh sách yêu cầu xuất vào sản xuất<a class="btn shot__zoom" href="../mockups/03-nhap-xuat-dung/1.html" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption>
         <iframe class="shot__live" src="../mockups/03-nhap-xuat-dung/1.html" title="Danh sách yêu cầu xuất vào sản xuất" loading="lazy" style="aspect-ratio:2150/914"></iframe></figure>
-    </div>
-    <aside class="screen__notes">
-      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Theo dõi các yêu cầu xuất nguyên vật liệu cho sản xuất và tiến độ xuất.</p><ul><li>Số yêu cầu dạng YCXK-…; trạng thái Tạo mới, Đang xử lý, Hoàn thành.</li><li>Tiến độ = SL đã xuất / SL yêu cầu.</li></ul></div>
-    </aside>
-  </div>
-</section>
-<!-- ===== KẾT THÚC: 3.1 Danh sách yêu cầu xuất vào sản xuất ===== -->
-<!-- ===== BẮT ĐẦU: 3.2 Chi tiết yêu cầu xuất vào sản xuất ===== -->
-<section class="screen" id="xsx-yc">
-  <h2 class="screen__title"><span class="no">3.2</span>Chi tiết yêu cầu xuất vào sản xuất</h2>
-  <p class="screen__path">Giao dịch kho › Xuất kho › Xuất vào sản xuất</p>
-  <div class="screen__body">
-    <div class="screen__shots">
       <figure class="shot"><figcaption>Giao diện WMS · Chi tiết yêu cầu xuất vào sản xuất<a class="btn shot__zoom" href="../mockups/03-nhap-xuat-dung/2.html" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption>
         <iframe class="shot__live" src="../mockups/03-nhap-xuat-dung/2.html" title="Chi tiết yêu cầu xuất vào sản xuất" loading="lazy" style="aspect-ratio:1720/990"></iframe></figure>
     </div>
     <aside class="screen__notes">
-      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Xem chi tiết yêu cầu xuất vào sản xuất và các phiếu xuất đã tạo từ yêu cầu.</p><ul><li>Yêu cầu đồng bộ từ SAP, không thêm, sửa, xóa trên WMS.</li><li>Kho nhận (PW) là kho sản xuất, vd. 2000_3903; kho xuất theo từng dòng, vd. 2000_1003.</li><li>Hệ thống gợi ý tem, vị trí và SO theo FIFO.</li></ul></div>
+      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Yêu cầu xuất kho vào sản xuất đồng bộ từ SAP về WMS.</p><ul><li>Trường hợp yêu cầu xuất cho SO, BP. Sản xuất nhập số SO khi tạo yêu cầu trên SAP để đồng bộ về WMS.</li><li>Khi đồng bộ yêu cầu từ SAP về WMS: hệ thống tự động gợi ý mã vạch/ vị trí mặt hàng dựa trên:<ul><li>Nếu yêu cầu có gắn SO: gợi ý mặt hàng/ mã vạch/ vị trí theo SO.</li><li>Nếu yêu cầu không gắn SO: gợi ý mặt hàng/ mã vạch/ vị trí theo FIFO.</li></ul></li></ul></div>
     </aside>
   </div>
 </section>
-<!-- ===== KẾT THÚC: 3.2 Chi tiết yêu cầu xuất vào sản xuất ===== -->
-<!-- ===== BẮT ĐẦU: 3.3 Xuất kho vào sản xuất trên PDA ===== -->
+<!-- ===== KẾT THÚC: 3.1 Yêu cầu xuất kho vào sản xuất ===== -->
+<!-- ===== BẮT ĐẦU: 3.2 Xuất kho vào sản xuất trên PDA ===== -->
 <section class="screen" id="xsx-pda">
-  <h2 class="screen__title"><span class="no">3.3</span>Xuất kho vào sản xuất trên PDA</h2>
+  <h2 class="screen__title"><span class="no">3.2</span>Xuất kho vào sản xuất trên PDA</h2>
   <p class="screen__path">PDA › Nhóm công việc › Xuất kho › Xuất kho vào sản xuất</p>
   <div class="screen__body">
     <div class="screen__shots">
@@ -62,32 +49,20 @@
         <iframe class="shot__live" src="../mockups/03-nhap-xuat-dung/pda-xuat-vao-san-xuat.html" title="Xuất kho vào sản xuất trên PDA" loading="lazy" style="aspect-ratio:1467/1834"></iframe></figure>
     </div>
     <aside class="screen__notes">
-      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Kho xuất nguyên vật liệu cho sản xuất trên PDA: chỉ quét mã tem, hệ thống tự lấy mặt hàng, kho và vị trí, rồi Lưu phiếu.</p><ul><li>Kho nhập (PW) cố định theo yêu cầu; kho xuất có thể gồm nhiều kho theo vị trí của tem.</li><li>SL xuất điền sẵn, sửa được nhưng không vượt SL tồn của tem.</li></ul></div>
+      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Kho xuất nguyên vật liệu cho sản xuất trên PDA:</p><p>Người dùng chọn yêu cầu → quét mã tem, hệ thống tự load tên mặt hàng, kho và vị trí của tem xuất.</p><ul><li>Khi quét tem:<ul><li>Nếu số lượng yêu cầu &gt; số tồn trên tem: hệ thống tự động gợi ý theo số tồn trên tem.</li><li>Nếu số lượng yêu cầu &lt; số tồn trên tem: hệ thống tự động gợi ý theo số lượng yêu cầu.</li></ul></li><li>Trường hợp số lượng xuất thực tế khác số hệ thống gợi ý, người dùng nhập tay số lượng xuất.</li></ul><ul style="margin-top:8px"><li>Trường hợp tem quét không hợp lệ báo lỗi: tem mặt hàng không có trong yêu cầu, tem có vị trí khác kho yêu cầu xuất, tem đã dùng...</li></ul></div>
     </aside>
   </div>
 </section>
-<!-- ===== KẾT THÚC: 3.3 Xuất kho vào sản xuất trên PDA ===== -->
-<!-- ===== BẮT ĐẦU: 3.4 Danh sách phiếu xuất kho vào sản xuất ===== -->
-<section class="screen" id="xsx-pds">
-  <h2 class="screen__title"><span class="no">3.4</span>Danh sách phiếu xuất kho vào sản xuất</h2>
+<!-- ===== KẾT THÚC: 3.2 Xuất kho vào sản xuất trên PDA ===== -->
+<!-- ===== BẮT ĐẦU: 3.3 Phiếu xuất kho vào sản xuất ===== -->
+<section class="screen" id="xsx-phieu">
+  <h2 class="screen__title"><span class="no">3.3</span>Phiếu xuất kho vào sản xuất</h2>
   <p class="screen__path">Giao dịch kho › Xuất kho › Xuất vào sản xuất</p>
   <div class="screen__body">
     <div class="screen__shots">
       <figure class="shot"><figcaption>Giao diện WMS · Danh sách phiếu xuất kho vào sản xuất<a class="btn shot__zoom" href="../mockups/03-nhap-xuat-dung/3.html" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption>
         <iframe class="shot__live" src="../mockups/03-nhap-xuat-dung/3.html" title="Danh sách phiếu xuất kho vào sản xuất" loading="lazy" style="aspect-ratio:2150/914"></iframe></figure>
-    </div>
-    <aside class="screen__notes">
       <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Theo dõi các phiếu xuất kho vào sản xuất.</p><ul><li>Số phiếu dạng PXK-…; trạng thái Tạo mới, Đã duyệt.</li><li>Một yêu cầu có thể xuất bằng nhiều phiếu.</li></ul></div>
-    </aside>
-  </div>
-</section>
-<!-- ===== KẾT THÚC: 3.4 Danh sách phiếu xuất kho vào sản xuất ===== -->
-<!-- ===== BẮT ĐẦU: 3.5 Phiếu xuất kho vào sản xuất ===== -->
-<section class="screen" id="xsx-phieu">
-  <h2 class="screen__title"><span class="no">3.5</span>Phiếu xuất kho vào sản xuất</h2>
-  <p class="screen__path">Giao dịch kho › Xuất kho › Xuất vào sản xuất</p>
-  <div class="screen__body">
-    <div class="screen__shots">
       <figure class="shot"><figcaption>Giao diện WMS · Phiếu xuất kho vào sản xuất<a class="btn shot__zoom" href="../mockups/03-nhap-xuat-dung/4.html" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption>
         <iframe class="shot__live" src="../mockups/03-nhap-xuat-dung/4.html" title="Phiếu xuất kho vào sản xuất" loading="lazy" style="aspect-ratio:1720/937"></iframe></figure>
     </div>
@@ -96,28 +71,16 @@
     </aside>
   </div>
 </section>
-<!-- ===== KẾT THÚC: 3.5 Phiếu xuất kho vào sản xuất ===== -->
-<!-- ===== BẮT ĐẦU: 3.6 Danh sách yêu cầu nhập trả từ sản xuất ===== -->
-<section class="screen" id="ntsx-ds">
-  <h2 class="screen__title"><span class="no">3.6</span>Danh sách yêu cầu nhập trả từ sản xuất</h2>
+<!-- ===== KẾT THÚC: 3.3 Phiếu xuất kho vào sản xuất ===== -->
+<!-- ===== BẮT ĐẦU: 3.4 Yêu cầu nhập trả từ sản xuất ===== -->
+<section class="screen" id="ntsx-yc">
+  <h2 class="screen__title"><span class="no">3.4</span>Yêu cầu nhập trả từ sản xuất</h2>
   <p class="screen__path">Giao dịch kho › Nhập kho › Nhập trả từ sản xuất</p>
   <div class="screen__body">
     <div class="screen__shots">
       <figure class="shot"><figcaption>Giao diện WMS · Danh sách yêu cầu nhập trả từ sản xuất<a class="btn shot__zoom" href="../mockups/03-nhap-xuat-dung/5.html" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption>
         <iframe class="shot__live" src="../mockups/03-nhap-xuat-dung/5.html" title="Danh sách yêu cầu nhập trả từ sản xuất" loading="lazy" style="aspect-ratio:2150/914"></iframe></figure>
-    </div>
-    <aside class="screen__notes">
       <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Theo dõi các yêu cầu sản xuất trả nguyên vật liệu về kho.</p><ul><li>Số yêu cầu dạng YCTLSX-….</li><li>Lý do trả: Dư sau sản xuất, Lỗi / không đạt chất lượng, Đổi kế hoạch sản xuất, Sai quy cách.</li></ul></div>
-    </aside>
-  </div>
-</section>
-<!-- ===== KẾT THÚC: 3.6 Danh sách yêu cầu nhập trả từ sản xuất ===== -->
-<!-- ===== BẮT ĐẦU: 3.7 Chi tiết yêu cầu nhập trả từ sản xuất ===== -->
-<section class="screen" id="ntsx-yc">
-  <h2 class="screen__title"><span class="no">3.7</span>Chi tiết yêu cầu nhập trả từ sản xuất</h2>
-  <p class="screen__path">Giao dịch kho › Nhập kho › Nhập trả từ sản xuất</p>
-  <div class="screen__body">
-    <div class="screen__shots">
       <figure class="shot"><figcaption>Giao diện WMS · Chi tiết yêu cầu nhập trả từ sản xuất<a class="btn shot__zoom" href="../mockups/03-nhap-xuat-dung/6.html" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption>
         <iframe class="shot__live" src="../mockups/03-nhap-xuat-dung/6.html" title="Chi tiết yêu cầu nhập trả từ sản xuất" loading="lazy" style="aspect-ratio:1720/990"></iframe></figure>
     </div>
@@ -126,10 +89,10 @@
     </aside>
   </div>
 </section>
-<!-- ===== KẾT THÚC: 3.7 Chi tiết yêu cầu nhập trả từ sản xuất ===== -->
-<!-- ===== BẮT ĐẦU: 3.8 Nhập trả từ sản xuất trên PDA ===== -->
+<!-- ===== KẾT THÚC: 3.4 Yêu cầu nhập trả từ sản xuất ===== -->
+<!-- ===== BẮT ĐẦU: 3.5 Nhập trả từ sản xuất trên PDA ===== -->
 <section class="screen" id="ntsx-pda">
-  <h2 class="screen__title"><span class="no">3.8</span>Nhập trả từ sản xuất trên PDA</h2>
+  <h2 class="screen__title"><span class="no">3.5</span>Nhập trả từ sản xuất trên PDA</h2>
   <p class="screen__path">PDA › Nhóm công việc › Nhập kho › Nhập trả từ sản xuất</p>
   <div class="screen__body">
     <div class="screen__shots">
@@ -141,28 +104,16 @@
     </aside>
   </div>
 </section>
-<!-- ===== KẾT THÚC: 3.8 Nhập trả từ sản xuất trên PDA ===== -->
-<!-- ===== BẮT ĐẦU: 3.9 Danh sách phiếu nhập trả từ sản xuất ===== -->
-<section class="screen" id="ntsx-pds">
-  <h2 class="screen__title"><span class="no">3.9</span>Danh sách phiếu nhập trả từ sản xuất</h2>
+<!-- ===== KẾT THÚC: 3.5 Nhập trả từ sản xuất trên PDA ===== -->
+<!-- ===== BẮT ĐẦU: 3.6 Phiếu nhập trả từ sản xuất ===== -->
+<section class="screen" id="ntsx-phieu">
+  <h2 class="screen__title"><span class="no">3.6</span>Phiếu nhập trả từ sản xuất</h2>
   <p class="screen__path">Giao dịch kho › Nhập kho › Nhập trả từ sản xuất</p>
   <div class="screen__body">
     <div class="screen__shots">
       <figure class="shot"><figcaption>Giao diện WMS · Danh sách phiếu nhập trả từ sản xuất<a class="btn shot__zoom" href="../mockups/03-nhap-xuat-dung/7.html" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption>
         <iframe class="shot__live" src="../mockups/03-nhap-xuat-dung/7.html" title="Danh sách phiếu nhập trả từ sản xuất" loading="lazy" style="aspect-ratio:2150/914"></iframe></figure>
-    </div>
-    <aside class="screen__notes">
       <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Theo dõi các phiếu nhập trả từ sản xuất.</p><ul><li>Số phiếu dạng NTLSX-…; trạng thái Tạo mới, Đã duyệt.</li></ul></div>
-    </aside>
-  </div>
-</section>
-<!-- ===== KẾT THÚC: 3.9 Danh sách phiếu nhập trả từ sản xuất ===== -->
-<!-- ===== BẮT ĐẦU: 3.10 Phiếu nhập trả từ sản xuất ===== -->
-<section class="screen" id="ntsx-phieu">
-  <h2 class="screen__title"><span class="no">3.10</span>Phiếu nhập trả từ sản xuất</h2>
-  <p class="screen__path">Giao dịch kho › Nhập kho › Nhập trả từ sản xuất</p>
-  <div class="screen__body">
-    <div class="screen__shots">
       <figure class="shot"><figcaption>Giao diện WMS · Phiếu nhập trả từ sản xuất<a class="btn shot__zoom" href="../mockups/03-nhap-xuat-dung/8.html" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption>
         <iframe class="shot__live" src="../mockups/03-nhap-xuat-dung/8.html" title="Phiếu nhập trả từ sản xuất" loading="lazy" style="aspect-ratio:1720/937"></iframe></figure>
     </div>
@@ -171,7 +122,7 @@
     </aside>
   </div>
 </section>
-<!-- ===== KẾT THÚC: 3.10 Phiếu nhập trả từ sản xuất ===== -->
+<!-- ===== KẾT THÚC: 3.6 Phiếu nhập trả từ sản xuất ===== -->
 
 </main>
 
