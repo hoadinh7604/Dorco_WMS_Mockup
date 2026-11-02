@@ -8,6 +8,8 @@
 (function () {
   "use strict";
   var MENU = window.TSD_MENU || [];
+  var I18N = window.I18N || { tr: function (s) { return s; }, apply: function () {}, switcher: function () { return document.createElement("span"); } };
+  var T = I18N.tr;
   var body = document.body;
   var ROOT = body.getAttribute("data-root") || "";
   var PAGE = body.getAttribute("data-page") || "";
@@ -39,7 +41,7 @@
       if (it.page === PAGE && !current) { current = it; currentGroup = g.group; }
       if (seen[it.page]) return;
       seen[it.page] = 1;
-      pages.push({ page: it.page, title: it.page === "home" ? "Trang đầu" : it.no + ". " + it.title, href: ROOT + it.href.split("#")[0], soon: it.soon });
+      pages.push({ page: it.page, title: it.page === "home" ? T("Trang đầu") : it.no + ". " + T(it.title), href: ROOT + it.href.split("#")[0], soon: it.soon });
     });
   });
   var live = pages.filter(function (p) { return !p.soon || p.page === PAGE; });
@@ -51,31 +53,34 @@
   /* ---------- Thanh bên ---------- */
   var nav = "";
   MENU.forEach(function (g) {
-    nav += '<div class="side__grp">' + esc(g.group) + "</div>";
+    nav += '<div class="side__grp">' + esc(T(g.group)) + "</div>";
     g.items.forEach(function (it) {
       var cls = "nav" + (it.soon ? " is-soon" : "") + (it.page === PAGE && it.page !== "home" ? " is-page" : "");
       var hash = it.href.split("#")[1];
       nav += '<a class="' + cls + '" href="' + esc(link(it)) + '"' + (it.page === PAGE && hash ? ' data-spy="' + hash + '"' : "") +
-        ' data-key="' + esc(fold(it.no + " " + it.title)) + '"><i>' + esc(it.no) + "</i><span>" + esc(it.title) + "</span></a>";
+        ' data-key="' + esc(fold(it.no + " " + it.title + " " + T(it.title))) + '"><i>' + esc(it.no) + "</i><span>" + esc(T(it.title)) + "</span></a>";
       (it.screens || []).forEach(function (s) {
         nav += '<a class="nav sub" href="' + esc(link(it, s.id)) + '" data-parent="' + esc(it.page) + '"' + (it.page === PAGE ? ' data-spy="' + esc(s.id) + '"' : "") +
-          ' data-key="' + esc(fold(s.no + " " + s.title + " " + it.title)) + '"><i>' + esc(s.no) + "</i><span>" + esc(s.title) + "</span></a>";
+          ' data-key="' + esc(fold(s.no + " " + s.title + " " + T(s.title) + " " + it.title)) + '"><i>' + esc(s.no) + "</i><span>" + esc(T(s.title)) + "</span></a>";
       });
     });
   });
-  var side = el("aside", { "class": "side", id: "side", "aria-label": "Mục lục" },
+  var side = el("aside", { "class": "side", id: "side", "aria-label": T("Mục lục") },
     '<a class="side__brand" href="' + ROOT + 'index.html"><small>Cyberlogitec · Dorco</small><b>Dorco WMS</b><span>To-Be Solution Design</span></a>' +
-    '<div class="side__search"><label class="sr-only" for="q">Tìm trong mục lục</label><input id="q" type="search" placeholder="Tìm màn hình, chức năng…" autocomplete="off"></div>' +
-    '<nav class="side__nav">' + nav + '</nav><p class="side__empty">Không tìm thấy mục phù hợp.</p>');
+    '<div class="side__search"><label class="sr-only" for="q">' + T("Tìm trong mục lục") + '</label><input id="q" type="search" placeholder="' + T("Tìm màn hình, chức năng…") + '" autocomplete="off"></div>' +
+    '<nav class="side__nav">' + nav + '</nav><p class="side__empty">' + T("Không tìm thấy mục phù hợp.") + '</p>');
 
   /* ---------- Thanh trên ---------- */
-  var crumb = 'Dorco WMS' + (current && PAGE !== "home" ? ' › ' + esc(currentGroup) + ' › <b>' + esc(current.no + ". " + current.title) + '</b>' : ' › <b>Trang đầu</b>');
+  var crumb = 'Dorco WMS' + (current && PAGE !== "home" ? ' › ' + esc(T(currentGroup)) + ' › <b>' + esc(current.no + ". " + T(current.title)) + '</b>' : ' › <b>' + T("Trang đầu") + '</b>');
   var top = el("header", { "class": "top" },
-    '<button class="btn top__menu" type="button" aria-controls="side" aria-expanded="false">☰ Mục lục</button>' +
+    '<button class="btn top__menu" type="button" aria-controls="side" aria-expanded="false">' + T("☰ Mục lục") + '</button>' +
     '<div class="top__crumb">' + crumb + '</div>' +
-    '<a class="btn btn--hide-sm" href="' + (prev ? esc(prev.href) : "#") + '"' + (prev ? ' title="' + esc(prev.title) + '"' : ' aria-disabled="true"') + '>‹ Trước</a>' +
-    '<a class="btn btn--hide-sm" href="' + (next ? esc(next.href) : "#") + '"' + (next ? ' title="' + esc(next.title) + '"' : ' aria-disabled="true"') + '>Sau ›</a>' +
-    '<button class="btn btn--pri" type="button" data-print>In / PDF</button>');
+    '<span class="top__lang"></span>' +
+    '<a class="btn btn--hide-sm" href="' + (prev ? esc(prev.href) : "#") + '"' + (prev ? ' title="' + esc(prev.title) + '"' : ' aria-disabled="true"') + '>' + T("‹ Trước") + '</a>' +
+    '<a class="btn btn--hide-sm" href="' + (next ? esc(next.href) : "#") + '"' + (next ? ' title="' + esc(next.title) + '"' : ' aria-disabled="true"') + '>' + T("Sau ›") + '</a>' +
+    '<button class="btn btn--pri" type="button" data-print>' + T("In / PDF") + '</button>');
+
+  $(".top__lang", top).replaceWith(I18N.switcher());
 
   /* ---------- Ráp khung ---------- */
   var main = $("main.content");
@@ -89,9 +94,9 @@
 
   /* Trước/Sau cuối trang */
   if (prev || next) {
-    var pg = el("nav", { "class": "pager", "aria-label": "Chuyển mục" },
-      (prev ? '<a class="prev" href="' + esc(prev.href) + '"><small>‹ Mục trước</small>' + esc(prev.title) + "</a>" : "") +
-      (next ? '<a class="next" href="' + esc(next.href) + '"><small>Mục tiếp theo ›</small>' + esc(next.title) + "</a>" : ""));
+    var pg = el("nav", { "class": "pager", "aria-label": T("Chuyển mục") },
+      (prev ? '<a class="prev" href="' + esc(prev.href) + '"><small>' + T("‹ Mục trước") + '</small>' + esc(prev.title) + "</a>" : "") +
+      (next ? '<a class="next" href="' + esc(next.href) + '"><small>' + T("Mục tiếp theo ›") + '</small>' + esc(next.title) + "</a>" : ""));
     main.appendChild(pg);
   }
 
@@ -101,8 +106,8 @@
     MENU.forEach(function (g) {
       if (g.group !== name) return;
       g.items.forEach(function (it) {
-        html += '<a class="card-link' + (it.soon ? " is-soon" : "") + '" href="' + esc(ROOT + it.href) + '"><i>' + esc(it.no) + "</i><div><b>" + esc(it.title) + "</b><span>" +
-          esc(it.soon ? "Sắp có" : (it.desc || "")) + "</span></div></a>";
+        html += '<a class="card-link' + (it.soon ? " is-soon" : "") + '" href="' + esc(ROOT + it.href) + '"><i>' + esc(it.no) + "</i><div><b>" + esc(T(it.title)) + "</b><span>" +
+          esc(it.soon ? T("Sắp có") : T(it.desc || "")) + "</span></div></a>";
       });
     });
     box.innerHTML = html;
@@ -149,7 +154,7 @@
   $$("a", side).forEach(function (a) { a.addEventListener("click", function () { setMenu(false); }); });
 
   /* ---------- Phóng to ảnh ---------- */
-  var lb = el("div", { "class": "lightbox", role: "dialog", "aria-modal": "true", "aria-label": "Ảnh phóng to" }, '<img alt=""><button class="btn" type="button">Đóng (Esc)</button>');
+  var lb = el("div", { "class": "lightbox", role: "dialog", "aria-modal": "true", "aria-label": T("Ảnh phóng to") }, '<img alt=""><button class="btn" type="button">' + T("Đóng (Esc)") + '</button>');
   body.appendChild(lb);
   var lbImg = $("img", lb), lbAnno = null, lastFocus = null;
   function openLb(img) {
@@ -176,7 +181,7 @@
     if (!img) return;
     img.addEventListener("click", function () { openLb(img); });
     if (cap) {
-      var b = el("button", { "class": "btn shot__zoom", type: "button" }, "⤢ Phóng to");
+      var b = el("button", { "class": "btn shot__zoom", type: "button" }, T("⤢ Phóng to"));
       b.addEventListener("click", function () { openLb(img); });
       cap.appendChild(b);
     }
@@ -196,6 +201,9 @@
   document.addEventListener("keydown", function (e) {
     if (e.key === "Escape") { if (lb.classList.contains("is-open")) closeLb(); else setMenu(false); }
   });
+
+  /* ---------- Dịch nội dung trang (EN/KO) ---------- */
+  I18N.apply(main);
 
   /* ---------- In ---------- */
   $$("[data-print]").forEach(function (b) { b.addEventListener("click", function () { window.print(); }); });

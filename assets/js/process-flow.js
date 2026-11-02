@@ -11,7 +11,8 @@
   App.data = function (name, obj) { App._data[name] = obj; };
   var ESC = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
   var util = { esc: function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return ESC[c]; }); } };
-  function t(x) { return x == null ? '' : (typeof x === 'object' ? (x.vi != null ? x.vi : '') : String(x)); }
+  var I = window.I18N || { pick: function (x) { return x == null ? '' : (typeof x === 'object' ? (x.vi != null ? x.vi : '') : String(x)); }, tr: function (s) { return s; } };
+  function t(x) { return I.pick(x); }
   var fitOn = true;
 
   function sysChip(s, ctx) {
@@ -103,13 +104,14 @@
     sheet.style.zoom = 1;
     var z = Math.min(1, (sc.clientWidth - 2) / sheet.offsetWidth);
     sheet.style.zoom = fitOn ? z : 1;
-    btn.textContent = fitOn ? '⤢ Xem kích thước thật' : '⤡ Thu vừa màn hình';
+    btn.textContent = I.tr(fitOn ? '⤢ Xem kích thước thật' : '⤡ Thu vừa màn hình');
   }
 
   function render(data) {
     var ctx = { t: t, util: util, icon: App.icon || function () { return ''; }, config: { plants: [{ code: 'HY' }, { code: 'HN' }] } };
     ctx.manualLabel = (data.panels && data.panels.legend && data.panels.legend.manualLabel) || 'Thủ công';
-    return '<div class="pf-toolbar"><button type="button" class="btn pf-fit"></button><span>Đang thu nhỏ vừa màn hình · bấm để xem kích thước thật, kéo ngang để xem hết</span></div>' +
+    if (typeof ctx.manualLabel === 'string') ctx.manualLabel = I.tr(ctx.manualLabel);
+    return '<div class="pf-toolbar"><button type="button" class="btn pf-fit"></button><span>' + I.tr('Đang thu nhỏ vừa màn hình · bấm để xem kích thước thật, kéo ngang để xem hết') + '</span></div>' +
       '<div class="pf-scroll"><div class="pf-sheet">' +
       data.lanes.map(function (l) { return lane(l, ctx); }).join('') + panels(data.panels, ctx) + '</div></div>';
   }
@@ -117,7 +119,7 @@
   function init() {
     Array.prototype.forEach.call(document.querySelectorAll('[data-process-flow]'), function (el) {
       var data = App._data[el.getAttribute('data-process-flow')];
-      if (!data) { el.innerHTML = '<p class="sub">Chưa nạp được dữ liệu sơ đồ.</p>'; return; }
+      if (!data) { el.innerHTML = '<p class="sub">' + I.tr('Chưa nạp được dữ liệu sơ đồ.') + '</p>'; return; }
       el.innerHTML = render(data);
       el.classList.add('pf-root');
       el.querySelector('.pf-fit').addEventListener('click', function () { fitOn = !fitOn; fit(el); });
