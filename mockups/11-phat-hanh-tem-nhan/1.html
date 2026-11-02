@@ -215,7 +215,7 @@ function temDiffs(l){
 function diffText(l,d){return 'tem '+l.no+' lệch yêu cầu '+l.src+': '+d.map(x=>x.f+' (tem '+(x.tem||'trống')+', yêu cầu '+(x.req||'trống')+')').join('; ');}
 function printWarn(ls){const out=[];ls.forEach(l=>{const d=temDiffs(l);if(d.length)out.push(diffText(l,d));});return out.length?'<div class="note warn" data-chg="new">Cảnh báo: '+out.map(esc).join(' | ')+'. In lại sẽ in dữ liệu cũ của tem; hủy tem và tạo, in lại nếu cần. Cảnh báo không chặn.</div>':'';}
 const PRINTERS=['Máy in kho K01','Máy in kho K02','Xuất PDF (xem trước)'];
-const PAPERS=['A4 decal 4 tem (2 × 2)','Tem cuộn 100 × 70 mm'];
+const PAPERS=['A4 decal 4 tem (2 × 2)'];
 const CANCEL_REASONS=['Hư hỏng trong kho','Bản in không đọc được','Mất tem','Đóng gói lại / tách kiện','Sai số lượng','Phát hành trùng','Đảo phiếu nhập','In lỗi chưa dán','Sai biến thể hàng','Yêu cầu nhập đã hủy','Thay đổi nội dung pallet','Xếp lại sang pallet mới','Thông tin tem không chính xác','Yêu cầu khách hàng','Thay đổi thiết kế hoặc quy cách','Dán tem lại tái xuất','Cần thêm bản tem thùng','Đã huỷ phiếu giao hàng','Khác'];
 const MANUAL_REASONS=['Kiểm kê thừa','Tem hỏng, không xác định nguồn','Khác (nhập lý do)'];
 const TARGETS=['Chưa xác định','Phiếu điều chỉnh tăng','Phiếu nhập khác','Phiếu tồn đầu kỳ'];
@@ -321,13 +321,13 @@ function resetState(){
 }
 function newLabelNo(){DB.cnt.lbl+=1;return 'MLB-'+TODAY_S+'-'+String(DB.cnt.lbl).padStart(4,'0');}
 function statusInfo(l){
-  if(l.status==='issued') return l.manual?['Chờ gắn phiếu','amber']:['Đã phát hành','blue'];
-  const m={printed:['Đã in','gray'],reserved:['Đã giữ chỗ','amber'],stock:['Đã tiêu thụ','green'],empty:['Đã tiêu thụ','green'],consumed:['Đã tiêu thụ','green'],cancelled:['Đã hủy','red']};
-  if(l.status==='printed'&&l.manual) return ['Đã in, chờ gắn phiếu','amber'];
+  if(l.status==='issued') return ['Đã phát hành','blue'];
+  const m={printed:['Đã in','gray'],reserved:['Đã giữ chỗ','amber'],stock:['Còn tồn','green'],empty:['Hết tồn','gray'],consumed:[(l.remaining>0?'Còn tồn':'Hết tồn'),(l.remaining>0?'green':'gray')],cancelled:['Đã hủy','red']};
+  
   return m[l.status]||['—','gray'];
 }
-function statusKey(l){return l.status;}
-const STATUS_OPTS=[['issued','Đã phát hành / chờ gắn phiếu'],['printed','Đã in'],['reserved','Đã giữ chỗ'],['consumed','Đã tiêu thụ'],['cancelled','Đã hủy']];
+function statusKey(l){ if(['stock','empty','consumed'].includes(l.status)) return (l.remaining>0)?'stock':'empty'; return l.status; }
+const STATUS_OPTS=[['issued','Đã phát hành'],['printed','Đã in'],['reserved','Đã giữ chỗ'],['stock','Còn tồn'],['empty','Hết tồn'],['cancelled','Đã hủy']];
 const canCancel=l=>l.status==='issued'||l.status==='printed'||(l.status==='reserved'&&l.holder==='request'); const canFirst=l=>l.status==='issued'; const canAgain=l=>l.printCount>0&&['printed','reserved','stock','empty','consumed'].includes(l.status);
 const locOpts=(sel)=>DB.locs.filter(x=>/^K0\d-/.test(x.code)).map(x=>`<option value="${esc(x.code)}" ${sel===x.code?'selected':''}>${esc(x.code)} · ${esc(x.name)}</option>`).join('');
 const lblByNo=no=>DB.labels.find(x=>x.no===no);
@@ -386,10 +386,10 @@ function plan(){
       else if(sum!==+l.need) errs.push(l.item+': tổng nhóm '+fmt(sum)+' khác SL cần dán '+fmt(+l.need));
       if(l.groups.some(g=>!(+g.n>0)||!(+g.per>0))) errs.push(l.item+': số pallet và SL/pallet phải lớn hơn 0');
       out.totNeed+=+l.need||0; if(+l.need===outq) out.done++; out.remAfter+=outq-(+l.need||0);
-      l.groups.forEach(g=>{for(let k=0;k<Math.min(+g.n||0,500);k++) out.labels.push({item:l.item,qty:+g.per,so:l.so,line:l,pack:g.pack||''});});
+      l.groups.forEach(g=>{for(let k=0;k<Math.min(+g.n||0,500);k++) out.labels.push({item:l.item,qty:+g.per,so:l.so,line:l,pack:g.pack||'',note:g.note||''});});
     });
     const pi=sel.findIndex(l=>l.item===I.prevItem); const pl=sel[pi>=0?pi:0];
-    if(pl&&pl.groups.length) out.preview={item:pl.item,qty:+pl.groups[0].per,so:pl.so,supplier:I.req.supplier||'',po:I.req.po||'',checklist:pl.checklist,mfg:pl.mfg,batch:pl.batch,pack:(pl.groups[0]&&pl.groups[0].pack)||'',remark:pl.remark};
+    if(pl&&pl.groups.length) out.preview={item:pl.item,qty:+pl.groups[0].per,so:pl.so,supplier:I.req.supplier||'',po:I.req.po||'',checklist:pl.checklist,mfg:pl.mfg,batch:pl.batch,pack:(pl.groups[0]&&pl.groups[0].pack)||'',remark:(pl.groups[0]&&pl.groups[0].note)||''};
     return out;
   }
   if(I.src==='parent'){
@@ -451,7 +451,7 @@ function issueForm(){
   return sec1()+sec2(P)+sec3(P)+issueFooter(P);
 }
 function sec1(){
-  const opts=['request','production','repack','parent','manual'].map(k=>`<option value="${k}" ${I.src===k?'selected':''}>${esc(srcLabel(k))}</option>`).join('');
+  const opts=['request','repack','parent','manual'].map(k=>`<option value="${k}" ${I.src===k?'selected':''}>${esc(srcLabel(k))}</option>`).join('');
   const typeSel=`<div class="fld" style="max-width:260px" data-chg="mod"><label>Loại nguồn</label><select data-act="src">${opts}</select></div>`;
   let title='1. Chọn nguồn', body='';
   if(REQLIKE.includes(I.src)){
@@ -490,18 +490,18 @@ function groupEditor(l,i){
   const sum=l.groups.reduce((a,g)=>a+(+g.n||0)*(+g.per||0),0), diff=(+l.need)-sum;
   const chip=diff===0&&sum>0?`<span class="ok">Chênh lệch 0 ✓</span>`:`<span class="bad">${diff>0?'Thiếu '+fmt(diff):'Dư '+fmt(-diff)}</span>`;
   return `<tr><td colspan="9" style="background:#FAFBF7"><div style="margin:4px 0 4px 32px" data-chg="new"><b>Chia pallet</b> <span class="muted">(mỗi tem một pallet; có thể nhiều quy cách)</span>${l.auto?' <span class="chip blue" data-chg="new">Điền sẵn SL/pallet theo lần gần nhất, tự chia số pallet</span>':''}
-  <table class="tb" style="min-width:0;max-width:640px;margin-top:6px"><thead><tr><th>Nhóm</th><th class="num">Số pallet</th><th class="num">SL / pallet</th><th>Thùng / Bó / Bao mỗi pallet</th><th class="num">Tổng</th><th></th></tr></thead><tbody>
-  ${l.groups.map((g,k)=>`<tr><td>${k+1}</td><td class="num"><input class="q" style="width:90px" data-act="gN" data-i="${i}" data-g="${k}" value="${g.n}"></td><td class="num"><input class="q" data-act="gPer" data-i="${i}" data-g="${k}" value="${g.per}"></td><td><input style="width:130px" data-act="gPack" data-i="${i}" data-g="${k}" value="${esc(g.pack||'')}" placeholder="Ví dụ 4 bao"></td><td class="num">${fmt((+g.n||0)*(+g.per||0))}</td><td><button class="btn sm" data-act="gDel" data-i="${i}" data-g="${k}">✕</button></td></tr>`).join('')||`<tr><td colspan="6" class="muted">Chưa có nhóm. Bấm “+ Thêm nhóm” hoặc “Gợi ý theo quy cách”.</td></tr>`}
+  <table class="tb" style="min-width:0;max-width:640px;margin-top:6px"><thead><tr><th>Nhóm</th><th class="num">Số pallet</th><th class="num">SL / pallet</th><th>Thùng / Bó / Bao mỗi pallet</th><th>Ghi chú</th><th class="num">Tổng</th><th></th></tr></thead><tbody>
+  ${l.groups.map((g,k)=>`<tr><td>${k+1}</td><td class="num"><input class="q" style="width:90px" data-act="gN" data-i="${i}" data-g="${k}" value="${g.n}"></td><td class="num"><input class="q" data-act="gPer" data-i="${i}" data-g="${k}" value="${g.per}"></td><td><input style="width:130px" data-act="gPack" data-i="${i}" data-g="${k}" value="${esc(g.pack||'')}" placeholder="Ví dụ 4 bao"></td><td><input style="width:170px" data-act="gNote" data-i="${i}" data-g="${k}" value="${esc(g.note||'')}" placeholder="Ghi chú pallet"></td><td class="num">${fmt((+g.n||0)*(+g.per||0))}</td><td><button class="btn sm" data-act="gDel" data-i="${i}" data-g="${k}">✕</button></td></tr>`).join('')||`<tr><td colspan="7" class="muted">Chưa có nhóm. Bấm “+ Thêm nhóm”.</td></tr>`}
   </tbody></table><div class="row" style="margin-top:8px;align-items:center"><button class="btn sm" data-act="gAdd" data-i="${i}">+ Thêm nhóm</button><span>Tổng nhóm <b>${fmt(sum)}</b></span><span>Cần dán <b>${fmt(+l.need)}</b></span>${chip}</div></div></td></tr>`;
 }
 function sec2(P){
   if(REQLIKE.includes(I.src)){
     const allSel=I.lines.length&&I.lines.every((l,i)=>I.sel[i]);
     const rows=I.lines.map((l,i)=>{const it=ITEMS[l.item];const open=l.open;
-      return `<tr class="${I.sel[i]?'sel':''}"><td><input type="checkbox" data-act="selLine" data-i="${i}" ${I.sel[i]?'checked':''}></td><td>${l.item}</td><td>${esc(it.name)}</td><td>${esc(it.spec)}</td><td>${esc(l.so||'—')}</td><td class="num">${fmt(l.issued)} / ${fmt(l.qty)} ${it.uom}</td><td><input class="q" data-act="need" data-i="${i}" value="${l.need}"></td><td><input type="date" data-act="lmfg" data-i="${i}" value="${l.mfg||''}"></td><td><input style="width:140px" data-act="lremark" data-i="${i}" value="${esc(l.remark||'')}"></td><td><button class="btn sm" data-act="toggleG" data-i="${i}">${open?'Thu gọn':'Chia pallet'} · ${l.groups.reduce((a,g)=>a+(+g.n||0),0)} tem</button></td></tr>`+(open?groupEditor(l,i):'');}).join('');
+      return `<tr class="${I.sel[i]?'sel':''}"><td><input type="checkbox" data-act="selLine" data-i="${i}" ${I.sel[i]?'checked':''}></td><td>${l.item}</td><td>${esc(it.name)}</td><td>${esc(it.spec)}</td><td>${esc(l.so||'—')}</td><td class="num">${fmt(l.issued)} / ${fmt(l.qty)} ${it.uom}</td><td><input class="q" data-act="need" data-i="${i}" value="${l.need}"></td><td><input type="date" data-act="lmfg" data-i="${i}" value="${l.mfg||''}"></td><td><button class="btn sm" data-act="toggleG" data-i="${i}">${open?'Thu gọn':'Chia pallet'} · ${l.groups.reduce((a,g)=>a+(+g.n||0),0)} tem</button></td></tr>`+(open?groupEditor(l,i):'');}).join('');
     return `<div class="card"><div class="card-hd"><span>2. Số lượng tem <small>Mỗi tem tương ứng một pallet</small></span><span>⌃</span></div><div class="card-bd">
     <div class="row" style="align-items:center;margin-bottom:10px"><span>Điền SL trên mỗi tem (Dòng đã chọn)</span><input style="width:170px" data-act="per" value="${esc(I.per)}" placeholder="Nhập số lượng"><button class="btn" data-act="applyPer" ${I.per?'':'disabled'}>Áp dụng</button><button class="btn" data-act="clearG">Xóa giá trị đã nhập</button></div>
-    <div class="tbwrap"><table class="tb"><thead><tr><th><input type="checkbox" data-act="selAll" ${allSel?'checked':''}></th><th>Mã mặt hàng</th><th>Tên mặt hàng</th><th>Quy cách mặt hàng</th><th data-chg="new">SO</th><th class="num">Đã cấp tem / SL nguồn</th><th>SL cần dán tem</th><th data-chg="new">Ngày sản xuất</th><th data-chg="new">Ghi chú</th><th data-chg="mod">Chia pallet</th></tr></thead><tbody>${rows||`<tr><td colspan="8"><div class="empty"><i>📄</i><b>Chưa có dòng nguồn</b><span>Chọn số yêu cầu ở mục 1 để nạp các dòng cần dán tem.</span></div></td></tr>`}</tbody></table></div>
+    <div class="tbwrap"><table class="tb"><thead><tr><th><input type="checkbox" data-act="selAll" ${allSel?'checked':''}></th><th>Mã mặt hàng</th><th>Tên mặt hàng</th><th>Quy cách mặt hàng</th><th data-chg="new">SO</th><th class="num">Đã cấp tem / SL nguồn</th><th>SL cần dán tem</th><th data-chg="new">Ngày sản xuất</th><th data-chg="mod">Chia pallet</th></tr></thead><tbody>${rows||`<tr><td colspan="8"><div class="empty"><i>📄</i><b>Chưa có dòng nguồn</b><span>Chọn số yêu cầu ở mục 1 để nạp các dòng cần dán tem.</span></div></td></tr>`}</tbody></table></div>
     <div class="note info">Một dòng có thể cấp tem nhiều lần với số lượng mỗi tem khác nhau. Tổng số lượng đã cấp tem không được vượt số lượng của chứng từ nguồn. Phần dư không còn bắt buộc chia hết: tem cuối cùng nhận phần còn lại.</div></div></div>`;
   }
   if(I.src==='parent') return sec2Parent(P);
@@ -529,9 +529,9 @@ function sec2Parent(P){
 }
 function sec2Manual(P){
   const m=I.manual;
-  const body=`<div class="tbwrap"><table class="tb" style="min-width:980px"><thead><tr><th>Mặt hàng</th><th>SL / tem</th><th>Số tem</th><th>Vị trí kho</th><th>SO (nếu có)</th><th>Ngày nhập (theo chứng từ gốc)</th><th>Ghi chú</th><th></th></tr></thead><tbody>${m.rows.map((r,i)=>`<tr><td><select data-act="mRow" data-k="item" data-i="${i}"><option value="">Chọn mặt hàng</option>${Object.keys(ITEMS).map(k=>`<option value="${k}" ${r.item===k?'selected':''}>${k} · ${esc(ITEMS[k].name)}</option>`).join('')}</select></td><td><input class="q" data-act="mRow" data-k="per" data-i="${i}" value="${esc(r.per)}"></td><td><input class="q" style="width:70px" data-act="mRow" data-k="count" data-i="${i}" value="${esc(r.count)}"></td><td><select data-act="mRow" data-k="loc" data-i="${i}"><option value="">Chọn vị trí</option>${locOpts(r.loc)}</select></td><td><input style="width:100px" data-act="mRow" data-k="so" data-i="${i}" value="${esc(r.so)}"></td><td><input type="date" data-act="mRow" data-k="date" data-i="${i}" value="${esc(r.date)}"></td><td><input style="width:100%" data-act="mRow" data-k="note" data-i="${i}" value="${esc(r.note)}"></td><td><button class="btn sm" data-act="mRowDel" data-i="${i}">✕</button></td></tr>`).join('')}</tbody></table></div>
+  const body=`<div class="tbwrap"><table class="tb" style="min-width:980px"><thead><tr><th>Mặt hàng</th><th>SL / tem</th><th>Số tem</th><th>Vị trí kho</th><th>SO (nếu có)</th><th>Ghi chú</th><th></th></tr></thead><tbody>${m.rows.map((r,i)=>`<tr><td><select data-act="mRow" data-k="item" data-i="${i}"><option value="">Chọn mặt hàng</option>${Object.keys(ITEMS).map(k=>`<option value="${k}" ${r.item===k?'selected':''}>${k} · ${esc(ITEMS[k].name)}</option>`).join('')}</select></td><td><input class="q" data-act="mRow" data-k="per" data-i="${i}" value="${esc(r.per)}"></td><td><input class="q" style="width:70px" data-act="mRow" data-k="count" data-i="${i}" value="${esc(r.count)}"></td><td><select data-act="mRow" data-k="loc" data-i="${i}"><option value="">Chọn vị trí</option>${locOpts(r.loc)}</select></td><td><input style="width:100px" data-act="mRow" data-k="so" data-i="${i}" value="${esc(r.so)}"></td><td><input style="width:100%" data-act="mRow" data-k="note" data-i="${i}" value="${esc(r.note)}"></td><td><button class="btn sm" data-act="mRowDel" data-i="${i}">✕</button></td></tr>`).join('')}</tbody></table></div>
     <div class="row" style="margin-top:10px;align-items:center"><button class="btn sm" data-act="mRowAdd">+ Thêm dòng</button><span>Tổng số tem sẽ tạo: <b>${P.labels.length}</b></span></div>`;
-  return `<div class="card"><div class="card-hd"><span>2. Danh sách tem cần tạo</span><span style="display:flex;gap:8px;align-items:center"><button class="btn sm" data-act="mImportOpen" data-chg="mod">⬆ Import Excel</button><span>⌃</span></span></div><div class="card-bd">${body}<div class="note warn">${esc(MANUAL)} chưa tạo tồn. Tồn chỉ phát sinh khi tem được gắn vào phiếu (điều chỉnh tăng, nhập khác, tồn đầu kỳ) và phiếu được duyệt. Ngày nhập của tem là ngày trên phiếu, không phải ngày tạo tem.</div></div></div>`;
+  return `<div class="card"><div class="card-hd"><span>2. Danh sách tem cần tạo</span><span style="display:flex;gap:8px;align-items:center"><button class="btn sm" data-act="mTemplate">⬇ Tải mẫu Excel</button><button class="btn sm" data-act="mImportOpen" data-chg="mod">⬆ Import Excel</button><span>⌃</span></span></div><div class="card-bd">${body}<div class="note warn">${esc(MANUAL)} chưa tạo tồn. Tồn chỉ phát sinh khi tem được gắn vào phiếu (điều chỉnh tăng, nhập khác, tồn đầu kỳ) và phiếu được duyệt. Ngày nhập của tem là ngày trên phiếu, không phải ngày tạo tem.</div></div></div>`;
 }
 function temCard(pv,no){
   if(!pv) return `<div class="empty"><i>🏷️</i><b>Không có bản xem trước tem</b><span>Chọn một dòng và nhập số lượng hợp lệ để xem trước tem nguyên vật liệu.</span></div>`;
@@ -563,7 +563,7 @@ function issueFooter(P){
   const ok=P.errs.length===0&&(P.labels.length>0||P.kind==='return-old');
   const noPrint=P.kind==='return-old';
   const left=(REQLIKE.includes(I.src))?`Đã chọn ${sel} dòng`:(I.src==='parent'?'Tem gốc: '+(I.parent.no||'chưa chọn'):'Số tem sẽ tạo: '+P.labels.length);
-  return `<div class="foot-sticky"><span>${esc(left)}</span><div class="btns"><button class="btn pri" data-act="saveDraft">Lưu nháp</button><button class="btn" data-act="create" ${ok?'':'data-bad="1"'}>${noPrint?'Xác nhận trả lại':'Tạo tem'}</button>${noPrint?'':`<button class="btn" data-act="createPrint" ${ok?'':'data-bad="1"'}>Tạo và in</button>`}</div></div>`;
+  return `<div class="foot-sticky"><span>${esc(left)}</span><div class="btns"><button class="btn pri" data-act="create" ${ok?'':'data-bad="1"'}>${noPrint?'Xác nhận trả lại':'Tạo tem'}</button>${noPrint?'':`<button class="btn" data-act="createPrint" ${ok?'':'data-bad="1"'}>Tạo và in</button>`}</div></div>`;
 }
 </script>
 <script>
@@ -579,7 +579,7 @@ function lkRows(){
     if(f.supplier&&!(l.supplier||'').toLowerCase().includes(f.supplier.toLowerCase())) return false;
     if(f.doc&&!relDocs(l).toLowerCase().includes(f.doc.toLowerCase())) return false;
     const d=l.issuedAt.slice(0,10); if(f.from&&d<f.from) return false; if(f.to&&d>f.to) return false;
-    if(f.status&&(f.status==='consumed'?!['stock','empty','consumed'].includes(l.status):l.status!==f.status)) return false;
+    if(f.status&&statusKey(l)!==f.status) return false;
     if(f.wh&&l.wh!==f.wh) return false;
     if(f.loc&&l.loc!==f.loc) return false;
     if(f.so&&!(l.so||'').toLowerCase().includes(f.so.toLowerCase())) return false;
@@ -623,7 +623,7 @@ function lookupView(){
 function execCreate(P,andPrint){
   const nos=[], t=TODAY+' '+nowStr();
   if(REQLIKE.includes(P.kind)){
-    P.labels.forEach(x=>{const l=L(newLabelNo(),{status:'issued',item:x.item,qty:x.qty,supplier:I.req.supplier||'',po:I.req.po||'',src:I.req.no,so:x.so,wh:I.req.wh,reqQty:(x.line&&x.line.qty)||0,checklist:(x.line&&x.line.checklist)||'',mfg:(x.line&&x.line.mfg)||'',batch:(x.line&&x.line.batch)||'',pack:x.pack||'',remark:(x.line&&x.line.remark)||'',issuedAt:t});ev(l,'Phát hành tem từ '+I.req.no);DB.labels.push(l);nos.push(l.no);});
+    P.labels.forEach(x=>{const l=L(newLabelNo(),{status:'issued',item:x.item,qty:x.qty,supplier:I.req.supplier||'',po:I.req.po||'',src:I.req.no,so:x.so,wh:I.req.wh,reqQty:(x.line&&x.line.qty)||0,checklist:(x.line&&x.line.checklist)||'',mfg:(x.line&&x.line.mfg)||'',batch:(x.line&&x.line.batch)||'',pack:x.pack||'',remark:x.note||'',issuedAt:t});ev(l,'Phát hành tem từ '+I.req.no);DB.labels.push(l);nos.push(l.no);});
     I.lines.forEach((l,i)=>{if(I.sel[i]){if(I.src==='request'&&l.groups&&l.groups.length)DEFAULTS[l.item+'|'+(I.req.supplier||'')]=l.groups[0].per;l.issued+=+l.need;I.req.lines[i].issued=l.issued;l.need=Math.max(l.qty-l.issued,0);l.groups=[];l.open=false;}});
     I.sel={};
   }else if(P.kind==='return-old'){
@@ -668,7 +668,7 @@ const MODALS={
     const ls=M.nos.map(lblByNo);
     return {title:'Đã tạo '+ls.length+' tem',wide:true,body:`<div class="tbwrap"><table class="tb" style="min-width:640px"><thead><tr><th>Mã tem</th><th>Mặt hàng</th><th class="num">SL</th><th>Trạng thái</th><th>Vị trí</th></tr></thead><tbody>${ls.map(l=>`<tr><td>${l.no}</td><td>${l.item} · ${esc(ITEMS[l.item].name)}</td><td class="num">${fmt(l.qty)} ${ITEMS[l.item].uom}</td><td><span class="chip ${statusInfo(l)[1]}">${statusInfo(l)[0]}</span></td><td>${esc(l.loc||'—')}</td></tr>`).join('')}</tbody></table></div>
     ${M.kind==='manual'?`<div class="note warn">Các tem này chưa có tồn. Bước tiếp theo: gắn vào phiếu đích (điều chỉnh tăng, nhập khác hoặc tồn đầu kỳ) và duyệt phiếu.</div>`:(['split','ng','other','return-new','merge'].includes(M.kind)?`<div class="note info">Tồn của tem gốc và tem mới đã được cập nhật bằng bút toán nội bộ; không sinh phiếu nhập hoặc xuất và không đồng bộ SAP.</div>`:`<div class="note info">Tem ở trạng thái “Đã phát hành”. Dán tem lên pallet, rồi gán vào phiếu nhập khi hàng về.</div>`)}`,
-      foot:`<button class="btn" data-act="mclose">Đóng</button><button class="btn pri" data-act="createdPrint">In ngay</button>`};
+      foot:`<button class="btn" data-act="mclose">Đóng</button>${(I.src==='request'&&I.req)?'<button class="btn" data-act="toSlip">Lập phiếu nhập</button>':''}<button class="btn pri" data-act="createdPrint">In ngay</button>`};
   },
   print(){
     const mode=M.mode||'first'; const ls=M.nos.map(lblByNo).filter(l=>l&&l.status!=='cancelled'&&(mode==='again'?canAgain(l):canFirst(l))); const first=mode==='first'?ls.length:0, again=mode==='again'?ls.length:0;
@@ -712,7 +712,7 @@ const NOTES={
  'issue-request':{t:'Phát hành tem NVL · nguồn yêu cầu nhập',meaning:'Phát hành tem cho hàng mua về, theo từng dòng của yêu cầu nhập kho NVL.',process:'Quy trình mua · bước 3 In tem và bước 4 Dán tem.',old:['Mỗi dòng nguồn chỉ một ô “SL trên mỗi tem”; Lưu nháp bắt buộc chia hết.','Có cột Lô / Mẻ; tự sinh lô khi Tạo tem.','QR chứa mã hàng, lô, số lượng, mã kiểm.','In theo từng phiếu phát hành, có “vị trí bắt đầu” trên tờ giấy.'],nw:['Chia pallet bằng bảng nhóm “số pallet × SL/pallet”; nhiều quy cách một lần; bỏ ràng buộc chia hết (tem cuối nhận phần còn lại).','Bỏ lô; thêm cột SO; mẫu tem thêm SO.','QR chỉ chứa mã tem; PDA gọi hệ thống để lấy thông tin.','In A4 decal 4 tem; bỏ vị trí bắt đầu; hiện số tờ cần in.'],note:['“Gợi ý theo quy cách” dùng quy cách chuẩn mẫu của mặt hàng; thực tế lấy từ Excel của Mua.','Dữ liệu trong bản thử nghiệm là dữ liệu mẫu.']},
  'issue-parent':{t:'Phát hành tem NVL · từ tem gốc',meaning:'Tạo tem mới có truy vết từ tem đã có: tách pallet, hàng NG, trả lại, gộp, hoặc lý do khác.',process:'Quy trình mua (hàng NG) · Trả NVL dư · dồn hàng, chuyển kho.',old:['Chưa có tách/gộp trên Web (Function list: “Chưa có cần làm mới”); trên PDA đã có Gộp/tách barcode.','Trả NVL từ chuyền: dùng nguyên tem cũ hoặc in tem từ yêu cầu trả.'],nw:['Chọn tem gốc, lý do, số lượng; tem mới kế thừa mặt hàng, SO, ngày nhập, phiếu gốc.','Tách, gộp, đổi vị trí: bút toán nội bộ cộng/trừ theo từng tem; không sinh phiếu nhập/xuất, không đồng bộ SAP.','Trả lại: cộng lại vào tem cũ hoặc tạo tem mới; có phiếu nhập trả lại đồng bộ SAP.','Gộp: cùng mặt hàng, kho, SO (hoặc cùng không có SO); ngày nhập lấy của tem cũ nhất.','Lựa chọn “Khác” là đường lùi khi không khớp lý do nào.'],note:['Sổ cái bắt buộc có “chứng từ nguồn”: tách/gộp cần một loại chứng từ riêng (đã có loại LABEL_SPLIT trong mã chung, chưa có bảng chứng từ).']},
  'issue-manual':{t:'Phát hành tem NVL · tạo thủ công',meaning:'Tạo tem khi không có chứng từ nguồn: kiểm kê thừa, tồn đầu kỳ, hàng nhận ngoài yêu cầu, hoặc lý do khác.',process:'Kiểm kê (điều chỉnh tăng) · go-live · ngoại lệ.',old:['Tem NVL luôn cần chứng từ nguồn; chỉ tem pallet thành phẩm nhập tay được.'],nw:['Loại nguồn mới; lý do chọn từ danh sách, có “Khác”.','Nhập từng dòng hoặc Import Excel cho số lượng lớn (tồn đầu kỳ).','Phiếu đích không bắt buộc, chọn được sau; không cố định theo kiểm kê.','Tem chưa tạo tồn; chỉ có tồn khi gắn vào phiếu được duyệt. Ngày nhập = ngày trên phiếu.'],note:['Tên loại nguồn đổi được ở ô “Tên loại nguồn thủ công” trên thanh trên cùng.']},
- lookup:{t:'Phát hành tem NVL · tra cứu tem',meaning:'Tìm tem, xem chi tiết và lịch sử, in lần đầu, in lại, hủy.',process:'Mọi quy trình dùng tem.',old:['Bộ lọc: số tem/mã vạch, mã NVL, lô, NCC, PO/chứng từ nguồn, ngày phát hành, trạng thái, kho.','Cột: số tem, trạng thái, NVL, lô, SL, NCC, PO, phát hành bởi/lúc, số lần in, thao tác.','In lại bắt buộc lý do (kiểm tra ở máy chủ).'],nw:['Giữ mọi bộ lọc (bỏ lô); thêm Vị trí, SO, Ngày nhập, Gán phiếu nhập.','Thêm cột Tồn kho, Vị trí, Ngày nhập, Phiếu nhập, SO, Tem cha.','Giữ hai nút riêng như hiện tại: “Tạo và in” (in lần đầu, in cả đợt phát hành chưa in) và “In lại” (mỗi lần một tem); thêm hai nút in nhiều tem ở thanh trên bảng; lý do in lại không bắt buộc; bỏ “Vị trí bắt đầu”; in A4 4 tem.','Trạng thái hiển thị: Chờ gắn phiếu, Đã in, Đã giữ chỗ, Đã tiêu thụ, Đã hủy.'],note:['Hủy chỉ cho tem chưa có tồn; vẫn cần để giải phóng số lượng chưa phát hành khi in sai.']},
+ lookup:{t:'Phát hành tem NVL · tra cứu tem',meaning:'Tìm tem, xem chi tiết và lịch sử, in lần đầu, in lại, hủy.',process:'Mọi quy trình dùng tem.',old:['Bộ lọc: số tem/mã vạch, mã NVL, lô, NCC, PO/chứng từ nguồn, ngày phát hành, trạng thái, kho.','Cột: số tem, trạng thái, NVL, lô, SL, NCC, PO, phát hành bởi/lúc, số lần in, thao tác.','In lại bắt buộc lý do (kiểm tra ở máy chủ).'],nw:['Giữ mọi bộ lọc (bỏ lô); thêm Vị trí, SO, Ngày nhập, Gán phiếu nhập.','Thêm cột Tồn kho, Vị trí, Ngày nhập, Phiếu nhập, SO, Tem cha.','Giữ hai nút riêng như hiện tại: “Tạo và in” (in lần đầu, in cả đợt phát hành chưa in) và “In lại” (mỗi lần một tem); thêm hai nút in nhiều tem ở thanh trên bảng; lý do in lại không bắt buộc; bỏ “Vị trí bắt đầu”; in A4 4 tem.','Trạng thái hiển thị: Đã phát hành, Đã in, Đã giữ chỗ, Còn tồn, Hết tồn, Đã hủy.'],note:['Hủy chỉ cho tem chưa có tồn; vẫn cần để giải phóng số lượng chưa phát hành khi in sai.']},
  stockin:{t:'Nhập kho',meaning:'Quản lý yêu cầu nhập và phiếu nhập kho; hàng về thì lập phiếu, gán tem, duyệt để ghi tồn.',process:'Quy trình mua · bước 5 và 6.',old:['Màn danh sách theo yêu cầu và theo phiếu (đúng như ảnh).','Tem gán vào dòng phiếu phải phủ đúng số lượng dòng.'],nw:['Phiếu nhập: gán tem bằng hộp thoại; số nhận từng tem sửa được, lý do không bắt buộc.','Số lượng dòng phiếu = tổng số nhận; phần chưa nhận vẫn mở trên yêu cầu.','Ngày nhập = ngày trên phiếu (không giới hạn lùi ngày; chỉ khóa kỳ đã chốt tồn).','Tem đã giữ chỗ cho phiếu chờ duyệt không gán được phiếu khác.'],note:['Bố cục form phiếu nhập là đề xuất (chưa có ảnh gốc).']},
  loc:{t:'Danh mục vị trí',meaning:'Khai báo vị trí (giá, tầng, ô) trong kho; mỗi vị trí có mã QR để quét khi đặt/lấy hàng.',process:'Chuẩn bị kho; mọi quy trình đặt hàng vào vị trí.',old:['Hệ thống có hai trường riêng: Khu vực và Vị trí.','Có nút Tạo & gán mã QR và In tem; cột Trạng thái QR.'],nw:['Mã vị trí cấu thành từ Giá kệ - Tầng - Ô (nhập 3 phần, mã tự ghép).','Chưa chốt khổ in tem vị trí (không phải A4 4 tem); chờ code Location Master.'],note:['Chưa có code Location Master nên chưa biết mẫu tem và kích thước hiện tại.']}
 };
@@ -889,7 +889,7 @@ const ACT={
   mMode:t=>{I.manual.mode=t.dataset.v;render();},
   mRowAdd:()=>{I.manual.rows.push(mrow());render();},
   mRowDel:t=>{if(I.manual.rows.length>1)I.manual.rows.splice(+t.dataset.i,1);else I.manual.rows=[mrow()];render();},
-  mTemplate:()=>download('mau_tao_tem_thu_cong.csv',[csvLine(['ma_hang','sl_moi_tem','so_tem','vi_tri','so','ngay_nhap','ghi_chu']),csvLine(['KHAC010001','1000','8','K01-0002','SO-01','2026-09-15','Tồn đầu kỳ']),csvLine(['KHAC010003','600','5','K01-0003','','2026-08-20','Tồn đầu kỳ'])].join('\n')),
+  mTemplate:()=>download('mau_tao_tem_thu_cong.csv',[csvLine(['ma_hang','sl_moi_tem','so_tem','vi_tri','so','ghi_chu']),csvLine(['KHAC010001','1000','8','K01-0002','SO-01','Tồn đầu kỳ']),csvLine(['KHAC010003','600','5','K01-0003','','Tồn đầu kỳ'])].join('\n')),
   mSample:()=>{I.manual.imp={rows:SAMPLE_IMP.map(r=>Object.assign({},r,{err:validateImp(r)}))};render();},
   mApply:()=>{const ok=I.manual.imp.rows.filter(r=>!r.err).map(r=>({item:r.item,per:r.per,count:r.count,loc:r.loc,so:r.so,date:r.date||TODAY,note:r.note}));const cur=I.manual.rows.filter(r=>r.item||r.per||r.loc);I.manual.rows=cur.concat(ok);I.manual.mode='rows';I.manual.imp=null;toast('Đã nhập '+ok.length+' dòng hợp lệ vào bảng');render();},
   /* tra cứu */
@@ -972,6 +972,7 @@ const CHG={
   per:t=>{I.per=t.value;render();},
   bkSet:t=>{M[t.dataset.k]=t.value;},
  gPack:t=>{I.lines[+t.dataset.i].groups[+t.dataset.g].pack=t.value;render();},
+ gNote:t=>{I.lines[+t.dataset.i].groups[+t.dataset.g].note=t.value;render();},
  lmfg:t=>{I.lines[+t.dataset.i].mfg=t.value;render();},
  lremark:t=>{I.lines[+t.dataset.i].remark=t.value;render();},
  gN:t=>{I.lines[+t.dataset.i].auto=false;I.lines[+t.dataset.i].groups[+t.dataset.g].n=+t.value;render();},
@@ -1467,10 +1468,12 @@ MODALS_EXT.mImport=function(){
   return {title:'Import Excel · '+MANUAL,wide:true,body:`<div class="muted" style="margin-bottom:8px">Nhập nhiều tem một lần (ví dụ tồn đầu kỳ). Chọn file theo mẫu, hệ thống kiểm tra từng dòng trước khi nhập vào bảng. Mẫu file sẽ chốt sau khi chốt giao diện nhập liệu.</div>
   <label class="drop"><input type="file" accept=".csv,.xlsx,text/csv" data-act="mFile" style="display:none"><b>Kéo thả file vào đây hoặc bấm để chọn</b><span class="muted">Hệ thống thật dùng file .xlsx; bản thử nghiệm đọc file .csv</span></label>
   <div class="row" style="margin-top:10px"><button class="btn" data-act="mTemplate">⬇ Tải file mẫu</button><button class="btn" data-act="mSample">Dùng dữ liệu mẫu</button></div>
-  ${imp?`<div class="tbwrap" style="margin-top:10px"><table class="tb" style="min-width:760px"><thead><tr><th>#</th><th>Mã hàng</th><th>SL/tem</th><th>Số tem</th><th>Vị trí</th><th>SO</th><th>Ngày nhập</th><th>Kết quả</th></tr></thead><tbody>${imp.rows.map((r,i)=>`<tr><td>${i+1}</td><td>${esc(r.item)}</td><td>${esc(r.per)}</td><td>${esc(r.count)}</td><td>${esc(r.loc)}</td><td>${esc(r.so||'—')}</td><td>${esc(r.date||'—')}</td><td>${r.err?`<span class="chip red">${esc(r.err)}</span>`:'<span class="chip green">Hợp lệ</span>'}</td></tr>`).join('')}</tbody></table></div><div style="margin-top:8px">${ok} dòng hợp lệ · ${imp.rows.length-ok} dòng lỗi (dòng lỗi không được nhập)</div>`:''}`,
-  foot:`<button class="btn" data-act="mclose">Hủy</button><button class="btn pri" data-act="mApply" ${ok?'':'disabled'}>Nhập vào bảng</button>`};
+  ${imp?`<div class="tbwrap" style="margin-top:10px"><table class="tb" style="min-width:760px"><thead><tr><th>#</th><th>Mã hàng</th><th>SL/tem</th><th>Số tem</th><th>Vị trí</th><th>SO</th><th>Kết quả</th></tr></thead><tbody>${imp.rows.map((r,i)=>`<tr><td>${i+1}</td><td>${esc(r.item)}</td><td>${esc(r.per)}</td><td>${esc(r.count)}</td><td>${esc(r.loc)}</td><td>${esc(r.so||'—')}</td><td>${r.err?`<span class="chip red">${esc(r.err)}</span>`:'<span class="chip green">Hợp lệ</span>'}</td></tr>`).join('')}</tbody></table></div><div style="margin-top:8px">${ok===imp.rows.length?ok+' dòng hợp lệ, có thể nhập vào bảng.':'Có '+(imp.rows.length-ok)+' dòng lỗi nên cả file không được nhập. Tải file lỗi (cột cuối “Nguyên nhân lỗi”), sửa rồi import lại đúng file đó. '+'<button class="btn sm" data-act="mErrFile">⬇ Tải file lỗi</button>'}</div>`:''}`,
+  foot:`<button class="btn" data-act="mclose">Hủy</button><button class="btn pri" data-act="mApply" ${(imp&&imp.rows.length&&ok===imp.rows.length)?'':'disabled'}>Nhập vào bảng</button>`};
 };
 Object.assign(ACT,{
+  mErrFile:()=>{const rows=(I.manual.imp&&I.manual.imp.rows)||[];download('file_loi_tao_tem_thu_cong.csv',[csvLine(['ma_hang','sl_moi_tem','so_tem','vi_tri','so','ghi_chu','nguyen_nhan_loi'])].concat(rows.map(r=>csvLine([r.item,r.per,r.count,r.loc,r.so||'',r.note||'',r.err||'']))).join('\n'));},
+  toSlip:()=>{const no=I.req&&I.req.no;M=null;openView('stockin');if(no&&DB.requests.find(x=>x.no===no))ACT.newSlip({dataset:{no}});},
   pickReq:()=>{M={name:'pickReq',f:{no:'',sup:'',wo:'',wh:'',mode:'',from:'',to:''},sel:''};render();},
   pkRow:t=>{const r=reqList().find(x=>x.no===t.dataset.no);if(isFull(r)){toast('Chứng từ này đã dán tem đầy đủ, không chọn được');return;}M.sel=t.dataset.no;renderModal();},
   pkChoose:()=>{const no=M.sel;M=null;loadReq(no);render();},

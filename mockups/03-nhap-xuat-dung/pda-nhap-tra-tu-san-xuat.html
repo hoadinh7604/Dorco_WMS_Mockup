@@ -33,14 +33,15 @@
   .arrow{align-self:center;color:var(--teal-700);margin-top:40px}
 
   /* Thiết bị */
-  .phone{width:433px;height:829px;background:#111;border-radius:34px;padding:10px 12px 14px}
-  .phone .screen{border-radius:24px}
+  /* PDA 5 inch: màn 720×1280 = 360×640 */
+  .phone{width:384px;height:664px;background:#111;border-radius:30px;padding:10px 12px 14px}
+  .phone .screen{border-radius:20px}
   .tablet{width:1180px;height:700px;background:#111;border-radius:28px;padding:14px}
   .tablet .screen{border-radius:14px}
   .screen{width:100%;height:100%;background:var(--bg);overflow:hidden;display:flex;flex-direction:column}
   .status{height:26px;background:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 14px;font-size:13px;color:#374151}
   .status .ic{display:flex;gap:5px;align-items:center}
-  header{background:#fff;height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 16px 4px}
+  header{background:#fff;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 10px 2px 12px}
   .left{display:flex;align-items:center;gap:14px}
   .brand{display:flex;align-items:center;gap:10px;font-size:20px;font-weight:700}
   .logo{width:34px;height:34px;border-radius:8px;background:linear-gradient(160deg,#1d8f7c,#0e5a4f);display:flex;align-items:center;justify-content:center;color:#fff}
@@ -48,13 +49,13 @@
   .actions{display:flex;align-items:center;gap:14px}
   .lang{display:flex;align-items:center;gap:6px;height:30px;padding:0 12px;border:1px solid var(--line);border-radius:15px;background:#fff;font:inherit;font-size:13px;font-weight:700;color:var(--ink);cursor:pointer}
   .icon-btn{all:unset;display:flex;width:36px;height:36px;align-items:center;justify-content:center;border-radius:50%;cursor:pointer;color:#111}
-  main{flex:1;overflow-y:auto;padding:14px 14px 20px}
+  main{flex:1;overflow-y:auto;padding:12px 12px 16px}
   main h2{margin:0 0 6px;font-size:21px;font-weight:700}
   .sub{margin:0 0 12px;font-size:13.5px;color:var(--muted)}
   .cols{display:flex;justify-content:space-between;padding:4px 8px 8px;font-size:12.5px;font-weight:700;letter-spacing:.04em;color:#374151}
-  .list{display:flex;flex-direction:column;gap:10px;list-style:none;margin:0;padding:0}
+  .list{display:flex;flex-direction:column;gap:8px;list-style:none;margin:0;padding:0}
 
-  .card{display:flex;align-items:center;gap:14px;width:100%;min-height:80px;padding:12px 14px 12px 12px;background:#fff;border:1px solid var(--line);border-radius:12px;text-align:left;font:inherit;color:inherit;cursor:pointer}
+  .card{display:flex;align-items:center;gap:14px;width:100%;min-height:66px;padding:9px 14px 9px 12px;background:#fff;border:1px solid var(--line);border-radius:12px;text-align:left;font:inherit;color:inherit;cursor:pointer}
   .card:focus-visible{outline:3px solid #7cc5b6;outline-offset:2px}
   .tile{flex:none;width:44px;height:44px;border-radius:8px;background:var(--tile);color:var(--teal-900);display:flex;align-items:center;justify-content:center}
   .txt{flex:1;min-width:0}
@@ -108,9 +109,9 @@
   .row b{color:var(--ink);font-weight:500}
 
   /* Bước 5: tab chi tiết */
-  .scan-field{display:grid;grid-template-columns:80px 1fr;align-items:center;gap:10px;min-height:52px}
+  .scan-field{display:grid;grid-template-columns:72px minmax(0,1fr);align-items:center;gap:10px;min-height:52px}
   .scan-field label{font-size:14px;font-weight:700;color:var(--ink)}
-  .scan-box{display:flex;align-items:center;gap:8px;height:40px;padding:0 5px 0 10px;border:1.5px solid var(--line);border-radius:8px;background:#f9fafb}
+  .scan-box{min-width:0;display:flex;align-items:center;gap:8px;height:40px;padding:0 5px 0 10px;border:1.5px solid var(--line);border-radius:8px;background:#f9fafb}
   .scan-box.focus{border-color:var(--teal-600);background:#fff;box-shadow:0 0 0 3px rgba(29,143,124,.15)}
   .scan-box input{flex:1;min-width:0;border:none;background:transparent;font:inherit;font-size:14px;color:var(--ink);outline:none}
   .scan-box input::placeholder{color:#6b7280}
@@ -171,20 +172,261 @@
   .ton-row b{color:var(--ink);font-weight:600}
 
   /* Trạng thái đang chọn */
-  .card.active{border:2px solid var(--teal-600);background:#f2fbf8;box-shadow:0 2px 8px rgba(22,128,111,.15);padding:11px 13px 11px 11px}
+  .card.active{border:2px solid var(--teal-600);background:#f2fbf8;box-shadow:0 2px 8px rgba(22,128,111,.15);padding:8px 13px 8px 11px}
   .card.active .tile{background:var(--teal-700);color:#fff}
   .card.active .t{color:var(--teal-900)}
   .card.active .chev{color:var(--teal-700)}
   .card.active .count{background:var(--teal-700);color:#fff}
-  /* Nhúng vào trang TSD: lưới 3 màn mỗi hàng, co theo bề ngang khung */
+
+  /* ===== PDA 4 inch: màn 480×800 = 320×533, thân máy bền có phím quét hai bên ===== */
+  .phone{position:relative;width:356px;height:auto;padding:16px 18px 18px;border-radius:22px;background:linear-gradient(#2b3036,#1b1f23);box-shadow:inset 0 0 0 2px #3a4047}
+  .phone::before,.phone::after{content:"";position:absolute;top:150px;width:6px;height:58px;border-radius:3px;background:#f59e0b}
+  .phone::before{left:-5px}.phone::after{right:-5px}
+  .phone .screen{width:320px;height:533px;border-radius:4px}
+  .phone .screen::after{content:none}
+  .status{height:20px;font-size:11px;padding:0 8px}
+  header{height:50px;padding:0 6px 0 8px}
+  .left{gap:6px}
+  .brand{font-size:17px;gap:7px}
+  .logo{width:28px;height:28px}
+  .lang{height:30px;padding:0 9px;font-size:13px}
+  .icon-btn{width:40px;height:40px}
+  .page-title{font-size:16.5px;font-weight:700}
+  main{padding:8px 8px 10px}
+  main h2{font-size:17px;margin-bottom:6px}
+  .list{gap:6px}
+  .card{min-height:52px;padding:6px 10px;gap:10px;border-radius:10px}
+  .card.active{padding:5px 9px}
+  .card .tile,.tile{width:36px;height:36px}
+  .t{font-size:16px;margin:0}
+  .cols{padding:0 4px 4px;font-size:11px}
+  .count{width:40px;height:40px}
+  .count small{font-size:9px}
+  .count strong{font-size:16px}
+  .list-head{margin-bottom:6px}
+  .list-head h2{font-size:16.5px;margin:0}
+  .list-head .sub{font-size:12.5px}
+  .total{font-size:22px}
+  .req{padding:8px 10px;border-radius:10px}
+  .req.active{padding:7px 9px}
+  .req-top{margin-bottom:4px}
+  .req-no,.req-top .req-no{font-size:15.5px}
+  .req-top .date{font-size:12.5px}
+  .pill{font-size:12px;padding:2px 8px;margin-bottom:4px}
+  .partner{display:block;font-size:13.5px;line-height:1.35;margin:0}
+  .partner svg{vertical-align:-3px;margin-right:6px}
+  .bottom{padding:6px 8px 8px}
+  .seg{height:42px;font-size:15px}
+  .tabs{margin:0 8px;padding:3px}
+  .tab{height:38px;font-size:15px}
+  .panel{padding:0 10px}
+  .field{grid-template-columns:116px 1fr;min-height:38px;gap:6px}
+  .field label{font-size:13.5px}
+  .field .val{font-size:14px}
+  .field .val.ro{height:32px;padding:0 8px}
+  .sum{font-size:13px;margin:8px 2px 4px}
+  .item{padding:8px 10px}
+  .item-name{font-size:14.5px;margin-bottom:4px}
+  .row{font-size:13.5px;line-height:1.55}
+  .scan-field{grid-template-columns:62px minmax(0,1fr);min-height:44px;gap:6px}
+  .scan-field label{font-size:14px}
+  .scan-box{height:38px}
+  .scan-box input{font-size:14px}
+  .tem-no{font-size:15px}
+  .item-sub{font-size:13px;margin:1px 0 4px}
+  .qty{font-size:13.5px;margin:0 0 2px}
+  .qty-box{height:36px}
+  .qty-box input{width:76px;font-size:15.5px}
+  .foot{padding:6px 8px 8px}
+  .primary{height:46px;font-size:16px}
+  .sheet{top:12px;border-radius:14px 14px 0 0;padding:4px 12px 8px}
+  .grab{margin-bottom:2px}
+  .sh-head h3{font-size:16px}
+  .sh-item{font-size:14px;margin:0 0 6px}
+  .sh-item span{font-size:12px}
+  .ton-row{height:30px;margin-bottom:6px;font-size:13px}
+  .stepper{margin-bottom:6px;gap:6px}
+  .stp{width:46px;height:46px;font-size:22px}
+  .big{height:46px}
+  .big input{font-size:24px;line-height:42px}
+  .note{margin-bottom:6px}
+  .note label{font-size:13px;margin-bottom:3px}
+  .note textarea{min-height:38px;font-size:13.5px;padding:5px 8px}
+  .note small{font-size:11px;margin-top:2px}
+  .pad{gap:4px;margin-bottom:6px}
+  .pad button{height:34px;font-size:17px}
+  .sh-act .ghost,.sh-act .primary{height:42px}
+
+  /* ===== Tối giản chi tiết cho PDA ===== */
+  .card .tile,.tile{width:26px;height:26px;background:none !important;border-radius:0}
+  .card.active .tile{color:var(--teal-700)}
+  .card,.req,.item,.panel,.tm,.tabs,.tab,.seg,.primary,.ghost,.qty-box,.scan-box,.field .val.ro,.lang,.count,.pill,.ton-row,.pad button,.stp,.big,.note textarea,.sh-act .ghost{border-radius:4px !important}
+  .card,.req,.item,.panel,.tab.on,.seg,.card.active,.req.active,.sheet{box-shadow:none !important}
+  .card.active,.req.active{border-width:2px}
+  .sheet{border-radius:6px 6px 0 0 !important;border-top:1px solid var(--line)}
+  .tab.on{outline:1px solid var(--line)}
+
+  /* ===== Màn 4, 5 tối ưu cho PDA ===== */
+  .tcnt{font-weight:700}
+  .info{background:#fff;border:1px solid var(--line);border-radius:4px;padding:2px 10px}
+  .kv{display:flex;align-items:baseline;gap:8px;min-height:30px;padding:5px 0;border-bottom:1px solid #eef0f3;font-size:13.5px}
+  .kv:last-child{border-bottom:none}
+  .kv span{flex:none;width:112px;color:var(--muted);white-space:nowrap}
+  .kv b{flex:1;min-width:0;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .sum2{display:flex;justify-content:space-between;align-items:baseline;margin:8px 2px 6px;font-size:13px;color:var(--muted)}
+  .sum2 b{font-size:15px;color:var(--ink)}
+  .it2{background:#fff;border:1px solid var(--line);border-left-width:4px;border-radius:4px;padding:7px 10px 8px}
+  .it2.s0{border-left-color:#9ca3af}.it2.s1{border-left-color:#d97706}.it2.s2{border-left-color:#16a34a}.it2.s3{border-left-color:#dc2626}
+  .i1{display:flex;align-items:center;justify-content:space-between;gap:8px}
+  .i1 b{font-size:14.5px;color:var(--teal-900)}
+  .chip{flex:none;font-size:11.5px;font-weight:700;padding:1px 7px;border-radius:3px;background:#f3f4f6;color:#4b5563}
+  .i2{font-size:13px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:1px 0 3px}
+  .i3{display:flex;justify-content:space-between;font-size:13.5px;color:var(--muted)}
+  .i3 b{color:var(--ink);font-size:15px}
+  .bar{height:4px;background:#e5e7eb;border-radius:2px;margin-top:5px;overflow:hidden}
+  .bar i{display:block;height:100%;background:#16a34a}
+  .primary:disabled{background:#e5e7eb;color:#9ca3af;cursor:default}
+  .scan2{padding:6px 10px 8px}
+  .locchip{display:flex;align-items:center;gap:6px;height:32px;margin:2px 0 6px;padding:0 4px 0 10px;background:var(--teal-50,#e9f7f2);border:1px solid var(--teal-600);border-radius:4px;font-size:13.5px;color:var(--muted)}
+  .locchip b{flex:1;font-size:15px;color:var(--teal-900)}
+  .locchip button{all:unset;width:30px;height:30px;display:flex;align-items:center;justify-content:center;color:var(--muted);cursor:pointer;font-size:14px}
+  .scan-box.bad{border:2px solid #dc2626;background:#fef2f2}
+  .scan-box.bad input{color:#b91c1c;font-weight:700}
+  .errbar{display:flex;align-items:flex-start;gap:8px;margin-top:6px;padding:7px 10px;background:#dc2626;color:#fff;border-radius:4px;font-size:13.5px;font-weight:600;line-height:1.3}
+  .errbar b{flex:none;width:18px;height:18px;border-radius:9px;background:#fff;color:#dc2626;display:flex;align-items:center;justify-content:center;font-size:13px}
+  .tl2{gap:5px}
+  .trow{position:relative;width:100%;display:block;padding:7px 26px 7px 10px;background:#fff;border:1px solid var(--line);border-radius:4px;font:inherit;color:inherit;text-align:left;cursor:pointer}
+  .trow.new{background:#f4fbe6;border-color:#84cc16;box-shadow:inset 4px 0 0 #84cc16}
+  .t1{display:flex;align-items:center;gap:6px}
+  .t1 b{font-size:14px;color:var(--teal-900);white-space:nowrap}
+  .newtag{flex:none;font-size:10.5px;font-weight:700;padding:0 5px;border-radius:3px;background:#84cc16;color:#1a2e05}
+  .t1 .loc{margin-left:auto;font-size:12.5px;font-weight:700;color:var(--ink);white-space:nowrap}
+  .t2{display:block;font-size:12.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:1px 0 2px}
+  .t3{display:flex;justify-content:space-between;font-size:13px;color:var(--muted)}
+  .t3 b{font-size:15px;color:var(--ink)}
+  .t3 .ton{font-size:12.5px}
+  .rchev{position:absolute;right:6px;top:50%;margin-top:-8px;color:#9ca3af}
+  .sh-act .delb{flex:1;height:42px;border:1.5px solid #dc2626;border-radius:4px;background:#fff;color:#dc2626;font:inherit;font-size:14px;font-weight:700;cursor:pointer}
+  .sh-act .ghost{flex:.8}
+  .sh-act .primary{flex:1.4}
+  .t4{margin-top:1px}
+  .t4 b{font-size:14px !important}
+  .trow{cursor:default;padding:7px 10px}
+  .t1{justify-content:space-between}
+  .t3{align-items:center;min-height:26px}
+  .t3 b{font-size:14.5px}
+  .qbox{display:flex;align-items:baseline;gap:5px;height:34px;padding:0 10px;border:2px solid var(--teal-600);border-radius:4px;background:#fff;font:inherit;font-size:16px;font-weight:700;color:var(--ink);cursor:pointer}
+  .qbox small{font-size:11.5px;font-weight:500;color:var(--muted)}
+  .qbox.editing{background:#e9f7f2;box-shadow:0 0 0 3px rgba(29,143,124,.25)}
+  .dl2{all:unset;width:32px;height:28px;display:flex;align-items:center;justify-content:center;color:#dc2626;cursor:pointer}
+  /* Màn 5: dòng tem gọn */
+  .scan2{padding:4px 10px 6px}
+  .scan2 .scan-field{min-height:40px}
+  .scan2 .scan-box{height:34px}
+  .sum2{margin:5px 2px 4px}
+  .tl2{gap:4px}
+  .trow{padding:5px 10px 6px}
+  .t1{line-height:1.25}
+  .t1 b{font-size:14px}
+  .t2{margin:0 0 1px;line-height:1.25}
+  .t3{min-height:21px;line-height:1.2}
+  .qbox{height:24px;padding:0 7px;border-width:1.5px;font-size:15px;align-items:center}
+  .dl2{height:22px}
+  .i3{margin-top:1px}
+  /* Gọn phần đầu/cuối để màn 5 thấy được 3 tem */
+  header{height:44px}
+  .tab{height:34px}
+  .scan2 .scan-field{min-height:36px}
+  .scan2 .scan-box{height:32px}
+  .foot{padding:5px 8px 6px}
+  .primary{height:42px}
+  .scan2{margin-bottom:6px}
+  /* 5a: khung sửa ôm theo nội dung, sát đáy */
+  .sheet{top:auto !important}
+  .sh-act{margin-top:2px}
+  /* Màn 3: thẻ yêu cầu 2 dòng */
+  .req-top .pill{margin:0;flex:none}
+  .r2l{display:flex;align-items:baseline;justify-content:space-between;gap:8px;font-size:13.5px;color:var(--ink)}
+  .r2l .pt2{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .r2l .date{flex:none;font-size:12.5px;color:var(--muted)}
+  /* Màn 5: dòng tem dạng bảng */
+  .tb-h{display:grid;grid-template-columns:14px minmax(0,1fr) 62px 44px 22px;gap:4px;padding:2px 5px 3px;font-size:10.5px;font-weight:700;color:#4b5563;text-transform:uppercase;letter-spacing:.02em}
+  .tb-h .r{text-align:right}
+  .tb{list-style:none;margin:0;padding:0;background:#fff;border:1px solid var(--line);border-radius:4px}
+  .tr{display:grid;grid-template-columns:14px minmax(0,1fr) 62px 44px 22px;gap:4px;align-items:center;padding:6px 5px;border-bottom:1px solid #eef0f3}
+  .tr:last-child{border-bottom:none}
+  .tr.new{background:#f4fbe6;box-shadow:inset 3px 0 0 #84cc16}
+  .tn{font-size:12px;font-weight:700;color:#6b7280;text-align:center}
+  .tc{min-width:0}
+  .tc b{display:block;font-size:12.5px;letter-spacing:-.01em;color:var(--teal-900);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .tc small{display:block;font-size:11.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .tqc{display:flex;flex-direction:column;align-items:stretch;gap:1px}
+  .tq{height:28px;padding:0 3px;border:1.5px solid var(--teal-600);border-radius:4px;background:#fff;font:inherit;font-size:12.5px;letter-spacing:-.01em;font-weight:700;color:var(--ink);text-align:right;cursor:pointer}
+  .tq.editing{background:#e9f7f2;box-shadow:0 0 0 3px rgba(29,143,124,.25)}
+  .tqt{font-size:13.5px;text-align:right}
+  .tton{font-size:10.5px;color:var(--muted);text-align:right}
+  .tl{text-align:right;min-width:0}
+  .tl b{display:block;font-size:13px}
+  .tl small{display:block;font-size:10.5px;color:var(--muted);white-space:nowrap}
+  .tdl{all:unset;width:22px;height:28px;display:flex;align-items:center;justify-content:center;color:#dc2626;cursor:pointer}
+  /* Vuốt sang trái để xóa */
+  .tb-h,.tr{grid-template-columns:14px minmax(0,1fr) 66px 48px !important}
+  .trw{position:relative;overflow:hidden;border-bottom:1px solid #eef0f3;background:#dc2626}
+  .trw:last-child{border-bottom:none}
+  .trw .tr{position:relative;background:#fff;border-bottom:none;transition:transform .2s}
+  .trw .tr.new{background:#f4fbe6}
+  .trw.sw .tr{transform:translateX(-64px)}
+  .tdel{all:unset;position:absolute;right:0;top:0;bottom:0;width:64px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:#fff;font-size:12px;font-weight:700;cursor:pointer}
+  /* 5c: thanh hoàn tác sau khi xóa */
+  .snack{position:absolute;left:8px;right:8px;bottom:62px;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:0 6px 0 12px;height:44px;background:#1f2937;color:#fff;border-radius:4px;font-size:13px;box-shadow:0 4px 12px rgba(0,0,0,.25)}
+  .snack b{font-weight:700}
+  .snack button{all:unset;height:36px;padding:0 10px;display:flex;align-items:center;color:#ccf55e;font-weight:700;font-size:14px;cursor:pointer;border-radius:4px}
+  /* Cột thùng rác rộng, dễ bấm */
+  .tb-h,.tr{grid-template-columns:14px minmax(0,1fr) 62px 42px 32px !important;gap:4px !important}
+  .tr{padding:4px 2px 4px 5px !important}
+  .tdl{all:unset;width:32px;height:40px;display:flex;align-items:center;justify-content:center;color:#dc2626;cursor:pointer;border-radius:4px}
+  .tdl:active{background:#fef2f2}
+  .info{margin-bottom:8px}
+  /* 5c: hộp xác nhận xóa */
+  .tdl.hit{background:#fee2e2}
+  .cfm{position:absolute;left:20px;right:20px;top:50%;transform:translateY(-50%);background:#fff;border-radius:6px;padding:16px 16px 12px;box-shadow:0 10px 30px rgba(0,0,0,.3)}
+  .cfm h3{margin:0 0 8px;font-size:17px}
+  .cfm p{margin:0 0 14px;font-size:13.5px;line-height:1.45;color:var(--muted)}
+  .cfm p b{display:block;font-size:15px;color:var(--ink)}
+  .cfm-a{display:flex;gap:8px}
+  .cfm-a button{flex:1;height:44px;border-radius:4px;font:inherit;font-size:15px;font-weight:700;cursor:pointer}
+  .cf-no{border:1.5px solid var(--line);background:#fff;color:var(--ink)}
+  .cf-yes{border:none;background:#dc2626;color:#fff}
+  .i3 .kx{font-weight:700;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;margin-right:8px}
+  /* ===== Style D: đồng bộ web DorcoWMS ===== */
+ .T-web .status{background:#1d2126;color:#cbd5e1}.T-web .status svg *{fill:#cbd5e1}
+ .T-web header{background:#1d2126}.T-web .page-title,.T-web .brand,.T-web .icon-btn{color:#fff}.T-web .brand b{color:#c5ef6a}
+ .T-web .logo{background:#c5ef6a;color:#1a2e05}.T-web .lang{background:transparent;border-color:#4b5563;color:#fff}
+ .T-web .screen{background:#f5f6f8}
+ .T-web .card.active,.T-web .req.active{border-color:#65a30d;background:#eef8cc}.T-web .card .tile,.T-web .tile{color:#3f6212}
+ .T-web .card.active .t,.T-web .req.active .req-no,.T-web .tc b{color:#3f6212}
+ .T-web .tabs{background:#e5e7eb}.T-web .tab.on{color:#3f6212}
+ .T-web .scan-box.focus{border-color:#65a30d;box-shadow:0 0 0 2px rgba(101,163,13,.2)}
+ .T-web .tq{border-color:#65a30d}.T-web .tr.new{background:#f4fbe6}
+ .T-web .primary,.T-web .seg.on{background:#c5ef6a;color:#1a2e05}
+ .T-web .scan{background:#eef8cc;color:#3f6212}
+  .T-web .count{background:#eef8cc;color:#3f6212}
+  .T-web .card.active .count{background:#3f6212;color:#fff}
+  .T-web .card.active .tile{background:#3f6212 !important;color:#fff}
+  .T-web .i1 b,.T-web .sh-item,.T-web .item-name{color:#3f6212}
+  .T-web .stp{background:#eef8cc;color:#3f6212}
+  .T-web .big,.T-web .tq.editing{border-color:#65a30d}
+  .T-web .tq.editing{background:#f4fbe6;box-shadow:0 0 0 3px rgba(101,163,13,.25)}
+  .T-web .step-no{background:#3f6212}
+  .T-web .arrow{color:#3f6212}
+  /* Nhúng vào trang TSD: lưới 4 màn mỗi hàng, co theo bề ngang khung */
   html,body{background:#eef0f2}
-  body{display:block;min-height:0}
-  .page{width:1467px;box-sizing:border-box;padding:24px}
-  .flow{display:grid;grid-template-columns:repeat(3,433px);gap:32px 60px;align-items:start}
+  .page{width:1622px;box-sizing:border-box;padding:24px}
+  .flow{display:grid;grid-template-columns:repeat(4,356px);gap:30px 50px;align-items:start}
   .flow>.arrow{display:none}
 </style>
 </head>
-<body>
+<body class="T-web">
 <div class="page">
 <div class="flow">
 
@@ -205,14 +447,13 @@
         </header>
         <main>
           <h2>Nhóm công việc</h2>
-          <p class="sub">Chọn một nhóm để xem các chức năng kho bên trong.</p>
           <ul class="list">
-            <li><button class="card" type="button"><span class="tile" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="5" rx="1"/><path d="M5 9v10h14V9M10 13h4"/></svg></span><span class="txt"><span class="t">Quản lý hàng hóa</span><span class="d">Nhập, giao và nhận lại thành phẩm; quản lý pallet.</span></span><svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button></li>
-            <li><button class="card active" type="button" aria-current="true"><span class="tile" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M4 14h4l1.5 2.5h5L16 14h4"/><path d="M12 6v6M9 9.5l3 3 3-3"/></svg></span><span class="txt"><span class="t">Nhập kho</span><span class="d">Nhận nguyên vật liệu vào kho, gồm cả trả về từ sản xuất.</span></span><svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button></li>
-            <li><button class="card" type="button"><span class="tile" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M4 14h4l1.5 2.5h5L16 14h4"/><path d="M12 12V6M9 8.5l3-3 3 3"/></svg></span><span class="txt"><span class="t">Xuất kho</span><span class="d">Xuất nguyên vật liệu cho sản xuất hoặc trả hàng nhà cung cấp.</span></span><svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button></li>
-            <li><button class="card" type="button"><span class="tile" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h10M18 7h2M4 12h4M12 12h8M4 17h12"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="17" r="2"/></svg></span><span class="txt"><span class="t">Điều chỉnh tồn kho</span><span class="d">Kiểm đếm thực tế để đối chiếu và điều chỉnh trên Web.</span></span><svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button></li>
-            <li><button class="card" type="button"><span class="tile" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h15l-4-4M20 15H5l4 4"/></svg></span><span class="txt"><span class="t">Giao dịch kho</span><span class="d">Chuyển tồn kho hoặc thay đổi lô, cấp chất lượng và mã vạch.</span></span><svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button></li>
-            <li><button class="card" type="button"><span class="tile" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.3"/></svg></span><span class="txt"><span class="t">Tách / gộp tem <span class="badge">Mới</span></span><span class="d">Chia một tem thành nhiều tem hoặc gom nhiều tem về một tem.</span></span><svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button></li>
+            <li><button class="card" type="button"><span class="tile" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="5" rx="1"/><path d="M5 9v10h14V9M10 13h4"/></svg></span><span class="txt"><span class="t">Quản lý hàng hóa</span></span></button></li>
+            <li><button class="card active" type="button" aria-current="true"><span class="tile" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M4 14h4l1.5 2.5h5L16 14h4"/><path d="M12 6v6M9 9.5l3 3 3-3"/></svg></span><span class="txt"><span class="t">Nhập kho</span></span></button></li>
+            <li><button class="card" type="button"><span class="tile" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M4 14h4l1.5 2.5h5L16 14h4"/><path d="M12 12V6M9 8.5l3-3 3 3"/></svg></span><span class="txt"><span class="t">Xuất kho</span></span></button></li>
+            <li><button class="card" type="button"><span class="tile" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h10M18 7h2M4 12h4M12 12h8M4 17h12"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="17" r="2"/></svg></span><span class="txt"><span class="t">Điều chỉnh tồn kho</span></span></button></li>
+            <li><button class="card" type="button"><span class="tile" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h15l-4-4M20 15H5l4 4"/></svg></span><span class="txt"><span class="t">Giao dịch kho</span></span></button></li>
+            <li><button class="card" type="button"><span class="tile" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.3"/></svg></span><span class="txt"><span class="t">Tách / gộp tem <span class="badge">Mới</span></span></span></button></li>
           </ul>
         </main>
       </div></div>
@@ -240,22 +481,21 @@
         </header>
         <main>
           <h2>Nhập kho</h2>
-          <p class="sub">Nhận nguyên vật liệu vào kho, gồm cả trả về từ sản xuất.</p>
           <div class="cols"><span>CHỨC NĂNG</span><span>CÔNG VIỆC</span></div>
           <ul class="list">
             <li><button class="card" type="button">
               <span class="tile" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h2l2.2 11h11l2-8H6.2"/><circle cx="9" cy="19.5" r="1.3"/><circle cx="17" cy="19.5" r="1.3"/></svg></span>
-              <span class="txt"><span class="t">Nhập mua</span><span class="d">Nhập nguyên vật liệu và vật tư tiêu hao mua từ nhà cung cấp</span></span>
+              <span class="txt"><span class="t">Nhập mua</span></span>
               <span class="count" aria-label="8 công việc đã gửi"><small>GỬI</small><strong>8</strong></span>
             </button></li>
             <li><button class="card active" type="button" aria-current="true">
               <span class="tile" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7v4a3 3 0 0 1-3 3H5"/><path d="m9 10-4 4 4 4"/></svg></span>
-              <span class="txt"><span class="t">Nhập trả từ sản xuất</span><span class="d">Trả nguyên vật liệu chưa dùng từ sản xuất về kho</span></span>
+              <span class="txt"><span class="t">Nhập trả từ sản xuất</span></span>
               <span class="count" aria-label="4 công việc đã gửi"><small>GỬI</small><strong>4</strong></span>
             </button></li>
             <li><button class="card" type="button">
               <span class="tile" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M12 8v8M8 12h8"/></svg></span>
-              <span class="txt"><span class="t">Nhập khác</span><span class="d">Nhập kho theo yêu cầu khác (Other In)</span></span>
+              <span class="txt"><span class="t">Nhập khác</span></span>
               <span class="count" aria-label="3 công việc đã gửi"><small>GỬI</small><strong>3</strong></span>
             </button></li>
           </ul>
@@ -289,25 +529,22 @@
           </div>
           <ul class="list">
             <li><button class="req active" type="button" aria-current="true">
-              <div class="req-top"><span class="req-no">NTLSX-2610-00005</span><span class="date">19/10/2026</span></div>
-              <span class="pill new">Tạo mới</span>
-              <div class="partner"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4b5563" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20V10l5 3V10l5 3V6h4l1 14z"/><path d="M3 20h18M8 17h1M12 17h1M16 17h1"/></svg><span style="color:var(--muted)">Kho nhập (WMS):</span> K01 · Kho 1000 (NVL, BTP)</div>
+              <div class="req-top"><span class="req-no">NTLSX-2610-00005</span><span class="pill new">Tạo mới</span></div>
+              <div class="r2l"><span class="pt2">1000 · Kho NVL, BTP</span><span class="date">19/10/2026</span></div>
             </button></li>
             <li><button class="req" type="button">
-              <div class="req-top"><span class="req-no">NTLSX-2610-00004</span><span class="date">07/10/2026</span></div>
-              <span class="pill doing">Đang xử lý</span>
-              <div class="partner"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4b5563" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20V10l5 3V10l5 3V6h4l1 14z"/><path d="M3 20h18M8 17h1M12 17h1M16 17h1"/></svg><span style="color:var(--muted)">Kho nhập (WMS):</span> K01 · Kho 1000 (NVL, BTP)</div>
+              <div class="req-top"><span class="req-no">NTLSX-2610-00004</span><span class="pill doing">Đang xử lý</span></div>
+              <div class="r2l"><span class="pt2">1000 · Kho NVL, BTP</span><span class="date">07/10/2026</span></div>
             </button></li>
             <li><button class="req" type="button">
-              <div class="req-top"><span class="req-no">NTLSX-2610-00002</span><span class="date">01/10/2026</span></div>
-              <span class="pill doing">Đang xử lý</span>
-              <div class="partner"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4b5563" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20V10l5 3V10l5 3V6h4l1 14z"/><path d="M3 20h18M8 17h1M12 17h1M16 17h1"/></svg><span style="color:var(--muted)">Kho nhập (WMS):</span> K01 · Kho 1000 (NVL, BTP)</div>
+              <div class="req-top"><span class="req-no">NTLSX-2610-00002</span><span class="pill doing">Đang xử lý</span></div>
+              <div class="r2l"><span class="pt2">1000 · Kho NVL, BTP</span><span class="date">01/10/2026</span></div>
             </button></li>
           </ul>
         </main>
         <nav class="bottom" aria-label="Chế độ xem">
-          <button class="seg on" type="button" aria-pressed="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg>Danh sách</button>
-          <button class="seg" type="button" aria-pressed="false"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8V4h4M16 4h4v4M20 16v4h-4M8 20H4v-4"/><rect x="8" y="8" width="3" height="3"/><rect x="13" y="8" width="3" height="3"/><rect x="8" y="13" width="3" height="3"/><path d="M13 13h3v3"/></svg>Quét</button>
+          <button class="seg on" type="button" aria-pressed="true">Danh sách</button>
+          <button class="seg" type="button" aria-pressed="false">Quét</button>
         </nav>
       </div></div>
     </section>
@@ -330,45 +567,35 @@
           <div class="actions">
           </div>
         </header>
-        <div style="background:#fff;padding:0 0 10px">
+        <div style="background:#fff;padding:0 0 4px">
           <div class="tabs" role="tablist" aria-label="Chế độ xem yêu cầu">
             <button class="tab on" type="button" role="tab" aria-selected="true">Tổng hợp</button>
-            <button class="tab" type="button" role="tab" aria-selected="false">Chi tiết</button>
+            <button class="tab " type="button" role="tab" aria-selected="false">Chi tiết</button>
           </div>
         </div>
         <main>
-          <div class="panel">
-            <div class="field"><label>Phiếu YC</label><span class="val ro" aria-readonly="true">NTLSX-2610-00005</span></div>
-            <div class="field"><label>Kho xuất (PW)</label><span class="val">3004 · Kho SX_NVLBTP</span></div>
-            <div class="field"><label>Kho nhập (WMS)</label><span class="val">K01 · Kho 1000 (NVL, BTP)</span></div>
-          </div>
-
-          <div class="sum">Tổng số lượng đã quét: <strong>0.00</strong></div>
-
+          <div class="info"><div class="kv"><span>Phiếu YC</span><b>NTLSX-2610-00005</b></div><div class="kv"><span>Kho nhập</span><b>1000 · Kho NVL, BTP</b></div></div>
           <ul class="list">
-            <li class="item">
-              <div class="item-name">#1 · 3242663 – ST300-5P BLUE EX STD 10000 OB</div>
-              <div class="row"><span>Số lượng yêu cầu</span><b>50.00 PC</b></div>
-              <div class="row"><span>Số lượng</span><b>0.00 PC</b></div>
+            <li class="it2 s0">
+              <div class="i1"><b>#1 · 3242663</b><span class="chip">Chưa quét</span></div>
+              <div class="i2">ST300-5P BLUE EX STD 10000 OB</div>
+              <div class="i3"><span class="kx">3004 · Kho SX_NVLBTP</span><span><b>0.00</b> / 50.00 PC</span></div>
             </li>
-            <li class="item">
-              <div class="item-name">#2 · 3247939 – LTRA1002-PP MTC ROSSMANN 42 OB</div>
-              <div class="row"><span>Số lượng yêu cầu</span><b>100.00 PC</b></div>
-              <div class="row"><span>Số lượng</span><b>0.00 PC</b></div>
+            <li class="it2 s0">
+              <div class="i1"><b>#2 · 3247939</b><span class="chip">Chưa quét</span></div>
+              <div class="i2">LTRA1002-PP MTC ROSSMANN 42 OB</div>
+              <div class="i3"><span class="kx">3004 · Kho SX_NVLBTP</span><span><b>0.00</b> / 100.00 PC</span></div>
             </li>
           </ul>
         </main>
-        <div class="foot">
-          <button class="primary" type="button"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5L20 7"/></svg>Lưu phiếu</button>
-        </div>
+        <div class="foot"><button class="primary" type="button" disabled>Lưu phiếu</button></div>
       </div></div>
     </section>
 
     <svg class="arrow" width="40" height="24" viewBox="0 0 40 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12h34M28 4l8 8-8 8"/></svg>
 
-    <!-- ===== BƯỚC 5 ===== -->
     <section class="step" aria-label="Bước 5">
-      <div class="step-head"><span class="step-no">5</span><div><div class="step-title">Chi tiết yêu cầu – tab Chi tiết</div><div class="step-note">Quét vị trí và mã tem, sau đó “Lưu phiếu”</div></div></div>
+      <div class="step-head"><span class="step-no">5</span><div><div class="step-title">Chi tiết yêu cầu – tab Chi tiết</div><div class="step-note">Quét vị trí rồi quét tem</div></div></div>
       <div class="phone"><div class="screen">
         <div class="status"><span>11:35</span><span class="ic" aria-hidden="true">
           <svg width="12" height="10" viewBox="0 0 12 10"><path d="M6 10 0 2.5a9 9 0 0 1 12 0z" fill="#374151"/></svg>
@@ -382,51 +609,97 @@
           <div class="actions">
           </div>
         </header>
-        <div style="background:#fff;padding:0 0 10px">
+        <div style="background:#fff;padding:0 0 4px">
           <div class="tabs" role="tablist" aria-label="Chế độ xem yêu cầu">
-            <button class="tab" type="button" role="tab" aria-selected="false">Tổng hợp</button>
-            <button class="tab on" type="button" role="tab" aria-selected="true">Chi tiết</button>
+            <button class="tab " type="button" role="tab" aria-selected="false">Tổng hợp</button>
+            <button class="tab on" type="button" role="tab" aria-selected="true">Chi tiết <span class="tcnt">(2)</span></button>
           </div>
         </div>
         <main>
-          <div class="panel">
-            <div class="scan-field"><label for="s5-loc-f4">Vị trí</label>
-              <div class="scan-box focus"><input id="s5-loc-f4" type="text" placeholder="Quét mã">
-                <button class="scan" type="button" aria-label="Quét mã vị trí"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8V4h4M16 4h4v4M20 16v4h-4M8 20H4v-4"/><rect x="8" y="8" width="3" height="3"/><rect x="13" y="8" width="3" height="3"/><rect x="8" y="13" width="3" height="3"/><path d="M13 13h3v3"/></svg></button>
-              </div>
-            </div>
-            <div class="scan-field"><label for="s5-item-f4">Mã tem</label>
-              <div class="scan-box"><input id="s5-item-f4" type="text" placeholder="Quét mã">
-                <button class="scan" type="button" aria-label="Quét mã tem"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8V4h4M16 4h4v4M20 16v4h-4M8 20H4v-4"/><rect x="8" y="8" width="3" height="3"/><rect x="13" y="8" width="3" height="3"/><rect x="8" y="13" width="3" height="3"/><path d="M13 13h3v3"/></svg></button>
-              </div>
-            </div>
-          </div>
-
-          <div class="sum">Đã quét: <strong>2 dòng</strong></div>
-
-          <ul class="list">
-            <li class="item">
-              <div class="item-top">
-                <div class="tem-no">#1 · TEM-2610-000401</div>
-                <button class="del" type="button" aria-label="Xóa dòng 1"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button>
-              </div>
-              <div class="item-sub">3242663 – ST300-5P BLUE EX STD 10000 OB</div>
-              <div class="row"><span>Số lượng</span><b>50.00 PC</b></div>
-              <div class="row"><span>Vị trí</span><b>A001</b></div>
-            </li>
-            <li class="item">
-              <div class="item-top">
-                <div class="tem-no">#2 · TEM-2610-000402</div>
-                <button class="del" type="button" aria-label="Xóa dòng 2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button>
-              </div>
-              <div class="item-sub">3247939 – LTRA1002-PP MTC ROSSMANN 42 OB</div>
-              <div class="row"><span>Số lượng</span><b>100.00 PC</b></div>
-              <div class="row"><span>Vị trí</span><b>A002</b></div>
-            </li>
+          <div class="panel scan2"><div class="scan-field"><label for="vt4">Vị trí</label><div class="scan-box focus"><input id="vt4" type="text" placeholder="Quét mã"><button class="scan" type="button" aria-label="Quét mã vị trí"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8V4h4M16 4h4v4M20 16v4h-4M8 20H4v-4"/><rect x="8" y="8" width="3" height="3"/><rect x="13" y="8" width="3" height="3"/><rect x="8" y="13" width="3" height="3"/><path d="M13 13h3v3"/></svg></button></div></div><div class="scan-field"><label for="s4">Mã tem</label><div class="scan-box"><input id="s4" type="text" placeholder="Quét / nhập mã tem"><button class="scan" type="button" aria-label="Quét mã tem"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8V4h4M16 4h4v4M20 16v4h-4M8 20H4v-4"/><rect x="8" y="8" width="3" height="3"/><rect x="13" y="8" width="3" height="3"/><rect x="8" y="13" width="3" height="3"/><path d="M13 13h3v3"/></svg></button></div></div></div>
+          <div class="tb-h"><span>#</span><span>Mã tem / Mặt hàng</span><span class="r">Số lượng</span><span class="r">Vị trí</span><span></span></div>
+          <ul class="tb">
+            <li class="tr new"><span class="tn">2</span><span class="tc"><b>TEM-2610-000402</b><small>3247939 – LTRA1002-PP MTC ROSSMANN 42 OB</small></span><span class="tqc"><b class="tqt">100.00</b></span><span class="tl"><b>A002</b></span><button class="tdl" type="button" aria-label="Xóa dòng 2"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button></li>
+            <li class="tr"><span class="tn">1</span><span class="tc"><b>TEM-2610-000401</b><small>3242663 – ST300-5P BLUE EX STD 10000 OB</small></span><span class="tqc"><b class="tqt">50.00</b></span><span class="tl"><b>A001</b></span><button class="tdl" type="button" aria-label="Xóa dòng 1"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button></li>
           </ul>
         </main>
-        <div class="foot">
-          <button class="primary" type="button"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5L20 7"/></svg>Lưu phiếu</button>
+        <div class="foot"><button class="primary" type="button">Lưu phiếu</button></div>
+      </div></div>
+    </section>
+
+    <svg class="arrow" width="40" height="24" viewBox="0 0 40 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12h34M28 4l8 8-8 8"/></svg>
+
+    <section class="step" aria-label="Bước 5b">
+      <div class="step-head"><span class="step-no" style="width:auto;padding:0 9px;border-radius:16px">5b</span><div><div class="step-title">Báo lỗi khi quét</div><div class="step-note">Quét sai: báo đỏ dưới ô quét, máy rung và kêu</div></div></div>
+      <div class="phone"><div class="screen">
+        <div class="status"><span>11:36</span><span class="ic" aria-hidden="true">
+          <svg width="12" height="10" viewBox="0 0 12 10"><path d="M6 10 0 2.5a9 9 0 0 1 12 0z" fill="#374151"/></svg>
+          <svg width="10" height="10" viewBox="0 0 10 10"><path d="M10 0v10H0z" fill="#374151"/></svg>
+          <svg width="7" height="11" viewBox="0 0 7 11"><rect width="7" height="11" rx="1" fill="#374151"/></svg></span></div>
+        <header>
+          <div class="left">
+            <button class="icon-btn" type="button" aria-label="Quay lại"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12H4M10 6l-6 6 6 6"/></svg></button>
+            <span class="page-title">Nhập trả từ sản xuất</span>
+          </div>
+          <div class="actions">
+          </div>
+        </header>
+        <div style="background:#fff;padding:0 0 4px">
+          <div class="tabs" role="tablist" aria-label="Chế độ xem yêu cầu">
+            <button class="tab " type="button" role="tab" aria-selected="false">Tổng hợp</button>
+            <button class="tab on" type="button" role="tab" aria-selected="true">Chi tiết <span class="tcnt">(2)</span></button>
+          </div>
+        </div>
+        <main>
+          <div class="panel scan2"><div class="scan-field"><label for="vt5">Vị trí</label><div class="scan-box bad"><input id="vt5" type="text" value="B015"><button class="scan" type="button" aria-label="Quét mã vị trí"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8V4h4M16 4h4v4M20 16v4h-4M8 20H4v-4"/><rect x="8" y="8" width="3" height="3"/><rect x="13" y="8" width="3" height="3"/><rect x="8" y="13" width="3" height="3"/><path d="M13 13h3v3"/></svg></button></div></div><div class="errbar" role="alert" style="margin:4px 0 6px"><b>!</b><span>Vị trí B015 thuộc kho khác kho nhập trên yêu cầu (1000 · Kho NVL, BTP)</span></div><div class="scan-field"><label for="b4">Mã tem</label><div class="scan-box"><input id="b4" type="text" placeholder="Quét / nhập mã tem"><button class="scan" type="button" aria-label="Quét mã tem"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8V4h4M16 4h4v4M20 16v4h-4M8 20H4v-4"/><rect x="8" y="8" width="3" height="3"/><rect x="13" y="8" width="3" height="3"/><rect x="8" y="13" width="3" height="3"/><path d="M13 13h3v3"/></svg></button></div></div></div>
+          <div class="tb-h"><span>#</span><span>Mã tem / Mặt hàng</span><span class="r">Số lượng</span><span class="r">Vị trí</span><span></span></div>
+          <ul class="tb">
+            <li class="tr"><span class="tn">2</span><span class="tc"><b>TEM-2610-000402</b><small>3247939 – LTRA1002-PP MTC ROSSMANN 42 OB</small></span><span class="tqc"><b class="tqt">100.00</b></span><span class="tl"><b>A002</b></span><button class="tdl" type="button" aria-label="Xóa dòng 2"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button></li>
+            <li class="tr"><span class="tn">1</span><span class="tc"><b>TEM-2610-000401</b><small>3242663 – ST300-5P BLUE EX STD 10000 OB</small></span><span class="tqc"><b class="tqt">50.00</b></span><span class="tl"><b>A001</b></span><button class="tdl" type="button" aria-label="Xóa dòng 1"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button></li>
+          </ul>
+        </main>
+        <div class="foot"><button class="primary" type="button">Lưu phiếu</button></div>
+      </div></div>
+    </section>
+
+    <svg class="arrow" width="40" height="24" viewBox="0 0 40 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12h34M28 4l8 8-8 8"/></svg>
+
+    <!-- ===== BƯỚC 5c ===== -->
+    <section class="step" aria-label="Bước 5c">
+      <div class="step-head"><span class="step-no" style="width:auto;padding:0 9px;border-radius:16px">5c</span><div><div class="step-title">Xác nhận xóa tem</div><div class="step-note">Bấm thùng rác: hiện hộp hỏi, chọn Đồng ý để xóa hoặc Hủy</div></div></div>
+      <div class="phone"><div class="screen" style="position:relative">
+        <div class="status"><span>11:35</span><span class="ic" aria-hidden="true">
+          <svg width="12" height="10" viewBox="0 0 12 10"><path d="M6 10 0 2.5a9 9 0 0 1 12 0z" fill="#374151"/></svg>
+          <svg width="10" height="10" viewBox="0 0 10 10"><path d="M10 0v10H0z" fill="#374151"/></svg>
+          <svg width="7" height="11" viewBox="0 0 7 11"><rect width="7" height="11" rx="1" fill="#374151"/></svg></span></div>
+        <header>
+          <div class="left">
+            <button class="icon-btn" type="button" aria-label="Quay lại"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12H4M10 6l-6 6 6 6"/></svg></button>
+            <span class="page-title">Nhập trả từ sản xuất</span>
+          </div>
+          <div class="actions">
+          </div>
+        </header>
+        <div style="background:#fff;padding:0 0 4px">
+          <div class="tabs" role="tablist" aria-label="Chế độ xem yêu cầu">
+            <button class="tab " type="button" role="tab" aria-selected="false">Tổng hợp</button>
+            <button class="tab on" type="button" role="tab" aria-selected="true">Chi tiết <span class="tcnt">(2)</span></button>
+          </div>
+        </div>
+        <main>
+          <div class="panel scan2"><div class="scan-field"><label for="vt4-c">Vị trí</label><div class="scan-box"><input id="vt4-c" type="text" placeholder="Quét mã"><button class="scan" type="button" aria-label="Quét mã vị trí"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8V4h4M16 4h4v4M20 16v4h-4M8 20H4v-4"/><rect x="8" y="8" width="3" height="3"/><rect x="13" y="8" width="3" height="3"/><rect x="8" y="13" width="3" height="3"/><path d="M13 13h3v3"/></svg></button></div></div><div class="scan-field"><label for="s4-c">Mã tem</label><div class="scan-box"><input id="s4-c" type="text" placeholder="Quét / nhập mã tem"><button class="scan" type="button" aria-label="Quét mã tem"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8V4h4M16 4h4v4M20 16v4h-4M8 20H4v-4"/><rect x="8" y="8" width="3" height="3"/><rect x="13" y="8" width="3" height="3"/><rect x="8" y="13" width="3" height="3"/><path d="M13 13h3v3"/></svg></button></div></div></div>
+          <div class="tb-h"><span>#</span><span>Mã tem / Mặt hàng</span><span class="r">Số lượng</span><span class="r">Vị trí</span><span></span></div>
+          <ul class="tb">
+            <li class="tr new"><span class="tn">2</span><span class="tc"><b>TEM-2610-000402</b><small>3247939 – LTRA1002-PP MTC ROSSMANN 42 OB</small></span><span class="tqc"><b class="tqt">100.00</b></span><span class="tl"><b>A002</b></span><button class="tdl" type="button" aria-label="Xóa dòng 2"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button></li>
+            <li class="tr"><span class="tn">1</span><span class="tc"><b>TEM-2610-000401</b><small>3242663 – ST300-5P BLUE EX STD 10000 OB</small></span><span class="tqc"><b class="tqt">50.00</b></span><span class="tl"><b>A001</b></span><button class="tdl hit" type="button" aria-label="Xóa dòng 1"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button></li>
+          </ul>
+        </main>
+        <div class="foot"><button class="primary" type="button">Lưu phiếu</button></div>
+        <div class="scrim" aria-hidden="true"></div>
+        <div class="cfm" role="alertdialog" aria-modal="true" aria-labelledby="cf-luong-4">
+          <h3 id="cf-luong-4">Xóa tem?</h3>
+          <p><b>TEM-2610-000401</b>3242663 – ST300-5P BLUE EX STD 10000 OB<br>Vị trí A001</p>
+          <div class="cfm-a"><button type="button" class="cf-no">Hủy</button><button type="button" class="cf-yes">Đồng ý</button></div>
         </div>
       </div></div>
     </section>
@@ -435,7 +708,7 @@
   </div>
 </div>
 <script>
-(function(){var W=1467;function fit(){var z=Math.min(window.innerWidth/W,1.3);document.documentElement.style.zoom=z;}fit();window.addEventListener('resize',fit);})();
+(function(){var W=1622;function fit(){var z=Math.min(window.innerWidth/W,1.3);document.documentElement.style.zoom=z;}fit();window.addEventListener("resize",fit);})();
 </script>
 </body>
 </html>
