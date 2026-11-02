@@ -114,15 +114,23 @@ window.TSD_MENU = [
     { no: "8", title: "Quy trình chuyển kho", page: "08", href: "pages/08-chuyen-kho.html",
       desc: "Chuyển kho · chuyển vị trí",
       screens: [
-        { no: "8.1", title: "Chuyển sang kho khác", id: "ck-kho" },
+        { no: "8.1", title: "Yêu cầu chuyển kho", id: "ck-kho" },
         { no: "8.2", title: "Quét tem chuyển kho", id: "ck-kho-pda" },
-        { no: "8.3", title: "Chuyển vị trí", id: "ck-vitri" },
-        { no: "8.4", title: "Chuyển vị trí trên PDA", id: "ck-vitri-pda" }
+        { no: "8.3", title: "Phiếu chuyển kho", id: "ck-phieu" },
+        { no: "8.4", title: "Chuyển vị trí", id: "ck-vitri" },
+        { no: "8.5", title: "Chuyển vị trí trên PDA", id: "ck-vitri-pda" }
       ]},
 
     // ===== Mục 9 – sơ đồ quy trình 8 – (người phụ trách: chưa chia) =====
-    { no: "9", title: "Quy trình kiểm kê", page: "09", href: "pages/09-kiem-ke.html", soon: true,
-      desc: "Hằng tháng, bằng PDA" },
+    { no: "9", title: "Quy trình kiểm kê", page: "09", href: "pages/09-kiem-ke.html",
+      desc: "Hằng tháng, bằng PDA",
+      screens: [
+        { no: "9.1", title: "Tạo kỳ kiểm kê", id: "kk-ky" },
+        { no: "9.2", title: "Chốt số tồn kho", id: "kk-chot" },
+        { no: "9.3", title: "Quét tem kiểm kê", id: "kk-pda" },
+        { no: "9.4", title: "Ghi nhận kết quả kiểm kê", id: "kk-ketqua" },
+        { no: "9.5", title: "Điều chỉnh nhập/xuất tồn", id: "kk-dieuchinh" }
+      ]},
 
     // ===== Mục 10 – (người phụ trách: chưa chia) =====
     { no: "10", title: "Báo cáo", page: "10", href: "pages/10-bao-cao.html", soon: true,

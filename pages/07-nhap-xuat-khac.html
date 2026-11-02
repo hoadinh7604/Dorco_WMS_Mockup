@@ -74,6 +74,14 @@
       </figure>
     </div>
     <aside class="screen__notes spec">
+      <div class="note note--biz note--wide"><h3>Nghiệp vụ</h3><p>Yêu cầu xuất khác là cơ sở để lập phiếu xuất khác (7.3); một yêu cầu xuất được nhiều lần.</p>
+<ol>
+<li>Lập yêu cầu: Upload Excel hoặc tạo thủ công (vùng 12).</li>
+<li>Gửi yêu cầu (upload thành công thì kho xử lý ngay).</li>
+<li>Kho quét nhãn bằng PDA (7.2) hoặc lập phiếu trên Web (7.3).</li>
+<li>Duyệt phiếu (7.3); Đã thực hiện và Còn lại của yêu cầu được cập nhật.</li>
+</ol>
+      </div>
       <div class="note note--src note--wide"><h3>Nguồn dữ liệu</h3><p>Yêu cầu xuất khác do bộ phận có nhu cầu lập (Sales gửi mẫu, QC hủy hàng…), có hai nguồn, phân biệt ở ô Nguồn (vùng 12).</p>
         <div class="tw"><table>
           <thead><tr><th>Nguồn</th><th>Ghi chú</th></tr></thead>
@@ -83,14 +91,19 @@
           </tbody>
         </table></div>
       </div>
-      <div class="note note--rule"><h3>Quy tắc khác</h3><ul>
-<li><b>Lý do chính quyết định thông tin cần nhập:</b> Hàng mẫu / Demo thêm người yêu cầu, mail, người nhận, công ty, địa chỉ, SĐT; Hư hỏng / lỗi thêm thông tin hủy trên từng dòng (vùng 16); lý do Khác phải ghi Mô tả lý do.</li>
-<li><b>Upload là tất cả hoặc không:</b> có lỗi ở bất kỳ dòng nào thì không tạo yêu cầu nào. Người dùng tải file lỗi (cột Note ghi lỗi từng dòng), sửa rồi upload lại. Upload thành công thì kho xử lý được ngay, không cần bấm Gửi; yêu cầu tạo thủ công phải bấm Gửi.</li>
-<li><b>Gom yêu cầu khi upload:</b> các dòng cùng Số yêu cầu (upload) mà khác Ngày, Kho, Người phụ trách, Lý do, Mô tả lý do hoặc Ghi chú thì báo lỗi. Số yêu cầu (upload) đã dùng cho yêu cầu khác cũng báo lỗi.</li>
-<li><b>Kiểm tra từng dòng upload:</b> thiếu cột; kho không tồn tại hoặc ngoài phạm vi kho của người dùng; lý do không có trong danh mục; mã hàng không có; ĐVT khác ĐVT của mặt hàng; SL không phải số hoặc âm; ĐVT EA không có số lẻ; Đơn giá là số nguyên VND.</li>
-<li><b>Gửi:</b> mọi dòng phải có SL &gt; 0.</li>
-<li><b>Xuất nhiều lần:</b> một yêu cầu xuất nhiều lần, mỗi lần là một phiếu (mục 7.3). Danh sách hiện SL yêu cầu, Đã thực hiện, Còn lại và các phiếu liên kết.</li>
-</ul></div>
+      <div class="note note--rule note--wide"><h3>Quy tắc khác</h3>
+        <div class="tw"><table>
+          <thead><tr><th>Chủ đề</th><th>Quy tắc</th></tr></thead>
+          <tbody>
+            <tr><td>Lý do chính</td><td>Hàng mẫu / Demo thêm người yêu cầu, mail, người nhận, công ty, địa chỉ, SĐT; Hư hỏng / lỗi thêm thông tin hủy trên từng dòng (vùng 16); lý do Khác phải ghi Mô tả lý do.</td></tr>
+            <tr><td>Upload tất cả hoặc không</td><td>Lỗi ở bất kỳ dòng nào thì không tạo yêu cầu nào; tải file lỗi (cột Note ghi lỗi từng dòng), sửa rồi upload lại. Upload thành công thì kho xử lý ngay, không cần Gửi; yêu cầu thủ công phải bấm Gửi.</td></tr>
+            <tr><td>Gom khi upload</td><td>Các dòng cùng Số yêu cầu (upload) mà khác Ngày, Kho, Người phụ trách, Lý do, Mô tả lý do hoặc Ghi chú thì báo lỗi; Số yêu cầu (upload) đã dùng cho yêu cầu khác cũng báo lỗi.</td></tr>
+            <tr><td>Kiểm tra dòng upload</td><td>Báo lỗi khi: thiếu cột; kho không tồn tại hoặc ngoài phạm vi của người dùng; lý do ngoài danh mục; mã hàng không có; ĐVT khác ĐVT mặt hàng; SL không phải số hoặc âm; ĐVT EA có số lẻ; Đơn giá không phải số nguyên VND.</td></tr>
+            <tr><td>Gửi</td><td>Mọi dòng phải có SL &gt; 0.</td></tr>
+            <tr><td>Xuất nhiều lần</td><td>Mỗi lần xuất là một phiếu (7.3). Danh sách hiện SL yêu cầu, Đã thực hiện, Còn lại và các phiếu liên kết.</td></tr>
+          </tbody>
+        </table></div>
+      </div>
     </aside>
   </div>
 </section>
@@ -101,8 +114,8 @@
   <p class="screen__path">Ứng dụng PDA › Xuất kho › Xuất kho khác</p>
   <div class="screen__body">
     <div class="screen__shots">
-      <figure class="shot"><figcaption>Giao diện PDA · Xuất kho khác — bấm các nút trên máy hoặc mã gợi ý bên phải để chạy thử<a class="btn shot__zoom" href="../mockups/07-xuat-khac/2.html" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption>
-        <div class="shot__fit"><iframe class="shot__live" src="../mockups/07-xuat-khac/2.html" title="Xuất kho khác trên PDA" loading="lazy"></iframe></div></figure>
+      <figure class="shot"><figcaption>Giao diện PDA · Xuất kho khác — bấm các nút trên máy hoặc mã gợi ý bên phải để chạy thử<a class="btn shot__zoom" href="../mockups/07-xuat-khac/2.html" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption><details class="shot-fold"><summary class="btn"><span class="on">Hiện giao diện PDA</span><span class="off">Ẩn giao diện PDA</span></summary>
+        <div class="shot__fit"><iframe class="shot__live" src="../mockups/07-xuat-khac/2.html" title="Xuất kho khác trên PDA" loading="lazy"></iframe></div></details></figure>
       <figure class="shot-steps"><figcaption>Ảnh chụp theo từng bước thao tác. Kéo ngang để xem hết, bấm ảnh để phóng to</figcaption>
         <div class="pda-steps">
           <figure class="pda-step"><img src="../images/07-nhap-xuat-khac/2-pda-1-req_list.png" alt="Bước 1: danh sách yêu cầu xuất khác trên PDA" loading="lazy"><figcaption><b><span class="k">1</span>Chọn yêu cầu</b>Danh sách yêu cầu chờ xuất, mỗi thẻ ghi Lý do và người nhận (mẫu) hoặc số biên bản (hủy). Icon góc phải thanh tiêu đề mở Phiếu đã lưu (bước 8).</figcaption></figure>
@@ -119,18 +132,38 @@
       </figure>
     </div>
     <aside class="screen__notes spec">
-      <div class="note note--biz note--wide"><h3>Nghiệp vụ</h3><ul>
-<li><b>Chọn yêu cầu:</b> chọn trong danh sách hoặc quét QR in trên yêu cầu. Yêu cầu đã xuất đủ, không tìm thấy hoặc ngoài phạm vi kho được phân quyền thì bị chặn.</li>
-<li><b>Gom yêu cầu trong một phiên:</b> một phiếu gom được nhiều yêu cầu, nhưng chỉ yêu cầu cùng kho và cùng Lý do chính. Yêu cầu khác kho hoặc khác lý do không hiện trong danh sách thêm; quét trúng thì báo lỗi.</li>
-<li><b>Chỉ lấy hàng bằng quét nhãn:</b> hàng chưa có nhãn phải phát hành nhãn trước mới xuất được.</li>
-<li><b>Khớp nhãn với dòng:</b> theo mã hàng + ĐVT (không xét Lot và Grade). Nhãn phải cùng kho với yêu cầu. Nhãn khớp dòng của yêu cầu khác thì máy gợi ý chuyển yêu cầu.</li>
-<li><b>Xuất lẻ:</b> SL điền sẵn bằng số nhỏ hơn giữa SL khả dụng của nhãn và SL dòng còn cần; sửa giảm được, phần còn lại vẫn nằm trên nhãn. Quét lại nhãn đã có trong phiếu thì bị chặn; muốn đổi SL thì bỏ nhãn (✕ ở Chi tiết dòng hàng hoặc màn Kiểm tra) rồi quét lại.</li>
-<li><b>Nhãn bị chặn:</b> nhãn không còn hàng để xuất, chưa nhập kho, khác kho, không khớp dòng, đã bị phiếu khác giữ hết, hoặc dòng đã đủ SL. Thẻ đỏ ghi rõ lý do.</li>
-<li><b>Sau khi lưu:</b> phiếu giữ chỗ SL trên nhãn, tồn chưa giảm. Đơn giá, thông tin hủy và người nhận không nhập trên PDA mà lấy từ dòng yêu cầu. Duyệt và trừ tồn làm trên Web (mục 7.3).</li>
-<li><b>Phiếu đã lưu:</b> chi tiết phiếu chỉ xem; không sửa đầu phiếu hay số lượng, không xóa, không duyệt trên máy.</li>
-<li><b>Quét tiếp phiếu đã lưu:</b> chỉ thêm hoặc bỏ nhãn; lưu lại giữ nguyên số phiếu, nhãn bị bỏ thì nhả giữ chỗ. Nhãn do chính phiếu này giữ vẫn quét lại được. Phiếu phải còn ít nhất 1 nhãn.</li>
-<li><b>Không có Lưu nháp:</b> thoát màn quét khi chưa lưu thì mất các lần lấy.</li>
-</ul></div>
+      <div class="note note--biz note--wide"><h3>Nghiệp vụ</h3><p>Kho quét nhãn bằng PDA để xuất theo yêu cầu xuất khác (7.1); mỗi lần lưu tạo một phiếu xuất khác (7.3).</p>
+<ol>
+<li>Chọn yêu cầu trong danh sách, hoặc quét QR in trên yêu cầu.</li>
+<li>Quét nhãn lấy hàng; xác nhận số lượng lấy từ nhãn.</li>
+<li>Kiểm tra, rồi Lưu phiếu hoặc Lưu và Gửi.</li>
+<li>Duyệt và trừ tồn làm trên Web (7.3).</li>
+</ol>
+      </div>
+      <div class="note note--rule note--wide"><h3>Quy tắc quét</h3>
+        <div class="tw"><table>
+          <thead><tr><th>Chủ đề</th><th>Quy tắc</th></tr></thead>
+          <tbody>
+            <tr><td>Chọn yêu cầu</td><td>Yêu cầu đã xuất đủ, không tìm thấy hoặc ngoài phạm vi kho được phân quyền thì bị chặn.</td></tr>
+            <tr><td>Gom yêu cầu</td><td>Một phiếu gom nhiều yêu cầu, nhưng chỉ yêu cầu cùng kho và cùng Lý do chính. Yêu cầu khác kho hoặc lý do không hiện trong danh sách thêm; quét trúng thì báo lỗi.</td></tr>
+            <tr><td>Chỉ quét nhãn</td><td>Hàng chưa có nhãn phải phát hành nhãn trước mới xuất được.</td></tr>
+            <tr><td>Khớp nhãn</td><td>Theo mã hàng + ĐVT (không xét Lot và Grade); nhãn phải cùng kho với yêu cầu. Nhãn khớp dòng của yêu cầu khác thì máy gợi ý chuyển yêu cầu.</td></tr>
+            <tr><td>Xuất lẻ</td><td>SL điền sẵn là số nhỏ hơn giữa SL khả dụng của nhãn và SL dòng còn cần; sửa giảm được, phần còn lại vẫn nằm trên nhãn. Quét lại nhãn đã có trong phiếu thì bị chặn; muốn đổi SL thì bỏ nhãn (✕ ở Chi tiết dòng hàng hoặc màn Kiểm tra) rồi quét lại.</td></tr>
+            <tr><td>Nhãn bị chặn</td><td>Nhãn không còn hàng để xuất, chưa nhập kho, khác kho, không khớp dòng, đã bị phiếu khác giữ hết, hoặc dòng đã đủ SL. Thẻ đỏ ghi rõ lý do.</td></tr>
+            <tr><td>Không có Lưu nháp</td><td>Thoát màn quét khi chưa lưu thì mất các lần lấy.</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="note note--rule note--wide"><h3>Sau khi lưu</h3>
+        <div class="tw"><table>
+          <thead><tr><th>Chủ đề</th><th>Quy tắc</th></tr></thead>
+          <tbody>
+            <tr><td>Giữ chỗ</td><td>Phiếu giữ chỗ SL trên nhãn, tồn chưa giảm. Đơn giá, thông tin hủy và người nhận lấy từ dòng yêu cầu, không nhập trên PDA. Duyệt và trừ tồn làm trên Web (7.3).</td></tr>
+            <tr><td>Phiếu đã lưu</td><td>Chỉ xem; không sửa đầu phiếu hay số lượng, không xóa, không duyệt trên máy.</td></tr>
+            <tr><td>Quét tiếp</td><td>Chỉ thêm hoặc bỏ nhãn; lưu lại giữ nguyên số phiếu, nhãn bị bỏ thì nhả giữ chỗ. Nhãn do chính phiếu này giữ vẫn quét lại được. Phiếu phải còn ít nhất 1 nhãn.</td></tr>
+          </tbody>
+        </table></div>
+      </div>
     </aside>
   </div>
 </section>
@@ -183,6 +216,14 @@
       </figure>
     </div>
     <aside class="screen__notes spec">
+      <div class="note note--biz note--wide"><h3>Nghiệp vụ</h3><p>Phiếu xuất khác ghi nhận lần xuất thực tế theo yêu cầu xuất khác (7.1); chỉ khi duyệt mới trừ tồn.</p>
+<ol>
+<li>Lập phiếu: kho quét PDA (7.2) hoặc tạo trên Web.</li>
+<li>Gán tem cho từng dòng; phiếu chưa duyệt giữ chỗ SL trên tem.</li>
+<li>Duyệt phiếu: trừ SL trên tem, cộng Đã thực hiện của yêu cầu, gửi kết quả sang SAP.</li>
+<li>Đồng bộ lại SAP nếu lỗi; Hủy phiếu khi cần.</li>
+</ol>
+      </div>
       <div class="note note--src note--wide"><h3>Nguồn dữ liệu</h3><p>Phiếu xuất khác lập từ các dòng còn số lượng của yêu cầu xuất khác, có hai nguồn.</p>
         <div class="tw"><table>
           <thead><tr><th>Nguồn</th><th>Ghi chú</th></tr></thead>
@@ -192,23 +233,33 @@
           </tbody>
         </table></div>
       </div>
-      <div class="note note--sync"><h3>Trạng thái đồng bộ SAP</h3><p>Chưa đồng bộ › Đang đồng bộ › Đã đồng bộ hoặc Đồng bộ lỗi (vùng 1 và 6).</p><ul>
-<li><b>Chưa đồng bộ:</b> phiếu chưa gửi về SAP.</li>
-<li><b>Đang đồng bộ:</b> đang gửi; nút Hủy phiếu ẩn.</li>
-<li><b>Đã đồng bộ:</b> SAP đã nhận kết quả xuất kho.</li>
-<li><b>Đồng bộ lỗi:</b> rê chuột vào nhãn để xem lý do SAP trả về. Bấm Đồng bộ lại SAP (vùng 3, menu ⋮ hoặc vùng 9).</li>
-<li><b>Đồng bộ lại:</b> chọn được nhiều phiếu một lần; chỉ áp dụng phiếu Chưa đồng bộ hoặc Đồng bộ lỗi.</li>
-</ul></div>
-      <div class="note note--rule"><h3>Quy tắc khác</h3><ul>
-<li><b>Một phiếu một kho:</b> khác phiếu giao hàng, phiếu xuất khác chỉ có một kho.</li>
-<li><b>Gom yêu cầu:</b> một phiếu lấy dòng từ nhiều yêu cầu, nhưng chỉ khi cùng kho và cùng Lý do xuất khác (giống PDA).</li>
-<li><b>Web cũng xuất theo tem:</b> khớp tem theo mã hàng + ĐVT, tem cùng kho với phiếu. SL điền sẵn là số nhỏ hơn giữa SL khả dụng và SL còn cần, sửa giảm được để xuất lẻ. Vị trí của tem thành vị trí của dòng (vùng 12).</li>
-<li><b>Giữ chỗ:</b> phiếu chưa duyệt giữ chỗ SL trên tem nên phiếu khác không lấy trùng được. SL khả dụng = SL còn trên tem − SL đang bị phiếu khác giữ.</li>
-<li><b>Gán tem bị chặn:</b> tem không tồn tại, không còn hàng, khác kho, đã có trong phiếu, hết SL khả dụng, không khớp dòng nào, hoặc các dòng của mã hàng đó đã đủ SL.</li>
-<li><b>Lưu phiếu:</b> mọi dòng phải có tem; SL xuất không vượt SL còn lại của dòng yêu cầu; Đơn giá là số nguyên VND.</li>
-<li><b>Tồn kho:</b> chỉ khi phiếu được duyệt mới trừ SL trên từng tem, cộng vào Đã thực hiện của yêu cầu và gửi kết quả sang SAP.</li>
-<li><b>Hủy phiếu đã duyệt:</b> cộng lại SL vào tem, trừ Đã thực hiện của yêu cầu để yêu cầu xuất tiếp được; tem đã xuất hết về lại Trong kho. Nút Hủy phiếu ẩn khi phiếu đang đồng bộ.</li>
-</ul></div>
+      <div class="note note--sync note--wide"><h3>Trạng thái đồng bộ SAP</h3><p>Chưa đồng bộ › Đang đồng bộ › Đã đồng bộ hoặc Đồng bộ lỗi (vùng 1 và 6).</p>
+        <div class="tw"><table>
+          <thead><tr><th>Trạng thái</th><th>Ý nghĩa</th></tr></thead>
+          <tbody>
+            <tr><td>Chưa đồng bộ</td><td>Phiếu chưa gửi về SAP.</td></tr>
+            <tr><td>Đang đồng bộ</td><td>Đang gửi; nút Hủy phiếu ẩn.</td></tr>
+            <tr><td>Đã đồng bộ</td><td>SAP đã nhận kết quả xuất kho.</td></tr>
+            <tr><td>Đồng bộ lỗi</td><td>Rê chuột vào nhãn để xem lý do SAP trả về; bấm Đồng bộ lại SAP (vùng 3, menu ⋮ hoặc vùng 9).</td></tr>
+            <tr><td>Đồng bộ lại</td><td>Chọn được nhiều phiếu một lần; chỉ áp dụng phiếu Chưa đồng bộ hoặc Đồng bộ lỗi.</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="note note--rule note--wide"><h3>Quy tắc khác</h3>
+        <div class="tw"><table>
+          <thead><tr><th>Chủ đề</th><th>Quy tắc</th></tr></thead>
+          <tbody>
+            <tr><td>Một phiếu một kho</td><td>Khác phiếu giao hàng, phiếu xuất khác chỉ có một kho.</td></tr>
+            <tr><td>Gom yêu cầu</td><td>Một phiếu lấy dòng từ nhiều yêu cầu, nhưng chỉ khi cùng kho và cùng Lý do xuất khác (giống PDA).</td></tr>
+            <tr><td>Web xuất theo tem</td><td>Khớp tem theo mã hàng + ĐVT, tem cùng kho với phiếu. SL điền sẵn là số nhỏ hơn giữa SL khả dụng và SL còn cần, sửa giảm được để xuất lẻ. Vị trí của tem thành vị trí của dòng (vùng 12).</td></tr>
+            <tr><td>Giữ chỗ</td><td>Phiếu chưa duyệt giữ chỗ SL trên tem nên phiếu khác không lấy trùng. SL khả dụng = SL còn trên tem − SL đang bị phiếu khác giữ.</td></tr>
+            <tr><td>Gán tem bị chặn</td><td>Tem không tồn tại, không còn hàng, khác kho, đã có trong phiếu, hết SL khả dụng, không khớp dòng nào, hoặc các dòng của mã hàng đó đã đủ SL.</td></tr>
+            <tr><td>Lưu phiếu</td><td>Mọi dòng phải có tem; SL xuất không vượt SL còn lại của dòng yêu cầu; Đơn giá là số nguyên VND.</td></tr>
+            <tr><td>Tồn kho</td><td>Chỉ khi duyệt mới trừ SL trên từng tem, cộng vào Đã thực hiện của yêu cầu và gửi kết quả sang SAP.</td></tr>
+            <tr><td>Hủy phiếu đã duyệt</td><td>Cộng lại SL vào tem, trừ Đã thực hiện của yêu cầu để yêu cầu xuất tiếp được; tem đã xuất hết về lại Trong kho. Nút Hủy phiếu ẩn khi phiếu đang đồng bộ.</td></tr>
+          </tbody>
+        </table></div>
+      </div>
     </aside>
   </div>
 </section>

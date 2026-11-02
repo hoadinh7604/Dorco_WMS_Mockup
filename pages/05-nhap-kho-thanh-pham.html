@@ -72,27 +72,43 @@
       </figure>
     </div>
     <aside class="screen__notes spec">
-      <div class="note note--src note--wide"><h3>Nguồn dữ liệu</h3><p>Yêu cầu nhập kho thành phẩm / bán thành phẩm có hai nguồn, phân biệt ở cột Nguồn (vùng 5).</p>
+      <div class="note note--biz note--wide"><h3>Nghiệp vụ</h3><p>Yêu cầu nhập kho là cơ sở để phát hành tem và lập phiếu nhập. Mỗi yêu cầu gắn một kho và một lệnh SX, nhập được nhiều lần.</p>
+<ol>
+<li>Có yêu cầu: đồng bộ từ SAP hoặc tạo trên WMS.</li>
+<li>Phát hành và dán tem (5.2).</li>
+<li>Kho quét tem nhập kho bằng PDA (5.3).</li>
+<li>Lập và duyệt phiếu nhập kho (5.4); tiến độ tính theo phiếu đã duyệt.</li>
+</ol>
+      </div>
+      <div class="note note--src note--wide"><h3>Nguồn dữ liệu</h3><p>Phân biệt ở cột Nguồn (vùng 5).</p>
         <div class="tw"><table>
           <thead><tr><th>Nguồn</th><th>Ghi chú</th></tr></thead>
           <tbody>
-            <tr><td><span class="src src--sap">Đồng bộ từ SAP</span></td><td>SAP gửi sang theo số lượng QC đạt. Không sửa trên WMS.</td></tr>
-            <tr><td><span class="src src--wms">Tạo thủ công trên WMS</span></td><td>Bấm + Thêm yêu cầu (vùng 4). Mặt hàng chọn từ danh mục mặt hàng.</td></tr>
+            <tr><td><span class="src src--sap">Đồng bộ từ SAP</span></td><td>SAP gửi theo số lượng QC đạt. Không sửa trên WMS.</td></tr>
+            <tr><td><span class="src src--wms">Tạo trên WMS</span></td><td>Bấm + Thêm yêu cầu (vùng 4); chọn mặt hàng từ danh mục.</td></tr>
           </tbody>
         </table></div>
       </div>
-      <div class="note note--sync"><h3>Trạng thái đồng bộ SAP</h3><p>Chỉ áp dụng cho yêu cầu nguồn SAP (vùng 6).</p><ul>
-<li><b>Đã đồng bộ:</b> dữ liệu trên WMS khớp với SAP.</li>
-<li><b>Có thay đổi chưa nhận:</b> SAP sửa yêu cầu sau khi đã có phiếu nhập. WMS từ chối thay đổi, yêu cầu vẫn chạy theo dữ liệu cũ. Khi phiếu nhập bị hủy hoặc xóa, SAP gửi lại thay đổi.</li>
-<li><b>Chưa có phiếu nhập:</b> WMS nhận thay đổi từ SAP và cập nhật thẳng vào yêu cầu. Tem đã phát hành bị ảnh hưởng (đổi thông tin in trên tem, giảm số lượng…) thì gắn cờ Cần xử lý: hủy tem rồi phát hành lại.</li>
-<li><b>— (trống):</b> yêu cầu tạo tại WMS.</li>
-<li>Lọc nhanh theo trạng thái này ở ô “Trạng thái đồng bộ của yêu cầu” trong bộ lọc (vùng 2).</li>
-</ul></div>
-      <div class="note note--rule"><h3>Quy tắc khác</h3><ul>
-<li><b>Một yêu cầu, một kho:</b> mỗi yêu cầu gắn một kho, lệnh SX (có thể trống) và các dòng mặt hàng.</li>
-<li><b>Nhập từng phần:</b> một yêu cầu có nhiều phiếu nhập. Tiến độ chỉ tính phần đã được phê duyệt; phiếu bị hủy hoặc xóa không tính.</li>
-<li><b>Tem của dòng:</b> cột Mã vạch/QR hiện “Đã ánh xạ N”, bấm để xem danh sách tem, vị trí và lịch sử tem. Gom tem của mọi phiếu nhập cho dòng đó (popup ghi phiếu của từng tem); chưa có phiếu thì “Đã ánh xạ 0”.</li>
-</ul></div>
+      <div class="note note--sync note--wide"><h3>Trạng thái đồng bộ SAP</h3><p>Chỉ áp dụng cho yêu cầu nguồn SAP (vùng 6); lọc ở vùng 2.</p>
+        <div class="tw"><table>
+          <thead><tr><th>Trạng thái</th><th>Ý nghĩa</th></tr></thead>
+          <tbody>
+            <tr><td>Đã đồng bộ</td><td>WMS khớp với SAP.</td></tr>
+            <tr><td>Có thay đổi chưa nhận</td><td>SAP sửa sau khi đã có phiếu nhập: WMS từ chối, giữ dữ liệu cũ. Phiếu bị hủy/xóa thì SAP gửi lại.</td></tr>
+            <tr><td>— (trống)</td><td>Yêu cầu tạo tại WMS.</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="note note--rule note--wide"><h3>Quy tắc khác</h3>
+        <div class="tw"><table>
+          <thead><tr><th>Chủ đề</th><th>Quy tắc</th></tr></thead>
+          <tbody>
+            <tr><td>Một yêu cầu, một kho</td><td>Gắn một kho, một lệnh SX (có thể trống) và các dòng mặt hàng.</td></tr>
+            <tr><td>Nhập từng phần</td><td>Nhiều phiếu cho một yêu cầu; tiến độ chỉ tính phiếu đã duyệt.</td></tr>
+            <tr><td>Tem của dòng</td><td>“Đã ánh xạ N”: bấm để xem tem, vị trí, lịch sử, gom từ mọi phiếu; chưa có phiếu thì N = 0.</td></tr>
+          </tbody>
+        </table></div>
+      </div>
     </aside>
   </div>
 </section>
@@ -102,7 +118,7 @@
   <h2 class="screen__title"><span class="no">5.2</span>Phát hành và dán tem</h2>
   <p class="screen__path">Phát hành nhãn › Phát hành tem thành phẩm / bán thành phẩm</p>
   <div class="screen__body">
-    <aside class="screen__notes">
+    <aside class="screen__notes spec">
       <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Bước phát hành và dán tem thành phẩm / bán thành phẩm dùng chung màn hình <a href="11-phat-hanh-tem-nhan.html#t-tp">11.2 Phát hành tem thành phẩm / bán thành phẩm</a> (mục 11. Phát hành tem nhãn). Xem màn hình và mô tả chi tiết tại mục đó.</p><ul><li>BP Sản xuất phát hành tem trên WMS rồi dán vào hàng trước khi kho quét nhập.</li></ul></div>
     </aside>
   </div>
@@ -114,8 +130,8 @@
   <p class="screen__path">Ứng dụng PDA › Nhập kho thành phẩm</p>
   <div class="screen__body">
     <div class="screen__shots">
-      <figure class="shot"><figcaption>Giao diện PDA · Quét tem nhập kho thành phẩm — bấm các nút trên máy để chạy thử từng bước<a class="btn shot__zoom" href="../mockups/05-nhap-kho-thanh-pham/2.html" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption>
-        <div class="shot__fit"><iframe class="shot__live" src="../mockups/05-nhap-kho-thanh-pham/2.html" title="Quét tem nhập kho thành phẩm trên PDA" loading="lazy"></iframe></div></figure>
+      <figure class="shot"><figcaption>Giao diện PDA · Quét tem nhập kho thành phẩm — bấm các nút trên máy để chạy thử từng bước<a class="btn shot__zoom" href="../mockups/05-nhap-kho-thanh-pham/2.html" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption><details class="shot-fold"><summary class="btn"><span class="on">Hiện giao diện PDA</span><span class="off">Ẩn giao diện PDA</span></summary>
+        <div class="shot__fit"><iframe class="shot__live" src="../mockups/05-nhap-kho-thanh-pham/2.html" title="Quét tem nhập kho thành phẩm trên PDA" loading="lazy"></iframe></div></details></figure>
       <figure class="shot-steps"><figcaption>Ảnh chụp theo từng bước thao tác. Kéo ngang để xem hết, bấm ảnh để phóng to</figcaption>
         <div class="pda-steps">
           <figure class="pda-step"><img src="../images/05-nhap-kho-thanh-pham/2-pda-1-req_list.png" alt="Bước 1: danh sách yêu cầu nhập kho trên PDA" loading="lazy"><figcaption><b><span class="k">1</span>Chọn yêu cầu</b>Danh sách yêu cầu đang chờ nhập. Icon góc phải thanh tiêu đề mở Phiếu đã lưu (bước 7).</figcaption></figure>
@@ -131,16 +147,35 @@
       </figure>
     </div>
     <aside class="screen__notes spec">
-      <div class="note note--biz note--wide"><h3>Nghiệp vụ</h3><ul>
-<li><b>Gom yêu cầu:</b> một phiếu gom nhiều yêu cầu cùng kho. Kho của phiên khóa theo yêu cầu đầu tiên.</li>
-<li><b>Khớp tem:</b> tem tự rơi vào đúng dòng của yêu cầu đang quét. Tem thuộc yêu cầu khác không tự kéo vào: máy báo tem thuộc yêu cầu nào, người dùng chạm để chuyển yêu cầu.</li>
-<li><b>Số lượng còn lại</b> = SL dòng − đã nhận − đã quét trong phiên.</li>
-<li><b>Vị trí nhận:</b> mặc định mỗi tem chọn hoặc quét bin. Bật “Quét hàng loạt theo vị trí” thì quét bin trước rồi quét liên tiếp tem; quét mã vị trí mới để đổi khu.</li>
-<li><b>Sau khi lưu:</b> tem được giữ chỗ cho phiếu, máy khác không quét được. Đã gửi lên Web thì không sửa trên máy được nữa.</li>
-<li><b>Phiếu đã lưu:</b> chi tiết phiếu chỉ xem; không xóa, không sửa đầu phiếu hay số lượng, không duyệt trên máy.</li>
-<li><b>Quét tiếp phiếu đã lưu:</b> chỉ sửa bằng quét thêm tem hoặc bỏ tem (✕); lưu lại giữ nguyên số phiếu, tem bị bỏ thì nhả giữ chỗ. Tem đang do chính phiếu này giữ vẫn quét lại được. Rời màn khi chưa lưu thì bỏ thay đổi, phiếu giữ như lần lưu trước.</li>
-<li><b>Không có Lưu nháp:</b> thoát khi chưa lưu thì mất các tem đã quét.</li>
-</ul></div>
+      <div class="note note--biz note--wide"><h3>Nghiệp vụ</h3><p>Kho quét tem pallet bằng PDA để nhập kho; mỗi lần lưu tạo một phiếu nhập (5.4).</p>
+<ol>
+<li>Chọn yêu cầu, hoặc quét QR in trên yêu cầu.</li>
+<li>Quét tem pallet; chọn hoặc quét vị trí nhận (Bin).</li>
+<li>Kiểm tra, rồi Lưu phiếu hoặc Lưu và Gửi.</li>
+</ol>
+      </div>
+      <div class="note note--rule note--wide"><h3>Quy tắc quét</h3>
+        <div class="tw"><table>
+          <thead><tr><th>Chủ đề</th><th>Quy tắc</th></tr></thead>
+          <tbody>
+            <tr><td>Gom yêu cầu</td><td>Một phiếu gom nhiều yêu cầu cùng kho; kho khóa theo yêu cầu đầu tiên.</td></tr>
+            <tr><td>Khớp tem</td><td>Tem tự vào đúng dòng. Tem của yêu cầu khác không tự vào: máy báo, người dùng chạm để chuyển yêu cầu.</td></tr>
+            <tr><td>Còn lại</td><td>SL dòng − đã nhận − đã quét trong phiên.</td></tr>
+            <tr><td>Vị trí nhận</td><td>Mỗi tem chọn hoặc quét bin. Bật “Quét hàng loạt theo vị trí” thì quét bin trước, rồi quét liên tiếp tem.</td></tr>
+            <tr><td>Không có Lưu nháp</td><td>Thoát khi chưa lưu thì mất tem đã quét.</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="note note--rule note--wide"><h3>Sau khi lưu</h3>
+        <div class="tw"><table>
+          <thead><tr><th>Chủ đề</th><th>Quy tắc</th></tr></thead>
+          <tbody>
+            <tr><td>Giữ chỗ tem</td><td>Tem giữ chỗ cho phiếu, máy khác không quét được. Đã gửi lên Web thì không sửa trên máy.</td></tr>
+            <tr><td>Phiếu đã lưu</td><td>Chỉ xem; không xóa, không sửa đầu phiếu hay số lượng, không duyệt trên máy.</td></tr>
+            <tr><td>Quét tiếp</td><td>Chỉ thêm tem hoặc bỏ tem (✕); giữ nguyên số phiếu, tem bị bỏ nhả giữ chỗ. Rời màn khi chưa lưu thì bỏ thay đổi.</td></tr>
+          </tbody>
+        </table></div>
+      </div>
     </aside>
   </div>
 </section>
@@ -191,29 +226,44 @@
       </figure>
     </div>
     <aside class="screen__notes spec">
-      <div class="note note--src note--wide"><h3>Nguồn dữ liệu</h3><p>Phiếu nhập kho thành phẩm (GR) có hai nguồn.</p>
+      <div class="note note--biz note--wide"><h3>Nghiệp vụ</h3><p>Phiếu nhập kho (GR) ghi nhận số lượng thực nhập. Tem chỉ vào kho và tồn chỉ tăng khi phiếu được duyệt.</p>
+<ol>
+<li>Lập phiếu: quét PDA (5.3) hoặc + Thêm phiếu trên Web.</li>
+<li>Gửi và duyệt phiếu: tem chuyển Trong kho, ghi ngày nhập thực tế, tồn tăng.</li>
+<li>Đồng bộ kết quả về SAP.</li>
+</ol>
+      </div>
+      <div class="note note--src note--wide"><h3>Nguồn dữ liệu</h3>
         <div class="tw"><table>
           <thead><tr><th>Nguồn</th><th>Ghi chú</th></tr></thead>
           <tbody>
-            <tr><td><span class="src src--wms">Tạo trên WMS (PDA)</span></td><td>Kho quét tem bằng PDA (mục 5.3); tem và Bin lấy từ lần quét.</td></tr>
-            <tr><td><span class="src src--wms">Tạo thủ công trên WMS</span></td><td>+ Thêm phiếu (vùng 3), rồi Thêm từ yêu cầu (lấy dòng của yêu cầu) hoặc Thêm mặt hàng. Nút Thêm từ lệnh sản xuất đang khóa.</td></tr>
+            <tr><td><span class="src src--wms">Tạo từ PDA</span></td><td>Tem và Bin lấy từ lần quét (5.3).</td></tr>
+            <tr><td><span class="src src--wms">Tạo thủ công</span></td><td>+ Thêm phiếu (vùng 3), rồi Thêm từ yêu cầu hoặc Thêm mặt hàng. Nút Thêm từ lệnh sản xuất đang khóa.</td></tr>
           </tbody>
         </table></div>
       </div>
-      <div class="note note--sync"><h3>Trạng thái đồng bộ SAP</h3><p>Chưa đồng bộ › Đang đồng bộ › Đã đồng bộ hoặc Đồng bộ lỗi (vùng 5 và 8).</p><ul>
-<li><b>Chưa đồng bộ:</b> phiếu chưa gửi về SAP.</li>
-<li><b>Đang đồng bộ:</b> đang gửi; nút Hủy phiếu ẩn, không đồng bộ lại được.</li>
-<li><b>Đã đồng bộ:</b> SAP đã nhận kết quả nhập kho.</li>
-<li><b>Đồng bộ lỗi:</b> rê chuột vào nhãn để xem lỗi. Bấm Đồng bộ lại SAP (vùng 2 hoặc menu ⋮).</li>
-<li><b>Đồng bộ lại:</b> chọn được nhiều phiếu; chỉ áp dụng phiếu Chưa đồng bộ hoặc Đồng bộ lỗi.</li>
-</ul></div>
-      <div class="note note--rule"><h3>Quy tắc khác</h3><ul>
-<li><b>Số phiếu:</b> WMS tự sinh GR-{mã kho}-{YYMM}-{NNNNN}.</li>
-<li><b>Gom yêu cầu:</b> một phiếu gom dòng của nhiều yêu cầu cùng kho; mỗi dòng ghi Số yêu cầu, Lệnh SX và Bin.</li>
-<li><b>Tồn kho:</b> chỉ khi phiếu được phê duyệt thì tem mới chuyển Trong kho và ghi ngày nhập thực tế lên tem, tồn tăng và kết quả gửi SAP.</li>
-<li><b>Hủy phiếu đã duyệt:</b> đảo tồn, xóa ngày nhập thực tế; tem về Đã in, giữ chỗ cho dòng yêu cầu (yêu cầu đã đóng thì về Đã in, chưa giữ chỗ) và yêu cầu mở lại. Chặn nếu tem đã xuất lẻ hoặc đã bị kiểm kê điều chỉnh; tem đã tách/gộp vẫn hủy được, số lượng trừ vào tem gốc / tem đích.</li>
-<li><b>Tem của dòng:</b> mọi dòng phiếu đều có ánh xạ Mã vạch/QR. Phiếu chưa duyệt thì tem ở Đã in, giữ chỗ và chưa có SL nhập; phiếu đã hủy giữ ánh xạ, ghi chú tem đã nhả giữ chỗ.</li>
-</ul></div>
+      <div class="note note--sync note--wide"><h3>Trạng thái đồng bộ SAP</h3><p>Chưa đồng bộ › Đang đồng bộ › Đã đồng bộ hoặc Đồng bộ lỗi (vùng 5, 8).</p>
+        <div class="tw"><table>
+          <thead><tr><th>Trạng thái</th><th>Ý nghĩa</th></tr></thead>
+          <tbody>
+            <tr><td>Chưa đồng bộ</td><td>Chưa gửi về SAP.</td></tr>
+            <tr><td>Đang đồng bộ</td><td>Đang gửi; ẩn nút Hủy phiếu, không đồng bộ lại được.</td></tr>
+            <tr><td>Đã đồng bộ</td><td>SAP đã nhận kết quả nhập kho.</td></tr>
+            <tr><td>Đồng bộ lỗi</td><td>Rê chuột vào nhãn để xem lỗi; bấm Đồng bộ lại SAP (vùng 2 hoặc ⋮). Chọn được nhiều phiếu Chưa đồng bộ hoặc Đồng bộ lỗi.</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="note note--rule note--wide"><h3>Quy tắc khác</h3>
+        <div class="tw"><table>
+          <thead><tr><th>Chủ đề</th><th>Quy tắc</th></tr></thead>
+          <tbody>
+            <tr><td>Số phiếu</td><td>Tự sinh GR-{mã kho}-{YYMM}-{NNNNN}.</td></tr>
+            <tr><td>Gom yêu cầu</td><td>Một phiếu gom dòng nhiều yêu cầu cùng kho; mỗi dòng ghi Số yêu cầu, Lệnh SX, Bin.</td></tr>
+            <tr><td>Tồn kho</td><td>Chỉ khi duyệt: tem Trong kho, ghi ngày nhập thực tế, tồn tăng, gửi SAP.</td></tr>
+            <tr><td>Tem của dòng</td><td>Mọi dòng có ánh xạ Mã vạch/QR. Phiếu chưa duyệt: tem Đã in, giữ chỗ, chưa có SL nhập. Phiếu đã hủy giữ ánh xạ, ghi chú tem đã nhả giữ chỗ.</td></tr>
+          </tbody>
+        </table></div>
+      </div>
     </aside>
   </div>
 </section>

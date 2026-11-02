@@ -20,8 +20,382 @@
   <p>Hằng tháng, bằng PDA.</p>
 </div>
 
-<!-- ===== Khi có nội dung: xóa khối "Sắp có" bên dưới, chép khối <section class="screen"> từ pages/_mau-trang-muc.html ===== -->
-<div class="soon"><b>Sắp có</b>Nội dung và màn hình của mục này sẽ được bổ sung khi có ảnh hệ thống thật.</div>
+<section class="screen" id="kk-ky">
+  <h2 class="screen__title"><span class="no">9.1</span>Tạo kỳ kiểm kê</h2>
+  <p class="screen__path">Điều chỉnh tồn kho › Tạo kỳ kiểm kê</p>
+  <div class="screen__body">
+    <div class="screen__shots">
+      <figure class="shot"><figcaption>Ảnh chụp chi tiết · Danh sách kỳ kiểm kê. Số trên ảnh ứng với chú thích bên dưới</figcaption>
+        <div class="anno">
+          <img src="../images/09-kiem-ke/1-ky-danh-sach.png" alt="Màn hình Tạo kỳ kiểm kê, có đánh số 5 vùng chính">
+          <span class="anno__box" style="left:17.24%;top:17.57%;width:81.15%;height:18.53%"></span><span class="anno__pin" style="left:17.24%;top:17.57%">1</span>
+          <span class="anno__box" style="left:90.96%;top:37.48%;width:7.43%;height:4.7%"></span><span class="anno__pin" style="left:90.96%;top:37.48%">2</span>
+          <span class="anno__box" style="left:17.24%;top:43.29%;width:81.15%;height:22.82%"></span><span class="anno__pin" style="left:17.24%;top:43.29%">3</span>
+          <span class="anno__box" style="left:90.44%;top:49.65%;width:1.35%;height:3.46%"></span><span class="anno__pin" style="left:90.44%;top:49.65%">4</span>
+          <span class="anno__box" style="left:16.46%;top:75.93%;width:82.71%;height:21.85%"></span><span class="anno__pin" style="left:16.46%;top:75.93%">5</span>
+        </div>
+        <ol class="anno-legend">
+          <li><span class="n">1</span><span><b>Bộ lọc:</b> Ngày kiểm kê (từ ngày, đến ngày) và Kho; Đặt lại, Tìm kiếm.</span></li>
+          <li><span class="n">2</span><span><b>+ Tạo kỳ kiểm kê:</b> mở hộp thoại tạo kỳ (ảnh dưới).</span></li>
+          <li><span class="n">3</span><span><b>Danh sách kỳ:</b> Số kỳ kiểm kê, Kho, Ngày kiểm kê, Vị trí, Trạng thái. Bấm một dòng để xem chi tiết ở vùng 5.</span></li>
+          <li><span class="n">4</span><span><b>Thao tác ⋮:</b> Sửa, Xóa. Kỳ đã đồng bộ SAP thì hai mục này bị khóa.</span></li>
+          <li><span class="n">5</span><span><b>Chi tiết kỳ kiểm kê:</b> thông tin kỳ, số chốt tồn đã gắn (hoặc cảnh báo Chưa chốt tồn), nút Ghi nhận kết quả kiểm kê (9.4).</span></li>
+        </ol>
+      </figure>
+      <figure class="shot"><figcaption>Ảnh chụp chi tiết · Hộp thoại Tạo kỳ kiểm kê. Số tiếp nối ảnh trên</figcaption>
+        <div class="anno">
+          <img src="../images/09-kiem-ke/1-ky-tao.png" alt="Hộp thoại Tạo kỳ kiểm kê, có đánh số 4 vùng">
+          <span class="anno__box" style="left:4.24%;top:20.95%;width:91.52%;height:15.92%"></span><span class="anno__pin" style="left:4.24%;top:20.95%">6</span>
+          <span class="anno__box" style="left:4.24%;top:40.22%;width:91.52%;height:12.85%"></span><span class="anno__pin" style="left:4.24%;top:40.22%">7</span>
+          <span class="anno__box" style="left:4.24%;top:56.42%;width:91.52%;height:20.39%"></span><span class="anno__pin" style="left:4.24%;top:56.42%">8</span>
+          <span class="anno__box" style="left:76.64%;top:84.36%;width:19.12%;height:9.5%"></span><span class="anno__pin" style="left:76.64%;top:84.36%">9</span>
+        </div>
+        <ol class="anno-legend">
+          <li><span class="n">6</span><span><b>Ngày kiểm kê, Kho:</b> bắt buộc; ngày không được là ngày trong tương lai.</span></li>
+          <li><span class="n">7</span><span><b>Vị trí:</b> Tất cả hoặc Chọn vị trí (tìm theo mã, chọn nhiều vị trí). Kho không theo dõi vị trí thì mặc định Tất cả.</span></li>
+          <li><span class="n">8</span><span><b>Ghi chú:</b> tùy chọn.</span></li>
+          <li><span class="n">9</span><span><b>Tạo kỳ kiểm kê:</b> WMS cấp số kỳ (CNT-năm-số thứ tự) và đặt trạng thái Đã tạo.</span></li>
+        </ol>
+      </figure>
+    </div>
+    <aside class="screen__notes spec">
+      <div class="note note--biz note--wide"><h3>Nghiệp vụ</h3><p>Kỳ kiểm kê xác định kho, ngày và phạm vi vị trí cần kiểm. Mọi số liệu kiểm kê, chênh lệch và đồng bộ SAP đều gắn với một kỳ.</p>
+<ol>
+<li>Tạo kỳ: chọn ngày, kho và phạm vi vị trí (vùng 2).</li>
+<li>Chốt số tồn kho của cùng kho và ngày (9.2) để có số sổ làm gốc so sánh.</li>
+<li>Kiểm kê trên PDA (9.3) hoặc nhập trên Web (9.4).</li>
+<li>Hoàn tất kiểm kê và đồng bộ SAP (9.4); xử lý chênh lệch ở 9.5.</li>
+</ol>
+      </div>
+      <div class="note note--src note--wide"><h3>Nguồn dữ liệu</h3><p>Kỳ kiểm kê chỉ lập trên WMS.</p>
+        <div class="tw"><table>
+          <thead><tr><th>Nguồn</th><th>Ghi chú</th></tr></thead>
+          <tbody>
+            <tr><td><span class="src src--wms">Tạo thủ công trên WMS</span></td><td>+ Tạo kỳ kiểm kê (vùng 2): ngày, kho, phạm vi vị trí, ghi chú.</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="note note--sync note--wide"><h3>Trạng thái kỳ kiểm kê</h3><p>Hiển thị ở cột Trạng thái (vùng 3), WMS tự cập nhật.</p>
+        <div class="tw"><table>
+          <thead><tr><th>Trạng thái</th><th>Ý nghĩa</th></tr></thead>
+          <tbody>
+            <tr><td>Đã tạo</td><td>Chưa có kết quả kiểm kê nào.</td></tr>
+            <tr><td>Đang kiểm kê</td><td>Đã có kết quả quét trên PDA hoặc nhập trên Web.</td></tr>
+            <tr><td>Đã hoàn tất kiểm kê</td><td>Đã bấm Hoàn tất kiểm kê, chờ đồng bộ SAP.</td></tr>
+            <tr><td>Đã đồng bộ SAP</td><td>Số kiểm kê đã gửi SAP; khóa Sửa, Xóa và mọi thay đổi kết quả.</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="note note--rule note--wide"><h3>Quy tắc khác</h3>
+        <div class="tw"><table>
+          <thead><tr><th>Chủ đề</th><th>Quy tắc</th></tr></thead>
+          <tbody>
+            <tr><td>Ngày kiểm kê</td><td>Không được là ngày trong tương lai.</td></tr>
+            <tr><td>Phạm vi vị trí</td><td>Chọn Tất cả hoặc ít nhất một vị trí. Kho không quản lý vị trí (ví dụ kho gia công) luôn là Tất cả.</td></tr>
+            <tr><td>Sửa kỳ</td><td>Kỳ đã có kết quả thì không đổi kho và ngày; đổi phạm vi vị trí ảnh hưởng cách tính số gửi SAP.</td></tr>
+            <tr><td>Xóa kỳ</td><td>Chặn khi còn phiếu điều chỉnh tham chiếu ở trạng thái Nháp, Chờ duyệt hoặc Đã duyệt. Xóa kỳ đã có kết quả thì xóa luôn kết quả đó.</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<section class="screen" id="kk-chot">
+  <h2 class="screen__title"><span class="no">9.2</span>Chốt số tồn kho</h2>
+  <p class="screen__path">Điều chỉnh tồn kho › Chốt số tồn kho</p>
+  <div class="screen__body">
+    <div class="screen__shots">
+      <figure class="shot"><figcaption>Ảnh chụp chi tiết · Danh sách kỳ chốt tồn kho. Số trên ảnh ứng với chú thích bên dưới</figcaption>
+        <div class="anno">
+          <img src="../images/09-kiem-ke/2-chot-danh-sach.png" alt="Màn hình Chốt số tồn kho, có đánh số 4 vùng chính">
+          <span class="anno__box" style="left:17.24%;top:11.07%;width:81.15%;height:11.68%"></span><span class="anno__pin" style="left:17.24%;top:11.07%">1</span>
+          <span class="anno__box" style="left:72.71%;top:23.63%;width:25.68%;height:2.96%"></span><span class="anno__pin" style="left:72.71%;top:23.63%">2</span>
+          <span class="anno__box" style="left:17.24%;top:27.29%;width:81.15%;height:13.34%"></span><span class="anno__pin" style="left:17.24%;top:27.29%">3</span>
+          <span class="anno__box" style="left:16.46%;top:46.82%;width:82.71%;height:51.79%"></span><span class="anno__pin" style="left:16.46%;top:46.82%">4</span>
+        </div>
+        <ol class="anno-legend">
+          <li><span class="n">1</span><span><b>Bộ lọc:</b> Ngày chốt, Kho, Trạng thái (Đã chốt, Đã mở chốt).</span></li>
+          <li><span class="n">2</span><span><b>Nút thao tác:</b> Giao dịch đang xử lý, Xuất Excel, Mở chốt (chọn một kỳ Đã chốt), Chốt tồn kho.</span></li>
+          <li><span class="n">3</span><span><b>Danh sách kỳ chốt:</b> Số Closing, Ngày chốt, Kho, Vị trí, Trạng thái, Số dòng, Người chốt.</span></li>
+          <li><span class="n">4</span><span><b>Chi tiết ảnh chụp tồn kho:</b> từng dòng tồn lúc chốt (mã hàng, mã vạch/QR, vị trí, số lượng). Kỳ đã mở chốt hiện lý do và người mở.</span></li>
+        </ol>
+      </figure>
+      <figure class="shot"><figcaption>Ảnh chụp chi tiết · Hộp thoại Chốt tồn kho. Số tiếp nối ảnh trên</figcaption>
+        <div class="anno">
+          <img src="../images/09-kiem-ke/2-chot-tao.png" alt="Hộp thoại Chốt tồn kho, có đánh số 4 vùng">
+          <span class="anno__box" style="left:4.24%;top:18.73%;width:91.52%;height:14.14%"></span><span class="anno__pin" style="left:4.24%;top:18.73%">5</span>
+          <span class="anno__box" style="left:4.24%;top:35.86%;width:91.52%;height:11.41%"></span><span class="anno__pin" style="left:4.24%;top:35.86%">6</span>
+          <span class="anno__box" style="left:4.24%;top:61.91%;width:91.52%;height:17.62%"></span><span class="anno__pin" style="left:4.24%;top:61.91%">7</span>
+          <span class="anno__box" style="left:79.49%;top:86.23%;width:16.27%;height:8.44%"></span><span class="anno__pin" style="left:79.49%;top:86.23%">8</span>
+        </div>
+        <ol class="anno-legend">
+          <li><span class="n">5</span><span><b>Ngày chốt, Kho:</b> bắt buộc; ngày chốt không được là ngày trong tương lai.</span></li>
+          <li><span class="n">6</span><span><b>Vị trí:</b> Tất cả hoặc Chọn vị trí.</span></li>
+          <li><span class="n">7</span><span><b>Giao dịch đang xử lý:</b> số phiếu Đã lưu, Đã trình có ngày không muộn hơn ngày chốt; Xem chi tiết để mở danh sách.</span></li>
+          <li><span class="n">8</span><span><b>Chốt tồn:</b> còn phiếu đang xử lý thì hiện cảnh báo, nút đổi thành Vẫn chốt.</span></li>
+        </ol>
+      </figure>
+    </div>
+    <aside class="screen__notes spec">
+      <div class="note note--biz note--wide"><h3>Nghiệp vụ</h3><p>Chốt số tồn kho chụp lại tồn kho theo kho, ngày và vị trí. Ảnh chụp này là số sổ để so sánh với kết quả kiểm kê.</p>
+<ol>
+<li>Bấm Chốt tồn kho, chọn ngày, kho, phạm vi vị trí (vùng 2).</li>
+<li>Xem Giao dịch đang xử lý; xử lý các phiếu còn dở trước khi chốt nếu có thể.</li>
+<li>Chốt; kỳ kiểm kê cùng kho và ngày tự lấy ảnh chụp này (9.1, 9.4).</li>
+</ol>
+      </div>
+      <div class="note note--src note--wide"><h3>Nguồn dữ liệu</h3><p>Ảnh chụp lấy từ tồn kho WMS tại thời điểm chốt.</p>
+        <div class="tw"><table>
+          <thead><tr><th>Nguồn</th><th>Ghi chú</th></tr></thead>
+          <tbody>
+            <tr><td><span class="src src--wms">Tạo thủ công trên WMS</span></td><td>Chốt tồn kho (vùng 2): mỗi lần chốt sinh số Closing dạng SCL-ngày-số thứ tự.</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="note note--rule note--wide"><h3>Quy tắc khác</h3>
+        <div class="tw"><table>
+          <thead><tr><th>Chủ đề</th><th>Quy tắc</th></tr></thead>
+          <tbody>
+            <tr><td>Chốt trùng</td><td>Không chốt được nếu kho đã có kỳ chốt từ ngày này trở đi bao gồm cùng vị trí. Mở chốt kỳ đó trước.</td></tr>
+            <tr><td>Phiếu đang xử lý</td><td>Phiếu Đã lưu hoặc Đã trình có ngày không muộn hơn ngày chốt sẽ không duyệt được sau khi chốt. Chốt hôm nay còn khóa mọi phiếu ngày hôm nay của kho.</td></tr>
+            <tr><td>Mở chốt</td><td>Bắt buộc nhập lý do, lưu nhật ký kiểm toán. Không mở được nếu kết quả kiểm kê của kỳ cùng kho, ngày đã đồng bộ SAP.</td></tr>
+            <tr><td>Trạng thái</td><td>Đã chốt hoặc Đã mở chốt. Chỉ kỳ Đã chốt mới dùng làm số sổ cho kiểm kê.</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<section class="screen" id="kk-pda">
+  <h2 class="screen__title"><span class="no">9.3</span>Quét tem kiểm kê</h2>
+  <p class="screen__path">Ứng dụng PDA › Điều chỉnh tồn kho › Kiểm kê</p>
+  <div class="screen__body">
+    <div class="screen__shots">
+      <figure class="shot-steps"><figcaption>Ảnh chụp theo từng bước thao tác. Kéo ngang để xem hết, bấm ảnh để phóng to</figcaption>
+        <div class="pda-steps">
+          <figure class="pda-step"><img src="../images/09-kiem-ke/3-pda-2-ky.png" alt="Bước 1: danh sách kỳ kiểm kê trên PDA" loading="lazy"><figcaption><b><span class="k">1</span>Chọn kỳ kiểm kê</b>Danh sách kỳ đang mở của kho: trạng thái, ngày, phạm vi vị trí, số tem đã kiểm và còn chưa quét. Bấm một kỳ để bắt đầu.</figcaption></figure>
+          <figure class="pda-step"><img src="../images/09-kiem-ke/3-pda-3-quet.png" alt="Bước 2: màn quét kiểm kê" loading="lazy"><figcaption><b><span class="k">2</span>Quét vị trí và tem</b>Thanh dưới hiện vị trí đang kiểm kê. Quét mã vị trí trước, rồi quét liên tiếp các tem trong vị trí đó. Muốn đổi vị trí, quét mã vị trí mới.</figcaption></figure>
+          <figure class="pda-step"><img src="../images/09-kiem-ke/3-pda-4-so-luong.png" alt="Bước 3: nhập số lượng thực tế" loading="lazy"><figcaption><b><span class="k">3</span>Nhập số lượng đã đếm</b>Mỗi tem quét xong hiện hộp nhập số lượng thực tế. Số phải lớn hơn 0.</figcaption></figure>
+          <figure class="pda-step"><img src="../images/09-kiem-ke/3-pda-5-vi-tri.png" alt="Bước 4: chọn vị trí kiểm kê" loading="lazy"><figcaption><b><span class="k">4</span>Chọn vị trí kiểm kê</b>Quét mã vị trí hoặc chọn trong danh sách vị trí thuộc phạm vi kỳ.</figcaption></figure>
+          <figure class="pda-step"><img src="../images/09-kiem-ke/3-pda-6-kiem-tra.png" alt="Bước 5: kiểm tra trước khi gửi" loading="lazy"><figcaption><b><span class="k">5</span>Kiểm tra trước khi gửi</b>Tem gộp theo vị trí. Sửa số lượng ngay trên ô, bỏ tem bằng ✕, Đổi vị trí kiểm kê cho cả nhóm, rồi Gửi kết quả.</figcaption></figure>
+          <figure class="pda-step"><img src="../images/09-kiem-ke/3-pda-7-da-gui.png" alt="Bước 6: đã gửi kết quả" loading="lazy"><figcaption><b><span class="k">6</span>Đã gửi kết quả</b>Kết quả ghi vào kỳ kiểm kê. Bấm Quét tiếp để kiểm vị trí khác hoặc Kết quả đã gửi để xem lại.</figcaption></figure>
+          <figure class="pda-step"><img src="../images/09-kiem-ke/3-pda-8-da-gui-ds.png" alt="Bước 7: kết quả đã gửi" loading="lazy"><figcaption><b><span class="k">7</span>Kết quả đã gửi</b>Danh sách tem đã gửi của kỳ. Sửa vị trí, số lượng hoặc Xóa kết quả của một tem; tem lệch so với sổ hiện cảnh báo.</figcaption></figure>
+          <figure class="pda-step pda-step--err"><img src="../images/09-kiem-ke/3-pda-9-loi.png" alt="Ví dụ: tem bị chặn khi quét" loading="lazy"><figcaption><b><span class="k">!</span>Ví dụ tem bị chặn</b>Thẻ đỏ ghi số tem và lý do, ví dụ tem không có trong hệ thống.</figcaption></figure>
+        </div>
+      </figure>
+    </div>
+    <aside class="screen__notes spec">
+      <div class="note note--biz note--wide"><h3>Nghiệp vụ</h3><p>Kho kiểm kê bằng cách quét vị trí rồi quét từng tem và nhập số lượng thực tế. Kết quả gửi về kỳ kiểm kê, xem và xử lý tiếp trên Web (9.4).</p>
+<ol>
+<li>Chọn kỳ kiểm kê đang mở (Điều chỉnh tồn kho › Kiểm kê).</li>
+<li>Quét mã vị trí đang kiểm kê, quét từng tem trong vị trí đó và nhập số lượng đã đếm.</li>
+<li>Kiểm tra kết quả: sửa số lượng, bỏ tem, đổi vị trí kiểm kê nếu cần.</li>
+<li>Gửi kết quả. Hoàn tất kiểm kê và đồng bộ SAP làm trên Web (9.4).</li>
+</ol>
+      </div>
+      <div class="note note--src note--wide"><h3>Nguồn dữ liệu</h3><p>Kết quả quét ghi nhận từ PDA.</p>
+        <div class="tw"><table>
+          <thead><tr><th>Nguồn</th><th>Ghi chú</th></tr></thead>
+          <tbody>
+            <tr><td><span class="src src--wms">Tạo trên WMS (PDA)</span></td><td>Mỗi tem quét tạo một dòng kết quả theo tem trong kỳ; cùng dữ liệu hiển thị ở 9.4, tab Kết quả theo tem.</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="note note--rule note--wide"><h3>Quy tắc khác</h3>
+        <div class="tw"><table>
+          <thead><tr><th>Chủ đề</th><th>Quy tắc</th></tr></thead>
+          <tbody>
+            <tr><td>Thứ tự quét</td><td>Phải quét vị trí trước khi quét tem. Vị trí phải thuộc kho và phạm vi vị trí của kỳ.</td></tr>
+            <tr><td>Tem không dùng được</td><td>Chặn và báo lý do khi: tem không có trong hệ thống, tem của kho khác, tem không có trong bản chụp chốt của kỳ, tem đã quét trong lần này, tem đã có kết quả trong kỳ (sửa ở Kết quả đã gửi).</td></tr>
+            <tr><td>Số lượng</td><td>Lớn hơn 0. Lệch so với số sổ hoặc lệch vị trí vẫn gửi được, máy chỉ cảnh báo.</td></tr>
+            <tr><td>Gửi kết quả</td><td>Cả lô chỉ gửi khi không còn tem lỗi. Thoát khi chưa gửi thì mất các tem đã quét trong lần này.</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<section class="screen" id="kk-ketqua">
+  <h2 class="screen__title"><span class="no">9.4</span>Ghi nhận kết quả kiểm kê</h2>
+  <p class="screen__path">Điều chỉnh tồn kho › Ghi nhận kết quả kiểm kê</p>
+  <div class="screen__body">
+    <div class="screen__shots">
+      <figure class="shot"><figcaption>Ảnh chụp chi tiết · Tab Kết quả theo tem. Số trên ảnh ứng với chú thích bên dưới</figcaption>
+        <div class="anno">
+          <img src="../images/09-kiem-ke/4-ketqua-tem.png" alt="Màn hình Ghi nhận kết quả kiểm kê, tab Kết quả theo tem, có đánh số 5 vùng">
+          <span class="anno__box" style="left:16.46%;top:11.66%;width:82.71%;height:8.28%"></span><span class="anno__pin" style="left:16.46%;top:11.66%">1</span>
+          <span class="anno__box" style="left:17.24%;top:22.9%;width:81.15%;height:3.78%"></span><span class="anno__pin" style="left:17.24%;top:22.9%">2</span>
+          <span class="anno__box" style="left:92.72%;top:27.71%;width:5.66%;height:3.48%"></span><span class="anno__pin" style="left:92.72%;top:27.71%">3</span>
+          <span class="anno__box" style="left:17.24%;top:38.65%;width:81.15%;height:3.68%"></span><span class="anno__pin" style="left:17.24%;top:38.65%">4</span>
+          <span class="anno__box" style="left:17.24%;top:43.15%;width:81.15%;height:46.52%"></span><span class="anno__pin" style="left:17.24%;top:43.15%">5</span>
+        </div>
+        <ol class="anno-legend">
+          <li><span class="n">1</span><span><b>Chọn kỳ:</b> Số kỳ kiểm kê, Kho, Ngày, Vị trí, Trạng thái và số Chốt tồn đã gắn. Chưa chốt tồn thì hiện cảnh báo.</span></li>
+          <li><span class="n">2</span><span><b>Ba tab:</b> Kết quả theo tem, Nhập không theo tem, Tổng hợp theo mã hàng.</span></li>
+          <li><span class="n">3</span><span><b>+ Thêm tem:</b> thêm tay kết quả cho một tem (mã vạch, vị trí, số lượng).</span></li>
+          <li><span class="n">4</span><span><b>Lọc theo trạng thái tem:</b> Tất cả, Đã khớp, Chênh lệch số lượng, Sai lệch vị trí, Sai lệch kho, Chưa quét.</span></li>
+          <li><span class="n">5</span><span><b>Bảng kết quả:</b> vị trí chốt và vị trí kiểm kê, SL chốt và SL kiểm kê; giá trị lệch tô đậm. Thao tác ⋮: Sửa, Xóa.</span></li>
+        </ol>
+      </figure>
+      <figure class="shot"><figcaption>Ảnh chụp chi tiết · Tab Nhập không theo tem. Số tiếp nối ảnh trên</figcaption>
+        <div class="anno">
+          <img src="../images/09-kiem-ke/4-ketqua-khong-tem.png" alt="Tab Nhập không theo tem, có đánh số 3 vùng">
+          <span class="anno__box" style="left:85.91%;top:47.63%;width:12.47%;height:5.98%"></span><span class="anno__pin" style="left:85.91%;top:47.63%">6</span>
+          <span class="anno__box" style="left:17.24%;top:55.01%;width:81.15%;height:14.24%"></span><span class="anno__pin" style="left:17.24%;top:55.01%">7</span>
+          <span class="anno__box" style="left:17.24%;top:71%;width:81.15%;height:15.82%"></span><span class="anno__pin" style="left:17.24%;top:71%">8</span>
+        </div>
+        <ol class="anno-legend">
+          <li><span class="n">6</span><span><b>Tải mẫu Excel, Import Excel:</b> mẫu gồm 3 cột Kho, Mã hàng, Số lượng.</span></li>
+          <li><span class="n">7</span><span><b>Nhập từng dòng:</b> gõ mã hoặc tên mặt hàng, nhập số lượng kiểm kê, bấm Thêm.</span></li>
+          <li><span class="n">8</span><span><b>Bảng dòng nhập:</b> sửa số lượng ngay trên dòng, ✕ để xóa.</span></li>
+        </ol>
+      </figure>
+      <figure class="shot"><figcaption>Ảnh chụp chi tiết · Tab Tổng hợp theo mã hàng. Số tiếp nối ảnh trên</figcaption>
+        <div class="anno">
+          <img src="../images/09-kiem-ke/4-ketqua-tong-hop.png" alt="Tab Tổng hợp theo mã hàng, có đánh số 4 vùng">
+          <span class="anno__box" style="left:17.24%;top:19.07%;width:81.15%;height:8.26%"></span><span class="anno__pin" style="left:17.24%;top:19.07%">9</span>
+          <span class="anno__box" style="left:84.75%;top:44.14%;width:6.96%;height:5.11%"></span><span class="anno__pin" style="left:84.75%;top:44.14%">10</span>
+          <span class="anno__box" style="left:91.72%;top:44.14%;width:6.67%;height:5.11%"></span><span class="anno__pin" style="left:91.72%;top:44.14%">11</span>
+          <span class="anno__box" style="left:17.24%;top:50.45%;width:81.15%;height:34.38%"></span><span class="anno__pin" style="left:17.24%;top:50.45%">12</span>
+        </div>
+        <ol class="anno-legend">
+          <li><span class="n">9</span><span><b>Bộ lọc:</b> Mã hoặc tên mặt hàng; SAP đã chỉnh (Có).</span></li>
+          <li><span class="n">10</span><span><b>Hoàn tất kiểm kê:</b> chốt kết quả của kỳ, xử lý mã hàng và tem chưa kiểm.</span></li>
+          <li><span class="n">11</span><span><b>Đồng bộ SAP:</b> chỉ bấm được sau khi hoàn tất; lỗi thì đổi thành Đồng bộ lại SAP.</span></li>
+          <li><span class="n">12</span><span><b>Bảng tổng hợp:</b> Tồn WMS lúc chốt, Số kiểm kê, Chênh lệch, Tồn kế toán SAP, SAP đã chỉnh, Đồng bộ SAP, Ghi chú.</span></li>
+        </ol>
+      </figure>
+    </div>
+    <aside class="screen__notes spec">
+      <div class="note note--biz note--wide"><h3>Nghiệp vụ</h3><p>Gom kết quả kiểm kê từ PDA và nhập trên Web, so với số sổ lúc chốt, rồi hoàn tất và gửi SAP theo từng mã hàng.</p>
+<ol>
+<li>Chọn kỳ kiểm kê; kiểm tra kết quả theo tem (vùng 5) và bổ sung số không theo tem nếu có.</li>
+<li>Xem Tổng hợp theo mã hàng (vùng 12) để đối chiếu số kiểm kê với số sổ.</li>
+<li>Bấm Hoàn tất kiểm kê (vùng 10), xử lý các mã hàng và tem chưa kiểm.</li>
+<li>Bấm Đồng bộ SAP (vùng 11). SAP trả số kế toán đã chốt thì WMS tự lập phiếu điều chỉnh (9.5).</li>
+</ol>
+      </div>
+      <div class="note note--src note--wide"><h3>Nguồn dữ liệu</h3><p>Kết quả từ hai nguồn, cùng hiển thị ở màn này.</p>
+        <div class="tw"><table>
+          <thead><tr><th>Nguồn</th><th>Ghi chú</th></tr></thead>
+          <tbody>
+            <tr><td><span class="src src--wms">Tạo trên WMS (PDA)</span></td><td>Kết quả quét tem trên PDA (9.3) vào tab Kết quả theo tem.</td></tr>
+            <tr><td><span class="src src--wms">Tạo thủ công trên WMS</span></td><td>+ Thêm tem, Nhập không theo tem, Import Excel (Kho, Mã hàng, Số lượng).</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="note note--sync note--wide"><h3>Trạng thái đồng bộ SAP</h3><p>Theo từng mã hàng ở tab Tổng hợp (vùng 12).</p>
+        <div class="tw"><table>
+          <thead><tr><th>Trạng thái</th><th>Ý nghĩa</th></tr></thead>
+          <tbody>
+            <tr><td>Chưa đồng bộ</td><td>Chưa gửi SAP.</td></tr>
+            <tr><td>Đã đồng bộ</td><td>SAP đã nhận số kiểm kê của mã hàng.</td></tr>
+            <tr><td>Đồng bộ lỗi</td><td>Lỗi thì chưa mã hàng nào được gửi. Xử lý lỗi theo cột Ghi chú rồi bấm Đồng bộ lại SAP.</td></tr>
+            <tr><td>Không đồng bộ</td><td>Mã hàng chưa kiểm kê và được giữ nguyên số trong sổ khi hoàn tất.</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="note note--rule note--wide"><h3>Quy tắc khác</h3>
+        <div class="tw"><table>
+          <thead><tr><th>Chủ đề</th><th>Quy tắc</th></tr></thead>
+          <tbody>
+            <tr><td>Trạng thái tem</td><td>Đã khớp; Chênh lệch số lượng; Sai lệch vị trí; Sai lệch kho; Chưa quét (tem trong phạm vi kỳ chưa có kết quả).</td></tr>
+            <tr><td>Import Excel</td><td>Kho phải trùng kho của kỳ, mã hàng có trong danh mục, số lượng lớn hơn 0, mã hàng không lặp. Có dòng lỗi thì không nhập dòng nào.</td></tr>
+            <tr><td>Hoàn tất kiểm kê</td><td>Với mã hàng hoặc tem chưa kiểm kê chọn một cách xử lý chung: Giữ nguyên số trong sổ (mã hàng không đồng bộ SAP) hoặc Chấp nhận thiếu (số kiểm kê bằng 0, vẫn đồng bộ SAP).</td></tr>
+            <tr><td>SAP đã chỉnh</td><td>Khi tồn kế toán SAP khác số kiểm kê, dòng được đánh dấu. Số lệch với sổ WMS sinh phiếu điều chỉnh tự động ở trạng thái Đã duyệt.</td></tr>
+            <tr><td>Đã đồng bộ SAP</td><td>Khóa Thêm tem, Sửa, Xóa, Import và mọi thay đổi kết quả của kỳ.</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<section class="screen" id="kk-dieuchinh">
+  <h2 class="screen__title"><span class="no">9.5</span>Điều chỉnh nhập/xuất tồn</h2>
+  <p class="screen__path">Điều chỉnh tồn kho › Điều chỉnh nhập/xuất tồn</p>
+  <div class="screen__body">
+    <div class="screen__shots">
+      <figure class="shot"><figcaption>Ảnh chụp chi tiết · Tab Sai lệch kiểm kê. Số trên ảnh ứng với chú thích bên dưới</figcaption>
+        <div class="anno">
+          <img src="../images/09-kiem-ke/5-dieuchinh-sai-lech.png" alt="Màn hình Điều chỉnh nhập/xuất tồn, tab Sai lệch kiểm kê, có đánh số 6 vùng">
+          <span class="anno__box" style="left:16.46%;top:14.82%;width:82.71%;height:26.14%"></span><span class="anno__pin" style="left:16.46%;top:14.82%">1</span>
+          <span class="anno__box" style="left:16.46%;top:42.52%;width:82.71%;height:10.4%"></span><span class="anno__pin" style="left:16.46%;top:42.52%">2</span>
+          <span class="anno__box" style="left:17.24%;top:56.18%;width:81.15%;height:5.2%"></span><span class="anno__pin" style="left:17.24%;top:56.18%">3</span>
+          <span class="anno__box" style="left:74.12%;top:62.68%;width:9.27%;height:4.42%"></span><span class="anno__pin" style="left:74.12%;top:62.68%">4</span>
+          <span class="anno__box" style="left:83.8%;top:62.68%;width:8.24%;height:4.42%"></span><span class="anno__pin" style="left:83.8%;top:62.68%">5</span>
+          <span class="anno__box" style="left:17.24%;top:68.14%;width:81.15%;height:22.11%"></span><span class="anno__pin" style="left:17.24%;top:68.14%">6</span>
+        </div>
+        <ol class="anno-legend">
+          <li><span class="n">1</span><span><b>Bộ lọc:</b> Số kỳ kiểm kê, Ngày kiểm kê, Kho, Vị trí, Loại sai lệch, Phiếu / Mã vạch / Mặt hàng.</span></li>
+          <li><span class="n">2</span><span><b>Thống kê:</b> Sai lệch đang mở, Chờ duyệt, Đã duyệt, Đã hủy.</span></li>
+          <li><span class="n">3</span><span><b>Hai tab:</b> Sai lệch kiểm kê, Phiếu điều chỉnh.</span></li>
+          <li><span class="n">4</span><span><b>Tạo phiếu điều chỉnh:</b> tạo từ các sai lệch đã tick (không gồm loại cần điều tra).</span></li>
+          <li><span class="n">5</span><span><b>Xác nhận đã kiểm tra:</b> cho sai lệch có hướng Điều tra; nhập lý do, không tạo điều chỉnh tồn.</span></li>
+          <li><span class="n">6</span><span><b>Bảng sai lệch:</b> Loại sai lệch (Chênh lệch số lượng, Sai vị trí, Sai kho), Vị trí chốt và kiểm kê, SL chốt, SL kiểm kê, Hướng điều chỉnh, Ghi chú, Lý do.</span></li>
+        </ol>
+      </figure>
+      <figure class="shot"><figcaption>Ảnh chụp chi tiết · Tab Phiếu điều chỉnh. Số tiếp nối ảnh trên</figcaption>
+        <div class="anno">
+          <img src="../images/09-kiem-ke/5-dieuchinh-phieu.png" alt="Tab Phiếu điều chỉnh, có đánh số 2 vùng">
+          <span class="anno__box" style="left:17.24%;top:68.59%;width:81.15%;height:21.6%"></span><span class="anno__pin" style="left:17.24%;top:68.59%">7</span>
+          <span class="anno__box" style="left:92.44%;top:74.61%;width:1.35%;height:3.27%"></span><span class="anno__pin" style="left:92.44%;top:74.61%">8</span>
+        </div>
+        <ol class="anno-legend">
+          <li><span class="n">7</span><span><b>Danh sách phiếu:</b> Số phiếu, Số kỳ, Loại sai lệch, Số dòng, Kho, Trạng thái (Nháp, Chờ duyệt, Đã duyệt, Từ chối, Đã hủy), Người tạo, Ngày tạo.</span></li>
+          <li><span class="n">8</span><span><b>Thao tác ⋮:</b> Xem, Sửa, Trình duyệt, Duyệt, Từ chối, Hủy phiếu, Gán tem; mục hiện theo trạng thái phiếu.</span></li>
+        </ol>
+      </figure>
+      <figure class="shot"><figcaption>Ảnh chụp chi tiết · Xem phiếu điều chỉnh tự động từ SAP. Số tiếp nối ảnh trên</figcaption>
+        <div class="anno">
+          <img src="../images/09-kiem-ke/5-dieuchinh-xem.png" alt="Hộp thoại xem phiếu điều chỉnh, có đánh số 3 vùng">
+          <span class="anno__box" style="left:2.22%;top:12.32%;width:95.56%;height:6.2%"></span><span class="anno__pin" style="left:2.22%;top:12.32%">9</span>
+          <span class="anno__box" style="left:2.22%;top:20.15%;width:95.56%;height:42.58%"></span><span class="anno__pin" style="left:2.22%;top:20.15%">10</span>
+          <span class="anno__box" style="left:2.7%;top:69.58%;width:95.08%;height:14.68%"></span><span class="anno__pin" style="left:2.7%;top:69.58%">11</span>
+        </div>
+        <ol class="anno-legend">
+          <li><span class="n">9</span><span><b>Thông tin phiếu:</b> Kỳ kiểm kê, Kho, Trạng thái, Người tạo, Ngày điều chỉnh, Ghi chú.</span></li>
+          <li><span class="n">10</span><span><b>Chi tiết:</b> mỗi mã hàng hiện Tồn WMS, Tồn kế toán SAP, số điều chỉnh; bên dưới là từng tem theo kiểm kê, tem đã gán và phần Cần gán tem.</span></li>
+          <li><span class="n">11</span><span><b>Lịch sử xử lý:</b> thời gian, người làm, hành động và lý do.</span></li>
+        </ol>
+      </figure>
+    </div>
+    <aside class="screen__notes spec">
+      <div class="note note--biz note--wide"><h3>Nghiệp vụ</h3><p>Đưa tồn kho WMS về đúng thực tế sau kiểm kê: chênh lệch số lượng, sai vị trí, sai kho được xử lý qua phiếu điều chỉnh.</p>
+<ol>
+<li>Xem tab Sai lệch kiểm kê, tick các sai lệch cần xử lý.</li>
+<li>Tạo phiếu điều chỉnh (Lưu nháp hoặc Trình duyệt); sai lệch Điều tra chỉ Xác nhận đã kiểm tra.</li>
+<li>Người duyệt Duyệt hoặc Từ chối; phiếu được duyệt thì tồn kho đổi.</li>
+<li>Phiếu tự động từ số kế toán SAP (9.4) đã duyệt sẵn; gán tem cho phần điều chỉnh không theo tem (⋮, Gán tem).</li>
+</ol>
+      </div>
+      <div class="note note--src note--wide"><h3>Nguồn dữ liệu</h3><p>Phiếu điều chỉnh có hai nguồn.</p>
+        <div class="tw"><table>
+          <thead><tr><th>Nguồn</th><th>Ghi chú</th></tr></thead>
+          <tbody>
+            <tr><td><span class="src src--wms">Tạo thủ công trên WMS</span></td><td>Tạo phiếu điều chỉnh từ các sai lệch đã tick ở tab Sai lệch kiểm kê (vùng 4).</td></tr>
+            <tr><td><span class="src src--sap">Tự động từ SAP</span></td><td>SAP trả số kế toán đã chốt (9.4): WMS tự tạo và duyệt phiếu cho phần lệch với sổ.</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="note note--rule note--wide"><h3>Quy tắc khác</h3>
+        <div class="tw"><table>
+          <thead><tr><th>Chủ đề</th><th>Quy tắc</th></tr></thead>
+          <tbody>
+            <tr><td>Ngày điều chỉnh</td><td>Không được là ngày trong tương lai; phải nằm trong kỳ đã chốt gần nhất hoặc kỳ đang mở.</td></tr>
+            <tr><td>Vòng đời phiếu thủ công</td><td>Nháp, Trình duyệt, Chờ duyệt, rồi Duyệt hoặc Từ chối. Nháp hoặc Từ chối sửa được.</td></tr>
+            <tr><td>Từ chối</td><td>Bắt buộc nhập lý do; các sai lệch của phiếu quay lại tab Sai lệch kiểm kê.</td></tr>
+            <tr><td>Hủy phiếu</td><td>Chỉ cho phiếu thủ công đã duyệt, bắt buộc lý do, hoàn lại thay đổi tồn kho; các sai lệch không mở lại. Phiếu tự động từ SAP không hủy.</td></tr>
+            <tr><td>Gán tem</td><td>Phần điều chỉnh không theo tem được phân bổ cho tem trong kho. Tổng phân bổ không vượt số cần gán; điều chỉnh giảm không vượt số lượng tem.</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+    </aside>
+  </div>
+</section>
 
 </main>
 
