@@ -45,19 +45,40 @@
         <div class="shot__fit"><iframe class="shot__live" src="../mockups/11-phat-hanh-tem-nhan/2.html" title="Phát hành tem thành phẩm / bán thành phẩm" loading="lazy"></iframe></div></figure>
     </div>
     <aside class="screen__notes">
-      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Phát hành tem QR theo yêu cầu: chọn Loại nguồn (Nhập kho TP/BTP từ sản xuất – mục 5.2, hoặc Thành phẩm trả lại – mục 6.5), chọn một hoặc nhiều yêu cầu Đã trình của kho, nhập SL cần dán tem cho từng dòng rồi chia pallet. Mỗi pallet là một tem. Tạo tem sinh serial vĩnh viễn FGL-{YYMMDD}-{NNNN}; in xong tem chuyển sang Đã in, giữ chỗ để chờ kho quét nhập.</p><ul>
-<li><b>Chọn chứng từ:</b> bắt buộc chọn kho (mặc định K03 cho TP/BTP, 5900 cho hàng trả). Chỉ hiện yêu cầu Đã trình còn dòng thiếu tem. Đổi Loại nguồn khi đã chọn yêu cầu thì hệ thống hỏi lại và xóa toàn bộ số đang nhập.</li>
-<li><b>Theo nguồn:</b> TP/BTP có Số lệnh SX, Batch no (theo yêu cầu khách), SO. Hàng trả lại đồng bộ từ SAP, không có SO và Batch no, header hiện Khách hàng, Lý do trả hàng, kho nhận 5900; mẫu tem cố định “Thành phẩm trả về”.</li>
-<li><b>Giới hạn số lượng:</b> Còn lại = SL yêu cầu − tổng SL các tem chưa hủy của cùng yêu cầu và mã hàng. SL cần dán phải &gt; 0 và ≤ Còn lại; dòng đủ tem không nạp lên nữa.</li>
-<li><b>Chia pallet:</b> mỗi dòng có nhiều nhóm Số pallet × SL/pallet (kèm Số thùng/pallet). Tổng các nhóm phải bằng đúng SL cần dán, nếu không thì báo Thiếu/Dư và chưa cho tạo tem. Vd 5.472 SET = 5 × 1.000 + 1 × 472 → 6 tem, tem lẻ 472. Người dùng tự thêm nhóm cho tem lẻ.</li>
-<li><b>Đánh số:</b> số thứ tự tính tiếp theo ngày, kể cả tem đã hủy, nên serial không bao giờ dùng lại.</li>
-<li><b>Trạng thái tem:</b> Đã phát hành › Đã in, giữ chỗ › Trong kho (sau khi quét nhập) › Đã xuất hết; hủy được thành Đã hủy. Tem nguồn bị gộp chuyển Đã hủy với lý do “GỘP”.</li>
-<li><b>In:</b> chọn máy in, khổ giấy (A4 decal 4 tem hoặc tem cuộn 100×70), mẫu, số bản. Trạng thái chỉ cập nhật sau khi người dùng xác nhận đã in thành công. In lại giữ nguyên trạng thái, cộng số lần in; tem Trong kho vẫn in lại được.</li>
-<li><b>Hủy tem:</b> chỉ hủy được tem chưa vào kho (Đã phát hành / Đã in), bắt buộc nhập lý do, không hoàn tác. Số lượng trả về dòng yêu cầu để phát hành bù. Hủy hàng loạt tự bỏ qua tem đã vào kho, đã xuất hết hoặc đã hủy.</li>
-<li><b>Cờ “Cần xử lý”:</b> khi SAP thay đổi chứng từ (đổi Buyer, giảm SL dòng…), tem bị gắn cờ, chặn cả in lần đầu và in lại; xử lý bằng cách hủy rồi phát hành lại.</li>
-<li><b>Nội dung tem:</b> TP gồm Inter SO / Vina SO / Lệnh SX, mã và tên hàng, Ngày nhập kho, Ngày SX, Buyer, Batch no, Số lượng / số thùng, QR. BTP bỏ Checklist và Batch no. TP trả về chỉ có mã, tên, ngày nhập, số lượng. Ngày nhập in ngày thực tế nếu đã vào kho, ngày dự kiến nếu chưa.</li>
-<li><b>Cần chốt:</b> khi nào tem ở trạng thái Đã in, chưa giữ chỗ; có tự chia pallet theo quy cách đóng gói không; phân biệt TP/BTP trên dữ liệu (hiện chọn tay mẫu khi in); hàng trả có giới hạn chỉ trường hợp không nguyên pallet; điều kiện và phân quyền in lại tem đã vào kho; có cho chọn yêu cầu của nhiều kho cùng lúc.</li>
-</ul></div>
+      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Phát hành tem QR cho thành phẩm / bán thành phẩm theo yêu cầu của kho. Mỗi pallet là một tem. Hai nguồn dùng chung màn hình và chung quy tắc; chỉ khác dữ liệu đầu vào và mẫu tem.</p>
+<p><b>Các bước</b></p>
+<ol>
+<li>Chọn Loại nguồn, rồi chọn một hoặc nhiều yêu cầu ở trạng thái Đã trình. Chỉ hiện yêu cầu còn dòng thiếu tem; không có bước chọn kho nhận.</li>
+<li>Nhập SL cần dán tem cho từng dòng.</li>
+<li>Chia pallet cho từng dòng.</li>
+<li>Tạo tem: hệ thống sinh serial FGL-{YYMMDD}-{NNNN}.</li>
+<li>In tem: tem chuyển sang Đã in, giữ chỗ để chờ kho quét nhập.</li>
+</ol>
+<p>Đổi Loại nguồn khi đã chọn yêu cầu thì hệ thống hỏi lại và xóa toàn bộ số đang nhập.</p>
+<p><b>So sánh hai nguồn</b></p>
+<div class="tw"><table>
+<thead><tr><th>Thông tin</th><th>Nhập kho TP/BTP từ sản xuất</th><th>Thành phẩm trả lại</th></tr></thead>
+<tbody>
+<tr><td>Yêu cầu nguồn</td><td>Yêu cầu nhập kho thành phẩm / bán thành phẩm (mục 5.1)</td><td>Yêu cầu hàng bán trả lại (mục 6.4), đồng bộ từ SAP</td></tr>
+<tr><td>Thông tin trên yêu cầu</td><td>Số lệnh SX, Batch no (theo yêu cầu khách), SO</td><td>Khách hàng, Lý do trả hàng. Không có SO và Batch no</td></tr>
+<tr><td>Mẫu tem</td><td>Chọn khi in: Thành phẩm hoặc Bán thành phẩm</td><td>Cố định “Thành phẩm trả về”</td></tr>
+<tr><td>Nội dung tem</td><td>Thành phẩm: Inter SO / Vina SO / Lệnh SX, mã và tên hàng, Ngày nhập kho, Ngày SX, Buyer, Batch no, Số lượng / số thùng, QR.<br>Bán thành phẩm: như trên, bỏ Checklist và Batch no</td><td>Mã và tên hàng, Ngày nhập kho, Số lượng, QR</td></tr>
+<tr><td>Chia pallet, giới hạn SL, đánh số, in, hủy</td><td colspan="2">Giống nhau cho cả hai nguồn, xem quy tắc chung bên dưới</td></tr>
+</tbody></table></div>
+<p><b>Quy tắc chung</b></p>
+<div class="tw"><table>
+<thead><tr><th>Chủ đề</th><th>Quy tắc</th></tr></thead>
+<tbody>
+<tr><td>Giới hạn số lượng</td><td>Còn lại = SL yêu cầu − tổng SL các tem chưa hủy của cùng yêu cầu và mã hàng. SL cần dán phải &gt; 0 và ≤ Còn lại. Dòng đủ tem không nạp lên nữa.</td></tr>
+<tr><td>Chia pallet</td><td>Mỗi dòng có nhiều nhóm Số pallet × SL/pallet (kèm Số thùng/pallet). Tổng các nhóm phải bằng đúng SL cần dán; nếu không, báo Thiếu/Dư và chưa cho tạo tem.<br>Vd 5.472 SET = 5 × 1.000 + 1 × 472 → 6 tem, tem lẻ 472. Người dùng tự thêm nhóm cho tem lẻ.</td></tr>
+<tr><td>Đánh số</td><td>Số thứ tự tính tiếp theo ngày, kể cả tem đã hủy, nên serial không bao giờ dùng lại.</td></tr>
+<tr><td>Trạng thái tem</td><td>Đã phát hành › Đã in, giữ chỗ › Trong kho (sau khi quét nhập) › Đã xuất hết. Hủy được thành Đã hủy. Tem nguồn bị gộp chuyển Đã hủy với lý do “GỘP”.</td></tr>
+<tr><td>In</td><td>Chọn máy in, khổ giấy (A4 decal 4 tem hoặc tem cuộn 100×70), mẫu, số bản. Trạng thái chỉ cập nhật sau khi người dùng xác nhận đã in thành công. In lại giữ nguyên trạng thái và cộng số lần in; tem Trong kho vẫn in lại được.</td></tr>
+<tr><td>Ngày nhập kho trên tem</td><td>In ngày thực tế nếu tem đã vào kho, ngày dự kiến nếu chưa.</td></tr>
+<tr><td>Hủy tem</td><td>Chỉ hủy được tem chưa vào kho (Đã phát hành / Đã in); bắt buộc nhập lý do, không hoàn tác. Số lượng trả về dòng yêu cầu để phát hành bù. Hủy hàng loạt tự bỏ qua tem đã vào kho, đã xuất hết hoặc đã hủy.</td></tr>
+<tr><td>Cờ “Cần xử lý”</td><td>Khi SAP thay đổi chứng từ (đổi Buyer, giảm SL dòng…), tem bị gắn cờ và chặn cả in lần đầu lẫn in lại. Xử lý bằng cách hủy rồi phát hành lại.</td></tr>
+</tbody></table></div>
+      </div>
     </aside>
   </div>
 </section>
