@@ -125,8 +125,14 @@ window.TSD_MENU = [
       desc: "Hằng tháng, bằng PDA" },
 
     // ===== Mục 10 – (người phụ trách: chưa chia) =====
-    { no: "10", title: "Báo cáo", page: "10", href: "pages/10-bao-cao.html", soon: true,
-      desc: "Tồn kho, tồn lâu, chứng từ" },
+    { no: "10", title: "Báo cáo", page: "10", href: "pages/10-bao-cao.html",
+      desc: "Tồn kho, tồn lâu, chứng từ",
+      screens: [
+        { no: "10.1", title: "Kiểm tra tồn kho - Giao dịch", id: "bc-giao-dich" },
+        { no: "10.2", title: "Kiểm tra tồn kho - Phiếu chi tiết", id: "bc-phieu" },
+        { no: "10.3", title: "Kiểm tra tồn kho theo vị trí", id: "bc-vi-tri" },
+        { no: "10.4", title: "Báo cáo nhập xuất tồn FIFO", id: "bc-fifo" }
+      ]},
 
     // ===== Mục 11 – (người phụ trách: chưa chia) =====
     { no: "11", title: "Phát hành tem nhãn", page: "11", href: "pages/11-phat-hanh-tem-nhan.html",

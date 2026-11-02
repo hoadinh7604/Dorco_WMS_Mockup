@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Báo cáo nhập xuất tồn FIFO · DORCO WMS</title>
+<style>
+:root{--lime:#C8F135;--lime-d:#B5DC2E;--lime-bg:#EEF8C9;--ink:#1F2937;--muted:#6B7280;--line:#E5E7EB;--bg:#F8F8F6;--card:#fff;--dark:#0F1A2B;--dark2:#162338;--blue:#2563EB;--new:#2E7D4F;--mod:#C77700;--del:#B3261E}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{font-family:"Noto Sans","Segoe UI",system-ui,-apple-system,Arial,sans-serif;font-size:13px;color:var(--ink);background:var(--bg)}
+#app{display:flex;height:100vh;overflow:hidden}
+/* navigation */
+.nav{width:300px;flex:none;background:var(--dark);display:flex;flex-direction:column}
+.logo{margin:10px 6px 4px;background:#fff;border-radius:6px;height:36px;display:flex;align-items:center;justify-content:center;font-weight:800;color:#1e56d9;letter-spacing:.2px}
+.logo span{color:#0ea5e9}
+.navbody{flex:1;display:flex;min-height:0}
+.rail{width:86px;flex:none;border-right:1px solid #1f2d44;overflow-y:auto;padding:8px 0}
+.rail button{width:100%;background:none;border:0;color:#9fb0c8;padding:9px 4px;font:inherit;font-size:11.5px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;line-height:1.2}
+.rail button .ic{font-size:17px;width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center}
+.rail button.on{color:#fff}
+.rail button.on .ic{background:#27401c;color:var(--lime)}
+.sub{flex:1;overflow-y:auto;padding:12px 6px}
+.sub h5{margin:2px 8px 12px;text-align:center;color:#fff;font-size:14px}
+.sub a{display:block;color:#b8c5d9;padding:10px 12px;border-radius:7px;margin:3px 0;cursor:pointer;text-decoration:none;font-size:13.5px}
+.sub a:hover{background:var(--dark2)}
+.sub a.on{background:var(--lime);color:#111;font-weight:600}
+.sub a.dim{opacity:.55}
+.sub .grp{color:#8ea0ba;font-size:12px;margin:14px 10px 4px;font-weight:600}
+/* main */
+.main{flex:1;min-width:0;display:flex;flex-direction:column}
+.topbar{display:flex;flex-wrap:wrap-reverse;align-items:flex-end;justify-content:space-between;gap:0 12px;padding:0 14px;min-height:58px;background:#fff;border-bottom:1px solid var(--line)}
+.tabs{display:flex;gap:6px;align-items:flex-end;flex-wrap:wrap}
+.tab{white-space:nowrap;display:flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid var(--line);border-bottom:0;border-radius:8px 8px 0 0;background:#fafafa;cursor:pointer;color:#4b5563}
+.tab.on{background:#fff;font-weight:700;color:#111}
+.tab .x{color:#9ca3af;font-size:11px}
+.tools{display:flex;gap:10px;align-items:center;padding:8px 0;flex-wrap:wrap;justify-content:flex-end}
+.tools label{display:flex;align-items:center;gap:5px;font-size:12px;color:#374151}
+.tools select{padding:4px 6px;font-size:12px}
+.user{display:flex;align-items:center;gap:8px;font-weight:600}
+.user i{width:30px;height:30px;border-radius:50%;background:#E7F7B0;display:flex;align-items:center;justify-content:center;font-style:normal;color:#4d6b00}
+.content{flex:1;overflow:auto;padding:10px 16px 0;position:relative}
+.page-title{font-size:22px;font-weight:700;margin:4px 0 12px}
+.segtabs{display:inline-flex;background:#EEF0F2;border-radius:8px;padding:4px;margin-bottom:12px}
+.segtabs button{border:0;background:none;padding:7px 16px;border-radius:6px;font:inherit;cursor:pointer;color:#4b5563}
+.segtabs button.on{background:#fff;font-weight:700;color:#111;box-shadow:0 1px 2px rgba(0,0,0,.1)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;margin:0 0 12px}
+.card-hd{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;font-size:17px;font-weight:700;border-bottom:1px solid var(--line)}
+.card-hd small{font-size:12px;font-weight:400;color:var(--muted);margin-left:8px}
+.card-bd{padding:12px 14px}
+.row{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-end}
+.fld{display:flex;flex-direction:column;gap:4px;min-width:150px;flex:1}
+.fld label{font-size:12px;color:#4b5563}
+.fld .req{color:#dc2626}
+input,select,textarea{border:1px solid #d1d5db;border-radius:6px;padding:7px 10px;font:inherit;background:#fff;color:var(--ink);min-width:0}
+input:focus,select:focus,textarea:focus{outline:2px solid #d9f56b;border-color:#9bc400}
+input[readonly],input:disabled,select:disabled{background:#F3F4F6;color:#6b7280}
+input[type=checkbox],input[type=radio]{width:15px;height:15px;padding:0;accent-color:#7aa800}
+.inl{display:flex;gap:6px}
+.inl input{flex:1}
+.btn{border:1px solid #d1d5db;background:#fff;border-radius:8px;padding:7px 14px;font:inherit;cursor:pointer;color:#111}
+.btn:hover{background:#f9fafb}
+.btn.pri{background:var(--lime);border-color:var(--lime-d);font-weight:700}
+.btn.pri:hover{background:#bfe72d}
+.btn.danger{color:#b91c1c;border-color:#fca5a5}
+.btn.sm{padding:3px 10px;font-size:12px}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn.ico{padding:7px 10px}
+.foot-sticky{position:sticky;bottom:0;background:#fff;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;padding:10px 16px;margin:6px -16px 0;z-index:5}
+.foot-sticky .btns{display:flex;gap:10px}
+.tbwrap{overflow:auto;border:1px solid var(--line);border-radius:8px}
+table.tb{width:100%;border-collapse:collapse;min-width:900px}
+.tb th{background:#F6F7F5;text-align:left;font-weight:600;padding:9px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+.tb td{padding:8px 10px;border-bottom:1px solid #f0f1ef;vertical-align:middle}
+.tb tr.sel td{background:var(--lime-bg)}
+.tb tr:hover td{background:#fafbf5}
+.tb td.num,.tb th.num{text-align:right}
+.tb input.q{width:110px;text-align:right}
+.tb small{display:block;color:#6b7280;font-size:11px}
+.chip{display:inline-block;font-size:11.5px;font-weight:600;padding:2px 10px;border-radius:6px;border:1px solid transparent;white-space:nowrap}
+.chip.blue{background:#E6F0FF;color:#1D4ED8;border-color:#BFD6FF}
+.chip.amber{background:#FFF3D6;color:#B45309;border-color:#FBD38D}
+.chip.green{background:#E3F7E8;color:#15803D;border-color:#A7E3B6}
+.chip.gray{background:#EEF0F2;color:#4B5563;border-color:#D1D5DB}
+.chip.red{background:#FDE2E0;color:#B42318;border-color:#F8B4AE}
+.chip.ng{background:#FDE2E0;color:#B42318}
+.muted{color:var(--muted)}
+.ok{color:#15803D;font-weight:700}.bad{color:#B42318;font-weight:700}
+.note{border-radius:8px;padding:9px 12px;margin:10px 0 0;font-size:12.5px}
+.note.info{background:#EAF3FF;border:1px solid #BFD6FF;color:#1E3A8A}
+.note.warn{background:#FFF8E6;border:1px solid #F1DFA8;color:#7A5500}
+.note.err{background:#FEECEB;border:1px solid #F5B5B0;color:#8A1F17}
+.grid2{display:grid;grid-template-columns:1.2fr 1fr;gap:14px}
+.empty{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:#6b7280;padding:40px 10px;text-align:center}
+.empty i{font-size:42px;font-style:normal}
+.sumtbl{width:100%;border-collapse:collapse}
+.sumtbl td{padding:8px 4px;border-bottom:1px solid #f0f1ef}
+.sumtbl td:last-child{text-align:right;font-weight:600}
+.segs{display:inline-flex;border:1px solid #d1d5db;border-radius:8px;overflow:hidden;flex-wrap:wrap}
+.segs button{border:0;border-right:1px solid #d1d5db;background:#fff;padding:7px 13px;font:inherit;cursor:pointer}
+.segs button:last-child{border-right:0}
+.segs button.on{background:var(--dark);color:#fff}
+.infocard{background:#F4F9E6;border:1px solid #D7E8A0;border-radius:8px;padding:10px 12px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px 14px;margin-top:10px}
+.infocard div span{display:block;font-size:11px;color:#6b7280}
+.infocard div b{font-weight:600}
+/* tem preview */
+.tem{border:1px solid #94a3b8;border-radius:8px;padding:10px 12px;background:#fff;max-width:360px;margin:6px auto}
+.tem .tt{display:flex;justify-content:space-between;border-bottom:1px solid #94a3b8;padding-bottom:4px;margin-bottom:6px;font-weight:700}
+.tem .r{display:flex;gap:8px;font-size:12px;line-height:1.6}
+.tem .r span:first-child{color:#6b7280;width:96px;flex:none}
+.tem .qr{width:78px;height:78px;border:1px dashed #64748b;display:flex;align-items:center;justify-content:center;font-size:10.5px;color:#64748b;text-align:center;flex:none}
+.tem .q{margin-top:6px;background:#EEF2F7;border-radius:5px;padding:5px 8px;display:flex;justify-content:space-between;font-weight:700}
+.sheetpg{width:250px;border:1px solid #94a3b8;background:#fff;padding:7px;display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:78px;gap:5px}
+.sheetpg div{border:1px dashed #94a3b8;border-radius:4px;font-size:10px;padding:3px 4px;overflow:hidden;line-height:1.3}
+.sheetpg div.e{color:#cbd5e1}
+.pages{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px}
+.drop{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;border:2px dashed #b9c6d8;border-radius:10px;padding:22px;background:#fafbfd;cursor:pointer;color:#4b5563;text-align:center}
+.drop:hover{border-color:#9bc400;background:#f7fbe8}
+.pkrow{cursor:pointer}
+.pkrow.dis{opacity:.55;cursor:not-allowed}
+.pkpanel{border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-bottom:12px}
+/* modal, drawer, toast */
+.ov{position:fixed;inset:0;background:rgba(15,23,42,.45);display:flex;align-items:center;justify-content:center;z-index:70;padding:20px}
+.md{background:#fff;border-radius:12px;width:min(640px,100%);max-height:92vh;display:flex;flex-direction:column;box-shadow:0 20px 50px -20px rgba(0,0,0,.5)}
+.md.wide{width:min(1240px,98vw)}
+.md-hd{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid var(--line);font-size:15px}
+.md-bd{padding:14px 18px;overflow:auto}
+.md-ft{padding:12px 18px;border-top:1px solid var(--line);display:flex;gap:10px;justify-content:flex-end;align-items:center}
+.md-ft .l{margin-right:auto;color:var(--muted)}
+.x{background:none;border:0;cursor:pointer;font-size:15px;color:#6b7280}
+.dw{position:fixed;top:0;right:0;bottom:0;width:min(460px,100%);background:#fff;box-shadow:-10px 0 30px -12px rgba(0,0,0,.4);z-index:60;display:flex;flex-direction:column}
+.dw-hd{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid var(--line);font-size:15px}
+.dw-bd{padding:14px 18px;overflow:auto;flex:1}
+.dw h6{margin:14px 0 4px;font-size:11.5px;text-transform:uppercase;letter-spacing:.4px;color:#6b7280}
+.dw ul{margin:2px 0;padding-left:18px}.dw li{margin:3px 0}
+.tl{border-left:2px solid #d9e2ef;margin:6px 0 0 6px;padding-left:12px}
+.tl div{margin:0 0 8px;position:relative}
+.tl div::before{content:"";position:absolute;left:-18px;top:5px;width:8px;height:8px;border-radius:50%;background:#7aa800}
+.tl small{color:#6b7280;display:block}
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);background:#111827;color:#fff;padding:10px 18px;border-radius:10px;z-index:80;box-shadow:0 8px 24px -10px rgba(0,0,0,.6);max-width:80vw}
+.menu{position:absolute;right:6px;top:30px;background:#fff;border:1px solid var(--line);border-radius:8px;box-shadow:0 10px 24px -10px rgba(0,0,0,.35);z-index:20;min-width:150px}
+.menu button{display:block;width:100%;text-align:left;background:none;border:0;padding:8px 12px;font:inherit;cursor:pointer}
+.menu button:hover{background:#f6f7f5}
+.menu button:disabled{opacity:.4;cursor:not-allowed}
+td.act{position:relative;text-align:center}
+.pager{display:flex;gap:6px;justify-content:flex-end;align-items:center;margin-top:10px}
+.pager button{min-width:32px}
+.pager .on{border-color:#7aa800;color:#4d6b00;font-weight:700}
+.kpis{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-bottom:12px}
+.kpi{background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.kpi b{display:block;font-size:22px;margin:4px 0}
+.kpi span{color:#6b7280;font-size:12px}
+.subtabs{display:flex;gap:18px;border-bottom:1px solid var(--line);margin:0 0 10px}
+.subtabs button{background:none;border:0;border-bottom:2px solid transparent;padding:10px 2px;font:inherit;cursor:pointer;color:#4b5563}
+.subtabs button.on{border-color:var(--lime-d);color:#111;font-weight:700}
+.count{background:#EEF0F2;border-radius:6px;padding:0 6px;font-size:11px;margin-left:4px}
+.link{color:#111;text-decoration:underline;cursor:pointer;font-weight:600;white-space:nowrap}
+.hide{display:none!important}
+/* change marks */
+body.chg [data-chg=new]{outline:2px dashed var(--new);outline-offset:2px}
+body.chg [data-chg=mod]{outline:2px dashed var(--mod);outline-offset:2px}
+body.chg th[data-chg],body.chg td[data-chg]{outline:0;box-shadow:inset 0 0 0 2px var(--c)}
+body.chg th[data-chg=new],body.chg td[data-chg=new]{--c:var(--new)}
+body.chg th[data-chg=mod],body.chg td[data-chg=mod]{--c:var(--mod)}
+.legendchg{display:none;gap:8px;align-items:center;font-size:12px}
+body.chg .legendchg{display:flex}
+.legendchg i{font-style:normal;padding:1px 8px;border-radius:999px;color:#fff;font-size:11px;font-weight:700}
+@media (max-width:1100px){.nav{width:86px}.sub{display:none}.kpis{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}.infocard{grid-template-columns:repeat(2,1fr)}}
+tr.ffgrp td{background:#F3F6EC;border-top:2px solid #d9e2c4}
+tr.ffdet>td{background:#fafbf7}
+tr.fftot td{background:#EEF2E6;border-top:2px solid #cfd9b8}
+.tb td.nw{white-space:nowrap}
+</style>
+</head>
+<body>
+<div id="app">
+  <aside class="nav">
+    <div class="logo">Dorco<span>WMS</span></div>
+    <div class="navbody"><div class="rail" id="rail"></div><div class="sub" id="sub"></div></div>
+  </aside>
+  <section class="main">
+    <div class="topbar">
+      <div class="tabs" id="tabs"></div>
+      <div class="tools">
+                                              <div class="user"><i>A</i> admin</div>
+      </div>
+    </div>
+    <div class="content" id="content"></div>
+  </section>
+</div>
+<div id="modals"></div>
+<div id="toastbox"></div>
+<script>
+/* Dữ liệu mẫu */
+const ITEMS={"KHAC010001": {"name": "Nguyên liệu 002", "spec": "Black_abc_M4W6", "uom": "KG", "std": 1000}, "KHAC010003": {"name": "Nguyên liệu 003", "spec": "KHAC01-0003", "uom": "KG", "std": 600}, "KHAC010000": {"name": "Nguyên liệu 001", "spec": "KHAC01-0000", "uom": "KG", "std": 1000}, "HANGTAG01": {"name": "Hangtag paper", "spec": "1", "uom": "PCS", "std": 500}, "FABRIC01": {"name": "Sport Shoe Upper Mesh Fabric", "spec": "BLACKSPT-2026", "uom": "M", "std": 50}};
+const POP=[{"kind": "tem", "key": "MLB-261005-0001", "wh": "K01", "item": "KHAC010001", "no": "MLB-261005-0001", "so": "SO-01", "loc": "K01-0001", "inDate": "2026-10-05", "ents": [{"d": "2026-10-05", "dir": "IN", "q": 1000, "desc": "Phiếu nhập GRN-NVL-2610-00005"}]}, {"kind": "tem", "key": "MLB-261005-0002", "wh": "K01", "item": "KHAC010001", "no": "MLB-261005-0002", "so": "SO-01", "loc": "K01-0001", "inDate": "2026-10-05", "ents": [{"d": "2026-10-05", "dir": "IN", "q": 1000, "desc": "Phiếu nhập GRN-NVL-2610-00005"}, {"d": "2026-10-12", "dir": "OUT", "q": 250, "desc": "Phiếu xuất XK-2610-00003"}, {"d": "2026-10-14", "dir": "OUT", "q": 150, "desc": "Phiếu xuất XK-2610-00007"}]}, {"kind": "tem", "key": "MLB-261008-0001", "wh": "K01", "item": "KHAC010003", "no": "MLB-261008-0001", "so": "", "loc": "K01-0002", "inDate": "2026-10-08", "ents": [{"d": "2026-10-08", "dir": "IN", "q": 600, "desc": "Phiếu nhập GRN-NVL-2610-00009"}]}, {"kind": "tem", "key": "MLB-261008-0002", "wh": "K01", "item": "KHAC010003", "no": "MLB-261008-0002", "so": "", "loc": "K01-0003", "inDate": "2026-10-08", "ents": [{"d": "2026-10-08", "dir": "IN", "q": 600, "desc": "Phiếu nhập GRN-NVL-2610-00009"}, {"d": "2026-10-16", "dir": "OUT", "q": 200, "desc": "Tách sang tem MLB-261016-0001"}]}, {"kind": "tem", "key": "MLB-261009-0001", "wh": "K01", "item": "KHAC010003", "no": "MLB-261009-0001", "so": "", "loc": "K01-0004", "inDate": "2026-10-09", "ents": [{"d": "2026-10-09", "dir": "IN", "q": 600, "desc": "Phiếu nhập GRN-NVL-2610-00010"}, {"d": "2026-10-13", "dir": "OUT", "q": 250, "desc": "Phiếu xuất XK-2610-00005"}]}, {"kind": "tem", "key": "MLB-261003-0001", "wh": "K01", "item": "KHAC010000", "no": "MLB-261003-0001", "so": "", "loc": "K01-0002", "inDate": "2026-10-03", "ents": [{"d": "2026-10-03", "dir": "IN", "q": 500, "desc": "Phiếu nhập GRN-NVL-2610-00004"}]}, {"kind": "tem", "key": "MLB-260915-0001", "wh": "K01", "item": "KHAC010001", "no": "MLB-260915-0001", "so": "", "loc": "K01-0001", "inDate": "2026-09-15", "ents": [{"d": "2026-09-15", "dir": "IN", "q": 800, "desc": "Phiếu nhập GRN-NVL-2609-00031"}]}, {"kind": "tem", "key": "MLB-260915-0002", "wh": "K01", "item": "KHAC010001", "no": "MLB-260915-0002", "so": "", "loc": "K01-0002", "inDate": "2026-09-15", "ents": [{"d": "2026-09-15", "dir": "IN", "q": 500, "desc": "Phiếu nhập GRN-NVL-2609-00031"}, {"d": "2026-10-06", "dir": "OUT", "q": 100, "desc": "Xuất hủy, phiếu XK-2610-00001"}, {"d": "2026-10-10", "dir": "OUT", "q": 200, "desc": "Phiếu xuất XK-2610-00004"}]}, {"kind": "tem", "key": "MLB-260928-0001", "wh": "K01", "item": "KHAC010003", "no": "MLB-260928-0001", "so": "", "loc": "K01-0002", "inDate": "2026-09-28", "ents": [{"d": "2026-09-28", "dir": "IN", "q": 400, "desc": "Phiếu nhập GRN-NVL-2609-00040"}]}, {"kind": "tem", "key": "MLB-261012-0001", "wh": "K01", "item": "KHAC010000", "no": "MLB-261012-0001", "so": "", "loc": "K01-0004", "inDate": "2026-10-12", "ents": [{"d": "2026-10-12", "dir": "IN", "q": 300, "desc": "Trả từ chuyền, phiếu GRN-NVL-2610-00015"}]}, {"kind": "notag", "key": "notag0", "wh": "K01", "item": "KHAC010001", "no": "", "so": "", "loc": "K01-0003", "inDate": "", "ents": [{"d": "2026-09-10", "dir": "IN", "q": 300, "desc": "Hàng nhập trước go-live, chưa gắn tem"}, {"d": "2026-10-08", "dir": "OUT", "q": 100, "desc": "Phiếu xuất XK-2610-00002"}]}, {"kind": "notag", "key": "notag1", "wh": "K01", "item": "KHAC010003", "no": "", "so": "", "loc": "K01-0002", "inDate": "", "ents": [{"d": "2026-09-20", "dir": "IN", "q": 200, "desc": "Hàng nhập trước go-live, chưa gắn tem"}]}, {"kind": "tem", "key": "MLB-261016-0001", "wh": "K01", "item": "KHAC010003", "no": "MLB-261016-0001", "so": "", "loc": "K01-0003", "inDate": "2026-10-08", "ents": [{"d": "2026-10-16", "dir": "IN", "q": 200, "desc": "Tách từ tem MLB-261008-0002 (giữ ngày nhập 08/10/2026)"}]}];
+'use strict';
+const TODAY='2026-10-16';
+const $=(s,r=document)=>r.querySelector(s);
+const esc=s=>String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const fmt=n=>(Number(n)||0).toLocaleString('vi-VN');
+const dmy=d=>d?d.split('-').reverse().join('/'):'—';
+function toast(m){const b=$('#toastbox');b.innerHTML=`<div class="toast">${esc(m)}</div>`;clearTimeout(toast.t);toast.t=setTimeout(()=>b.innerHTML='',3200);}
+const ITEMGRP={KHAC010001:'NVL chính',KHAC010003:'NVL chính',KHAC010000:'NVL chính',HANGTAG01:'Phụ liệu',FABRIC01:'Vải'};
+/* Phần đang giữ bởi phiếu xuất chờ duyệt (mẫu) */
+const RSV={'MLB-261005-0002':100,'MLB-261008-0001':200,'MLB-260915-0002':50};
+
+const RAIL=[['🔍','Search Menu'],['⚙','Thiết lập chung'],['🛒','Bán hàng'],['📦','Quản lý hàng hóa'],['🔁','Giao dịch kho'],['⚖','Điều chỉnh tồn kho'],['🛡','Cảnh báo tồn kho'],['📊','Báo cáo'],['▮▮▮','Phát hành tem']];
+const SUB=['Kiểm tra tồn kho - giao dịch','Kiểm tra tồn kho - nhập xuất hàng','Kiểm tra tồn kho - phiếu chi tiết','Báo cáo tồn kho','Báo cáo nhập xuất tồn FIFO'];
+function renderNav(){
+ $('#rail').innerHTML=RAIL.map(r=>`<button class="${r[1]==='Báo cáo'?'on':''}" data-act="rail"><span class="ic">${r[0]}</span>${r[1]}</button>`).join('');
+ $('#sub').innerHTML='<h5>Báo cáo</h5>'+SUB.map(x=>x.includes('FIFO')?`<a class="on" data-act="nav">${x}</a>`:`<a class="dim" data-act="nav">${x}</a>`).join('');
+ $('#tabs').innerHTML='<div class="tab on">Báo cáo nhập xuất tồn FIFO</div>';
+}
+
+let FF={f:{wh:'',item:'',grp:'',so:'',tem:'',from:'2026-10-01',to:TODAY},open:{}};
+const ffInit=()=>({wh:'',item:'',grp:'',so:'',tem:'',from:'2026-10-01',to:TODAY});
+
+function ffCalc(p,from,to){
+ const r={open:0,inAll:0,outAll:0,close:0};
+ p.ents.forEach(e=>{const sg=e.dir==='IN'?1:-1; if(e.d<from) r.open+=sg*e.q; if(e.d<=to) r.close+=sg*e.q;
+  if(e.d>=from&&e.d<=to){ if(e.dir==='IN') r.inAll+=e.q; else r.outAll+=e.q; }});
+ return r;
+}
+const FFK=['open','inAll','outAll','close','hold','avail'];
+function ffBuild(){
+ const f=FF.f, err=(f.from&&f.to&&f.from>f.to)?'“Đến ngày” phải lớn hơn hoặc bằng “Từ ngày”':'';
+ const from=f.from||'0000-01-01', to=f.to||TODAY, showHold=(to>=TODAY);
+ const pop=POP.map(p=>Object.assign({},p)); 
+ pop.forEach(p=>{p.c=ffCalc(p,from,to);const h=RSV[p.no]||0;p.c.hold=showHold?h:null;p.c.avail=showHold?(p.c.close-h):null;});
+ const byGrp={}; pop.forEach(p=>{(byGrp[p.wh+'|'+p.item]=byGrp[p.wh+'|'+p.item]||[]).push(p);});
+ Object.values(byGrp).forEach(g=>{g.filter(p=>p.kind==='tem'&&!p.so&&p.c.close>0).sort((a,b)=>(a.inDate+a.no).localeCompare(b.inDate+b.no)).forEach((p,i)=>{p.rank=i+1;});});
+ const kw=(f.item||'').toLowerCase(), so=(f.so||'').toLowerCase(), tm=(f.tem||'').toLowerCase();
+ const vis=pop.filter(p=>{ if(f.wh&&p.wh!==f.wh) return false; const it=ITEMS[p.item]||{name:''};
+  if(kw&&!(p.item+' '+it.name).toLowerCase().includes(kw)) return false; if(f.grp&&ITEMGRP[p.item]!==f.grp) return false;
+  if(so&&!p.so.toLowerCase().includes(so)) return false; if(tm&&!(p.no||'').toLowerCase().includes(tm)) return false;
+  const c=p.c; return c.open||c.inAll||c.outAll||c.close; });
+ const sum=rows=>{const t={};FFK.forEach(k=>{t[k]=rows.reduce((a,p)=>a+(p.c[k]||0),0);});if(!showHold){t.hold=null;t.avail=null;}return t;};
+ const ord=(a,b)=>(a.inDate+a.no).localeCompare(b.inDate+b.no);
+ const groups=Object.keys(byGrp).sort().map(k=>{
+  const rows=vis.filter(p=>p.wh+'|'+p.item===k); if(!rows.length) return null;
+  const ranked=rows.filter(p=>p.rank).sort((a,b)=>a.rank-b.rank);
+  const direct=rows.filter(p=>p.kind==='tem'&&!p.rank&&p.so).sort((a,b)=>a.so.localeCompare(b.so)||ord(a,b));
+  const gone=rows.filter(p=>p.kind==='tem'&&!p.rank&&!p.so).sort(ord);
+  const notag=rows.filter(p=>p.kind==='notag');
+  const all=ranked.concat(direct,gone,notag);
+  return {wh:rows[0].wh,item:rows[0].item,rows:all,tot:sum(all)};
+ }).filter(Boolean);
+ const grand=sum(groups.reduce((a,g)=>a.concat(g.rows),[]));
+ return {groups,grand,err,showHold,from,to,temCount:groups.reduce((a,g)=>a+g.rows.filter(p=>p.kind==='tem').length,0)};
+}
+function viewFifo(){
+ const f=FF.f, R=ffBuild();
+ const nz=v=>v===null?'—':(v?fmt(v):'<span class="muted">0</span>');
+ const inp=(k,label,ph)=>`<div class="fld"><label>${label}</label><input data-act="ff" data-k="${k}" value="${esc(f[k])}" placeholder="${ph||''}"></div>`;
+ const dt=(k,label)=>`<div class="fld"><label>${label}</label><input type="date" data-act="ff" data-k="${k}" value="${f[k]}"></div>`;
+ const whSel=`<div class="fld"><label>Kho</label><select data-act="ff" data-k="wh"><option value="">Tất cả</option>${['K01','K02','K03','K04'].map(w=>`<option ${f.wh===w?'selected':''}>${w}</option>`).join('')}</select></div>`;
+ const grpSel=`<div class="fld"><label>Nhóm hàng</label><select data-act="ff" data-k="grp"><option value="">Tất cả</option>${[...new Set(Object.values(ITEMGRP))].map(g=>`<option ${f.grp===g?'selected':''}>${g}</option>`).join('')}</select></div>`;
+ const numCells=(c,bold)=>{const w=bold?'<b>':'',x=bold?'</b>':'';return `<td class="num">${w}${nz(c.open)}${x}</td><td class="num">${nz(c.inAll)}</td><td class="num">${nz(c.outAll)}</td><td class="num">${w}${nz(c.close)}${x}</td><td class="num">${nz(c.hold)}</td><td class="num">${w}${nz(c.avail)}${x}</td>`;};
+ let body='';
+ R.groups.forEach(g=>{
+  const it=ITEMS[g.item]||{name:'',uom:''};
+  body+=`<tr class="ffgrp"><td colspan="6"><b>${esc(g.wh)}</b> · <b>${g.item}</b> ${esc(it.name)} <span class="muted">(${esc(it.uom)})</span></td>${numCells(g.tot,true)}</tr>`;
+  g.rows.forEach(p=>{
+   const open=!!FF.open[p.key], c=p.c;
+   body+=`<tr><td><button class="btn sm" data-act="ffTog" data-key="${p.key}" title="Xem giao dịch">${open?'▾':'▸'}</button></td><td class="num nw">${p.rank?'<b>'+p.rank+'</b>':'—'}</td><td class="nw">${p.inDate?dmy(p.inDate):'—'}</td><td class="nw">${p.kind==='tem'?p.no:'<i>Tồn không tem</i>'}</td><td class="nw">${esc(p.so||'—')}</td><td class="nw">${esc(p.loc||'—')}</td>${numCells(c,false)}</tr>`;
+   if(open){
+    const per=p.ents.filter(e=>e.d>=R.from&&e.d<=R.to).slice().sort((a,b)=>a.d.localeCompare(b.d)||(a.dir===b.dir?0:(a.dir==='IN'?-1:1)));
+    let bal=c.open; let det=`<tr><td colspan="2"><i>Tồn đầu kỳ</i></td><td></td><td class="num"></td><td class="num"></td><td class="num">${fmt(bal)}</td></tr>`;
+    per.forEach(e=>{bal+=(e.dir==='IN'?1:-1)*e.q;det+=`<tr><td>${dmy(e.d)}</td><td colspan="2">${esc(e.desc)}</td><td class="num">${e.dir==='IN'?fmt(e.q):''}</td><td class="num">${e.dir==='OUT'?fmt(e.q):''}</td><td class="num">${fmt(bal)}</td></tr>`;});
+    det+=`<tr><td colspan="5"><i>Tồn cuối kỳ</i></td><td class="num"><b>${fmt(c.close)}</b></td></tr>`;
+    body+=`<tr class="ffdet"><td></td><td colspan="11"><div class="muted" style="margin:2px 0 6px">Giao dịch trong kỳ của ${p.kind==='tem'?'tem '+p.no:'dòng tồn không tem'}. Trong cùng một ngày, dòng nhập đứng trước dòng xuất để tồn lũy kế không bị âm.</div><table class="tb" style="min-width:0"><thead><tr><th>Ngày</th><th colspan="2">Diễn giải</th><th class="num">Nhập</th><th class="num">Xuất</th><th class="num">Tồn lũy kế</th></tr></thead><tbody>${det}</tbody></table></td></tr>`;
+   }
+  });
+ });
+ const total=R.groups.length?`<tr class="fftot"><td colspan="6"><b>Tổng cộng</b></td>${numCells(R.grand,true)}</tr>`:'';
+ const table=R.groups.length?`<div class="tbwrap"><table class="tb" style="min-width:1250px"><thead><tr><th></th><th class="num">Thứ tự FIFO</th><th>Ngày nhập</th><th>Mã tem</th><th>SO</th><th>Vị trí</th><th class="num">Tồn đầu kỳ</th><th class="num">Nhập trong kỳ</th><th class="num">Xuất trong kỳ</th><th class="num">Tồn cuối kỳ</th><th class="num">Đang giữ</th><th class="num">Khả dụng</th></tr></thead><tbody>${body}${total}</tbody></table></div>`:`<div class="empty"><i>🔎</i><b>Không có dữ liệu phù hợp</b><span>Thử đổi khoảng ngày hoặc bỏ bớt bộ lọc.</span></div>`;
+ return `<div class="page-title">Báo cáo nhập xuất tồn FIFO</div>
+ <div class="card"><div class="card-hd"><span>Bộ lọc</span><span><button class="btn sm" data-act="ffClear">⟲ Xóa</button> <button class="btn pri sm" data-act="rerender">🔍 Tìm kiếm</button></span></div><div class="card-bd">
+  <div class="row">${whSel}${inp('item','Mặt hàng','Mã hoặc tên hàng')}${grpSel}${inp('so','SO','')}${inp('tem','Mã tem','Quét hoặc nhập…')}</div>
+  <div class="row" style="margin-top:10px">${dt('from','Từ ngày')}${dt('to','Đến ngày')}<div class="fld"></div><div class="fld"></div><div class="fld"></div></div>
+  ${R.err?`<div class="note warn">${R.err}</div>`:''}</div></div>
+ <div class="card"><div class="card-hd"><span>Kết quả <span class="chip gray" style="margin-left:6px">${R.temCount} tem · ${R.groups.length} nhóm kho / mặt hàng</span></span><span><button class="btn sm" data-act="ffExport">⬇ Xuất dữ liệu</button></span></div><div class="card-bd">
+  ${table}
+  <div class="muted" style="margin-top:8px;font-size:12px;line-height:1.6">Thứ tự FIFO xếp theo (ngày nhập, mã tem) trong từng kho và mặt hàng, chỉ tính các tem còn tồn và không có SO (hàng đích danh không xếp thứ tự). Tồn không tem nằm ngoài thứ tự. Tách tem được tính vào Nhập và Xuất của từng tem; tem mới giữ ngày nhập của tem gốc.${R.showHold?'':' Đang giữ và Khả dụng chỉ hiển thị khi “Đến ngày” là hôm nay trở đi.'}</div>
+ </div></div>`;
+}
+
+/* ---------- Xuất Excel (.xlsx thật, không dùng thư viện ngoài) ---------- */
+function crc32(buf){const T=crc32.T||(crc32.T=(()=>{const a=[];for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;a[n]=c>>>0;}return a;})());let crc=-1;for(let i=0;i<buf.length;i++)crc=T[(crc^buf[i])&255]^(crc>>>8);return (crc^-1)>>>0;}
+function zipStore(files){
+ const enc=new TextEncoder(); let off=0; const parts=[], cd=[];
+ files.forEach(f=>{const nm=enc.encode(f.name), data=enc.encode(f.text), crc=crc32(data), sz=data.length;
+  const lh=new DataView(new ArrayBuffer(30)); lh.setUint32(0,0x04034b50,true); lh.setUint16(4,20,true); lh.setUint16(12,0x21,true); lh.setUint32(14,crc,true); lh.setUint32(18,sz,true); lh.setUint32(22,sz,true); lh.setUint16(26,nm.length,true);
+  parts.push(new Uint8Array(lh.buffer),nm,data);
+  const ch=new DataView(new ArrayBuffer(46)); ch.setUint32(0,0x02014b50,true); ch.setUint16(4,20,true); ch.setUint16(6,20,true); ch.setUint16(14,0x21,true); ch.setUint32(16,crc,true); ch.setUint32(20,sz,true); ch.setUint32(24,sz,true); ch.setUint16(28,nm.length,true); ch.setUint32(42,off,true);
+  cd.push(new Uint8Array(ch.buffer),nm); off+=30+nm.length+sz;});
+ const cdSize=cd.reduce((a,x)=>a+x.length,0), end=new DataView(new ArrayBuffer(22));
+ end.setUint32(0,0x06054b50,true); end.setUint16(8,files.length,true); end.setUint16(10,files.length,true); end.setUint32(12,cdSize,true); end.setUint32(16,off,true);
+ return new Blob([...parts,...cd,new Uint8Array(end.buffer)],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+}
+function xlsxBlob(rows,widths,sheetName){
+ const col=i=>{let s='';i++;while(i>0){const m=(i-1)%26;s=String.fromCharCode(65+m)+s;i=Math.floor((i-1)/26);}return s;};
+ const x=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+ const sheetRows=rows.map((r,ri)=>`<row r="${ri+1}">`+r.map((v,ci)=>{const ref=col(ci)+(ri+1);
+  if(v===null||v===''||v===undefined) return '';
+  if(typeof v==='number') return `<c r="${ref}" s="${ri===0?2:1}"><v>${v}</v></c>`;
+  return `<c r="${ref}" t="inlineStr" s="${ri===0?2:0}"><is><t xml:space="preserve">${x(v)}</t></is></c>`;}).join('')+'</row>').join('');
+ const sheet=`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><sheetViews><sheetView workbookViewId="0"><pane ySplit="1" topLeftCell="A2" activePane="bottomLeft" state="frozen"/></sheetView></sheetViews><cols>${widths.map((w,i)=>`<col min="${i+1}" max="${i+1}" width="${w}" customWidth="1"/>`).join('')}</cols><sheetData>${sheetRows}</sheetData></worksheet>`;
+ const styles=`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><fonts count="2"><font><sz val="11"/><name val="Calibri"/></font><font><b/><sz val="11"/><name val="Calibri"/></font></fonts><fills count="3"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill><fill><patternFill patternType="solid"><fgColor rgb="FFF3F6EC"/></patternFill></fill></fills><borders count="1"><border><left/><right/><top/><bottom/><diagonal/></border></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="3"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/><xf numFmtId="3" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/><xf numFmtId="0" fontId="1" fillId="2" borderId="0" xfId="0" applyFont="1" applyFill="1"/></cellXfs><cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles></styleSheet>`;
+ return zipStore([
+  {name:'[Content_Types].xml',text:'<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/></Types>'},
+  {name:'_rels/.rels',text:'<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>'},
+  {name:'xl/workbook.xml',text:`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets><sheet name="${x(sheetName)}" sheetId="1" r:id="rId1"/></sheets></workbook>`},
+  {name:'xl/_rels/workbook.xml.rels',text:'<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet1.xml"/><Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>'},
+  {name:'xl/styles.xml',text:styles},
+  {name:'xl/worksheets/sheet1.xml',text:sheet}
+ ]);
+}
+function downloadBlob(name,blob){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},500);}
+
+const ACT={
+ rail:()=>toast('Màn này nằm ngoài phạm vi bản thử nghiệm'),
+ nav:t=>{if(!t.classList.contains('on')) toast('Màn này nằm ngoài phạm vi bản thử nghiệm');},
+ rerender:()=>render(),
+ ffClear:()=>{FF.f=ffInit();render();},
+ ffTog:t=>{const k=t.dataset.key;FF.open[k]=!FF.open[k];render();},
+ ffExport:()=>{
+  const R=ffBuild(); if(!R.groups.length){toast('Không có dòng nào khớp bộ lọc hiện tại');return;}
+  const head=['Kho','Mã hàng','Tên hàng','ĐVT','Thứ tự FIFO','Ngày nhập','Mã tem','SO','Vị trí','Tồn đầu kỳ','Nhập trong kỳ','Xuất trong kỳ','Tồn cuối kỳ','Đang giữ','Khả dụng'];
+  const rows=[head];
+  R.groups.forEach(g=>g.rows.forEach(p=>{const c=p.c,it=ITEMS[p.item]||{name:'',uom:''};rows.push([p.wh,p.item,it.name,it.uom,p.rank||'',p.inDate?dmy(p.inDate):'',p.kind==='tem'?p.no:'Tồn không tem',p.so,p.loc,c.open,c.inAll,c.outAll,c.close,c.hold==null?'':c.hold,c.avail==null?'':c.avail]);}));
+  const g=R.grand; rows.push(['Tổng cộng','','','','','','','','',g.open,g.inAll,g.outAll,g.close,g.hold==null?'':g.hold,g.avail==null?'':g.avail]);
+  downloadBlob('bao_cao_nhap_xuat_ton_fifo.xlsx',xlsxBlob(rows,[8,14,28,7,12,12,18,9,11,13,14,14,14,11,11],'FIFO'));
+  toast('Đã xuất '+(rows.length-2)+' dòng ra Excel');
+ }
+};
+const CHG={ff:t=>{FF.f[t.dataset.k]=t.value;render();}};
+function render(){const c=$('#content'),st=c.scrollTop;renderNav();c.innerHTML=viewFifo();c.scrollTop=st;}
+document.addEventListener('click',e=>{const t=e.target.closest('[data-act]');if(!t||/^(INPUT|SELECT|TEXTAREA)$/.test(t.tagName))return;const f=ACT[t.dataset.act];if(f)f(t,e);});
+document.addEventListener('change',e=>{const t=e.target.closest('[data-act]');if(!t)return;const f=CHG[t.dataset.act];if(f)f(t,e);});
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.matches('input[data-act="ff"]'))e.target.blur();});
+render();
+
+</script>
+<script>(function(){var W=1920;function fit(){var z=Math.min(1,window.innerWidth/W),de=document.documentElement,app=document.getElementById('app');de.style.zoom=z;if(app)app.style.height=(window.innerHeight/z)+'px';}fit();window.addEventListener('resize',fit);})();</script>
+</body>
+</html>
