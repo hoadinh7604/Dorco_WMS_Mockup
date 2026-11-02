@@ -31,14 +31,13 @@
 <!-- ===== BẮT ĐẦU: A. Mục tiêu và phạm vi ===== -->
 <section class="doc" id="scope">
 <h2>A. Mục tiêu và phạm vi</h2>
-<p class="lead">Tài liệu mô tả cách DORCO WMS vận hành sau khi triển khai, dựa trên kết quả khảo sát tại Hưng Yên (02 đến 05/2026) và Hà Nam (10/2026). Sau buổi trình bày, mục đích là chốt giải pháp và các điểm cần xác nhận, được nêu ở cuối từng phần.</p>
+<p class="lead">Mô tả cách DORCO WMS vận hành sau triển khai, dựa trên khảo sát tại Hưng Yên và Hà Nam.</p>
 
 <h3>Mục tiêu</h3>
 <ul>
-  <li>Quản lý tồn kho theo từng tem QR: biết mặt hàng, số lượng, ngày nhập và vị trí của từng pallet.</li>
-  <li>Thay phiếu giấy, email và file Excel bằng yêu cầu, phiếu và phê duyệt ngay trên WMS.</li>
-  <li>Kho thao tác bằng PDA, WMS tự sinh phiếu, văn phòng kho chỉ kiểm tra và duyệt, kết quả tự đồng bộ về SAP.</li>
-  <li>Một giải pháp chung cho Hưng Yên và Hà Nam. Chỗ khác nhau giữa hai nhà máy được ghi rõ bằng nhãn <span class="pl hy">HY</span> <span class="pl hn">HN</span>.</li>
+  <li>Quản lý tồn kho theo từng tem QR: mặt hàng, số lượng, ngày nhập, vị trí.</li>
+  <li>Thay giấy, email, Excel bằng yêu cầu, phiếu và phê duyệt trên WMS; kho thao tác bằng PDA, kết quả tự đồng bộ SAP.</li>
+  <li>Một giải pháp chung cho các nhà máy; điểm khác nhau ghi nhãn <span class="pl hy">HY</span> <span class="pl hn">HN</span>.</li>
 </ul>
 
 <div class="grid2">
@@ -46,23 +45,17 @@
     <h4>Trong phạm vi</h4>
     <ul>
       <li>Nhập, xuất, trả nguyên vật liệu và hàng gia công</li>
-      <li>Nhập kho thành phẩm, giao hàng, nhận hàng bán bị trả lại</li>
-      <li>Nhập khác, xuất mẫu, xuất hủy</li>
-      <li>Chuyển kho và chuyển vị trí</li>
-      <li>Kiểm kê hằng tháng, tra cứu tồn, báo cáo tồn kho</li>
-      <li>Tem QR cho nguyên vật liệu và thành phẩm</li>
-      <li>WMS Web, ứng dụng PDA và đồng bộ SAP ⇄ WMS</li>
+      <li>Nhập kho thành phẩm, giao hàng, hàng bán trả lại</li>
+      <li>Nhập/xuất khác, chuyển kho, chuyển vị trí, kiểm kê, báo cáo tồn</li>
+      <li>Tem QR, WMS Web, PDA, đồng bộ SAP ⇄ WMS</li>
     </ul>
   </div>
   <div class="box box--out">
-    <h4>Ngoài phạm vi (theo khảo sát)</h4>
+    <h4>Ngoài phạm vi</h4>
     <ul>
-      <li>Vật tư tiêu hao: nhập về dùng ngay, không theo dõi tồn trên hệ thống</li>
-      <li>Cảnh báo tồn Min/Max: hiện chưa cần</li>
-      <li>Quản lý hạn sử dụng: Dorco chỉ theo dõi ngày nhập</li>
-      <li>Phân hạng hàng A/B/C</li>
+      <li>Vật tư tiêu hao (dùng ngay, không theo dõi tồn)</li>
+      <li>Cảnh báo tồn Min/Max, hạn sử dụng, phân hạng A/B/C</li>
     </ul>
-    <div class="ask"><b>Cần xác nhận:</b> danh sách ngoài phạm vi này được tổng hợp từ khảo sát.</div>
   </div>
 </div>
 
@@ -70,7 +63,8 @@
 <div class="tw"><table class="t">
 <thead><tr><th>Nhà máy</th><th>Pháp nhân</th><th>Kho chính (mã SAP)</th><th>Quản lý vị trí</th></tr></thead>
 <tbody>
-<tr><td><span class="pl hy">HY</span>Hưng Yên</td><td>Dorco Vina (2000)</td><td>1000 NVL/BTP, 5000 thành phẩm, 5900 hàng bán trả lại, 9000 hàng lỗi</td><td>Có</td></tr>
+<tr><td><span class="pl hy">HY</span>Hưng Yên A</td><td>Dorco Vina (2000)</td><td>1000 NVL/BTP, 5000 thành phẩm, 5900 hàng bán trả lại, 9000 hàng lỗi</td><td>Có</td></tr>
+<tr><td><span class="pl hy">HY</span>Hưng Yên B</td><td>Dorco Vina (2000), Dorco Living (2100)</td><td>Vina: 1002 NVL/BTP (kho thép), 3002 chờ sản xuất, 9002 kho NG. Living: 1002 NVL/BTP (kho thép), 3902 chờ sản xuất, 9002 kho NG</td><td>Có</td></tr>
 <tr><td><span class="pl hn">HN</span>Hà Nam A</td><td>Dorco Vina (2000), Dorco Living (2100)</td><td>Vina: 1003, 3013, 3903, 5003, 5900, 9003. Living: 1000, 3000, 5000</td><td>Có</td></tr>
 <tr><td><span class="pl hn">HN</span>Hà Nam B</td><td>Dorco Vina (2000), Dorco Living (2100)</td><td>Vina: 1004, 3004, 5004. Living: 1004, 3004, 5004, 9000</td><td>Chỉ theo kho</td></tr>
 <tr><td><span class="pl hn">HN</span>Kho thuê ngoài</td><td>Dorco Vina</td><td>5010 (bán thành phẩm, thành phẩm)</td><td>Theo kho</td></tr>

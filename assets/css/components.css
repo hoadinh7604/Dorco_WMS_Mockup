@@ -53,7 +53,8 @@ tr:last-child td{border-bottom:0}
 .cover{padding:18px 0 34px;border-bottom:1px solid var(--line);margin-bottom:36px}
 .cover h1{font-size:clamp(32px,4.4vw,48px);line-height:1.08;letter-spacing:-.02em;margin:4px 0 14px;max-width:18ch}
 .cover small{color:var(--green);font-weight:600;font-size:13.5px}
-.cover p{font-size:18px;color:var(--muted);max-width:62ch;margin-bottom:22px}
+.cover p{font-size:18px;color:var(--muted);margin-bottom:22px}
+#scope td:first-child{white-space:nowrap}
 .meta{display:flex;flex-wrap:wrap;gap:12px 36px;font-size:13.5px;color:var(--muted)}
 .meta b{display:block;color:var(--ink);font-size:15px}
 
