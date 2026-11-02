@@ -1355,5 +1355,7 @@ window.I18N_PAGES = {
   "Bước 3: nhập số lượng từng tem mới": ["Step 3: enter each new label quantity","3단계: 새 라벨별 수량 입력"],
   "Bước 3: chia theo số lượng mỗi tem": ["Step 3: split by quantity per label","3단계: 라벨당 수량으로 분할"],
   "Màn hình WMS Gộp tem: tem đích, hai tem nguồn, bảng kết quả": ["WMS Merge labels screen: target label, two source labels, result table","WMS 라벨 병합 화면: 대상 라벨, 원본 라벨 2장, 결과 표"],
-  "Cửa sổ Tạo và in tem sau khi gộp": ["Create and print labels window after merging","병합 후 라벨 생성 및 인쇄 창"]
+  "Cửa sổ Tạo và in tem sau khi gộp": ["Create and print labels window after merging","병합 후 라벨 생성 및 인쇄 창"],
+  "Lập phiếu: từ yêu cầu (4.1), phiếu độc lập (+ Tạo phiếu chuyển kho, vùng 2), hoặc kho quét tem trên PDA (4.2).": ["Create the slip: from a request (4.1), as a standalone slip (+ Create Warehouse Transfer Slip, area 2), or by the warehouse scanning labels on the PDA (4.2).", "전표 생성: 요청에서(4.1), 독립 전표로(+ 창고 이동 전표 생성, 2번 영역), 또는 창고에서 PDA로 라벨을 스캔하여(4.2) 생성합니다."],
+  "Kho quét tem theo yêu cầu trên PDA (4.2); tem và vị trí đến lấy từ lần quét.": ["The warehouse scans labels against the request on the PDA (4.2); labels and destination location come from the scan.", "창고에서 PDA로 요청에 따라 라벨을 스캔하며(4.2), 라벨과 도착 위치는 스캔 내역에서 가져옵니다."]
 };

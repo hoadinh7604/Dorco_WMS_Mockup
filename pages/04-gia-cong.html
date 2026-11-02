@@ -49,6 +49,25 @@
           <li><span class="n">8</span><span><b>Thao tác (⋮):</b> Chi tiết, Sửa, Xóa, Gửi yêu cầu, In QR, Tạo phiếu chuyển kho, Duyệt tất cả… Nút hiện tùy theo tình trạng của yêu cầu.</span></li>
         </ol>
       </figure>
+      <figure class="shot"><figcaption>Ảnh chụp chi tiết · Chi tiết một yêu cầu chuyển kho (bấm số yêu cầu ở danh sách). Số tiếp nối ảnh trên</figcaption>
+        <div class="anno">
+          <img src="../images/08-chuyen-kho/1a-yeu-cau-chi-tiet.png" alt="Màn hình chi tiết yêu cầu chuyển kho STR-2026-000015, có đánh số 6 vùng chính">
+          <span class="anno__box" style="left:16.46%;top:11.86%;width:20%;height:5.76%"></span><span class="anno__pin" style="left:16.46%;top:11.86%">9</span>
+          <span class="anno__box" style="left:95.89%;top:11.86%;width:3.28%;height:5.76%"></span><span class="anno__pin" style="left:95.89%;top:11.86%">10</span>
+          <span class="anno__box" style="left:16.46%;top:19.66%;width:82.71%;height:33.56%"></span><span class="anno__pin" style="left:16.46%;top:19.66%">11</span>
+          <span class="anno__box" style="left:76.77%;top:57.46%;width:21.62%;height:6.78%"></span><span class="anno__pin" style="left:76.77%;top:57.46%">12</span>
+          <span class="anno__box" style="left:17.24%;top:68.3%;width:81.2%;height:15.6%"></span><span class="anno__pin" style="left:17.24%;top:68.3%">13</span>
+          <span class="anno__box" style="left:17.24%;top:85.59%;width:81.15%;height:5.59%"></span><span class="anno__pin" style="left:17.24%;top:85.59%">14</span>
+        </div>
+        <ol class="anno-legend">
+          <li><span class="n">9</span><span><b>Tiêu đề và trạng thái:</b> trạng thái hiện cạnh tiêu đề (Đã lưu, Đã trình, Đã hoàn tất); nút ← quay về danh sách.</span></li>
+          <li><span class="n">10</span><span><b>Nút thao tác:</b> yêu cầu đã trình hoặc đã hoàn tất chỉ xem, có nút Đóng; yêu cầu đã lưu có Lưu và Gửi yêu cầu.</span></li>
+          <li><span class="n">11</span><span><b>Thông tin yêu cầu:</b> Số yêu cầu (WMS sinh), Ngày yêu cầu, Kho xuất, Kho nhận, Lý do chuyển kho, Người phụ trách, Ghi chú. Kho xuất, kho nhận khóa khi yêu cầu đã có dòng.</span></li>
+          <li><span class="n">12</span><span><b>Thêm dòng:</b> Thêm từ tồn kho, Thêm mặt hàng; nút ⚙ chọn cột hiển thị. Mờ khi yêu cầu chỉ xem.</span></li>
+          <li><span class="n">13</span><span><b>Danh sách mặt hàng:</b> Mã vạch/QR, mã và tên mặt hàng, ĐVT, Số vận đơn, SL yêu cầu, Đã chuyển, Còn lại, Vị trí nguồn, Vị trí đến.</span></li>
+          <li><span class="n">14</span><span><b>Dòng tổng:</b> Số dòng, SL yêu cầu, Đã chuyển, Còn lại, Mã vạch/QR.</span></li>
+        </ol>
+      </figure>
     </div>
     <aside class="screen__notes spec">
       <div class="note note--src note--wide"><h3>Nguồn dữ liệu</h3><p>Yêu cầu và phiếu chuyển kho đều lập trên WMS; kết quả chuyển kho gửi sang SAP.</p>
@@ -103,62 +122,85 @@
 <!-- ===== BẮT ĐẦU: 4.3 Phiếu xuất nguyên liệu đi gia công ===== -->
 <section class="screen" id="gc-px">
   <h2 class="screen__title"><span class="no">4.3</span>Phiếu xuất nguyên liệu đi gia công</h2>
-  <p class="screen__path">Giao dịch kho › Chuyển kho</p>
+  <p class="screen__path">Giao dịch kho › Chuyển kho › Phiếu chuyển kho</p>
   <div class="screen__body">
     <div class="screen__shots">
       <figure class="shot"><figcaption>Ảnh chụp chi tiết · Danh sách phiếu chuyển kho (tab Theo phiếu). Số tiếp nối ảnh trên</figcaption>
         <div class="anno">
           <img src="../images/08-chuyen-kho/1b-phieu-danh-sach.png" alt="Màn hình Chuyển kho, tab Theo phiếu, có đánh số 5 vùng chính">
-          <span class="anno__box" style="left:16.89%;top:35.91%;width:81.85%;height:27.02%"></span><span class="anno__pin" style="left:16.89%;top:35.91%">9</span>
-          <span class="anno__box" style="left:84.73%;top:63.1%;width:10.47%;height:5.5%"></span><span class="anno__pin" style="left:84.73%;top:63.1%">10</span>
-          <span class="anno__box" style="left:26.45%;top:68.64%;width:11.46%;height:5.82%"></span><span class="anno__pin" style="left:26.45%;top:68.64%">11</span>
-          <span class="anno__box" style="left:84.04%;top:68.64%;width:8.88%;height:5.82%"></span><span class="anno__pin" style="left:91.92%;top:68.64%">12</span>
-          <span class="anno__box" style="left:92.22%;top:68.64%;width:6.46%;height:5.82%"></span><span class="anno__pin" style="left:97.68%;top:68.64%">13</span>
+          <span class="anno__box" style="left:16.89%;top:35.91%;width:81.85%;height:27.02%"></span><span class="anno__pin" style="left:16.89%;top:35.91%">1</span>
+          <span class="anno__box" style="left:84.73%;top:63.1%;width:10.47%;height:5.5%"></span><span class="anno__pin" style="left:84.73%;top:63.1%">2</span>
+          <span class="anno__box" style="left:26.45%;top:68.64%;width:11.46%;height:5.82%"></span><span class="anno__pin" style="left:26.45%;top:68.64%">3</span>
+          <span class="anno__box" style="left:84.04%;top:68.64%;width:8.88%;height:5.82%"></span><span class="anno__pin" style="left:91.92%;top:68.64%">4</span>
+          <span class="anno__box" style="left:92.22%;top:68.64%;width:6.46%;height:5.82%"></span><span class="anno__pin" style="left:97.68%;top:68.64%">5</span>
         </div>
         <ol class="anno-legend">
-          <li><span class="n">9</span><span><b>Bộ lọc phiếu:</b> thêm lọc Trạng thái đồng bộ SAP và Số yêu cầu liên kết (gõ “độc lập” để lọc phiếu không theo yêu cầu).</span></li>
-          <li><span class="n">10</span><span><b>+ Tạo phiếu chuyển kho:</b> lập phiếu độc lập, không theo yêu cầu.</span></li>
-          <li><span class="n">11</span><span><b>Số yêu cầu liên kết:</b> yêu cầu mà phiếu được tạo từ đó, hoặc “Phiếu độc lập”.</span></li>
-          <li><span class="n">12</span><span><b>Đồng bộ SAP:</b> trạng thái đồng bộ của từng phiếu; phiếu chưa duyệt để trống (—).</span></li>
-          <li><span class="n">13</span><span><b>Thao tác (⋮):</b> Chi tiết, Sửa, Xóa, Gửi duyệt, Phê duyệt, Hủy duyệt, Đồng bộ lại SAP… Nút hiện tùy theo tình trạng của phiếu.</span></li>
+          <li><span class="n">1</span><span><b>Bộ lọc phiếu:</b> thêm lọc Trạng thái đồng bộ SAP và Số yêu cầu liên kết (gõ “độc lập” để lọc phiếu không theo yêu cầu).</span></li>
+          <li><span class="n">2</span><span><b>+ Tạo phiếu chuyển kho:</b> lập phiếu độc lập, không theo yêu cầu.</span></li>
+          <li><span class="n">3</span><span><b>Số yêu cầu liên kết:</b> yêu cầu mà phiếu được tạo từ đó, hoặc “Phiếu độc lập”.</span></li>
+          <li><span class="n">4</span><span><b>Đồng bộ SAP:</b> trạng thái đồng bộ của từng phiếu; phiếu chưa duyệt để trống (—).</span></li>
+          <li><span class="n">5</span><span><b>Thao tác (⋮):</b> Chi tiết, Sửa, Xóa, Gửi duyệt, Phê duyệt, Hủy duyệt, Đồng bộ lại SAP… Nút hiện tùy theo tình trạng của phiếu.</span></li>
         </ol>
       </figure>
       <figure class="shot"><figcaption>Ảnh chụp chi tiết · Chi tiết phiếu chuyển kho (bấm số phiếu ở danh sách, hoặc Tạo phiếu chuyển kho từ một yêu cầu). Số tiếp nối ảnh trên</figcaption>
         <div class="anno">
           <img src="../images/08-chuyen-kho/1c-phieu-chi-tiet.png" alt="Màn hình chi tiết phiếu chuyển kho STS-2026-000014 sang kho gia công, có đánh số 6 vùng chính">
-          <span class="anno__box" style="left:29.25%;top:10.63%;width:6.79%;height:4.03%"></span><span class="anno__pin" style="left:29.25%;top:10.63%">14</span>
-          <span class="anno__box" style="left:86.26%;top:9.61%;width:13.26%;height:6.06%"></span><span class="anno__pin" style="left:86.26%;top:9.61%">15</span>
-          <span class="anno__box" style="left:16.11%;top:16.3%;width:83.41%;height:40.65%"></span><span class="anno__pin" style="left:16.11%;top:16.3%">16</span>
-          <span class="anno__box" style="left:66.34%;top:59.47%;width:32.4%;height:6.79%"></span><span class="anno__pin" style="left:66.34%;top:59.47%">17</span>
-          <span class="anno__box" style="left:19.36%;top:68.92%;width:10.05%;height:6.43%"></span><span class="anno__pin" style="left:19.36%;top:68.92%">18</span>
-          <span class="anno__box" style="left:75.85%;top:68.92%;width:18.43%;height:6.43%"></span><span class="anno__pin" style="left:75.85%;top:68.92%">19</span>
+          <span class="anno__box" style="left:29.25%;top:10.63%;width:6.79%;height:4.03%"></span><span class="anno__pin" style="left:29.25%;top:10.63%">6</span>
+          <span class="anno__box" style="left:86.26%;top:9.61%;width:13.26%;height:6.06%"></span><span class="anno__pin" style="left:86.26%;top:9.61%">7</span>
+          <span class="anno__box" style="left:16.11%;top:16.3%;width:83.41%;height:40.65%"></span><span class="anno__pin" style="left:16.11%;top:16.3%">8</span>
+          <span class="anno__box" style="left:66.34%;top:59.47%;width:32.4%;height:6.79%"></span><span class="anno__pin" style="left:66.34%;top:59.47%">9</span>
+          <span class="anno__box" style="left:19.36%;top:68.92%;width:10.05%;height:6.43%"></span><span class="anno__pin" style="left:19.36%;top:68.92%">10</span>
+          <span class="anno__box" style="left:75.85%;top:68.92%;width:18.43%;height:6.43%"></span><span class="anno__pin" style="left:75.85%;top:68.92%">11</span>
         </div>
         <ol class="anno-legend">
-          <li><span class="n">14</span><span><b>Số phiếu:</b> số do WMS sinh khi lưu, hiện trên tiêu đề. Phiếu đã gửi SAP có thêm nhãn trạng thái đồng bộ cạnh số phiếu.</span></li>
-          <li><span class="n">15</span><span><b>Nút thao tác:</b> Lưu, Gửi duyệt, Phê duyệt, Hủy duyệt, Đồng bộ lại SAP… tùy tình trạng của phiếu; Đóng để quay về danh sách.</span></li>
-          <li><span class="n">16</span><span><b>Thông tin phiếu:</b> Ngày chuyển kho, Kho xuất, Kho nhận, Lý do chuyển kho, Người phụ trách, Yêu cầu chuyển kho liên kết. Kho nhận không quản lý vị trí (ví dụ kho gia công) thì hiện thêm ô chọn “Theo dõi tồn theo tem ở kho nhận”.</span></li>
-          <li><span class="n">17</span><span><b>Thêm dòng:</b> Thêm từ tồn kho, Thêm từ yêu cầu, Thêm mặt hàng; nút ⚙ chọn cột hiển thị.</span></li>
-          <li><span class="n">18</span><span><b>Mã vạch/QR:</b> nút Gán tem mở danh sách tem của kho xuất để gán cho dòng; mã tem đã gán hiện cạnh nút.</span></li>
-          <li><span class="n">19</span><span><b>Vị trí nguồn / Vị trí đến:</b> kho nhận không quản lý vị trí thì cột Vị trí đến để trống (—).</span></li>
+          <li><span class="n">6</span><span><b>Số phiếu:</b> số do WMS sinh khi lưu, hiện trên tiêu đề. Phiếu đã gửi SAP có thêm nhãn trạng thái đồng bộ cạnh số phiếu.</span></li>
+          <li><span class="n">7</span><span><b>Nút thao tác:</b> Lưu, Gửi duyệt, Phê duyệt, Hủy duyệt, Đồng bộ lại SAP… tùy tình trạng của phiếu; Đóng để quay về danh sách.</span></li>
+          <li><span class="n">8</span><span><b>Thông tin phiếu:</b> Ngày chuyển kho, Kho xuất, Kho nhận, Lý do chuyển kho, Người phụ trách, Yêu cầu chuyển kho liên kết. Kho nhận không quản lý vị trí (ví dụ kho gia công) thì hiện thêm ô chọn “Theo dõi tồn theo tem ở kho nhận”.</span></li>
+          <li><span class="n">9</span><span><b>Thêm dòng:</b> Thêm từ tồn kho, Thêm từ yêu cầu, Thêm mặt hàng; nút ⚙ chọn cột hiển thị.</span></li>
+          <li><span class="n">10</span><span><b>Mã vạch/QR:</b> nút Gán tem mở danh sách tem của kho xuất để gán cho dòng; mã tem đã gán hiện cạnh nút.</span></li>
+          <li><span class="n">11</span><span><b>Vị trí nguồn / Vị trí đến:</b> kho nhận không quản lý vị trí thì cột Vị trí đến để trống (—).</span></li>
         </ol>
       </figure>
     </div>
     <aside class="screen__notes spec">
-      <div class="note note--sync"><h3>Trạng thái đồng bộ SAP</h3><p>Áp dụng cho phiếu chuyển kho (vùng 12). Kết quả gửi SAP khi phiếu được duyệt.</p><ul>
-<li><b>Chưa đồng bộ:</b> phiếu chưa gửi về SAP.</li>
-<li><b>Đã đồng bộ:</b> SAP đã nhận kết quả chuyển kho.</li>
-<li><b>Đồng bộ lỗi:</b> bấm Đồng bộ lại SAP ở menu ⋮ hoặc trên chi tiết phiếu (vùng 15).</li>
-<li><b>— (trống):</b> phiếu chưa duyệt, chưa gửi SAP.</li>
-<li>Lọc nhanh theo trạng thái này ở ô “Trạng thái đồng bộ SAP” trong bộ lọc phiếu (vùng 9).</li>
-</ul></div>
-      <div class="note note--rule"><h3>Quy tắc khác</h3><ul>
-<li><b>Kho xuất, kho nhận:</b> phải khác nhau. Mỗi dòng có vị trí nguồn ở kho xuất và vị trí đến ở kho nhận.</li>
-<li><b>Chuyển từng phần:</b> một yêu cầu tạo được một hoặc nhiều phiếu chuyển kho. Tiến độ chỉ tính phần ở phiếu đã duyệt.</li>
-<li><b>Tồn kho:</b> khi phiếu được duyệt, tồn kho xuất giảm, tồn kho nhận tăng ngay.</li>
-<li><b>Chuyển nguyên tem, tem không bắt buộc:</b> dòng có gán tem thì số lượng bằng tổng tem (muốn chuyển một phần thì tách tem); dòng không gán tem chỉ lấy tồn không tem ở vị trí nguồn. Tem đang bị giữ không chuyển được.</li>
-<li><b>Kho nhận không quản lý vị trí:</b> không nhập vị trí đến. Người dùng chọn có theo dõi tồn theo tem ở kho nhận hay không; không tích thì tem chuyển đi hết tồn, kho nhận chỉ cộng số lượng không tem.</li>
-<li><b>Hủy duyệt:</b> trả tồn về như trước khi chuyển. Không hủy được nếu tem không còn ở vị trí đích hoặc tồn ở kho nhận không đủ để hoàn lại.</li>
-</ul></div>
+      <div class="note note--biz note--wide"><h3>Nghiệp vụ</h3><p>Phiếu chuyển kho ghi nhận hàng chuyển từ kho xuất sang kho nhận. Tồn kho chỉ đổi và kết quả chỉ gửi SAP khi phiếu được duyệt.</p>
+<ol>
+<li>Lập phiếu: từ yêu cầu (4.1), phiếu độc lập (+ Tạo phiếu chuyển kho, vùng 2), hoặc kho quét tem trên PDA (4.2).</li>
+<li>Gửi duyệt và phê duyệt: tồn kho xuất giảm, tồn kho nhận tăng.</li>
+<li>Gửi kết quả về SAP; theo dõi ở cột Đồng bộ SAP (vùng 4).</li>
+</ol>
+      </div>
+      <div class="note note--src note--wide"><h3>Nguồn dữ liệu</h3><p>Phiếu lập trên WMS; kết quả gửi sang SAP.</p>
+        <div class="tw"><table>
+          <thead><tr><th>Nguồn</th><th>Ghi chú</th></tr></thead>
+          <tbody>
+            <tr><td><span class="src src--wms">Tạo thủ công trên WMS</span></td><td>Tạo phiếu chuyển kho ở ⋮ của yêu cầu (lấy phần còn lại), hoặc + Tạo phiếu chuyển kho (vùng 2) để lập phiếu độc lập.</td></tr>
+            <tr><td><span class="src src--wms">Tạo trên WMS (PDA)</span></td><td>Kho quét tem theo yêu cầu trên PDA (4.2); tem và vị trí đến lấy từ lần quét.</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="note note--sync note--wide"><h3>Trạng thái đồng bộ SAP</h3><p>Áp dụng cho phiếu (vùng 4); gửi SAP khi phiếu được duyệt. Lọc ở vùng 1.</p>
+        <div class="tw"><table>
+          <thead><tr><th>Trạng thái</th><th>Ý nghĩa</th></tr></thead>
+          <tbody>
+            <tr><td>Chưa đồng bộ</td><td>Phiếu chưa gửi về SAP.</td></tr>
+            <tr><td>Đã đồng bộ</td><td>SAP đã nhận kết quả chuyển kho.</td></tr>
+            <tr><td>Đồng bộ lỗi</td><td>Bấm Đồng bộ lại SAP ở ⋮ hoặc trên chi tiết phiếu (vùng 7).</td></tr>
+            <tr><td>— (trống)</td><td>Phiếu chưa duyệt, chưa gửi SAP.</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="note note--rule note--wide"><h3>Quy tắc khác</h3>
+        <div class="tw"><table>
+          <thead><tr><th>Chủ đề</th><th>Quy tắc</th></tr></thead>
+          <tbody>
+            <tr><td>Tồn kho</td><td>Phiếu được duyệt: tồn kho xuất giảm, tồn kho nhận tăng ngay.</td></tr>
+            <tr><td>Chuyển nguyên tem, tem không bắt buộc</td><td>Dòng gán tem: số lượng bằng tổng tem (chuyển một phần thì tách tem). Dòng không gán tem: chỉ lấy tồn không tem ở vị trí nguồn. Tem đang bị giữ không chuyển được.</td></tr>
+            <tr><td>Kho nhận không quản lý vị trí</td><td>Không nhập vị trí đến. Chọn có theo dõi tồn theo tem ở kho nhận hay không; không tích thì tem chuyển hết tồn, kho nhận chỉ cộng số lượng không tem.</td></tr>
+            <tr><td>Hủy duyệt</td><td>Trả tồn như trước khi chuyển. Không hủy được nếu tem không còn ở vị trí đích hoặc tồn kho nhận không đủ hoàn lại.</td></tr>
+          </tbody>
+        </table></div>
+      </div>
     </aside>
   </div>
 </section>
@@ -188,7 +230,7 @@
   <div class="screen__body">
     <div class="screen__shots">
       <figure class="shot"><figcaption>Giao diện PDA · Nhập mua: 6 màn đánh số theo thứ tự thao tác<a class="btn shot__zoom" href="../mockups/02-quy-trinh-mua/pda-nhap-mua.html" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption>
-        <iframe class="shot__live" src="../mockups/02-quy-trinh-mua/pda-nhap-mua.html" title="Nhập mua trên PDA" loading="lazy" style="aspect-ratio:1467/1834"></iframe></figure>
+        <iframe class="shot__live" src="../mockups/02-quy-trinh-mua/pda-nhap-mua.html" title="Nhập mua trên PDA" loading="lazy" style="aspect-ratio:1622/1340"></iframe></figure>
     </div>
   </div>
 </section>
@@ -204,7 +246,7 @@
         <iframe class="shot__live" src="../mockups/02-quy-trinh-mua/4.html" title="Phiếu nhập mua" loading="lazy"></iframe></figure>
     </div>
     <aside class="screen__notes">
-      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Sau khi nhập hàng bằng PDA (lưu thành công), hệ thống tự động sinh phiếu nhập mua.</p><p>Văn phòng kho kiểm tra và phê duyệt phiếu. Hệ thống tự động đồng bộ phiếu nhập kho sang SAP.</p><p>Trường hợp phiếu nhập kho đã duyệt đẩy sang SAP bị sai:</p><ul><li>Nếu sai thiếu số lượng, làm phiếu nhập bổ sung.</li><li>Nếu sai mã hàng, làm phiếu xuất trả lại nhà cung cấp.</li></ul><p><b>=&gt; Không xóa hay hủy phiếu nhập kho đã duyệt trên WMS.</b></p></div>
+      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Sau khi nhập hàng bằng PDA (lưu thành công), hệ thống tự động sinh phiếu nhập mua.</p><p>Văn phòng kho kiểm tra và phê duyệt phiếu. Hệ thống tự động đồng bộ phiếu nhập kho sang SAP.</p><p>Căn cứ Mã bán thành phẩm gia công trên phiếu nhập kho, SAP tự động sinh nghiệp vụ xuất kho nguyên vật liệu theo BOM và đồng bộ phần nguyên vật liệu này về WMS vào phiếu xuất kho khác.</p></div>
     </aside>
   </div>
 </section>
