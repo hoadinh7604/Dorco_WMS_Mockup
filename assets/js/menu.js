@@ -147,7 +147,9 @@ window.TSD_MENU = [
       desc: "In tem QR nguyên vật liệu, thành phẩm, vị trí",
       screens: [
         { no: "11.1", title: "Phát hành tem NVL", id: "t-nvl" },
-        { no: "11.2", title: "Phát hành tem thành phẩm / bán thành phẩm", id: "t-tp" }
+        { no: "11.2", title: "Phát hành tem thành phẩm / bán thành phẩm", id: "t-tp" },
+        { no: "11.3", title: "Tách tem", id: "t-tach" },
+        { no: "11.4", title: "Gộp tem", id: "t-gop" }
       ]}
   ]}
 ];

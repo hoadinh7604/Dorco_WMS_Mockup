@@ -193,7 +193,7 @@
   function fitLive() {
     $$(".shot__fit").forEach(function (box) {
       var fr = $("iframe", box);
-      if (fr) fr.style.transform = "scale(" + box.clientWidth / 1920 + ")";
+      if (fr) fr.style.transform = "scale(" + box.clientWidth / (fr.offsetWidth || 1920) + ")";
     });
   }
   fitLive();

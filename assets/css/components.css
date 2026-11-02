@@ -101,6 +101,8 @@ tr:last-child td{border-bottom:0}
 /* Màn hình HTML hiển thị như ảnh chụp 1920×915: iframe dựng ở 1920px rồi thu nhỏ vừa khung (tỉ lệ đặt trong layout.js) */
 .shot__fit{position:relative;aspect-ratio:1920/915;overflow:hidden}
 .shot__fit .shot__live{position:absolute;left:0;top:0;width:1920px;height:915px;aspect-ratio:auto;transform-origin:0 0}
+.shot__fit--pda{aspect-ratio:1100/700}
+.shot__fit--pda .shot__live{width:1100px;height:700px}
 
 /* Ảnh đánh số vùng: vị trí số và khung ghi bằng % theo kích thước ảnh nên không lệch khi phóng to.
    Màu chanh lấy từ trạng thái đang chọn của app DC WMS, nổi trên ảnh chụp mà không lẫn với màu trạng thái */

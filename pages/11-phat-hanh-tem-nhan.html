@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="../assets/css/tokens.css">
 <link rel="stylesheet" href="../assets/css/base.css">
 <link rel="stylesheet" href="../assets/css/layout.css?v=20261102">
-<link rel="stylesheet" href="../assets/css/components.css?v=20261102">
+<link rel="stylesheet" href="../assets/css/components.css?v=20261103">
 <link rel="stylesheet" href="../assets/css/print.css">
 </head>
 <body data-root="../" data-page="11">
@@ -83,12 +83,108 @@
   </div>
 </section>
 <!-- ===== KẾT THÚC: 11.2 Phát hành tem thành phẩm / bán thành phẩm ===== -->
+<!-- ===== BẮT ĐẦU: 11.3 Tách tem ===== -->
+<section class="screen" id="t-tach">
+  <h2 class="screen__title"><span class="no">11.3</span>Tách tem</h2>
+  <p class="screen__path">Phát hành tem › Tách / gộp tem › Tách tem · Ứng dụng PDA › Quản lý hàng hóa › Tách / gộp tem › Tách tem</p>
+  <div class="screen__body">
+    <div class="screen__shots">
+      <figure class="shot"><figcaption>Giao diện WMS · Cách 1: nhập số lượng từng tem. Tách FGL-261020-0004 (còn 120 SET, giữ 40) thành 2 tem 48 và 24 SET</figcaption>
+        <img src="../images/11-phat-hanh-tem-nhan/3-wms-tach-list.png" alt="Màn hình WMS Tách tem, cách chia nhập số lượng từng tem: hai tem mới 48 và 24 SET"></figure>
+      <figure class="shot"><figcaption>Giao diện WMS · Cách 2: chia theo số lượng mỗi tem. Tổng 72 SET chia 30 SET mỗi tem, tem cuối nhận phần dư</figcaption>
+        <img src="../images/11-phat-hanh-tem-nhan/3-wms-tach-even.png" alt="Màn hình WMS Tách tem, cách chia theo số lượng mỗi tem: 2 × 30 + 1 × 12"></figure>
+      <figure class="shot"><figcaption>Giao diện WMS · Tạo và in tem: chọn máy in, khổ giấy, mẫu in, số bản và xem trước tem</figcaption>
+        <img src="../images/11-phat-hanh-tem-nhan/3-wms-tach-in.png" alt="Cửa sổ Tạo và in tem sau khi tách"></figure>
+      <figure class="shot"><figcaption>Giao diện PDA · Tách tem — bấm các màn bên trái hoặc mã gợi ý bên phải để chạy thử</figcaption><details class="shot-fold"><summary class="btn"><span class="on">Hiện giao diện PDA</span><span class="off">Ẩn giao diện PDA</span></summary>
+        <div class="shot__fit shot__fit--pda"><iframe class="shot__live" src="../mockups/11-phat-hanh-tem-nhan/4.html" title="Tách tem trên PDA" loading="lazy"></iframe></div></details></figure>
+      <figure class="shot-steps"><figcaption>Ảnh chụp từng bước tách tem trên PDA. Kéo ngang để xem hết, bấm ảnh để phóng to</figcaption>
+        <div class="pda-steps">
+          <figure class="pda-step"><img src="../images/11-phat-hanh-tem-nhan/3-pda-1-split_list.png" alt="Bước 1: danh sách phiếu tách tem" loading="lazy"><figcaption><b><span class="k">1</span>Phiếu tách tem</b>Mở nháp để làm tiếp, mở phiếu đã tạo để in lại, hoặc bấm Quét để tách tem mới.</figcaption></figure>
+          <figure class="pda-step"><img src="../images/11-phat-hanh-tem-nhan/3-pda-2-split_scan.png" alt="Bước 2: quét tem cần tách" loading="lazy"><figcaption><b><span class="k">2</span>Quét tem cần tách</b>Tem không đủ điều kiện thì báo lý do ngay dưới ô quét.</figcaption></figure>
+          <figure class="pda-step"><img src="../images/11-phat-hanh-tem-nhan/3-pda-3-split_edit.png" alt="Bước 3: nhập số lượng từng tem mới" loading="lazy"><figcaption><b><span class="k">3</span>Cách 1: nhập từng tem</b>Thêm từng tem mới và nhập số lượng. Sai thì khóa nút Kiểm tra.</figcaption></figure>
+          <figure class="pda-step"><img src="../images/11-phat-hanh-tem-nhan/3-pda-3b-split_even.png" alt="Bước 3: chia theo số lượng mỗi tem" loading="lazy"><figcaption><b><span class="k">3</span>Cách 2: chia theo số lượng mỗi tem</b>Chọn Cách chia, nhập tổng tách và số lượng mỗi tem. Tem cuối nhận phần dư.</figcaption></figure>
+          <figure class="pda-step"><img src="../images/11-phat-hanh-tem-nhan/3-pda-4-split_review.png" alt="Bước 4: kiểm tra tách tem" loading="lazy"><figcaption><b><span class="k">4</span>Kiểm tra</b>Lưu nháp (chưa ghi sổ kho) hoặc Tạo tem (ghi sổ kho ngay).</figcaption></figure>
+          <figure class="pda-step"><img src="../images/11-phat-hanh-tem-nhan/3-pda-5-split_print.png" alt="Bước 5: in tem" loading="lazy"><figcaption><b><span class="k">5</span>In tem</b>Bắt buộc in ngay, không có nút Để sau. In xong, xác nhận đã in.</figcaption></figure>
+        </div>
+      </figure>
+    </div>
+    <aside class="screen__notes">
+      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Tách một tem thành nhiều tem khi pallet bị chia lẻ. Làm trên WMS Web hoặc PDA, cùng quy tắc.</p>
+<p><b>Các bước</b></p>
+<ol>
+<li>Chọn hoặc quét tem cần tách.</li>
+<li>Nhập số lượng các tem mới (cách 1 hoặc cách 2).</li>
+<li>Tạo tem hoặc Tạo và in, rồi xác nhận đã in.</li>
+</ol>
+<p><b>Quy tắc</b></p>
+<div class="tw"><table>
+<thead><tr><th>Chủ đề</th><th>Quy tắc</th></tr></thead>
+<tbody>
+<tr><td>Tem được tách</td><td>Trong kho, đã in, còn số lượng khả dụng; còn từ 2 trở lên.</td></tr>
+<tr><td>Số lượng</td><td>Tổng tách ≤ khả dụng (còn lại − đang giữ) và &lt; còn lại, để tem gốc còn hàng.</td></tr>
+<tr><td>Cách chia</td><td>Cách 1: nhập từng tem. Cách 2: nhập tổng tách và số lượng mỗi tem, tem cuối nhận phần dư. Vd 72 chia 30 → 2 × 30 + 1 × 12.</td></tr>
+<tr><td>Tem mới</td><td>Cùng kho, vị trí, nguồn gốc với tem gốc. Vào Trong kho, số lần in 0.</td></tr>
+<tr><td>In</td><td>Tem mới chưa in thì chưa xuất, tách, gộp được, nên PDA bắt buộc in ngay. Có thể in lại tem gốc vì số lượng đã đổi.</td></tr>
+<tr><td>Ghi sổ</td><td>Lưu nháp chưa ghi sổ kho, xóa được. Tạo tem ghi sổ ngay, không hoàn tác.</td></tr>
+</tbody></table></div>
+      </div>
+    </aside>
+  </div>
+</section>
+<!-- ===== KẾT THÚC: 11.3 Tách tem ===== -->
+<!-- ===== BẮT ĐẦU: 11.4 Gộp tem ===== -->
+<section class="screen" id="t-gop">
+  <h2 class="screen__title"><span class="no">11.4</span>Gộp tem</h2>
+  <p class="screen__path">Phát hành tem › Tách / gộp tem › Gộp tem · Ứng dụng PDA › Quản lý hàng hóa › Tách / gộp tem › Gộp tem</p>
+  <div class="screen__body">
+    <div class="screen__shots">
+      <figure class="shot"><figcaption>Giao diện WMS · Gộp 2 tem nguồn (24 và 30 SET) vào tem đích FGL-261019-0002. Tem đích thành 90 SET, 2 tem nguồn về 0 và chuyển Đã hủy</figcaption>
+        <img src="../images/11-phat-hanh-tem-nhan/4-wms-gop.png" alt="Màn hình WMS Gộp tem: tem đích, hai tem nguồn, bảng kết quả"></figure>
+      <figure class="shot"><figcaption>Giao diện WMS · Tạo và in tem: chỉ in lại tem đích</figcaption>
+        <img src="../images/11-phat-hanh-tem-nhan/4-wms-gop-in.png" alt="Cửa sổ Tạo và in tem sau khi gộp"></figure>
+      <figure class="shot"><figcaption>Giao diện PDA · Gộp tem — bấm các màn bên trái hoặc mã gợi ý bên phải để chạy thử</figcaption><details class="shot-fold"><summary class="btn"><span class="on">Hiện giao diện PDA</span><span class="off">Ẩn giao diện PDA</span></summary>
+        <div class="shot__fit shot__fit--pda"><iframe class="shot__live" src="../mockups/11-phat-hanh-tem-nhan/4.html" title="Gộp tem trên PDA" loading="lazy"></iframe></div></details></figure>
+      <figure class="shot-steps"><figcaption>Ảnh chụp từng bước gộp tem trên PDA. Kéo ngang để xem hết, bấm ảnh để phóng to</figcaption>
+        <div class="pda-steps">
+          <figure class="pda-step"><img src="../images/11-phat-hanh-tem-nhan/3-pda-6-merge_dst.png" alt="Bước 1: quét tem đích" loading="lazy"><figcaption><b><span class="k">1</span>Quét tem đích</b>Chọn Gộp tem, bấm Quét. Tem đích phải Trong kho, đã in, không bị giữ chỗ.</figcaption></figure>
+          <figure class="pda-step"><img src="../images/11-phat-hanh-tem-nhan/3-pda-7-merge_src.png" alt="Bước 2: quét tem nguồn" loading="lazy"><figcaption><b><span class="k">2</span>Quét tem nguồn</b>Quét liên tục; mỗi tem hợp lệ cộng vào số lượng tem đích. Chạm ✕ để bỏ tem.</figcaption></figure>
+          <figure class="pda-step"><img src="../images/11-phat-hanh-tem-nhan/3-pda-9-merge_review.png" alt="Bước 3: kiểm tra gộp tem" loading="lazy"><figcaption><b><span class="k">3</span>Kiểm tra</b>Lưu nháp hoặc Tạo tem. Tem nguồn về 0 và chuyển Đã hủy.</figcaption></figure>
+          <figure class="pda-step"><img src="../images/11-phat-hanh-tem-nhan/3-pda-10-merge_print.png" alt="Bước 4: in lại tem đích" loading="lazy"><figcaption><b><span class="k">4</span>In lại tem đích</b>Chỉ in lại tem đích. Bóc bỏ tem giấy của các tem nguồn.</figcaption></figure>
+          <figure class="pda-step pda-step--err"><img src="../images/11-phat-hanh-tem-nhan/3-pda-8-chan.png" alt="Ví dụ: tem nguồn bị từ chối" loading="lazy"><figcaption><b><span class="k">!</span>Tem bị từ chối</b>Thẻ đỏ ghi số tem và lý do (ở đây là khác vị trí với tem đích).</figcaption></figure>
+        </div>
+      </figure>
+    </div>
+    <aside class="screen__notes">
+      <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Gộp nhiều tem về một tem đích khi hàng nằm rải rác trên nhiều tem. Làm trên WMS Web hoặc PDA, cùng quy tắc.</p>
+<p><b>Các bước</b></p>
+<ol>
+<li>Chọn hoặc quét tem đích.</li>
+<li>Quét hoặc chọn các tem nguồn.</li>
+<li>Tạo tem hoặc Tạo và in, rồi xác nhận đã in tem đích.</li>
+</ol>
+<p><b>Quy tắc</b></p>
+<div class="tw"><table>
+<thead><tr><th>Chủ đề</th><th>Quy tắc</th></tr></thead>
+<tbody>
+<tr><td>Tem đích</td><td>Trong kho, đã in, không bị giữ chỗ. Giữ nguồn gốc, ngày nhập kho, ngày sản xuất của nó.</td></tr>
+<tr><td>Tem nguồn</td><td>Trong kho, đã in, không bị giữ chỗ; khớp tem đích về mã hàng, ĐVT, Vina SO, kho, vị trí, Buyer (cùng để trống thì coi là giống nhau).</td></tr>
+<tr><td>Khác biệt</td><td>Khác vị trí: chuyển vị trí trước rồi quét lại. Khác ngày nhập kho, ngày sản xuất hoặc yêu cầu: vẫn gộp, chỉ cảnh báo.</td></tr>
+<tr><td>Kết quả</td><td>Tem đích cộng số lượng tem nguồn. Tem nguồn về 0, chuyển Đã hủy, lý do “GỘP”.</td></tr>
+<tr><td>In</td><td>Chỉ in lại tem đích vì số lượng trên tem giấy đã cũ.</td></tr>
+<tr><td>Ghi sổ</td><td>Lưu nháp chưa ghi sổ kho, xóa được. Tạo tem ghi sổ ngay, không hoàn tác.</td></tr>
+</tbody></table></div>
+      </div>
+    </aside>
+  </div>
+</section>
+<!-- ===== KẾT THÚC: 11.4 Gộp tem ===== -->
+
 
 </main>
 
-<script src="../assets/js/i18n-pages.js?v=20261102b"></script>
+<script src="../assets/js/i18n-pages.js?v=20261105"></script>
 <script src="../assets/js/i18n.js?v=20261102b"></script>
-<script src="../assets/js/menu.js?v=20261102"></script>
-<script src="../assets/js/layout.js?v=20261102b"></script>
+<script src="../assets/js/menu.js?v=20261103"></script>
+<script src="../assets/js/layout.js?v=20261103"></script>
 </body>
 </html>

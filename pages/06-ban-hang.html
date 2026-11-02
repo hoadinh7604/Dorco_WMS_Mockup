@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="../assets/css/tokens.css">
 <link rel="stylesheet" href="../assets/css/base.css">
 <link rel="stylesheet" href="../assets/css/layout.css?v=20261102">
-<link rel="stylesheet" href="../assets/css/components.css?v=20261102">
+<link rel="stylesheet" href="../assets/css/components.css?v=20261103">
 <link rel="stylesheet" href="../assets/css/print.css">
 </head>
 <body data-root="../" data-page="06">
@@ -125,7 +125,7 @@
   <div class="screen__body">
     <div class="screen__shots">
       <figure class="shot"><figcaption>Giao diện PDA · Quét tem giao hàng — bấm các nút trên máy để chạy thử từng bước<a class="btn shot__zoom" href="../mockups/06-ban-hang/2.html" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption><details class="shot-fold"><summary class="btn"><span class="on">Hiện giao diện PDA</span><span class="off">Ẩn giao diện PDA</span></summary>
-        <div class="shot__fit"><iframe class="shot__live" src="../mockups/06-ban-hang/2.html" title="Quét tem giao hàng trên PDA" loading="lazy"></iframe></div></details></figure>
+        <div class="shot__fit shot__fit--pda"><iframe class="shot__live" src="../mockups/06-ban-hang/2.html" title="Quét tem giao hàng trên PDA" loading="lazy"></iframe></div></details></figure>
       <figure class="shot-steps"><figcaption>Ảnh chụp theo từng bước thao tác. Kéo ngang để xem hết, bấm ảnh để phóng to</figcaption>
         <div class="pda-steps">
           <figure class="pda-step"><img src="../images/06-ban-hang/2-pda-1-do_list.png" alt="Bước 1: danh sách lệnh giao hàng trên PDA" loading="lazy"><figcaption><b><span class="k">1</span>Chọn lệnh giao hàng</b>Thẻ lệnh ghi khách hàng, SO, kho, ngày DO và phần đã giao. Icon góc phải thanh tiêu đề mở Phiếu đã lưu (bước 8).</figcaption></figure>
@@ -155,7 +155,7 @@
           <thead><tr><th>Chủ đề</th><th>Quy tắc</th></tr></thead>
           <tbody>
             <tr><td>Gom lệnh</td><td>Một phiếu gom nhiều DO, nhiều kho, nhiều khách. Kho trên DO SAP chỉ là dự kiến, không chặn tem.</td></tr>
-            <tr><td>Khớp tem vào dòng</td><td>Tem gán sẵn vào đúng dòng đó; tem chưa gán khớp theo mã hàng + Vina SO + ĐVT (xuất đích danh theo SO). Nhiều dòng cùng khớp thì vào dòng có số thứ tự nhỏ nhất còn thiếu.</td></tr>
+            <tr><td>Khớp tem vào dòng</td><td>Tem gán sẵn vào đúng dòng đó; tem chưa gán khớp theo mã hàng + Vina SO + ĐVT + Kho (xuất đích danh theo SO). Nhiều dòng cùng khớp thì vào dòng có số thứ tự nhỏ nhất còn thiếu.</td></tr>
             <tr><td>Tem của lệnh khác</td><td>Không tự vào: máy báo tem thuộc DO nào, chạm Chuyển DO rồi quét lại. Tem khác mã hàng hoặc khác SO với mọi dòng đang giao thì bị chặn.</td></tr>
             <tr><td>Xuất lẻ</td><td>SL điền sẵn = min(khả dụng của tem, còn cần giao); khả dụng = SL trên tem − SL phiếu khác đang giữ − SL phiên này đã lấy. Sửa giảm được, phần còn lại ở trên pallet, không tách tem.</td></tr>
             <tr><td>Bỏ tem</td><td>SL trả về khả dụng ngay. Quét lại tem đã có trong phiếu thì bị chặn; muốn đổi SL thì bỏ tem rồi quét lại.</td></tr>
@@ -488,9 +488,9 @@
 
 </main>
 
-<script src="../assets/js/i18n-pages.js?v=20261102b"></script>
+<script src="../assets/js/i18n-pages.js?v=20261105"></script>
 <script src="../assets/js/i18n.js?v=20261102b"></script>
-<script src="../assets/js/menu.js?v=20261102"></script>
-<script src="../assets/js/layout.js?v=20261102b"></script>
+<script src="../assets/js/menu.js?v=20261103"></script>
+<script src="../assets/js/layout.js?v=20261103"></script>
 </body>
 </html>

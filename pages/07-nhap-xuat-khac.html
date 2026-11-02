@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="../assets/css/tokens.css">
 <link rel="stylesheet" href="../assets/css/base.css">
 <link rel="stylesheet" href="../assets/css/layout.css?v=20261102">
-<link rel="stylesheet" href="../assets/css/components.css?v=20261102">
+<link rel="stylesheet" href="../assets/css/components.css?v=20261103">
 <link rel="stylesheet" href="../assets/css/print.css">
 </head>
 <body data-root="../" data-page="07">
@@ -78,7 +78,7 @@
 <ol>
 <li>Lập yêu cầu: Upload Excel hoặc tạo thủ công (vùng 12).</li>
 <li>Gửi yêu cầu (upload thành công thì kho xử lý ngay).</li>
-<li>Kho quét nhãn bằng PDA (7.2) hoặc lập phiếu trên Web (7.3).</li>
+<li>Kho quét tem bằng PDA (7.2) hoặc lập phiếu trên Web (7.3).</li>
 <li>Duyệt phiếu (7.3); Đã thực hiện và Còn lại của yêu cầu được cập nhật.</li>
 </ol>
       </div>
@@ -115,27 +115,27 @@
   <div class="screen__body">
     <div class="screen__shots">
       <figure class="shot"><figcaption>Giao diện PDA · Xuất kho khác — bấm các nút trên máy hoặc mã gợi ý bên phải để chạy thử<a class="btn shot__zoom" href="../mockups/07-xuat-khac/2.html" target="_blank" rel="noopener">↗ Mở riêng</a></figcaption><details class="shot-fold"><summary class="btn"><span class="on">Hiện giao diện PDA</span><span class="off">Ẩn giao diện PDA</span></summary>
-        <div class="shot__fit"><iframe class="shot__live" src="../mockups/07-xuat-khac/2.html" title="Xuất kho khác trên PDA" loading="lazy"></iframe></div></details></figure>
+        <div class="shot__fit shot__fit--pda"><iframe class="shot__live" src="../mockups/07-xuat-khac/2.html" title="Xuất kho khác trên PDA" loading="lazy"></iframe></div></details></figure>
       <figure class="shot-steps"><figcaption>Ảnh chụp theo từng bước thao tác. Kéo ngang để xem hết, bấm ảnh để phóng to</figcaption>
         <div class="pda-steps">
           <figure class="pda-step"><img src="../images/07-nhap-xuat-khac/2-pda-1-req_list.png" alt="Bước 1: danh sách yêu cầu xuất khác trên PDA" loading="lazy"><figcaption><b><span class="k">1</span>Chọn yêu cầu</b>Danh sách yêu cầu chờ xuất, mỗi thẻ ghi Lý do và người nhận (mẫu) hoặc số biên bản (hủy). Icon góc phải thanh tiêu đề mở Phiếu đã lưu (bước 8).</figcaption></figure>
           <figure class="pda-step"><img src="../images/07-nhap-xuat-khac/2-pda-2-req_scan.png" alt="Bước 2: quét QR yêu cầu" loading="lazy"><figcaption><b><span class="k">2</span>Hoặc quét QR yêu cầu</b>Quét mã QR in trên yêu cầu hoặc nhập số yêu cầu để mở thẳng yêu cầu đó.</figcaption></figure>
-          <figure class="pda-step"><img src="../images/07-nhap-xuat-khac/2-pda-3-scan.png" alt="Bước 3: màn lấy hàng" loading="lazy"><figcaption><b><span class="k">3</span>Quét nhãn lấy hàng</b>Nhãn tự rơi vào đúng dòng. Mở “Thông tin yêu cầu và người nhận” để xem địa chỉ gửi mẫu. Chạm một dòng để xem và bỏ nhãn đã lấy.</figcaption></figure>
-          <figure class="pda-step"><img src="../images/07-nhap-xuat-khac/2-pda-4-qty.png" alt="Bước 4: nhập số lượng lấy từ nhãn" loading="lazy"><figcaption><b><span class="k">4</span>Số lượng lấy</b>SL điền sẵn, sửa giảm được để xuất lẻ. Xác nhận để đưa vào phiếu, Bỏ qua để không lấy.</figcaption></figure>
+          <figure class="pda-step"><img src="../images/07-nhap-xuat-khac/2-pda-3-scan.png" alt="Bước 3: màn lấy hàng" loading="lazy"><figcaption><b><span class="k">3</span>Quét tem lấy hàng</b>Tem tự rơi vào đúng dòng. Mở “Thông tin yêu cầu và người nhận” để xem địa chỉ gửi mẫu. Chạm một dòng để xem và bỏ tem đã lấy.</figcaption></figure>
+          <figure class="pda-step"><img src="../images/07-nhap-xuat-khac/2-pda-4-qty.png" alt="Bước 4: nhập số lượng lấy từ tem" loading="lazy"><figcaption><b><span class="k">4</span>Số lượng lấy</b>SL điền sẵn, sửa giảm được để xuất lẻ. Xác nhận để đưa vào phiếu, Bỏ qua để không lấy.</figcaption></figure>
           <figure class="pda-step"><img src="../images/07-nhap-xuat-khac/2-pda-5-req_pick.png" alt="Bước 5: thêm yêu cầu vào phiếu" loading="lazy"><figcaption><b><span class="k">5</span>Thêm yêu cầu</b>Bấm Thêm yêu cầu ở dòng xanh trên cùng màn lấy hàng. Chỉ hiện yêu cầu cùng kho và cùng lý do.</figcaption></figure>
-          <figure class="pda-step"><img src="../images/07-nhap-xuat-khac/2-pda-6-review.png" alt="Bước 6: kiểm tra trước khi lưu" loading="lazy"><figcaption><b><span class="k">6</span>Kiểm tra trước khi lưu</b>Xem nhãn theo yêu cầu và dòng, bỏ nhãn bằng ✕. Chọn Lưu và Gửi, Quét thêm nhãn hoặc Lưu phiếu.</figcaption></figure>
+          <figure class="pda-step"><img src="../images/07-nhap-xuat-khac/2-pda-6-review.png" alt="Bước 6: kiểm tra trước khi lưu" loading="lazy"><figcaption><b><span class="k">6</span>Kiểm tra trước khi lưu</b>Xem tem theo yêu cầu và dòng, bỏ tem bằng ✕. Chọn Lưu và Gửi, Quét thêm tem hoặc Lưu phiếu.</figcaption></figure>
           <figure class="pda-step"><img src="../images/07-nhap-xuat-khac/2-pda-7-done.png" alt="Bước 7: màn đã lưu phiếu" loading="lazy"><figcaption><b><span class="k">7</span>Đã lưu phiếu</b>Máy cấp số phiếu xuất khác. Gửi phiếu ngay hoặc bắt đầu Phiên mới.</figcaption></figure>
           <figure class="pda-step"><img src="../images/07-nhap-xuat-khac/2-pda-8-slips.png" alt="Bước 8: danh sách phiếu đã lưu" loading="lazy"><figcaption><b><span class="k">8</span>Phiếu đã lưu</b>Chỉ liệt kê phiếu do chính người đang dùng máy lưu, chưa gửi.</figcaption></figure>
           <figure class="pda-step"><img src="../images/07-nhap-xuat-khac/2-pda-9-slip.png" alt="Bước 9: chi tiết phiếu" loading="lazy"><figcaption><b><span class="k">9</span>Chi tiết phiếu</b>Chỉ xem. Hai nút Quét tiếp (quay về bước 3) và Gửi phiếu.</figcaption></figure>
-          <figure class="pda-step pda-step--err"><img src="../images/07-nhap-xuat-khac/2-pda-10-chan.png" alt="Ví dụ: nhãn bị chặn khi quét" loading="lazy"><figcaption><b><span class="k">!</span>Ví dụ nhãn bị chặn</b>Thẻ đỏ ghi số nhãn, lý do (ở đây là khác kho) và nút Quét lại.</figcaption></figure>
+          <figure class="pda-step pda-step--err"><img src="../images/07-nhap-xuat-khac/2-pda-10-chan.png" alt="Ví dụ: tem bị chặn khi quét" loading="lazy"><figcaption><b><span class="k">!</span>Ví dụ tem bị chặn</b>Thẻ đỏ ghi số tem, lý do (ở đây là khác kho) và nút Quét lại.</figcaption></figure>
         </div>
       </figure>
     </div>
     <aside class="screen__notes spec">
-      <div class="note note--biz note--wide"><h3>Nghiệp vụ</h3><p>Kho quét nhãn bằng PDA để xuất theo yêu cầu xuất khác (7.1); mỗi lần lưu tạo một phiếu xuất khác (7.3).</p>
+      <div class="note note--biz note--wide"><h3>Nghiệp vụ</h3><p>Kho quét tem bằng PDA để xuất theo yêu cầu xuất khác (7.1); mỗi lần lưu tạo một phiếu xuất khác (7.3).</p>
 <ol>
 <li>Chọn yêu cầu trong danh sách, hoặc quét QR in trên yêu cầu.</li>
-<li>Quét nhãn lấy hàng; xác nhận số lượng lấy từ nhãn.</li>
+<li>Quét tem lấy hàng; xác nhận số lượng lấy từ tem.</li>
 <li>Kiểm tra, rồi Lưu phiếu hoặc Lưu và Gửi.</li>
 <li>Duyệt và trừ tồn làm trên Web (7.3).</li>
 </ol>
@@ -146,10 +146,10 @@
           <tbody>
             <tr><td>Chọn yêu cầu</td><td>Yêu cầu đã xuất đủ, không tìm thấy hoặc ngoài phạm vi kho được phân quyền thì bị chặn.</td></tr>
             <tr><td>Gom yêu cầu</td><td>Một phiếu gom nhiều yêu cầu, nhưng chỉ yêu cầu cùng kho và cùng Lý do chính. Yêu cầu khác kho hoặc lý do không hiện trong danh sách thêm; quét trúng thì báo lỗi.</td></tr>
-            <tr><td>Chỉ quét nhãn</td><td>Hàng chưa có nhãn phải phát hành nhãn trước mới xuất được.</td></tr>
-            <tr><td>Khớp nhãn</td><td>Theo mã hàng + ĐVT (không xét Lot và Grade); nhãn phải cùng kho với yêu cầu. Nhãn khớp dòng của yêu cầu khác thì máy gợi ý chuyển yêu cầu.</td></tr>
-            <tr><td>Xuất lẻ</td><td>SL điền sẵn là số nhỏ hơn giữa SL khả dụng của nhãn và SL dòng còn cần; sửa giảm được, phần còn lại vẫn nằm trên nhãn. Quét lại nhãn đã có trong phiếu thì bị chặn; muốn đổi SL thì bỏ nhãn (✕ ở Chi tiết dòng hàng hoặc màn Kiểm tra) rồi quét lại.</td></tr>
-            <tr><td>Nhãn bị chặn</td><td>Nhãn không còn hàng để xuất, chưa nhập kho, khác kho, không khớp dòng, đã bị phiếu khác giữ hết, hoặc dòng đã đủ SL. Thẻ đỏ ghi rõ lý do.</td></tr>
+            <tr><td>Chỉ quét tem</td><td>Hàng chưa có tem phải phát hành tem trước mới xuất được.</td></tr>
+            <tr><td>Khớp tem</td><td>Theo mã hàng + ĐVT + Kho. Tem khớp dòng của yêu cầu khác thì máy báo tem thuộc yêu cầu nào, chạm Chuyển yêu cầu rồi quét lại.</td></tr>
+            <tr><td>Xuất lẻ</td><td>SL điền sẵn là số nhỏ hơn giữa SL khả dụng của tem và SL dòng còn cần; sửa giảm được, phần còn lại vẫn nằm trên tem. Quét lại tem đã có trong phiếu thì bị chặn; muốn đổi SL thì bỏ tem (✕ ở Chi tiết dòng hàng hoặc màn Kiểm tra) rồi quét lại.</td></tr>
+            <tr><td>Tem bị chặn</td><td>Tem không còn hàng để xuất, chưa nhập kho, khác kho, không khớp dòng, đã bị phiếu khác giữ hết, hoặc dòng đã đủ SL. Thẻ đỏ ghi rõ lý do.</td></tr>
             <tr><td>Không có Lưu nháp</td><td>Thoát màn quét khi chưa lưu thì mất các lần lấy.</td></tr>
           </tbody>
         </table></div>
@@ -158,9 +158,9 @@
         <div class="tw"><table>
           <thead><tr><th>Chủ đề</th><th>Quy tắc</th></tr></thead>
           <tbody>
-            <tr><td>Giữ chỗ</td><td>Phiếu giữ chỗ SL trên nhãn, tồn chưa giảm. Đơn giá, thông tin hủy và người nhận lấy từ dòng yêu cầu, không nhập trên PDA. Duyệt và trừ tồn làm trên Web (7.3).</td></tr>
+            <tr><td>Giữ chỗ</td><td>Phiếu giữ chỗ SL trên tem, tồn chưa giảm. Đơn giá, thông tin hủy và người nhận lấy từ dòng yêu cầu, không nhập trên PDA. Duyệt và trừ tồn làm trên Web (7.3).</td></tr>
             <tr><td>Phiếu đã lưu</td><td>Chỉ xem; không sửa đầu phiếu hay số lượng, không xóa, không duyệt trên máy.</td></tr>
-            <tr><td>Quét tiếp</td><td>Chỉ thêm hoặc bỏ nhãn; lưu lại giữ nguyên số phiếu, nhãn bị bỏ thì nhả giữ chỗ. Nhãn do chính phiếu này giữ vẫn quét lại được. Phiếu phải còn ít nhất 1 nhãn.</td></tr>
+            <tr><td>Quét tiếp</td><td>Chỉ thêm hoặc bỏ tem; lưu lại giữ nguyên số phiếu, tem bị bỏ thì nhả giữ chỗ. Tem do chính phiếu này giữ vẫn quét lại được. Phiếu phải còn ít nhất 1 tem.</td></tr>
           </tbody>
         </table></div>
       </div>
@@ -228,7 +228,7 @@
         <div class="tw"><table>
           <thead><tr><th>Nguồn</th><th>Ghi chú</th></tr></thead>
           <tbody>
-            <tr><td><span class="src src--wms">Tạo trên WMS (PDA)</span></td><td>Kho quét nhãn bằng PDA (mục 7.2); tem, SL và vị trí lấy từ lần quét. Đơn giá, thông tin hủy và người nhận mang từ dòng yêu cầu.</td></tr>
+            <tr><td><span class="src src--wms">Tạo trên WMS (PDA)</span></td><td>Kho quét tem bằng PDA (mục 7.2); tem, SL và vị trí lấy từ lần quét. Đơn giá, thông tin hủy và người nhận mang từ dòng yêu cầu.</td></tr>
             <tr><td><span class="src src--wms">Tạo thủ công trên WMS</span></td><td>+ Tạo Phiếu xuất khác (vùng 4) hoặc Tạo phiếu từ yêu cầu, chọn dòng yêu cầu rồi quét hoặc nhập số tem cho từng dòng.</td></tr>
           </tbody>
         </table></div>
@@ -267,9 +267,9 @@
 
 </main>
 
-<script src="../assets/js/i18n-pages.js?v=20261102b"></script>
+<script src="../assets/js/i18n-pages.js?v=20261105"></script>
 <script src="../assets/js/i18n.js?v=20261102b"></script>
-<script src="../assets/js/menu.js?v=20261102"></script>
-<script src="../assets/js/layout.js?v=20261102b"></script>
+<script src="../assets/js/menu.js?v=20261103"></script>
+<script src="../assets/js/layout.js?v=20261103"></script>
 </body>
 </html>

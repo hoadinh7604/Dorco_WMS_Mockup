@@ -1,15 +1,15 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Giao hang PDA</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Giao hàng PDA</title>
+<style>:root{color-scheme:light}html,body{margin:0}img{max-width:100%}</style>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap">
 <style>
-:root{color-scheme:light}html,body{margin:0}img{max-width:100%}
-
 /* Layout: danh sách màn (trái) · máy PDA dọc bấm thử được (giữa) · ghi chú nghiệp vụ (phải).
    Màn PDA theo ảnh chụp app DC WMS: Roboto, nền xám xanh, thẻ trắng, teal + lime. */
 :root{
@@ -71,8 +71,9 @@ button,input{font-family:inherit}
 
 /* ===== máy PDA dọc ===== */
 .device-col{display:flex;flex-direction:column;gap:8px}
-.device{width:424px;max-width:calc(100vw - 32px);background:#0b0d10;border-radius:30px;padding:12px;box-shadow:0 20px 50px rgba(17,24,39,.28)}
-.screen{position:relative;height:792px;border-radius:20px;overflow:hidden;background:var(--d-bg);color:var(--d-ink);font-family:var(--f-app);display:flex;flex-direction:column;font-size:14px}
+.device{width:356px;max-width:calc(100vw - 32px);background:#0b0d10;border-radius:22px;padding:18px;box-shadow:0 20px 50px rgba(17,24,39,.28)}
+/* Màn PDA 4" WVGA: khung hiển thị đúng 480×800 (tỉ lệ 3:5) để bố cục khớp máy thật */
+.screen{position:relative;width:320px;max-width:100%;height:533px;border-radius:6px;overflow:hidden;background:var(--d-bg);color:var(--d-ink);font-family:var(--f-app);display:flex;flex-direction:column;font-size:14px}
 .sbar{height:26px;background:var(--d-surface);display:flex;justify-content:space-between;align-items:center;padding:0 14px;font-size:12px;flex:none;font-weight:500}
 .abar{background:var(--d-surface);display:flex;align-items:center;gap:6px;padding:6px 12px 10px 6px;min-height:56px;flex:none}
 .ib{width:38px;height:38px;border:none;background:none;border-radius:999px;color:var(--d-ink);cursor:pointer;display:flex;align-items:center;justify-content:center;flex:none}
@@ -285,25 +286,212 @@ button,input{font-family:inherit}
 .sesswrap .l{flex:1;min-width:0}
 .sesswrap .l span{display:block;font-weight:500;font-size:11.5px;opacity:.85}
 .sesswrap .sw{background:none;border:none;color:#0b4f49;font:700 12.5px var(--f-app);cursor:pointer;text-decoration:underline;padding:4px 2px;flex:none}
-
-:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-.tryrow .chips{display:flex;flex-direction:column;gap:6px}
-.tryrow .chips .b{justify-content:flex-start;flex-direction:column;align-items:flex-start;gap:1px;font-size:12.5px}
-.lrow{cursor:pointer}
-.lrow:hover{border-color:var(--d-outline)}
 .bbar.stack{flex-direction:column;gap:8px}
 .bbar.stack>.b{width:100%}
 .bbar.stack .r2{display:flex;gap:10px;width:100%}
 .bbar.stack .r2>.b{flex:1}
 .abar .ib{position:relative}
 .abar .ib .bdg{position:absolute;top:1px;right:1px;min-width:15px;height:15px;padding:0 3px;border-radius:8px;background:var(--d-lime);color:var(--d-lime-ink);font-size:9.5px;font-weight:800;display:flex;align-items:center;justify-content:center;line-height:1}
+
+/* ===== LỚP TINH CHỈNH CHO MÀN PDA 4" (480×800) — bản thử =====
+   Chỉ nâng cỡ chữ và giãn dòng cho dễ đọc ở màn nhỏ vật lý,
+   giữ nguyên bố cục/cấu trúc các màn của bản gốc. Xóa khối này là về bản gốc. */
+.screen{font-size:13.5px}
+.body{gap:8px;padding:8px 10px 12px}
+.ph h2{font-size:16px}
+.ph p{font-size:13px;line-height:1.4}
+.sec{font-size:11.5px;letter-spacing:.04em}
+.empty,.note-c,.hint{font-size:13px;line-height:1.45}
+.mut{font-size:13px}
+.chip{font-size:11px;padding:2px 7px}
+.cols-head{font-size:11.5px}
+.navcard .tx b{font-size:15.5px}
+.navcard .tx > span{font-size:13px}
+.badge small{font-size:9px}
+.badge b{font-size:15px}
+.ttl{font-size:16px}
+.doccard .t b{font-size:15px}
+.doccard .l{font-size:13px}
+.doccard .k{font-size:14px}
+.meta{font-size:13.5px}
+.qtychip{font-size:14px}
+.lrow .nm{font-size:14px}
+.lrow .mt{font-size:12px}
+.lrow .qt{font-size:13px}
+.lrow .qt b{font-size:14px}
+.kv{font-size:13.5px}
+.kv2 span{font-size:11.5px}
+.kv2 b{font-size:13.5px}
+.info{font-size:13.5px}
+.sum{font-size:13.5px}
+.tf input{font-size:14.5px;height:42px}
+.tf label{font-size:11.5px}
+.scanbox input{font-size:14px}
+.scanbox{height:40px}
+.scanmeta{font-size:13px}
+.search{font-size:13.5px;height:40px}
+.binbtn{font-size:14px}
+.tile .no{font-size:13px}
+.tile .q{font-size:14px}
+.tile .lo{font-size:12px}
+.minisum .no{font-size:14px}
+.msrow{font-size:13px}
+.msrow b{font-size:14px}
+.lnblk .nm{font-size:14px}
+.radio{font-size:14px}
+.pickline{font-size:14px}
+.b{font-size:14.5px}
+.b-sm{font-size:13.5px}
+.sess,.sesswrap{font-size:12.5px}
+.batchrow .tx{font-size:13px}
+.banner{font-size:13px}
+
+/* --- xử lý thử: lưới tem nhiều cột -> 1 cột dạng dòng cho dễ đọc ở 4" --- */
+.grid2{grid-template-columns:1fr;gap:7px}
+.tile{flex-direction:row;align-items:center;gap:10px;padding:11px 30px 11px 12px}
+.tile .no{flex:1;min-width:0;padding-right:0}
+.tile .q{white-space:nowrap}
+.tile .lo{white-space:nowrap}
+.tile .x{top:50%;right:4px;transform:translateY(-50%)}
+
+/* --- xử lý thử: thu gọn khoảng cách ở màn quét cho bớt cuộn --- */
+.card{padding:11px 13px;gap:6px}
+.lrow{padding:8px 11px}
+.sesswrap{padding:6px 8px 6px 10px}
+.scanbar{padding:9px 14px 11px;gap:7px}
+
+/* --- #3: cụm nút đáy gọn hơn để lộ thêm tem --- */
+.bbar.stack{gap:7px}
+.bbar.stack>.b{padding:11px 14px}
+.bbar.stack .r2>.b{padding:11px 12px}
+
+/* --- #4: làm nhẹ thanh phiên (mint) đầu màn quét --- */
+.sesswrap{background:#eef6f3;color:#235;font-size:12.5px}
+.sesswrap .l span{opacity:.75}
+.addbtn{background:var(--d-mint);color:var(--d-teal);font-size:12px;padding:5px 11px 5px 8px}
+
+/* --- #5: lime chỉ dành cho hành động chính; nút quét QR chuyển teal --- */
+.qrbtn{background:var(--d-teal-2);color:#fff}
+.scanrow .qrbtn svg{stroke:#fff}
+
+/* --- cỡ tên màn vừa phải + bỏ note mô tả cho gọn --- */
+.ph h2{font-size:16px;letter-spacing:0}
+.ph p{display:none}
+.note-c{display:none}
+
+/* --- màn Nhóm công việc & Quản lý hàng hóa: chỉ để tên menu, bỏ mô tả dưới mỗi mục --- */
+.navcard .tx > span{display:none}
+
+/* ===== Mật độ cho canvas 320×533 (4" thật) — thu gọn header/nút/thẻ ===== */
+.sbar{height:20px;font-size:11px}
+.abar{min-height:44px;padding:4px 8px 6px 4px;gap:4px}
+.ib{width:34px;height:34px}
+.ib svg{width:19px;height:19px}
+.logo .lt{width:30px;height:30px}
+.logo b{font-size:16px}
+.card{padding:8px 10px;gap:5px}
+.lrow{padding:6px 9px}
+.scanbar{padding:7px 10px 9px;gap:6px}
+.bbar{padding:8px 10px 10px}
+.b{padding:10px 12px}
+.bbar.stack>.b{padding:9px 12px}
+.bbar.stack .r2>.b{padding:9px 10px}
+.qrbtn{height:40px;width:46px}
+.tile{padding:8px 26px 8px 10px}
+.navcard{padding:8px 10px}
+.navcard .ic{width:28px;height:28px}
+.minisum{padding:9px 11px}
+.lnblk{padding:9px 10px}
+.divider{margin:1px 0}
+
+/* ===== Style D — đồng bộ giao diện web DorcoWMS (chỉ đổi style, giữ nguyên luồng/dữ liệu) ===== */
+:root{
+  --d-bg:#f5f6f8; --d-line:#e3e6ea; --d-outline:#cbd5e1;
+  --d-teal:#3f6212; --d-teal-2:#65a30d; --d-mint:#eef8cc;
+  --d-lime:#c5ef6a; --d-lime-ink:#1a2e05; --d-navy:#1d2126;
+  --d-badge-bg:#eef8cc; --d-badge-ink:#3f6212;
+}
+/* thanh trạng thái + tiêu đề tối, logo/nhãn lime */
+.sbar{background:#1d2126;color:#cbd5e1}
+.abar{background:#1d2126;border-bottom:1px solid #2b3036}
+.ttl{color:#fff}
+.abar .ib{color:#fff}
+.abar .ib:hover{background:#2b3036}
+.logo b{color:#fff}
+.logo b i{color:#c5ef6a}
+.logo .lt{background:#c5ef6a;box-shadow:none}
+.logo .lt svg{stroke:#1a2e05}
+.lang{background:transparent;border-color:#4b5563;color:#fff}
+.abar .ib .bdg{background:#c5ef6a;color:#1a2e05}
+
+/* bo góc vuông vức + bỏ đổ bóng (giống web) */
+.card,.lrow,.doccard,.minisum,.lnblk,.radio,.binbtn,.search,.banner,.li,.pickline,.qtychip,.sesswrap,.sess,.binline,.scanzone,.dlg,.tf input,.scanbox,.b,.badge,.chip,.tile,.navcard,.snack,.qgrid div,.qrbtn,.sbtn,.addbtn{border-radius:4px !important}
+.screen{border-radius:4px;background:#f5f6f8}
+.card,.navcard,.doccard,.minisum,.lnblk,.radio,.li,.device,.dlg{box-shadow:none !important}
+.navcard.hot{box-shadow:inset 0 0 0 2px var(--d-teal-2) !important}
+
+/* tile icon phẳng, màu ô-liu */
+.navcard .ic{background:none;color:var(--d-teal);width:30px;height:30px;border-radius:0}
+.badge{background:#eef8cc;color:#3f6212}
+
+/* nhấn chọn dùng ô-liu thay cho teal */
+.lrow.hit{background:#f4fbe6}
+.radio.on{background:#f4fbe6}
+.minisum{background:#f7fce8;border-color:#e4efc4}
+.sesswrap,.sess{background:#eef8cc;color:#3f6212}
+.sesswrap .sw{color:#3f6212}
+.addbtn{background:#eef8cc;color:#3f6212}
+.qrbtn{background:var(--d-teal-2);color:#1a2e05}
+.scanrow .qrbtn svg{stroke:#1a2e05}
+.sbtn{background:#eef8cc;color:#3f6212}
+
+/* lỗi: thanh đỏ đậm chữ trắng giống web */
+.bn-err{background:#dc2626;color:#fff}
+.bn-err b{color:#fff}
+.bn-err .b-out{background:#fff;border-color:#fff;color:#111827}
+
+/* thân máy bền + phím quét cam hai bên (PDA công nghiệp) */
+.device{position:relative;background:linear-gradient(#2b3036,#1b1f23);box-shadow:inset 0 0 0 2px #3a4047}
+.device::before,.device::after{content:"";position:absolute;top:150px;width:7px;height:58px;border-radius:3px;background:#f59e0b}
+.device::before{left:-5px}.device::after{right:-5px}
+
+/* tinh chỉnh cho 320: dòng tem gọn một hàng, tiêu đề đỡ bị cắt */
+.ttl{font-size:15.5px}
+.tile{gap:8px;padding:7px 22px 7px 9px}
+.tile .no{font-size:12.5px}
+.tile .q{font-size:13.5px}
+.tile .lo{font-size:11.5px}
+.tile .x{width:22px;height:22px}
+/* ===== Màn 11 — Phiếu đã lưu (thiết kế lại theo Xuất khác, trong hệ Style D) ===== */
+.slips-head{display:flex;align-items:baseline;justify-content:space-between;gap:8px;padding:2px 2px 0}
+.slips-head h2{margin:0;font-size:16px;font-weight:700;color:var(--d-navy);letter-spacing:0}
+.slips-head .cnt{flex:none;font-size:12px;font-weight:700;color:var(--d-teal)}
+.slips-sub{margin:0;font-size:12px;color:var(--d-muted);line-height:1.4;padding:0 2px 2px}
+.slipcard{position:relative;width:100%;text-align:left;font-family:var(--f-app);color:var(--d-ink);display:flex;flex-direction:column;background:var(--d-surface);border:1px solid var(--d-line);border-radius:4px;overflow:hidden;cursor:pointer}
+.slipcard:hover{border-color:var(--d-teal-2)}
+.slipcard::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--d-teal-2)}
+.slipcard .sc-body{padding:9px 12px 9px 15px;display:flex;flex-direction:column;gap:3px}
+.slipcard .sc-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.slipcard .sc-no{font-size:15px;font-weight:700;color:var(--d-navy);line-height:1.2;overflow-wrap:anywhere}
+.slipcard .sc-reason{font-size:13.5px;font-weight:700;color:var(--d-ink);margin-top:2px}
+.slipcard .sc-line{font-size:12px;color:var(--d-muted);line-height:1.35;overflow-wrap:anywhere}
+.slipcard .sc-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:7px 12px 8px 15px;border-top:1px solid var(--d-line);background:#fafcf3}
+.slipcard .sc-count{font-size:12px;color:var(--d-muted);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.slipcard .sc-count b{color:var(--d-teal);font-weight:700;font-size:13px}
+.slipcard .sc-open{flex:none;display:inline-flex;align-items:center;gap:3px;font-size:12.5px;font-weight:700;color:var(--d-teal)}
+.slipcard .sc-open svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2.3}
+.slips-empty{display:flex;flex-direction:column;align-items:center;text-align:center;gap:9px;padding:36px 20px 20px;color:var(--d-muted)}
+.slips-empty .ei{width:46px;height:46px;border-radius:999px;background:var(--d-mint);display:flex;align-items:center;justify-content:center}
+.slips-empty .ei svg{width:22px;height:22px;stroke:var(--d-teal);fill:none;stroke-width:1.8}
+.slips-empty b{font-size:15px;color:var(--d-navy);font-weight:700}
+.slips-empty p{margin:0;font-size:12.5px;line-height:1.45;max-width:32ch}
+.slips-empty .b{margin-top:4px}
 </style>
 </head>
 <body>
 <div class="page">
   <div class="head">
     <h1>Giao hàng thành phẩm trên PDA</h1>
-    <p>Dựng theo khung mockup 05 (PDA nhập kho) và các điểm chốt 27–28/10: yêu cầu giao hàng đồng bộ từ SAP, chọn DO rồi đi quét tem pallet, mỗi pallet mở sheet nhập số lượng để xuất lẻ, một phiên gom nhiều DO thành một phiếu giao (PDA không có Lưu nháp). Bấm thử được: quét bằng cách gõ số tem hoặc bấm các mã gợi ý bên phải.</p>
   </div>
   <div class="layout">
     <nav class="flow" id="flow" aria-label="Các màn"></nav>
@@ -569,9 +757,9 @@ function doCard(d, tag, act){
 /* ---------- các màn ---------- */
 var V = {};
 V.groups = function(){
-  function g(ic, t, s, act){ return '<button class="card navcard" type="button" data-act="' + (act || 'oos') + '"><span class="ic">' + svg(ic) + '</span><span class="tx"><b>' + t + '</b><span>' + s + '</span></span>' + svg('chev', 'chev') + '</button>'; }
+  function g(ic, t, s, act, hot){ return '<button class="card navcard' + (hot ? ' hot' : '') + '" type="button" data-act="' + (act || 'oos') + '"><span class="ic">' + svg(ic) + '</span><span class="tx"><b>' + t + '</b><span>' + s + '</span></span>' + svg('chev', 'chev') + '</button>'; }
   return barHome(false) + '<div class="body">' + head('Nhóm công việc', 'Chọn một nhóm để xem các chức năng kho bên trong.') +
-    g('box', 'Quản lý hàng hóa', 'Nhập, giao và nhận lại thành phẩm; quản lý pallet.', 'togoods') +
+    g('box', 'Quản lý hàng hóa', 'Nhập, giao và nhận lại thành phẩm; quản lý pallet.', 'togoods', true) +
     g('inbox', 'Nhập kho', 'Nhận nguyên vật liệu vào kho, gồm cả trả về từ sản xuất.') +
     g('outbox', 'Xuất kho', 'Xuất nguyên vật liệu cho sản xuất hoặc trả hàng nhà cung cấp.') +
     g('sliders', 'Điều chỉnh tồn kho', 'Kiểm đếm thực tế để đối chiếu và điều chỉnh trên Web.') +
@@ -608,8 +796,8 @@ V.scan = function(){
     var st = done >= ln.qty ? ['Đủ','c-full'] : (done > 0 ? ['Đang lấy','c-doing'] : ['Chờ','c-wait']);
     var hit = S.lastLine === ln.id && mine.length;
     return '<div class="lrow' + (hit ? ' hit' : '') + '" data-act="openline" data-line="' + ln.id + '" role="button" tabindex="0"><div class="h"><span class="nm">' + ln.code + ' · ' + ln.ten + '</span><span class="chip ' + st[1] + '">' + st[0] + '</span></div>' +
-      '<span class="mt">Item ' + ln.id + (ln.so ? ' · SO ' + ln.so : '') + ' · Kho ' + ln.kho + '</span>' +
-      '<span class="mt">' + ln.kh + ' · giao ' + ln.gi + '</span>' +
+      '<span class="mt">' + (ln.so ? 'SO ' + ln.so + ' · ' : '') + 'Kho ' + ln.kho + '</span>' +
+      '<span class="mt">' + ln.kh + '</span>' +
       '<div class="qt"><span class="mut">Đã lấy</span><b>' + fmt(done) + ' / ' + fmt(ln.qty) + ' ' + ln.unit + '</b></div></div>';
   }).join('');
   var khos = {}; S.items.forEach(function(i){ khos[L[i.no].kho] = 1; });
@@ -644,7 +832,7 @@ V.qty = function(){
     '<div class="card"><div class="nm" style="font-size:15px;font-weight:700;line-height:1.35">' + ln.code + ' · ' + ln.ten + '</div>' +
     '<div class="divider"></div>' +
     '<div class="kv"><span>Tem pallet</span><b>' + p.no + '</b></div>' +
-    '<div class="kv"><span>Lệnh · Item</span><b>' + p.doNo + ' · Item ' + ln.id + '</b></div>' +
+    '<div class="kv"><span>Lệnh</span><b>' + p.doNo + '</b></div>' +
     '<div class="kv"><span>Khách hàng</span><b>' + ln.kh + '</b></div>' +
     (l.so ? '<div class="kv"><span>Đơn hàng</span><b>' + l.so + '</b></div>' : '') +
     '<div class="kv"><span>Kho · vị trí</span><b>' + l.kho + ' · ' + l.loc + '</b></div>' +
@@ -716,14 +904,14 @@ V.review = function(){
         var mine = items(q, ln.id), sum = sumQty(mine);
         return '<div class="lnblk"><div class="hd"><span class="nm">' + ln.code + ' · ' + ln.ten + '</span>' +
           '<span class="chip c-scanned">' + mine.length + ' pallet</span></div>' +
-          '<span class="mut" style="font-size:12px">Item ' + ln.id + ' · SO ' + ln.so + ' · Kho ' + ln.kho + ' · ' + ln.kh + '</span>' +
+          '<span class="mut" style="font-size:12px">SO ' + ln.so + ' · Kho ' + ln.kho + ' · ' + ln.kh + '</span>' +
           '<div class="sum"><span>Số lượng xuất</span><b>' + fmt(sum) + ' / ' + fmt(ln.qty - ln.giao) + ' ' + ln.unit + '</b></div>' +
           '<div class="divider"></div>' +
           '<div class="grid2">' + mine.map(function(i){
             var l = L[i.no];
             return '<div class="tile"><span class="no">' + i.no + '</span>' +
               '<span class="q">' + fmt(i.qty) + ' ' + ln.unit + '</span>' +
-              '<span class="lo">' + l.kho + ' · ' + l.loc + (i.qty < l.con ? ' · lẻ' : '') + '</span>' +
+              '<span class="lo">' + l.loc + '</span>' +
               '<button class="x" type="button" data-act="del" data-no="' + i.no + '" data-do="' + i.doNo + '" data-line="' + i.line + '" aria-label="Bỏ tem">✕</button></div>';
           }).join('') + '</div></div>';
       }).join('');
@@ -733,19 +921,29 @@ V.review = function(){
     }).join('') +
     '<div class="note-c">Lưu phiếu tạo phiếu Đã lưu để mở lại quét tiếp. Lưu và Gửi chuyển phiếu sang chờ duyệt. Tồn kho chỉ thay đổi khi phiếu được duyệt trên Web.</div>' +
     (S.editSlip && !S.items.length ? '<div class="banner bn-err">Phiếu phải còn ít nhất 1 tem. Muốn bỏ cả phiếu thì xóa trên Web.</div>' : '') +
-    '</div>' + actStack(['savesend','Lưu và Gửi', !S.items.length], ['back','Quét thêm tem'], ['save','Lưu phiếu', !S.items.length]);
+    '</div>' + actStack(['savesend','Lưu và Gửi', !S.items.length], ['back','Quét thêm'], ['save','Lưu phiếu', !S.items.length]);
 };
 V.slips = function(){
   var mine = SLIPS.filter(function(x){ return x.st === 'saved' && x.nguoi === ME; });
-  return barFn('Phiếu giao hàng') + '<div class="body">' +
-    head('Phiếu đã lưu', 'Phiếu Đã lưu của bạn. Mở phiếu để quét tiếp hoặc gửi. Phiếu đã gửi không hiện ở đây.') +
-    (mine.length ? mine.map(function(x){
-      return '<div class="card doccard" data-act="openslip" data-no="' + x.no + '" role="button" tabindex="0">' +
-        '<div class="t"><b>' + x.no + '</b>' + schip(x.st) + '</div><div class="l">' + x.dos.join(', ') + '</div>' +
-        '<div class="l">' + x.khs.join(', ') + ' · kho ' + x.khos.join(', ') + ' · ' + x.when + '</div>' +
-        '<div class="k">' + x.pallets + ' pallet · ' + x.qty + '</div></div>';
-    }).join('') : '<div class="hint">' + svg('list') + 'Bạn không có phiếu Đã lưu nào.</div>') +
-    '</div>' + actBar([['back', 'Quay lại', 'b-out'], ['newsess', 'Phiên mới', 'b-lime', false, 'qr']]);
+  var body = mine.length
+    ? '<div class="slips-head"><h2>Phiếu đã lưu</h2><span class="cnt">' + mine.length + ' phiếu</span></div>' +
+      mine.map(function(x){
+        return '<button class="slipcard" type="button" data-act="openslip" data-no="' + x.no + '">' +
+          '<div class="sc-body">' +
+            '<div class="sc-top"><span class="sc-no">' + x.no + '</span>' + schip(x.st) + '</div>' +
+            '<span class="sc-reason">' + x.khs.join(', ') + '</span>' +
+            '<span class="sc-line">Kho ' + x.khos.join(', ') + ' · ' + x.dos.join(', ') + '</span>' +
+          '</div>' +
+          '<div class="sc-foot"><span class="sc-count"><b>' + x.pallets + '</b> pallet · ' + x.when + '</span>' +
+            '<span class="sc-open">Mở' + svg('chev') + '</span></div>' +
+        '</button>';
+      }).join('')
+    : '<div class="slips-empty"><span class="ei">' + svg('save') + '</span>' +
+      '<b>Chưa có phiếu đang lưu</b>' +
+      '<p>Khi đang quét giao hàng, bấm Lưu phiếu để tạo phiếu rồi mở lại quét tiếp sau. Phiếu đã gửi không hiện ở đây.</p>' +
+      '<button class="b b-lime b-sm" type="button" data-act="newsess">' + svg('list') + 'Chọn lệnh giao</button></div>';
+  return barFn('Phiếu giao hàng') + '<div class="body">' + body + '</div>' +
+    actBar([['back', 'Quay lại', 'b-out'], ['newsess', 'Phiên mới', 'b-lime', false, 'qr']]);
 };
 V.slip = function(){
   var sl = SLIPS.filter(function(x){ return x.no === S.slipNo; })[0] || SLIPS[0];
@@ -785,12 +983,9 @@ V.done = function(){
     '<div class="card"><div class="okmark">' + svg('check') + '</div>' +
     '<div class="row" style="justify-content:center"><b style="font-size:17px">' + (c.st === 'submitted' ? 'Đã gửi phiếu giao' : 'Đã lưu phiếu giao') + '</b></div>' +
     '<div class="row" style="justify-content:center"><span class="no">' + c.no + '</span>' + (c.st === 'submitted' ? '<span class="chip c-sub">Đã gửi</span>' : '<span class="chip c-draft">Đã lưu</span>') + '</div>' +
-    '<div class="mut" style="text-align:center">' + c.dos.length + ' lệnh · ' + c.khs.length + ' khách hàng · ' + c.khos.length + ' kho · ' + c.pallets + ' pallet</div></div>' +
+    '</div>' +
     '<div class="sec">DÒNG PHIẾU THEO LỆNH</div>' +
-    c.lines.map(function(x){ return '<div class="li"><div class="l"><span class="no">' + x.doNo + '</span><span class="mut">' + x.kh + ' · kho ' + x.khos + ' · ' + x.pallets + ' pallet</span></div><span class="q">' + x.qty + '</span></div>'; }).join('') +
-    (c.st === 'submitted'
-      ? '<div class="banner bn-info">Phiếu Đã gửi, chờ duyệt trên Web. Không sửa trên máy được nữa.</div>'
-      : '<div class="banner bn-info">Phiếu Đã lưu: Gửi ngay tại đây hoặc mở lại từ Phiếu đã lưu để quét tiếp. Tồn giảm và kết quả đẩy SAP khi phiếu được duyệt trên Web.</div>') +
+    c.lines.map(function(x){ return '<div class="li"><div class="l"><span class="no">' + x.doNo + '</span><span class="mut">' + x.kh + ' · kho ' + x.khos + '</span></div><span class="q">' + x.qty + '</span></div>'; }).join('') +
     '</div>' + actBar(c.st === 'submitted'
       ? [['newsess', 'Phiên mới', 'b-out'], ['todolist', 'Về danh sách', 'b-lime']]
       : [['newsess', 'Phiên mới', 'b-out'], ['submitdone', 'Gửi phiếu', 'b-lime', false, 'check']]);
@@ -935,18 +1130,16 @@ var STEPS = [
   ['slip', 'Chi tiết phiếu', 'Lưu']
 ];
 var NOTES = {
-  groups: {h:'Đường vào', li:['Giữ nguyên cây menu của app hiện tại: Nhóm công việc → Quản lý hàng hóa → Giao hàng.', 'App dev đã có sẵn mục Giao hàng ở đây, kèm số việc Đã gửi.']},
-  group_goods: {h:'Quản lý hàng hóa', li:['Ba chức năng: Nhập kho thành phẩm, Giao hàng, Hàng khách trả.', 'Mapping pallet và Tách pallet bị ẩn khỏi menu (To-be, mục ảnh hưởng hệ thống).']},
-  line: {h:'Chi tiết dòng hàng', li:['Chạm một mặt hàng để xem các pallet đã lấy cho Item đó và bỏ bớt nếu quét nhầm.', 'Hiện kho lấy hàng, SL yêu cầu, đã giao trước đó, phiên này đã lấy, còn cần giao.']},
-  do_list: {h:'Chọn DO trước khi quét', li:['Máy không phân biệt lệnh đồng bộ từ SAP hay tạo tại WMS: người kho quét tem như nhau. Cột Nguồn chỉ nằm bên Web (A1).', 'Một DO mang nhiều khách hàng, nhiều kho: khách hàng, kho, ngày giao dự kiến nằm trên từng Item như màn chi tiết DO bên web. Thẻ DO liệt kê đầy đủ khách hàng và số SO của các Item, không rút gọn.', 'DO-SAP-81692475 có Item 30 của DORCO EUROPE ở kho 5003 để thử.', 'Lệnh tạo tại WMS (DO-5000-2601-00001) không có Vina SO; tem được gán vào Item ngay lúc tạo lệnh nên quét vẫn vào đúng dòng.', 'Kho trên lệnh SAP chỉ là kho dự kiến, không dùng để chặn tem lúc quét (F2, Q30).']},
-  do_scan: {h:'Quét QR lệnh', li:['App hiện tại bắt buộc quét QR DO trước khi quét tem. Giữ lại làm đường vào nhanh.', 'Lệnh từ SAP không in QR nên thực tế sẽ gõ số hoặc chọn trong danh sách.']},
-  scan: {h:'Màn quét tem', li:['Thanh phiên trên cùng: số lệnh, số pallet, số kho. Thêm DO và Chuyển DO như bên nhập kho.', 'Không khóa kho của phiên: một phiếu giao chứa nhiều kho, nhiều khách hàng (chốt 28/10, X05, GH04).', 'Tem thuộc DO khác bị chặn, báo rõ DO nào rồi để người kho tự chuyển.', 'Mỗi mặt hàng hiện Item, SO, kho lấy hàng, khách hàng và SL đã lấy trên SL cần giao. Bỏ thanh phần trăm.']},
-  qty: {h:'Sheet số lượng xuất', li:['Gắn tem chạy hai tầng, theo as-is form 3010030. Tầng 1: tem đã gán sẵn vào Item lúc tạo lệnh (isMappedToThisLine) thì vào đúng Item đó, không xét SO — đường của lệnh tạo tại WMS. Tầng 2: tem chưa gán thì theo khóa mã hàng + Vina SO + ĐVT (eligibleRequestLineIds) — đường của lệnh đồng bộ SAP.', 'Nhiều dòng cùng khớp thì vào dòng số thứ tự nhỏ nhất còn thiếu SL.', 'Luật nằm ở server Block12, không ở máy: payload tem của app as-is không có trường SO.', 'Mở sheet cho mọi pallet; SL điền sẵn = số nhỏ hơn giữa khả dụng của tem và SL còn cần giao (X01, X14).', 'Sửa giảm để xuất lẻ, phần còn lại vẫn trên pallet đó (X02, X15).', 'Sheet nói thẳng tem còn bao nhiêu và đang bị phiếu nào giữ — chỗ này nới điểm chốt #21, cần xác nhận lại với team.', 'Quét lại tem đã có trong phiếu thì bị chặn, báo đã quét rồi; muốn sửa thì bỏ tem khỏi phiếu rồi quét lại (X08, GH9).']},
-  do_pick: {h:'Thêm và chuyển DO', li:['Thêm DO: lệnh Đã gửi chưa có trong phiếu, không lọc theo kho hay khách hàng.', 'Chuyển DO: các lệnh đang có trong phiếu, giống Chuyển yêu cầu bên nhập kho.']},
-  review: {h:'Kiểm tra trước khi lưu', li:['Ba nút theo khuôn chung: Lưu và Gửi ở hàng trên, Quét thêm tem và Lưu phiếu chia đôi hàng dưới. Lưu và Gửi hỏi xác nhận trước khi chuyển phiếu sang Đã gửi.', 'Gom theo lệnh giao hàng, mỗi lệnh hiện khách hàng và các kho đã lấy hàng.', 'Mỗi ô tem hiện SL lấy, kho, vị trí và dấu lẻ khi không lấy trọn pallet.', 'Bỏ tem khỏi phiếu thì SL trả về khả dụng ngay (X09).']},
-  done: {h:'Sau khi lưu', li:['Phiếu Đã lưu: Gửi ngay tại đây, hoặc mở lại từ Phiếu đã lưu để quét tiếp.', 'Gửi xong thì màn đổi thành Đã gửi và hai nút còn Phiên mới | Về danh sách.', 'Số phiếu dùng dãy GI-{YYMM}-{00001}, không gắn mã kho (B4), khớp dãy của mockup web.', 'Lưu mới chỉ giữ chỗ SL trên tem; duyệt làm trên Web rồi mới trừ tồn và đẩy SAP (GH13).', 'PDA không duyệt.']},
-  slips: {h:'Phiếu đã lưu', li:['Lối vào là icon danh sách ở góc phải thanh tiêu đề màn Lệnh giao hàng, badge đếm số phiếu Đã lưu của người đang dùng máy.', 'Chỉ liệt kê phiếu Đã lưu do chính người đó tạo. Phiếu đã gửi và phiếu của người khác không hiện — dữ liệu mẫu có GI-2601-00008 của người khác để thấy nó bị ẩn.', 'Bấm vào thẻ để mở chi tiết phiếu, không gửi thẳng từ danh sách.']},
-  slip: {h:'Chi tiết phiếu', li:['Đầu phiếu và các dòng chỉ xem. Không sửa đầu phiếu, không sửa số lượng, không xóa phiếu, không duyệt — những việc đó làm trên Web.', 'Quét tiếp nạp lại tem của phiếu vào phiên và quay về màn quét; lưu lại giữ nguyên số phiếu, tem bị bỏ thì nhả giữ chỗ.', 'Tem đang bị chính phiếu này giữ thì quét lại được, không báo là phiếu khác đang giữ.', 'Gửi phiếu hỏi xác nhận rồi chuyển phiếu sang Đã gửi.']},
+  do_list: {h:'Chọn DO trước khi quét', li:['Danh sách chỉ hiện lệnh Đã gửi còn số lượng; yêu cầu Đã đóng không hiện.', 'Một DO nhiều khách hàng, nhiều kho — thông tin nằm trên từng Item; thẻ DO liệt kê đủ khách hàng và SO.', 'Kho được thêm vào khóa quét tem (cùng mã hàng, Vina SO, ĐVT).']},
+  do_scan: {h:'Quét QR lệnh', li:['Quét QR DO trước khi quét tem, giữ làm đường vào nhanh.', 'Lệnh SAP không in QR nên thực tế gõ số hoặc chọn trong danh sách.']},
+  scan: {h:'Màn quét tem', li:['Thanh phiên hiện số lệnh, số pallet, số kho; có Thêm DO và Chuyển DO.', 'Không khóa kho: một phiếu giao gồm nhiều kho, nhiều khách hàng.', 'Tem thuộc DO khác bị chặn, báo rõ DO nào để tự chuyển.']},
+  qty: {h:'Sheet số lượng xuất', li:['Tem đã gán sẵn vào Item thì vào đúng Item đó; tem chưa gán thì khớp theo mã hàng + Vina SO + ĐVT + Kho.', 'Nhiều dòng cùng khớp thì vào dòng nhỏ nhất còn thiếu SL.', 'SL điền sẵn = số nhỏ hơn giữa khả dụng của tem và SL còn cần giao; sửa giảm để xuất lẻ.', 'Quét lại tem đã có trong phiếu thì bị chặn; muốn sửa thì bỏ tem rồi quét lại.']},
+  line: {h:'Chi tiết dòng hàng', li:['Chạm một mặt hàng để xem pallet đã lấy cho Item đó và bỏ nếu quét nhầm.', 'Hiện SL yêu cầu, đã giao trước đó, phiên này đã lấy và còn cần giao.']},
+  do_pick: {h:'Thêm và chuyển DO', li:['Thêm DO: lệnh Đã gửi chưa có trong phiếu.', 'Chuyển DO: các lệnh đang có trong phiếu.']},
+  review: {h:'Kiểm tra trước khi lưu', li:['Lưu và Gửi hỏi xác nhận trước khi chuyển phiếu sang Đã gửi.', 'Gom theo lệnh giao, mỗi lệnh hiện khách hàng và kho đã lấy.', 'Bỏ tem khỏi phiếu thì SL trả về khả dụng ngay.']},
+  done: {h:'Sau khi lưu', li:['Phiếu Đã lưu: Gửi ngay tại đây hoặc mở lại từ Phiếu đã lưu để quét tiếp. Tồn giảm và đẩy SAP khi phiếu được duyệt trên Web.', 'Phiếu Đã gửi thì chờ duyệt trên Web, không sửa trên máy được nữa.', 'Số phiếu dạng GI-{YYMM}-{00001}, không gắn mã kho.', 'Lưu mới chỉ giữ chỗ SL; PDA không duyệt.']},
+  slips: {h:'Phiếu đã lưu', li:['Vào từ icon danh sách ở góc phải thanh tiêu đề, badge đếm phiếu Đã lưu.', 'Chỉ hiện phiếu Đã lưu của chính người dùng; phiếu đã gửi và của người khác không hiện.', 'Bấm thẻ để mở chi tiết, không gửi thẳng từ danh sách.']},
+  slip: {h:'Chi tiết phiếu', li:['Đầu phiếu và các dòng chỉ xem; sửa, xóa, duyệt làm trên Web.', 'Quét tiếp nạp lại tem vào phiên; lưu lại giữ nguyên số phiếu.', 'Gửi phiếu hỏi xác nhận rồi chuyển sang Đã gửi.']},
 };
 var DEMO = {
   do_scan: [['DO-SAP-81692474', 'MERCADONA · kho 5000'], ['DO-SAP-81698792', 'DORCO EUROPE · kho 5003']],
@@ -1005,9 +1198,11 @@ function render(){
       g[1].map(function(d){ return '<button class="b b-out b-sm" type="button" data-act="demo" data-code="' + d[0] + '" style="text-align:left">' + d[0] + '<small>' + d[1] + '</small></button>'; }).join('') +
       '</div></div>';
   }
-  $('notes').innerHTML = '<h3>' + n.h + '</h3><ul>' + n.li.map(function(x){ return '<li>' + x + '</li>'; }).join('') + '</ul>' +
-    (groups ? groups.map(chips).join('') : '') +
-    '<div class="src">Theo To-be DORCO (chốt 27–28/10) và khung mockup 05. Dữ liệu mẫu lấy theo mockup web 06 (nguồn plan_of_release_2026.10.03.xlsx).</div>';
+  var notesHtml = (n.h ? '<h3>' + n.h + '</h3>' : '') + (n.li.length ? '<ul>' + n.li.map(function(x){ return '<li>' + x + '</li>'; }).join('') + '</ul>' : '') +
+    (groups ? groups.map(chips).join('') : '');
+  var notesEl = $('notes');
+  notesEl.innerHTML = notesHtml;
+  notesEl.style.display = notesHtml.trim() ? '' : 'none';
 }
 document.addEventListener('click', function(e){
   var g = e.target.closest('[data-go]');
