@@ -9,7 +9,9 @@
   "use strict";
   var MENU = window.TSD_MENU || [];
   var I18N = window.I18N || { tr: function (s) { return s; }, apply: function () {}, switcher: function () { return document.createElement("span"); } };
-  var T = I18N.tr;
+  /* Khung dựng bằng tiếng Việt; I18N.first() dịch sau, nên đổi ngôn ngữ không cần tải lại trang */
+  var T = function (s) { return s; };
+  var ALL = I18N.all || T;
   var body = document.body;
   var ROOT = body.getAttribute("data-root") || "";
   var PAGE = body.getAttribute("data-page") || "";
@@ -58,10 +60,10 @@
       var cls = "nav" + (it.soon ? " is-soon" : "") + (it.page === PAGE && it.page !== "home" ? " is-page" : "");
       var hash = it.href.split("#")[1];
       nav += '<a class="' + cls + '" href="' + esc(link(it)) + '"' + (it.page === PAGE && hash ? ' data-spy="' + hash + '"' : "") +
-        ' data-key="' + esc(fold(it.no + " " + it.title + " " + T(it.title))) + '"><i>' + esc(it.no) + "</i><span>" + esc(T(it.title)) + "</span></a>";
+        ' data-key="' + esc(fold(it.no + " " + ALL(it.title))) + '"><i>' + esc(it.no) + "</i><span>" + esc(T(it.title)) + "</span></a>";
       (it.screens || []).forEach(function (s) {
         nav += '<a class="nav sub" href="' + esc(link(it, s.id)) + '" data-parent="' + esc(it.page) + '"' + (it.page === PAGE ? ' data-spy="' + esc(s.id) + '"' : "") +
-          ' data-key="' + esc(fold(s.no + " " + s.title + " " + T(s.title) + " " + it.title)) + '"><i>' + esc(s.no) + "</i><span>" + esc(T(s.title)) + "</span></a>";
+          ' data-key="' + esc(fold(s.no + " " + ALL(s.title) + " " + ALL(it.title))) + '"><i>' + esc(s.no) + "</i><span>" + esc(T(s.title)) + "</span></a>";
       });
     });
   });
@@ -203,7 +205,7 @@
   });
 
   /* ---------- Dịch nội dung trang (EN/KO) ---------- */
-  I18N.apply(main);
+  (I18N.first || I18N.apply)(document.body);
 
   /* ---------- In ---------- */
   $$("[data-print]").forEach(function (b) { b.addEventListener("click", function () { window.print(); }); });

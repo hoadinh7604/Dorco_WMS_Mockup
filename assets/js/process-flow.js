@@ -120,10 +120,15 @@
     Array.prototype.forEach.call(document.querySelectorAll('[data-process-flow]'), function (el) {
       var data = App._data[el.getAttribute('data-process-flow')];
       if (!data) { el.innerHTML = '<p class="sub">' + I.tr('Chưa nạp được dữ liệu sơ đồ.') + '</p>'; return; }
-      el.innerHTML = render(data);
+      function draw() {
+        el.innerHTML = render(data);
+        el.querySelector('.pf-fit').addEventListener('click', function () { fitOn = !fitOn; fit(el); });
+        fit(el);
+      }
       el.classList.add('pf-root');
-      el.querySelector('.pf-fit').addEventListener('click', function () { fitOn = !fitOn; fit(el); });
-      fit(el);
+      el.setAttribute('data-i18n-skip', '');
+      draw();
+      if (I.onChange) I.onChange(draw);
       window.addEventListener('resize', function () { fit(el); });
     });
   }

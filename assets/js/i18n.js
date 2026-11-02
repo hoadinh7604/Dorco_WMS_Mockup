@@ -6,6 +6,10 @@
  * Muốn dịch thêm: thêm một dòng vào DICT. Không cần sửa HTML.
  * Câu có thẻ lồng bên trong (span...): gắn data-i18n-html="khóa" và thêm khóa vào HTML_DICT.
  * Trang nạp file này trước menu.js; layout.js gọi I18N.apply() sau khi dựng khung.
+ * Bản dịch nội dung các trang mục nằm ở i18n-pages.js (nạp trước file này), gộp vào DICT khi chạy.
+ * Đổi ngôn ngữ không cần tải lại trang: script nhớ chữ tiếng Việt gốc của từng đoạn rồi dịch lại.
+ * Đoạn nào do script khác tự vẽ theo ngôn ngữ (vd. sơ đồ quy trình) thì gắn data-i18n-skip
+ * và đăng ký I18N.onChange(fn) để vẽ lại khi đổi ngôn ngữ.
  */
 (function () {
   "use strict";
@@ -194,12 +198,33 @@
       '흥옌과 하남을 위한 공통 솔루션입니다. 두 공장 간 차이는 <span class="pl hy">HY</span> <span class="pl hn">HN</span> 라벨로 표시합니다.']
   };
 
-  /* Tra một câu tiếng Việt, trả về bản dịch (hoặc chính nó) */
+  /* Bản dịch nội dung trang (i18n-pages.js); DICT ở trên được ưu tiên nếu trùng khóa */
+  var EXTRA = window.I18N_PAGES || {};
+  for (var ek in EXTRA) if (EXTRA.hasOwnProperty(ek) && !DICT.hasOwnProperty(ek)) DICT[ek] = EXTRA[ek];
+
+  function look(k) { var d = DICT[k]; return d && d[IDX[lang]] ? d[IDX[lang]] : null; }
+  var SEPS = [" › ", " – ", " · "];
+  /* Tra một câu tiếng Việt, trả về bản dịch (hoặc chính nó).
+     Câu không có nguyên văn trong bảng thì thử bỏ số mục phía trước ("2.1 ", "A. ")
+     hoặc tách theo dấu › – · rồi dịch từng phần. */
   function tr(vi) {
     if (lang === "vi" || vi == null) return vi;
-    var k = String(vi).trim(), d = DICT[k];
-    if (!d || !d[IDX[lang]]) return vi;
-    return String(vi).replace(k, d[IDX[lang]]);
+    var s = String(vi), k = s.trim();
+    if (!k) return vi;
+    var d = look(k);
+    if (d) return s.replace(k, d);
+    var m = k.match(/^((?:[A-Z]|\d+(?:\.\d+)*)\.?\s+)(.+)$/);
+    if (m && (d = look(m[2]))) return s.replace(k, m[1] + d);
+    if (/›/.test(k)) {
+      var segs = k.split(/(\s*›\s*)/), joined = segs.map(function (p, j) { return j % 2 || !p.trim() ? p : tr(p); }).join("");
+      if (joined !== k) return s.replace(k, joined);
+    }
+    for (var i = 0; i < SEPS.length; i++) {
+      if (k.indexOf(SEPS[i]) < 0) continue;
+      var parts = k.split(SEPS[i]), out = parts.map(function (p) { return p.trim() ? tr(p) : p; }).join(SEPS[i]);
+      if (out !== k) return s.replace(k, out);
+    }
+    return vi;
   }
   /* Chọn bản theo ngôn ngữ từ {vi,en,ko} */
   function pick(x) {
@@ -207,31 +232,100 @@
     if (typeof x !== "object") return tr(x);
     return x[lang] != null && x[lang] !== "" ? x[lang] : (x.vi != null ? x.vi : "");
   }
+  /* Cả ba ngôn ngữ của một câu, dùng cho ô tìm kiếm */
+  function all(vi) {
+    var d = DICT[String(vi == null ? "" : vi).trim()];
+    return [vi].concat(d || []).join(" ");
+  }
 
+  /* Nhớ chữ gốc (tiếng Việt) để dịch lại khi đổi ngôn ngữ mà không tải lại trang.
+     Nếu script khác đã sửa chữ sau lần dịch trước thì lấy chữ mới làm gốc. */
+  var TXT = new WeakMap(), ATT = new WeakMap(), HTM = new WeakMap();
   var ATTRS = ["title", "placeholder", "alt", "aria-label"];
+  function skip(e) { return !e || /^(SCRIPT|STYLE|NOSCRIPT|TEXTAREA)$/.test(e.nodeName) || (e.closest && e.closest("[data-i18n-skip]")); }
+  function inHtml(e) { var h = e && e.closest && e.closest("[data-i18n-html]"); return !!(h && HTML_DICT[h.getAttribute("data-i18n-html")]); }
   function apply(root) {
-    if (lang === "vi") return;
     root = root || document.body;
+    if (!root) return;
     var w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null, false), n, list = [];
     while ((n = w.nextNode())) {
       var p = n.parentNode;
-      if (!p || /^(SCRIPT|STYLE|NOSCRIPT)$/.test(p.nodeName) || (p.closest && p.closest("[data-i18n-skip]"))) continue;
+      if (skip(p) || inHtml(p)) continue;
       if (n.nodeValue.trim()) list.push(n);
     }
-    list.forEach(function (t) { var v = tr(t.nodeValue); if (v !== t.nodeValue) t.nodeValue = v; });
-    Array.prototype.forEach.call(root.querySelectorAll("[data-i18n-html]"), function (e) {
-      var d = HTML_DICT[e.getAttribute("data-i18n-html")];
-      if (d && d[IDX[lang]]) e.innerHTML = d[IDX[lang]];
+    list.forEach(function (t) {
+      var r = TXT.get(t);
+      if (!r || t.nodeValue !== r.last) r = { o: t.nodeValue };
+      var v = tr(r.o);
+      if (v !== t.nodeValue) t.nodeValue = v;
+      r.last = v; TXT.set(t, r);
     });
-    Array.prototype.forEach.call(root.querySelectorAll("[title],[placeholder],[alt],[aria-label]"), function (e) {
-      ATTRS.forEach(function (a) { if (e.hasAttribute(a)) { var v = tr(e.getAttribute(a)); if (v !== e.getAttribute(a)) e.setAttribute(a, v); } });
+    var hs = Array.prototype.slice.call(root.querySelectorAll("[data-i18n-html]"));
+    if (root.matches && root.matches("[data-i18n-html]")) hs.push(root);
+    hs.forEach(function (e) {
+      var d = HTML_DICT[e.getAttribute("data-i18n-html")];
+      if (!d || skip(e)) return;
+      var r = HTM.get(e);
+      if (!r || e.innerHTML !== r.last) r = { o: e.innerHTML };
+      var v = lang === "vi" ? r.o : (d[IDX[lang]] || r.o);
+      if (v !== e.innerHTML) e.innerHTML = v;
+      r.last = e.innerHTML; HTM.set(e, r);
+    });
+    var es = Array.prototype.slice.call(root.querySelectorAll("[title],[placeholder],[alt],[aria-label]"));
+    if (root.matches && root.matches("[title],[placeholder],[alt],[aria-label]")) es.push(root);
+    es.forEach(function (e) {
+      if (skip(e)) return;
+      var m = ATT.get(e) || {};
+      ATTRS.forEach(function (a) {
+        if (!e.hasAttribute(a)) return;
+        var cur = e.getAttribute(a), r = m[a];
+        if (!r || cur !== r.last) r = { o: cur };
+        var v = tr(r.o);
+        if (v !== cur) e.setAttribute(a, v);
+        r.last = v; m[a] = r;
+      });
+      ATT.set(e, m);
     });
   }
 
+  /* Tiêu đề tab trình duyệt */
+  var titleVi = null;
+  function applyTitle() {
+    if (titleVi === null || document.title !== titleVi.last) titleVi = { o: document.title };
+    var v = tr(titleVi.o);
+    document.title = v; titleVi.last = v;
+  }
+
+  var listeners = [], boxes = [];
+  function onChange(fn) { if (typeof fn === "function") listeners.push(fn); }
+
+  /* Đổi ngôn ngữ ngay trên trang đang mở */
   function set(l) {
+    if (LANGS.indexOf(l) < 0 || l === lang) return;
+    lang = l;
     try { localStorage.setItem(KEY, l); } catch (e) {}
-    var u = location.href.replace(/([?&])lang=(vi|en|ko)&?/, "$1").replace(/[?&]$/, "");
-    location.href = u;
+    try {
+      if (/[?&]lang=/.test(location.search) && window.history && history.replaceState) {
+        var u = location.href.replace(/([?&])lang=(vi|en|ko)&?/, "$1").replace(/[?&](#|$)/, "$1");
+        history.replaceState(null, "", u);
+      }
+    } catch (e) {}
+    document.documentElement.setAttribute("lang", lang);
+    window.I18N.lang = lang;
+    listeners.forEach(function (fn) { try { fn(lang); } catch (e) { if (window.console) console.error(e); } });
+    apply(document.body);
+    applyTitle();
+    boxes.forEach(paint);
+  }
+  /* Trang khác (tab khác) đổi ngôn ngữ thì trang này đổi theo */
+  window.addEventListener("storage", function (e) { if (e.key === KEY && e.newValue && e.newValue !== lang) set(e.newValue); });
+
+  function paint(box) {
+    Array.prototype.forEach.call(box.querySelectorAll(".lang__btn"), function (b) {
+      var on = b.getAttribute("lang") === lang;
+      b.classList.toggle("is-on", on);
+      b.setAttribute("aria-pressed", on ? "true" : "false");
+    });
   }
 
   /* Nút chọn ngôn ngữ (đặt ở thanh trên, trước Trước/Sau) */
@@ -240,21 +334,26 @@
     var box = document.createElement("div");
     box.className = "lang";
     box.setAttribute("role", "group");
-    box.setAttribute("aria-label", tr("Ngôn ngữ"));
+    box.setAttribute("aria-label", "Ngôn ngữ");
+    box.setAttribute("data-i18n-skip", "");
     LANGS.forEach(function (l) {
       var b = document.createElement("button");
       b.type = "button";
-      b.className = "lang__btn" + (l === lang ? " is-on" : "");
+      b.className = "lang__btn";
       b.textContent = short[l];
       b.title = names[l];
       b.setAttribute("lang", l);
-      b.setAttribute("aria-pressed", l === lang ? "true" : "false");
-      b.addEventListener("click", function () { if (l !== lang) set(l); });
+      b.addEventListener("click", function () { set(l); });
       box.appendChild(b);
     });
+    paint(box);
+    boxes.push(box);
     return box;
   }
 
+  /* Dịch lần đầu: cả trang (khung do layout.js dựng bằng tiếng Việt + nội dung) và tiêu đề tab */
+  function first() { apply(document.body); applyTitle(); }
+
   document.documentElement.setAttribute("lang", lang);
-  window.I18N = { lang: lang, tr: tr, pick: pick, apply: apply, switcher: switcher };
+  window.I18N = { lang: lang, tr: tr, pick: pick, all: all, apply: apply, first: first, set: set, onChange: onChange, switcher: switcher };
 })();
