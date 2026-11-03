@@ -19,3 +19,4 @@ Quy ước thư mục: mỗi mục một thư mục (01-master-data, 02-quy-trin
 | 01-master-data/4.png | Đã sửa | 2026-10-30 |
 | 01-master-data/5.png | Đã sửa | 2026-10-30 |
 | 01-master-data/6.png | Đã sửa | 2026-10-30 |
+| 01-master-data/3.png | Đã sửa | 2026-11-03 |
