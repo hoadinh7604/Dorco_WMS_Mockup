@@ -783,60 +783,154 @@ App.data('processes', {
       "id": "p8",
       "number": "8",
       "color": "slate",
-      "title": { "vi": "Quy trình kiểm kê", "en": "Stocktaking process", "ko": "재고실사 프로세스" },
-      "subtitle": { "vi": "Hằng tháng, bằng PDA", "en": "Monthly, with PDA", "ko": "월간, PDA 사용" },
+      "title": {
+        "vi": "Quy trình kiểm kê",
+        "en": "Stocktaking process",
+        "ko": "재고실사 프로세스"
+      },
+      "subtitle": {
+        "vi": "Theo kỳ (hằng tháng), quét tem bằng PDA",
+        "en": "By period (monthly), labels scanned with PDA",
+        "ko": "기간별(매월), PDA로 라벨 스캔"
+      },
       "layout": "stack",
+      "cols": 5,
       "groups": [
         {
           "steps": [
             {
-              "title": { "vi": "Chốt số tồn", "en": "Freeze stock", "ko": "재고 마감" },
+              "title": {
+                "vi": "Tạo kỳ và chốt số tồn",
+                "en": "Create period and freeze stock",
+                "ko": "실사 차수 생성 및 재고 마감"
+              },
               "icon": "plan",
               "systems": [
                 "WMS"
               ],
               "bullets": [
-                { "vi": "Chọn tháng kiểm kê và chốt số tồn", "en": "Select the stocktaking month and freeze the book stock", "ko": "실사 월 선택 및 장부 재고 확정" }
+                {
+                  "vi": "Tạo kỳ kiểm kê: chọn kho, ngày, phạm vi vị trí",
+                  "en": "Create a count period: select warehouse, date and location range",
+                  "ko": "실사 차수 생성: 창고, 일자, 위치 범위 선택"
+                },
+                {
+                  "vi": "Chốt số tồn theo kho, ngày và vị trí",
+                  "en": "Freeze book stock by warehouse, date and location",
+                  "ko": "창고·일자·위치별 장부 재고 마감"
+                }
               ]
             },
             {
-              "title": { "vi": "Quét tem kiểm kê", "en": "Scan count labels", "ko": "실사 라벨 스캔" },
+              "title": {
+                "vi": "Quét tem kiểm kê",
+                "en": "Scan count labels",
+                "ko": "실사 라벨 스캔"
+              },
               "icon": "pda",
               "systems": [
                 "PDA"
               ],
               "bullets": [
-                { "vi": "Thực hiện quét tem mặt hàng kiểm kê", "en": "Scan labels of counted items", "ko": "실사 품목 라벨 스캔" }
+                {
+                  "vi": "Chọn kỳ, quét vị trí đang kiểm kê, quét từng tem và nhập số lượng thực tế (khác số sổ thì bắt buộc nhập lý do)",
+                  "en": "Select the period, scan the location being counted, scan each label and enter the actual quantity (a reason is required if it differs from the book)",
+                  "ko": "차수 선택 후 실사 중인 위치 스캔, 라벨별 스캔 및 실제 수량 입력(장부와 다르면 사유 필수)"
+                },
+                {
+                  "vi": "Kiểm tra lại rồi gửi hàng loạt",
+                  "en": "Review, then submit in bulk",
+                  "ko": "검토 후 일괄 전송"
+                }
               ]
             },
             {
-              "title": { "vi": "Tổng hợp kết quả", "en": "Summarize results", "ko": "결과 집계" },
+              "title": {
+                "vi": "Tổng hợp và hoàn tất kiểm kê",
+                "en": "Summarize and complete the count",
+                "ko": "집계 및 실사 완료"
+              },
               "icon": "list",
               "systems": [
                 "WMS"
               ],
               "bullets": [
-                { "vi": "Tổng hợp kết quả kiểm kê", "en": "Summarize stocktaking results", "ko": "재고실사 결과 집계" }
+                {
+                  "vi": "Tổng hợp theo mã hàng: tồn WMS lúc chốt, số kiểm kê, chênh lệch",
+                  "en": "Summary by item code: WMS stock at freeze, counted quantity, difference",
+                  "ko": "품목 코드별 집계: 마감 시 WMS 재고, 실사 수량, 차이"
+                },
+                {
+                  "vi": "Tem chưa quét giữ trạng thái “Chưa quét”",
+                  "en": "Unscanned labels keep the status “Not scanned”",
+                  "ko": "미스캔 라벨은 “미스캔” 상태 유지"
+                }
               ]
             },
             {
-              "title": { "vi": "Duyệt điều chỉnh", "en": "Approve adjustments", "ko": "조정 승인" },
-              "icon": "check",
+              "title": {
+                "vi": "Đồng bộ SAP",
+                "en": "Sync with SAP",
+                "ko": "SAP 연동"
+              },
+              "icon": "db",
               "systems": [
                 "WMS",
                 "SAP"
               ],
               "bullets": [
-                { "vi": "Duyệt điều chỉnh tồn kho", "en": "Approve stock adjustments", "ko": "재고 조정 승인" },
-                { "vi": "Tạo phiếu nhập / xuất kho điều chỉnh tự động", "en": "Adjustment receipt / issue notes created automatically", "ko": "조정 입고·출고 전표 자동 생성" },
                 {
-                  "sync": { "vi": "Đồng bộ kết quả sang SAP", "en": "Results synced to SAP", "ko": "결과 SAP 연동" }
+                  "sync": {
+                    "vi": "Gửi hàng loạt số kiểm kê theo kho, mã hàng, kèm số kỳ (WMS → SAP)",
+                    "en": "Send counted quantities in bulk by warehouse and item code, with the period number (WMS → SAP)",
+                    "ko": "창고·품목 코드별 실사 수량을 차수 번호와 함께 일괄 전송 (WMS → SAP)"
+                  }
+                },
+                {
+                  "vi": "Kế toán chốt số cuối trên SAP",
+                  "en": "Accounting finalizes the closing figures in SAP",
+                  "ko": "회계팀이 SAP에서 최종 수량 확정"
+                },
+                {
+                  "sync": {
+                    "vi": "SAP tự đẩy số cuối về WMS, có tham chiếu số kỳ (SAP → WMS)",
+                    "en": "SAP pushes the final figures back to WMS automatically, referencing the period number (SAP → WMS)",
+                    "ko": "SAP가 최종 수량을 차수 번호 참조와 함께 WMS로 자동 전송 (SAP → WMS)"
+                  }
+                }
+              ]
+            },
+            {
+              "title": {
+                "vi": "Điều chỉnh tồn",
+                "en": "Adjust stock",
+                "ko": "재고 조정"
+              },
+              "icon": "check",
+              "systems": [
+                "WMS"
+              ],
+              "bullets": [
+                {
+                  "vi": "Hệ thống tự tạo phiếu điều chỉnh (đã duyệt) cho mã hàng có số SAP khác sổ WMS lúc chốt",
+                  "en": "The system auto-creates (approved) adjustment slips for item codes whose SAP figure differs from the WMS book at freeze",
+                  "ko": "SAP 수량이 마감 시 WMS 장부와 다른 품목 코드에 대해 조정 전표(승인됨)를 자동 생성"
+                },
+                {
+                  "vi": "Tem gắn tự động theo kết quả kiểm kê; phần chênh lệch còn lại gán tem thủ công",
+                  "en": "Labels are linked automatically from the count result; any remaining difference is assigned to labels manually",
+                  "ko": "실사 결과에 따라 라벨 자동 연결, 남은 차이는 라벨에 수동 지정"
                 }
               ]
             }
           ]
         }
-      ]
+      ],
+      "note": {
+        "vi": "Tích hợp hệ thống: WMS → SAP kết quả kiểm kê (hàng loạt, theo kỳ, kho, mã hàng); SAP → WMS số kế toán đã chốt (tự động, có tham chiếu kỳ).",
+        "en": "System integration: WMS → SAP count results (in bulk, by period, warehouse, item code); SAP → WMS finalized accounting figures (automatic, with period reference).",
+        "ko": "시스템 연동: WMS → SAP 실사 결과(일괄, 차수·창고·품목 코드별); SAP → WMS 회계 확정 수량(자동, 차수 참조)."
+      }
     }
   ],
   "panels": {
