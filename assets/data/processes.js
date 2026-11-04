@@ -673,12 +673,14 @@ App.data('processes', {
               "title": { "vi": "Yêu cầu chuyển kho", "en": "Transfer request", "ko": "창고 이동 요청" },
               "icon": "req",
               "systems": [
+                "SAP",
                 "WMS"
               ],
               "bullets": [
-                { "vi": "Chọn loại chuyển giữa hai kho (WH → WH)", "en": "Select transfer type between warehouses (WH → WH)", "ko": "창고 간 이동 유형 선택 (WH → WH)" },
-                { "vi": "Nhập kho nguồn – đích, lý do chuyển, người phụ trách", "en": "Enter source – destination, reason, person in charge", "ko": "출발·도착 창고, 사유, 담당자 입력" },
-                { "vi": "Mặt hàng và số lượng yêu cầu", "en": "Items and requested quantities", "ko": "품목 및 요청 수량" }
+                { "vi": "Lập yêu cầu chuyển kho trên SAP", "en": "Create the transfer request in SAP", "ko": "SAP에서 창고 이동 요청 생성" },
+                {
+                  "sync": { "vi": "Đồng bộ yêu cầu sang WMS", "en": "Request synced to WMS", "ko": "요청 WMS 연동" }
+                }
               ]
             },
             {
@@ -912,9 +914,9 @@ App.data('processes', {
               ],
               "bullets": [
                 {
-                  "vi": "Hệ thống tự tạo phiếu điều chỉnh (đã duyệt) cho mã hàng có số SAP khác sổ WMS lúc chốt",
-                  "en": "The system auto-creates (approved) adjustment slips for item codes whose SAP figure differs from the WMS book at freeze",
-                  "ko": "SAP 수량이 마감 시 WMS 장부와 다른 품목 코드에 대해 조정 전표(승인됨)를 자동 생성"
+                  "vi": "Điều chỉnh các sai lệch kiểm kê theo tem (số lượng, vị trí, kho): lập phiếu điều chỉnh, trình duyệt, duyệt rồi ghi sổ tồn WMS",
+                  "en": "Adjust count discrepancies by label (quantity, location, warehouse): create an adjustment slip, submit it for approval, approve it, then post to the WMS stock book",
+                  "ko": "실사 차이를 라벨 기준(수량, 위치, 창고)으로 조정: 조정 전표 작성, 승인 요청, 승인 후 WMS 재고 장부에 반영"
                 },
                 {
                   "vi": "Tem gắn tự động theo kết quả kiểm kê; phần chênh lệch còn lại gán tem thủ công",
