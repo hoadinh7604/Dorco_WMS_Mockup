@@ -86,3 +86,6 @@ Quy ước thư mục: mỗi mục một thư mục (01-master-data, 02-quy-trin
 | 09-kiem-ke/5-dieuchinh-xem.png | Đã sửa (v12) | 2026-11-06 |
 | 09-kiem-ke/4-hoan-tat.png | Mới | 2026-11-06 |
 | 09-kiem-ke/5-dieuchinh-phan-bo.png | Mới | 2026-11-06 |
+| 01-master-data/1.png | Đã sửa | 2026-11-06 |
+| 01-master-data/2.png | Đã sửa | 2026-11-06 |
+| 01-master-data/3.png | Đã sửa | 2026-11-06 |
