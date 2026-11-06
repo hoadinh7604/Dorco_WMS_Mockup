@@ -206,6 +206,16 @@ a.nav-link:hover { color: #000; }
 .lbl-link { color:#2563eb; font-weight:700; text-decoration:underline; cursor:pointer; }
 .lbl-link:hover { color:#1d4ed8; }
 .hist-note { font-size:12px; color:#6b7280; padding:10px 16px 0; }
+
+/* ===== Rail menu chuẩn (v2) ===== */
+.rx{width:100%;display:flex;flex-direction:column;align-items:center;gap:6px;padding:9px 4px;color:#9aa6b8;cursor:pointer;font-size:11px;line-height:1.25;text-align:center;font-weight:400;background:none;border:0;box-sizing:border-box}
+.rx .rx-ic{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;background:none;margin:0}
+.rx svg{width:19px;height:19px;stroke:#9aa6b8;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;margin:0;padding:0;background:none}
+.rx .rx-lb{font-size:11px;color:inherit;font-weight:inherit;line-height:1.25}
+.rx:hover{color:#fff}.rx:hover svg{stroke:#fff}
+.rx.on{color:#fff;font-weight:700}
+.rx.on .rx-ic{background:#3d4f1c}
+.rx.on svg{stroke:#a4ce4c}
 </style>
 </head>
 <body>
@@ -217,17 +227,15 @@ a.nav-link:hover { color: #000; }
       <div class="nav-logo"><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 2 7l10 5 10-5-10-5z" fill="#5bc0f8"/><path d="M2 7v10l10 5V12L2 7z" fill="#06274f"/><path d="M22 7v10l-10 5V12l10-5z" fill="#2e86d8"/></svg><span><span class="wd">Dorco</span><span class="ww">WMS</span></span></div>
       <div class="nav-body">
         <div class="nav-rail">
-          <div class="rail-item"><span class="rail-ico">🔍</span><span>Search Menu</span></div>
-          <div class="rail-item"><span class="rail-ico">⚙️</span><span>Thiết lập chung</span></div>
-          <div class="rail-item"><span class="rail-ico">🛒</span><span>Bán hàng</span></div>
-          <div class="rail-item"><span class="rail-ico">🛍️</span><span>Mua hàng</span></div>
-          <div class="rail-item active"><span class="rail-ico">📦</span><span>Quản lý hàng hóa</span></div>
-          <div class="rail-item"><span class="rail-ico">🔄</span><span>Giao dịch kho</span></div>
-          <div class="rail-item"><span class="rail-ico">▤</span><span>Điều chỉnh tồn kho</span></div>
-          <div class="rail-item"><span class="rail-ico">⚠️</span><span>Cảnh báo tồn kho</span></div>
-          <div class="rail-item"><span class="rail-ico">📊</span><span>Báo cáo</span></div>
-          <div class="rail-item"><span class="rail-ico">🏷️</span><span>Phát hành nhãn</span></div>
-          <div class="rail-collapse">◧</div>
+      <div class="rx"><span class="rx-ic"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></span><span class="rx-lb">Search<br>Menu</span></div>
+      <div class="rx"><span class="rx-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1l2-1.6-2-3.4-2.3 1a7 7 0 0 0-1.7-1l-.3-2.5H9.4l-.3 2.5a7 7 0 0 0-1.7 1l-2.3-1-2 3.4 2 1.6a7 7 0 0 0 0 2l-2 1.6 2 3.4 2.3-1a7 7 0 0 0 1.7 1l.3 2.5h5.2l.3-2.5a7 7 0 0 0 1.7-1l2.3 1 2-3.4-2-1.6a7 7 0 0 0 .1-1z"/></svg></span><span class="rx-lb">Thiết lập<br>chung</span></div>
+      <div class="rx on"><span class="rx-ic"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16"/><path d="M9 14c1 1.5 5 1.5 6 0"/></svg></span><span class="rx-lb">Quản lý hàng<br>hóa</span></div>
+      <div class="rx"><span class="rx-ic"><svg viewBox="0 0 24 24"><circle cx="7" cy="7" r="2.5"/><circle cx="17" cy="17" r="2.5"/><path d="M9.5 7H14a3 3 0 0 1 3 3v4.5M14.5 17H10a3 3 0 0 1-3-3V9.5"/></svg></span><span class="rx-lb">Giao dịch kho</span></div>
+      <div class="rx"><span class="rx-ic"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M9 7v10M15 7v10"/><path d="M7.5 14h3M13.5 10h3"/></svg></span><span class="rx-lb">Điều chỉnh<br>tồn kho</span></div>
+      <div class="rx"><span class="rx-ic"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg></span><span class="rx-lb">Cảnh báo tồn<br>kho</span></div>
+      <div class="rx"><span class="rx-ic"><svg viewBox="0 0 24 24"><path d="M4 20h16"/><path d="M7 17v-5M11 17V8M15 17v-7M19 17v-3"/></svg></span><span class="rx-lb">Báo cáo</span></div>
+      <div class="rx"><span class="rx-ic"><svg viewBox="0 0 24 24"><path d="M4 5v14M7 5v14M10 5v14M12.5 5v14M15 5v14M18 5v14M20 5v14"/></svg></span><span class="rx-lb">Phát hành<br>tem</span></div>
+      <div class="rail-collapse">◧</div>
         </div>
         <div class="nav-sub">
           <div class="nav-sub-title">Quản lý hàng hóa</div>
@@ -2291,9 +2299,6 @@ window.addEventListener('scroll', function () { if (actOpen && Date.now() - actO
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();
 })();
-</script>
-<script>
-window.addEventListener("load",function(){try{var p=new URLSearchParams(location.search),t=p.get("tab");if(!t){var m=(location.hash||"").match(/tab=([\w-]+)/);t=m&&m[1];}if(!t)return;if(typeof showTab==="function")showTab(t);}catch(e){}});
 </script>
 </body>
 </html>

@@ -170,6 +170,16 @@ tr.ffgrp td{background:#F3F6EC;border-top:2px solid #d9e2c4}
 tr.ffdet>td{background:#fafbf7}
 tr.fftot td{background:#EEF2E6;border-top:2px solid #cfd9b8}
 .tb td.nw{white-space:nowrap}
+
+/* ===== Rail menu chuẩn (theo ảnh) ===== */
+.rail{width:90px}
+.rail button{color:#9aa6b8;font-size:11px;gap:6px;padding:9px 4px;line-height:1.25;font-weight:400}
+.rail button .ic{width:34px;height:34px;border-radius:9px;background:none}
+.rail button .ic svg{width:19px;height:19px;stroke:#9aa6b8;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.rail button:hover{color:#fff}.rail button:hover .ic svg{stroke:#fff}
+.rail button.on{color:#fff;font-weight:700}
+.rail button.on .ic{background:#3d4f1c}
+.rail button.on .ic svg{stroke:#a4ce4c}
 </style>
 </head>
 <body>
@@ -236,7 +246,7 @@ const chip=s=>`<span class="chip ${STCHIP[s]}">${STNAME[s]}</span>`;
 function temsAt(wh,item,loc){return TEMS.filter(t=>t.wh===wh&&t.item===item&&t.qty>0&&(!loc||t.loc===loc)).sort((a,b)=>(a.so?1:0)-(b.so?1:0)||fifoCmp(a,b));}
 function splitTem(no,take){const p=temOf(no);const c={no:newTemNo(),item:p.item,wh:p.wh,loc:p.loc,qty:take,hold:0,so:p.so,inDate:p.inDate,parent:p.no};p.qty-=take;TEMS.push(c);toast('Đã tách tem '+p.no+': tem mới '+c.no+' ('+fmt(c.qty)+'), tem gốc còn '+fmt(p.qty)+'. Tem mới giữ ngày nhập '+dmy(c.inDate)+'.');return c;}
 /* ---------- khung ---------- */
-const RAIL=[['🔍','Search Menu'],['⚙','Thiết lập chung'],['🛒','Bán hàng'],['📦','Quản lý hàng hóa'],['🔁','Giao dịch kho'],['⚖','Điều chỉnh tồn kho'],['🛡','Cảnh báo tồn kho'],['📊','Báo cáo'],['▮▮▮','Phát hành tem']];
+const RAIL=[['<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>','Search Menu'],['<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1l2-1.6-2-3.4-2.3 1a7 7 0 0 0-1.7-1l-.3-2.5H9.4l-.3 2.5a7 7 0 0 0-1.7 1l-2.3-1-2 3.4 2 1.6a7 7 0 0 0 0 2l-2 1.6 2 3.4 2.3-1a7 7 0 0 0 1.7 1l.3 2.5h5.2l.3-2.5a7 7 0 0 0 1.7-1l2.3 1 2-3.4-2-1.6a7 7 0 0 0 .1-1z"/></svg>','Thiết lập chung'],['<svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16"/><path d="M9 14c1 1.5 5 1.5 6 0"/></svg>','Quản lý hàng hóa'],['<svg viewBox="0 0 24 24"><circle cx="7" cy="7" r="2.5"/><circle cx="17" cy="17" r="2.5"/><path d="M9.5 7H14a3 3 0 0 1 3 3v4.5M14.5 17H10a3 3 0 0 1-3-3V9.5"/></svg>','Giao dịch kho'],['<svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M9 7v10M15 7v10"/><path d="M7.5 14h3M13.5 10h3"/></svg>','Điều chỉnh tồn kho'],['<svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg>','Cảnh báo tồn kho'],['<svg viewBox="0 0 24 24"><path d="M4 20h16"/><path d="M7 17v-5M11 17V8M15 17v-7M19 17v-3"/></svg>','Báo cáo'],['<svg viewBox="0 0 24 24"><path d="M4 5v14M7 5v14M10 5v14M12.5 5v14M15 5v14M18 5v14M20 5v14"/></svg>','Phát hành tem']];
 const SUB=['Nhập kho','Xuất kho','Duyệt tồn kho','Chuyển kho','Chuyển vị trí','Đổi thông tin tồn'];
 function renderNav(active){
  $('#rail').innerHTML=RAIL.map(r=>`<button class="${r[1]==='Giao dịch kho'?'on':''}" data-act="rail"><span class="ic">${r[0]}</span>${r[1]}</button>`).join('');

@@ -835,9 +835,9 @@ App.data('processes', {
               ],
               "bullets": [
                 {
-                  "vi": "Chọn kỳ, quét vị trí đang kiểm kê, quét từng tem và nhập số lượng thực tế (khác số sổ thì bắt buộc nhập lý do)",
-                  "en": "Select the period, scan the location being counted, scan each label and enter the actual quantity (a reason is required if it differs from the book)",
-                  "ko": "차수 선택 후 실사 중인 위치 스캔, 라벨별 스캔 및 실제 수량 입력(장부와 다르면 사유 필수)"
+                  "vi": "Chọn kỳ, quét vị trí đang kiểm kê, quét từng tem và xác nhận số lượng thực tế (điền sẵn theo sổ, sửa nếu đếm khác); không quét được tem thì chọn tem trong vị trí",
+                  "en": "Select the period, scan the location being counted, scan each label and confirm the actual quantity (pre-filled with the book quantity, edit if the count differs); if a label cannot be scanned, select it from the location",
+                  "ko": "차수 선택 후 실사 중인 위치 스캔, 라벨별 스캔 및 실제 수량 확인(장부 수량 미리 입력, 다르면 수정). 라벨을 스캔할 수 없으면 위치 내 라벨 선택"
                 },
                 {
                   "vi": "Kiểm tra lại rồi gửi hàng loạt",
@@ -889,9 +889,9 @@ App.data('processes', {
                   }
                 },
                 {
-                  "vi": "Kế toán chốt số cuối trên SAP",
-                  "en": "Accounting finalizes the closing figures in SAP",
-                  "ko": "회계팀이 SAP에서 최종 수량 확정"
+                  "vi": "Kế toán chốt số cuối trên SAP (mã hàng chưa kiểm kê được gửi với số kiểm kê bằng 0)",
+                  "en": "Accounting finalizes the closing figures in SAP (items not counted are sent with a counted qty of 0)",
+                  "ko": "회계팀이 SAP에서 최종 수량 확정 (미실사 품목은 실사 수량 0으로 전송)"
                 },
                 {
                   "sync": {
@@ -919,9 +919,9 @@ App.data('processes', {
                   "ko": "실사 차이를 라벨 기준(수량, 위치, 창고)으로 조정: 조정 전표 작성, 승인 요청, 승인 후 WMS 재고 장부에 반영"
                 },
                 {
-                  "vi": "Tem gắn tự động theo kết quả kiểm kê; phần chênh lệch còn lại gán tem thủ công",
-                  "en": "Labels are linked automatically from the count result; any remaining difference is assigned to labels manually",
-                  "ko": "실사 결과에 따라 라벨 자동 연결, 남은 차이는 라벨에 수동 지정"
+                  "vi": "Chênh lệch từng mã hàng (tồn kế toán SAP − tồn WMS) được phân bổ xuống tem; tổng phân bổ phải bằng chênh lệch, tồn sau điều chỉnh không âm",
+                  "en": "The difference of each item (SAP accounting stock − WMS stock) is allocated to labels; the total allocation must equal the difference and stock after adjustment must not be negative",
+                  "ko": "품목별 차이(SAP 회계 재고 − WMS 재고)를 라벨에 배분하며 배분 합계는 차이와 같아야 하고 조정 후 재고는 음수가 될 수 없음"
                 }
               ]
             }

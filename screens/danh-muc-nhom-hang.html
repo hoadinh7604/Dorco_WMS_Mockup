@@ -59,7 +59,7 @@
   .body{display:flex;flex:1;min-height:0;}
 
   /* icon rail */
-  .rail{width:92px;background:var(--navy-rail);flex:none;overflow-y:auto;padding:6px 8px 20px;}
+  .rail{width:92px;background:var(--navy-rail);flex:none;overflow-y:auto;padding:6px 0 20px;}
   .rail::-webkit-scrollbar{width:0;}
   .rail-item{display:flex;flex-direction:column;align-items:center;gap:6px;padding:11px 4px;border-radius:12px;color:#aeb9c9;cursor:pointer;text-align:center;line-height:1.2;}
   .rail-item span{font-size:10.5px;font-weight:500;}
@@ -198,6 +198,16 @@
   .add-text{border:1px solid #d8dce1;background:#f3f4f6;color:#9aa3af;border-radius:8px;padding:0 16px;font-size:13px;font-weight:600;cursor:not-allowed;font-family:inherit;}
   .reserved{color:#9aa3af;font-size:12px;margin-top:9px;}
   .gen-box{border:1px solid var(--line);background:#f8f9fb;border-radius:10px;padding:14px 16px;color:#6b7280;font-size:13.5px;letter-spacing:.3px;}
+
+/* ===== Rail menu chuẩn (v2) ===== */
+.rx{width:100%;display:flex;flex-direction:column;align-items:center;gap:6px;padding:9px 4px;color:#9aa6b8;cursor:pointer;font-size:11px;line-height:1.25;text-align:center;font-weight:400;background:none;border:0;box-sizing:border-box}
+.rx .rx-ic{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;background:none;margin:0}
+.rx svg{width:19px;height:19px;stroke:#9aa6b8;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;margin:0;padding:0;background:none}
+.rx .rx-lb{font-size:11px;color:inherit;font-weight:inherit;line-height:1.25}
+.rx:hover{color:#fff}.rx:hover svg{stroke:#fff}
+.rx.on{color:#fff;font-weight:700}
+.rx.on .rx-ic{background:#3d4f1c}
+.rx.on svg{stroke:#a4ce4c}
 </style>
 </head>
 <body>
@@ -233,15 +243,15 @@
 
     <!-- icon rail -->
     <nav class="rail">
-      <div class="rail-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><span>Search Menu</span></div>
-      <div class="rail-item active"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-2.7 1.1V21a2 2 0 1 1-4 0v-.2A1.6 1.6 0 0 0 7 19.3a1.6 1.6 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1A1.6 1.6 0 0 0 3 15a1.6 1.6 0 0 0-1.5-1H1a2 2 0 1 1 0-4h.2A1.6 1.6 0 0 0 3 9a1.6 1.6 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1A1.6 1.6 0 0 0 7 4.6 1.6 1.6 0 0 0 8 3V1a2 2 0 1 1 4 0v.2A1.6 1.6 0 0 0 15 3a1.6 1.6 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1A1.6 1.6 0 0 0 21 9h.2a2 2 0 1 1 0 4H21a1.6 1.6 0 0 0-1.5 1z" transform="scale(.82) translate(2.6 2.6)"/></svg><span>Thiết lập chung</span></div>
-      <div class="rail-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M21 16V8a2 2 0 0 0-1-1.7l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.7l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/></svg><span>Quản lý hàng hóa</span></div>
-      <div class="rail-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M9.5 13.5a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1.5 1.5"/><path d="M14.5 10.5a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1.5-1.5"/></svg><span>Giao dịch kho</span></div>
-      <div class="rail-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 6h11M18 6h3M3 12h3M10 12h11M3 18h8M15 18h6"/><circle cx="16" cy="6" r="2"/><circle cx="8" cy="12" r="2"/><circle cx="13" cy="18" r="2"/></svg><span>Điều chỉnh tồn kho</span></div>
-      <div class="rail-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 3 5 6v5c0 4 3 7 7 9 4-2 7-5 7-9V6z"/><path d="m9 12 2 2 4-4"/></svg><span>Cảnh báo tồn kho</span></div>
-      <div class="rail-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 3v18h18"/><rect x="7" y="12" width="3" height="6"/><rect x="12" y="8" width="3" height="10"/><rect x="17" y="5" width="3" height="13"/></svg><span>Báo cáo</span></div>
-      <div class="rail-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 5v14M7 5v14M10 5v14M14 5v14M17 5v14M21 5v14"/></svg><span>Phát hành nhãn</span></div>
-    </nav>
+      <div class="rx"><span class="rx-ic"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></span><span class="rx-lb">Search<br>Menu</span></div>
+      <div class="rx on"><span class="rx-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1l2-1.6-2-3.4-2.3 1a7 7 0 0 0-1.7-1l-.3-2.5H9.4l-.3 2.5a7 7 0 0 0-1.7 1l-2.3-1-2 3.4 2 1.6a7 7 0 0 0 0 2l-2 1.6 2 3.4 2.3-1a7 7 0 0 0 1.7 1l.3 2.5h5.2l.3-2.5a7 7 0 0 0 1.7-1l2.3 1 2-3.4-2-1.6a7 7 0 0 0 .1-1z"/></svg></span><span class="rx-lb">Thiết lập<br>chung</span></div>
+      <div class="rx"><span class="rx-ic"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16"/><path d="M9 14c1 1.5 5 1.5 6 0"/></svg></span><span class="rx-lb">Quản lý hàng<br>hóa</span></div>
+      <div class="rx"><span class="rx-ic"><svg viewBox="0 0 24 24"><circle cx="7" cy="7" r="2.5"/><circle cx="17" cy="17" r="2.5"/><path d="M9.5 7H14a3 3 0 0 1 3 3v4.5M14.5 17H10a3 3 0 0 1-3-3V9.5"/></svg></span><span class="rx-lb">Giao dịch kho</span></div>
+      <div class="rx"><span class="rx-ic"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M9 7v10M15 7v10"/><path d="M7.5 14h3M13.5 10h3"/></svg></span><span class="rx-lb">Điều chỉnh<br>tồn kho</span></div>
+      <div class="rx"><span class="rx-ic"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg></span><span class="rx-lb">Cảnh báo tồn<br>kho</span></div>
+      <div class="rx"><span class="rx-ic"><svg viewBox="0 0 24 24"><path d="M4 20h16"/><path d="M7 17v-5M11 17V8M15 17v-7M19 17v-3"/></svg></span><span class="rx-lb">Báo cáo</span></div>
+      <div class="rx"><span class="rx-ic"><svg viewBox="0 0 24 24"><path d="M4 5v14M7 5v14M10 5v14M12.5 5v14M15 5v14M18 5v14M20 5v14"/></svg></span><span class="rx-lb">Phát hành<br>tem</span></div>
+      </nav>
 
     <!-- submenu -->
     <div class="submenu">
@@ -316,7 +326,7 @@
               <tr>
                 <th><div class="th-in">Mã nhóm mặt hàng <span class="sort">▴▾</span><span class="kebab">⋮</span></div></th>
                 <th><div class="th-in">Tên nhóm mặt hàng <span class="sort">▴▾</span><span class="kebab">⋮</span></div></th>
-                <th><div class="th-in">Diễn giải <span class="sort">▴▾</span><span class="kebab">⋮</span></div></th>
+                <th><div class="th-in">Loại hàng <span class="sort">▴▾</span><span class="kebab">⋮</span></div></th>
                 <th><div class="th-in">Trạng thái <span class="sort">▴▾</span><span class="kebab">⋮</span></div></th>
                 <th style="width:100px;"><div class="th-in">Thao tác</div></th>
               </tr>
@@ -351,8 +361,8 @@
            <div class="grid3">
              <div class="field"><label>Mã nhóm mặt hàng <span class="req">*</span></label><input value="ABC04"></div>
              <div class="field"><label>Tên nhóm mặt hàng <span class="req">*</span></label><input placeholder="Nhập tên nhóm mặt hàng rõ ràng."></div>
-             <div class="field"><label>Danh mục mặt hàng <span class="req">*</span></label><div class="select">[ABC] ABC<span class="dd">▾</span></div></div>
-             <div class="field"><label>Loại mặt hàng</label><div class="select placeholder">Chọn Loại mặt hàng<span class="dd">▾</span></div></div>
+             <div class="field"><label>Danh mục loại hàng <span class="req">*</span></label><div class="select">[ABC] ABC<span class="dd">▾</span></div></div>
+             <div class="field"><label>Loại mặt hàng <span class="req">*</span></label><div class="select placeholder">Chọn Loại mặt hàng<span class="dd">▾</span></div></div>
              <div class="field"><label>Đơn vị cơ sở</label><div class="select placeholder">Chọn Đơn vị cơ sở<span class="dd">▾</span></div></div>
              <div class="field"><label>Trạng thái</label>
                <div class="toggle"><div class="tg-opt active">Hoạt động</div><div class="tg-opt">Không hoạt động</div></div>
@@ -478,7 +488,7 @@
       <tr>
         <td class="code">${r[0]}</td>
         <td>${r[1]}</td>
-        <td>${r[2]}</td>
+        <td>${r[4]}</td>
         <td><span class="status"><span class="sd"></span>Hoạt động</span></td>
         <td class="c-act"><span class="row-act">${kebab}</span></td>
       </tr>`).join('');

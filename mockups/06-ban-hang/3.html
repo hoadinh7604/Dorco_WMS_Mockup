@@ -67,13 +67,13 @@ button{cursor:pointer}
 :focus-visible{outline:2px solid var(--primary);outline-offset:2px;border-radius:4px}
 
 /* ---------- khung nav (giống 3010050) ---------- */
-.navzone{width:274px;flex:none;background:var(--rail-bg);height:100vh;position:sticky;top:0;display:flex;flex-direction:column;overflow:hidden}
+.navzone{width:300px;flex:none;background:var(--rail-bg);height:100vh;position:sticky;top:0;display:flex;flex-direction:column;overflow:hidden}
 .navlogo{background:#ffffff;margin:12px;padding:12px 14px;border-radius:12px;display:flex;align-items:center;justify-content:center;gap:9px;flex:none}
 .navlogo .mark{width:24px;height:24px;flex:none;display:flex;align-items:center;justify-content:center;color:#2563eb}
 .navlogo span{font-weight:800;font-size:17px;color:#1f2937;letter-spacing:-.01em}
 .navlogo span b{color:#2563eb}
 .navbody{display:flex;flex:1;min-height:0}
-.rail{width:64px;flex:none;display:flex;flex-direction:column;align-items:center;padding:6px 0 10px;gap:2px}
+.rail{width:90px;flex:none;display:flex;flex-direction:column;align-items:center;padding:6px 0 10px;gap:2px}
 .rail-item{width:56px;display:flex;flex-direction:column;align-items:center;gap:5px;padding:7px 2px 9px;border-radius:10px;cursor:pointer}
 .rail-item .ic{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;color:var(--rail-ink)}
 .rail-item .ic svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
@@ -246,6 +246,16 @@ button.chip-map:hover{border-color:var(--primary);color:var(--primary)}
   .fields{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 
+
+/* ===== Rail menu chuẩn (v2) ===== */
+.rx{width:100%;display:flex;flex-direction:column;align-items:center;gap:6px;padding:9px 4px;color:#9aa6b8;cursor:pointer;font-size:11px;line-height:1.25;text-align:center;font-weight:400;background:none;border:0;box-sizing:border-box}
+.rx .rx-ic{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;background:none;margin:0}
+.rx svg{width:19px;height:19px;stroke:#9aa6b8;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;margin:0;padding:0;background:none}
+.rx .rx-lb{font-size:11px;color:inherit;font-weight:inherit;line-height:1.25}
+.rx:hover{color:#fff}.rx:hover svg{stroke:#fff}
+.rx.on{color:#fff;font-weight:700}
+.rx.on .rx-ic{background:#3d4f1c}
+.rx.on svg{stroke:#a4ce4c}
 </style>
 </head>
 <body>
@@ -257,17 +267,15 @@ button.chip-map:hover{border-color:var(--primary);color:var(--primary)}
   </div>
   <div class="navbody">
     <nav class="rail" aria-label="Phân hệ">
-      <div class="rail-item" data-nope="Tìm màn hình theo tên"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div><span>Search<br>Menu</span></div>
-      <div class="rail-item" data-nope="Phân hệ Thiết lập chung — ngoài phạm vi mockup"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></div><span>Thiết lập<br>chung</span></div>
-      <div class="rail-item" data-nope="Phân hệ Bán hàng — ngoài phạm vi mockup"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></div><span>Bán hàng</span></div>
-      <div class="rail-item" data-nope="Phân hệ Mua hàng — ngoài phạm vi mockup"><div class="ic"><svg viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></div><span>Mua hàng</span></div>
-      <div class="rail-item active"><div class="ic"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div><span>Quản lý<br>hàng hóa</span></div>
-      <div class="rail-item" data-nope="Phân hệ Giao dịch kho — ngoài phạm vi mockup"><div class="ic"><svg viewBox="0 0 24 24"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div><span>Giao dịch<br>kho</span></div>
-      <div class="rail-item" data-nope="Phân hệ Điều chỉnh tồn kho — ngoài phạm vi mockup"><div class="ic"><svg viewBox="0 0 24 24"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg></div><span>Điều chỉnh<br>tồn kho</span></div>
-      <div class="rail-item" data-nope="Phân hệ Cảnh báo tồn kho — ngoài phạm vi mockup"><div class="ic"><svg viewBox="0 0 24 24"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div><span>Cảnh báo<br>tồn kho</span></div>
-      <div class="rail-item" data-nope="Phân hệ Báo cáo — ngoài phạm vi mockup"><div class="ic"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div><span>Báo cáo</span></div>
-      <div class="rail-item" data-nope="Màn 3010050 Phát hành tem — xem mockup riêng"><div class="ic"><svg viewBox="0 0 24 24"><path d="M20.59 13.41 13.42 20.58a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg></div><span>Phát hành<br>tem</span></div>
-    </nav>
+      <div class="rx" data-nope="Phân hệ Search Menu — ngoài phạm vi mockup"><span class="rx-ic"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></span><span class="rx-lb">Search<br>Menu</span></div>
+      <div class="rx" data-nope="Phân hệ Thiết lập chung — ngoài phạm vi mockup"><span class="rx-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1l2-1.6-2-3.4-2.3 1a7 7 0 0 0-1.7-1l-.3-2.5H9.4l-.3 2.5a7 7 0 0 0-1.7 1l-2.3-1-2 3.4 2 1.6a7 7 0 0 0 0 2l-2 1.6 2 3.4 2.3-1a7 7 0 0 0 1.7 1l.3 2.5h5.2l.3-2.5a7 7 0 0 0 1.7-1l2.3 1 2-3.4-2-1.6a7 7 0 0 0 .1-1z"/></svg></span><span class="rx-lb">Thiết lập<br>chung</span></div>
+      <div class="rx on"><span class="rx-ic"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16"/><path d="M9 14c1 1.5 5 1.5 6 0"/></svg></span><span class="rx-lb">Quản lý hàng<br>hóa</span></div>
+      <div class="rx" data-nope="Phân hệ Giao dịch kho — ngoài phạm vi mockup"><span class="rx-ic"><svg viewBox="0 0 24 24"><circle cx="7" cy="7" r="2.5"/><circle cx="17" cy="17" r="2.5"/><path d="M9.5 7H14a3 3 0 0 1 3 3v4.5M14.5 17H10a3 3 0 0 1-3-3V9.5"/></svg></span><span class="rx-lb">Giao dịch kho</span></div>
+      <div class="rx" data-nope="Phân hệ Điều chỉnh tồn kho — ngoài phạm vi mockup"><span class="rx-ic"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M9 7v10M15 7v10"/><path d="M7.5 14h3M13.5 10h3"/></svg></span><span class="rx-lb">Điều chỉnh<br>tồn kho</span></div>
+      <div class="rx" data-nope="Phân hệ Cảnh báo tồn kho — ngoài phạm vi mockup"><span class="rx-ic"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg></span><span class="rx-lb">Cảnh báo tồn<br>kho</span></div>
+      <div class="rx" data-nope="Phân hệ Báo cáo — ngoài phạm vi mockup"><span class="rx-ic"><svg viewBox="0 0 24 24"><path d="M4 20h16"/><path d="M7 17v-5M11 17V8M15 17v-7M19 17v-3"/></svg></span><span class="rx-lb">Báo cáo</span></div>
+      <div class="rx" data-nope="Phân hệ Phát hành tem — ngoài phạm vi mockup"><span class="rx-ic"><svg viewBox="0 0 24 24"><path d="M4 5v14M7 5v14M10 5v14M12.5 5v14M15 5v14M18 5v14M20 5v14"/></svg></span><span class="rx-lb">Phát hành<br>tem</span></div>
+      </nav>
     <nav class="subnav" aria-label="Màn hình">
       <h2>Quản lý hàng hóa</h2>
       <a data-nope="Màn Nhập kho thành phẩm — đã có mockup riêng">Nhập kho thành phẩm</a>
@@ -1364,9 +1372,6 @@ drawKpi();drawReqs();drawSlips();
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();
 })();
-</script>
-<script>
-window.addEventListener("load",function(){try{var p=new URLSearchParams(location.search),t=p.get("tab");if(!t){var m=(location.hash||"").match(/tab=([\w-]+)/);t=m&&m[1];}if(!t)return;var el=document.querySelector('[data-tab="'+t+'"]');if(el)el.click();}catch(e){}});
 </script>
 </body>
 </html>

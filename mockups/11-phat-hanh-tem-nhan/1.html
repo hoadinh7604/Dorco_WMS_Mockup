@@ -166,6 +166,16 @@ body.chg th[data-chg=mod],body.chg td[data-chg=mod]{--c:var(--mod)}
 body.chg .legendchg{display:flex}
 .legendchg i{font-style:normal;padding:1px 8px;border-radius:999px;color:#fff;font-size:11px;font-weight:700}
 @media (max-width:1100px){.nav{width:86px}.sub{display:none}.kpis{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}.infocard{grid-template-columns:repeat(2,1fr)}}
+
+/* ===== Rail menu chuẩn (theo ảnh) ===== */
+.rail{width:90px}
+.rail button{color:#9aa6b8;font-size:11px;gap:6px;padding:9px 4px;line-height:1.25;font-weight:400}
+.rail button .ic{width:34px;height:34px;border-radius:9px;background:none}
+.rail button .ic svg{width:19px;height:19px;stroke:#9aa6b8;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.rail button:hover{color:#fff}.rail button:hover .ic svg{stroke:#fff}
+.rail button.on{color:#fff;font-weight:700}
+.rail button.on .ic{background:#3d4f1c}
+.rail button.on .ic svg{stroke:#a4ce4c}
 </style>
 </head>
 <body>
@@ -336,7 +346,7 @@ function autoGroups(need,per){need=+need;per=+per;if(!(need>0)||!(per>0)) return
 <script>
 'use strict';
 /* =============== ĐIỀU HƯỚNG =============== */
-const RAIL=[['search','🔍','Search Menu'],['setup','⚙','Thiết lập chung'],['sales','🛒','Bán hàng'],['goods','📦','Quản lý hàng hóa'],['wh','🔁','Giao dịch kho'],['adj','⚖','Điều chỉnh tồn kho'],['alert','🛡','Cảnh báo tồn kho'],['rep','📊','Báo cáo'],['lbl','▮▮▮','Phát hành tem']];
+const RAIL=[['search','<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>','Search Menu'],['setup','<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1l2-1.6-2-3.4-2.3 1a7 7 0 0 0-1.7-1l-.3-2.5H9.4l-.3 2.5a7 7 0 0 0-1.7 1l-2.3-1-2 3.4 2 1.6a7 7 0 0 0 0 2l-2 1.6 2 3.4 2.3-1a7 7 0 0 0 1.7 1l.3 2.5h5.2l.3-2.5a7 7 0 0 0 1.7-1l2.3 1 2-3.4-2-1.6a7 7 0 0 0 .1-1z"/></svg>','Thiết lập chung'],['goods','<svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16"/><path d="M9 14c1 1.5 5 1.5 6 0"/></svg>','Quản lý hàng hóa'],['wh','<svg viewBox="0 0 24 24"><circle cx="7" cy="7" r="2.5"/><circle cx="17" cy="17" r="2.5"/><path d="M9.5 7H14a3 3 0 0 1 3 3v4.5M14.5 17H10a3 3 0 0 1-3-3V9.5"/></svg>','Giao dịch kho'],['adj','<svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M9 7v10M15 7v10"/><path d="M7.5 14h3M13.5 10h3"/></svg>','Điều chỉnh tồn kho'],['alert','<svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg>','Cảnh báo tồn kho'],['rep','<svg viewBox="0 0 24 24"><path d="M4 20h16"/><path d="M7 17v-5M11 17V8M15 17v-7M19 17v-3"/></svg>','Báo cáo'],['lbl','<svg viewBox="0 0 24 24"><path d="M4 5v14M7 5v14M10 5v14M12.5 5v14M15 5v14M18 5v14M20 5v14"/></svg>','Phát hành tem']];
 const SUBS={
   setup:{title:'Thiết lập chung',items:[['grp','Thiết lập tổ chức'],['x','Mã chung'],['x','Tổ chức'],['loc','Danh mục vị trí'],['x','Danh mục tiền tệ'],['x','Quốc gia'],['x','Quy tắc sinh mã'],['grp','Quản lý mặt hàng'],['x','Danh mục loại hàng'],['x','Danh mục mặt hàng']]},
   wh:{title:'Giao dịch kho',items:[['stockin','Nhập kho'],['x','Xuất kho'],['x','Duyệt tồn kho'],['x','Chuyển kho'],['x','Đối thông tin tồn']]},
@@ -1507,10 +1517,6 @@ NOTES['issue-manual']={t:'Phát hành tem NVL · tạo thủ công',meaning:'T�
 <script>
 'use strict';
 resetState(); render();
-</script>
-<script>
-/* Thêm khi nhúng vào trang TSD: thu cả màn theo bề ngang khung, giữ bố cục thiết kế 1920px. Không đổi gì khác của bản gốc. */
-(function(){var W=1920;function fit(){var z=Math.min(1,window.innerWidth/W),de=document.documentElement,app=document.getElementById('app');de.style.zoom=z;if(app)app.style.height=(window.innerHeight/z)+'px';}fit();window.addEventListener('resize',fit);})();
 </script>
 </body>
 </html>

@@ -36,19 +36,21 @@
 
   /* ---------- Dark icon rail ---------- */
   .rail{
-    width:72px;flex:0 0 72px;background:var(--rail);
+    width:90px;flex:0 0 90px;background:var(--rail);
     display:flex;flex-direction:column;align-items:stretch;
     padding-top:64px;
   }
   .rail-item{
-    display:flex;flex-direction:column;align-items:center;gap:5px;
-    padding:11px 4px;color:#b9bcc4;cursor:pointer;font-size:10px;line-height:1.15;text-align:center;
-    border-left:3px solid transparent;
+    display:flex;flex-direction:column;align-items:center;gap:6px;
+    padding:10px 4px;color:#9aa6b8;cursor:pointer;font-size:11px;line-height:1.25;text-align:center;
   }
-  .rail-item svg{width:21px;height:21px;stroke:#c7cad2;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;}
-  .rail-item:hover{background:var(--rail-hover);color:#fff;}
-  .rail-item.active{color:#fff;background:#1f2127;}
-  .rail-item.active svg{stroke:#fff;}
+  .rail-item .ri{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;}
+  .rail-item svg{width:19px;height:19px;stroke:#9aa6b8;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;}
+  .rail-item:hover{color:#fff;}
+  .rail-item:hover svg{stroke:#fff;}
+  .rail-item.active{color:#fff;font-weight:700;}
+  .rail-item.active .ri{background:#3d4f1c;}
+  .rail-item.active svg{stroke:#a4ce4c;}
 
   /* ---------- Secondary menu ---------- */
   .submenu{
@@ -79,7 +81,7 @@
     display:flex;align-items:stretch;background:#fff;border-bottom:1px solid var(--line);
   }
   .brand{
-    width:296px;flex:0 0 296px;display:flex;align-items:center;justify-content:center;
+    width:314px;flex:0 0 314px;display:flex;align-items:center;justify-content:center;
     background:#0d0d10;padding:8px 14px;
   }
   .brand .logo{
@@ -194,14 +196,14 @@
 
   <!-- Dark icon rail -->
   <nav class="rail">
-    <div class="rail-item"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>Search<br>Menu</div>
-    <div class="rail-item active"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1l2-1.6-2-3.4-2.3 1a7 7 0 0 0-1.7-1l-.3-2.5H9.4l-.3 2.5a7 7 0 0 0-1.7 1l-2.3-1-2 3.4 2 1.6a7 7 0 0 0 0 2l-2 1.6 2 3.4 2.3-1a7 7 0 0 0 1.7 1l.3 2.5h5.2l.3-2.5a7 7 0 0 0 1.7-1l2.3 1 2-3.4-2-1.6a7 7 0 0 0 .1-1z"/></svg>Thiết lập<br>chung</div>
-    <div class="rail-item"><svg viewBox="0 0 24 24"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>Quản lý<br>hàng hóa</div>
-    <div class="rail-item"><svg viewBox="0 0 24 24"><circle cx="6" cy="19" r="3"/><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"/><circle cx="18" cy="5" r="3"/></svg>Giao dịch<br>kho</div>
-    <div class="rail-item"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 8v8M15 8v8M7 11h4M13 13h4"/></svg>Điều chỉnh<br>tồn kho</div>
-    <div class="rail-item"><svg viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>Cảnh báo<br>tồn kho</div>
-    <div class="rail-item"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M8 17v-5M13 17V8M18 17v-3"/></svg>Báo cáo</div>
-    <div class="rail-item"><svg viewBox="0 0 24 24"><path d="M3 5v14M7 5v14M10 5v14M14 5v14M17 5v14M21 5v14"/></svg>Phát hành<br>nhãn</div>
+    <div class="rail-item"><span class="ri"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></span>Search<br>Menu</div>
+    <div class="rail-item active"><span class="ri"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1l2-1.6-2-3.4-2.3 1a7 7 0 0 0-1.7-1l-.3-2.5H9.4l-.3 2.5a7 7 0 0 0-1.7 1l-2.3-1-2 3.4 2 1.6a7 7 0 0 0 0 2l-2 1.6 2 3.4 2.3-1a7 7 0 0 0 1.7 1l.3 2.5h5.2l.3-2.5a7 7 0 0 0 1.7-1l2.3 1 2-3.4-2-1.6a7 7 0 0 0 .1-1z"/></svg></span>Thiết lập<br>chung</div>
+    <div class="rail-item"><span class="ri"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16"/><path d="M9 14c1 1.5 5 1.5 6 0"/></svg></span>Quản lý hàng<br>hóa</div>
+    <div class="rail-item"><span class="ri"><svg viewBox="0 0 24 24"><circle cx="7" cy="7" r="2.5"/><circle cx="17" cy="17" r="2.5"/><path d="M9.5 7H14a3 3 0 0 1 3 3v4.5M14.5 17H10a3 3 0 0 1-3-3V9.5"/></svg></span>Giao dịch kho</div>
+    <div class="rail-item"><span class="ri"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M9 7v10M15 7v10"/><path d="M7.5 14h3M13.5 10h3"/></svg></span>Điều chỉnh<br>tồn kho</div>
+    <div class="rail-item"><span class="ri"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg></span>Cảnh báo tồn<br>kho</div>
+    <div class="rail-item"><span class="ri"><svg viewBox="0 0 24 24"><path d="M4 20h16"/><path d="M7 17v-5M11 17V8M15 17v-7M19 17v-3"/></svg></span>Báo cáo</div>
+    <div class="rail-item"><span class="ri"><svg viewBox="0 0 24 24"><path d="M4 5v14M7 5v14M10 5v14M12.5 5v14M15 5v14M18 5v14M20 5v14"/></svg></span>Phát hành<br>tem</div>
   </nav>
 
   <!-- Secondary menu -->
