@@ -25,3 +25,8 @@ Quy ước thư mục: mỗi mục một thư mục (01-master-data, 02-quy-trin
 | 01-master-data/3.png | Đã sửa | 2026-11-06 |
 | 01-master-data/4.png | Đã sửa | 2026-11-06 |
 | 01-master-data/5.png | Đã sửa | 2026-11-06 |
+| 01-master-data/6.png | Đã sửa | 2026-11-06 |
+| 08-chuyen-kho/1-yeu-cau.png | Đã sửa | 2026-11-06 |
+| 08-chuyen-kho/1a-yeu-cau-chi-tiet.png | Đã sửa | 2026-11-06 |
+| 08-chuyen-kho/1b-phieu-danh-sach.png | Đã sửa | 2026-11-06 |
+| 08-chuyen-kho/1c-phieu-chi-tiet.png | Đã sửa | 2026-11-06 |
