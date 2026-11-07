@@ -77,10 +77,13 @@
   <p class="screen__path">Thiết lập chung › Thiết lập tổ chức › Danh mục vị trí</p>
   <div class="screen__body">
     <div class="screen__shots">
-      <figure class="shot"><figcaption>Giao diện WMS · Danh sách vị trí</figcaption>
-        <img src="../images/01-master-data/4.png?v=2026-11-07" alt="Màn hình danh sách vị trí"></figure>
+      <figure class="shot"><figcaption>Giao diện WMS · Danh sách vị trí (bấm Nhập Excel để mở menu)</figcaption>
+        <div class="shot__frame"><img src="../images/01-master-data/4.png?v=2026-11-07d" alt="Màn hình danh sách vị trí">
+          <details class="shot__dd" style="left:61.84%;top:34.64%;width:7.79%;height:3.5%"><summary title="Nhập Excel" aria-label="Nhập Excel"></summary>
+            <div class="shot__ddm"><a href="../files/Template_Import_Danh_muc_vi_tri.xlsx" download>⤓ Tải Template</a><span>⤒ Nhập từ Excel</span></div></details>
+        </div></figure>
       <figure class="shot"><figcaption>Giao diện WMS · Thêm vị trí</figcaption>
-        <img src="../images/01-master-data/5.png?v=2026-11-07" alt="Màn hình thêm vị trí"></figure>
+        <img src="../images/01-master-data/5.png?v=2026-11-07e" alt="Màn hình thêm vị trí"></figure>
     </div>
     <aside class="screen__notes">
       <div class="note note--biz"><h3>Nghiệp vụ</h3><p>Quản lý vị trí lưu trữ trong kho (Bin, Shelf, Floor): Dùng để thiết lập tổ chức vị trí trong kho, tạo mã QR và in nhãn vị trí.</p><ul><li>Vị trí chỉ quản lý trên WMS, không đồng bộ sang SAP.</li><li>Mỗi vị trí có một mã QR để PDA quét khi nhập, xuất, chuyển vị trí.</li></ul></div>
@@ -153,6 +156,7 @@
 
 <script src="../assets/js/i18n-pages.js?v=20261109"></script>
 <script src="../assets/js/i18n.js?v=20261102b"></script>
+<script>/* Menu Nhập Excel trên ảnh 1.4: bấm ra ngoài thì đóng */document.addEventListener("click",function(e){Array.prototype.forEach.call(document.querySelectorAll("details.shot__dd[open]"),function(d){if(!d.contains(e.target))d.removeAttribute("open");});});</script>
 <script src="../assets/js/menu.js?v=20261103"></script>
 <script src="../assets/js/layout.js?v=20261103"></script>
 </body>

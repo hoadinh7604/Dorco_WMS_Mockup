@@ -1418,4 +1418,8 @@ window.I18N_PAGES = {
   "Tạo phiếu từ các mã hàng đã tick ở tab Sai lệch kiểm kê (vùng 4). Số liệu so sánh lấy từ tồn kế toán SAP trả về ở 9.4.": ["Create slips from the items ticked in the Count differences tab (area 4). Comparison figures come from the SAP accounting stock returned in 9.4.","실사 차이 탭(영역 4)에서 선택한 품목으로 전표를 생성합니다. 비교 수치는 9.4에서 SAP가 반환한 회계 재고입니다."],
   "Phân bổ theo tem": ["Allocation by label","라벨별 배분"],
   "Tổng số phân bổ phải bằng Chênh lệch (SAP − WMS); tồn sau điều chỉnh của tem không âm; dòng thêm cần vị trí và số lượng lớn hơn 0. Tem chưa có tồn chọn ở + Thêm tem, chưa có tem thì tạo ở Phát hành tem.": ["The total allocation must equal the Difference (SAP − WMS); stock after adjustment per label must not be negative; added rows need a location and quantity greater than 0. Labels without stock are picked via + Add label; if none exists, create one in Label issuing.","배분 합계는 차이(SAP − WMS)와 같아야 하고 라벨별 조정 후 재고는 음수가 될 수 없으며 추가 행에는 위치와 0보다 큰 수량이 필요합니다. 재고가 없는 라벨은 + 라벨 추가로 선택하고 없으면 라벨 발행에서 생성합니다."],
+  "Giao diện WMS · Danh sách vị trí (bấm Nhập Excel để mở menu)": ["WMS screen · Location list (click Import Excel to open the menu)", "WMS 화면 · 위치 목록 (엑셀 가져오기를 클릭하면 메뉴가 열립니다)"],
+  "Nhập Excel": ["Import Excel", "엑셀 가져오기"],
+  "⤓ Tải Template": ["⤓ Download Template", "⤓ 템플릿 다운로드"],
+  "⤒ Nhập từ Excel": ["⤒ Import from Excel", "⤒ 엑셀에서 가져오기"],
 };
