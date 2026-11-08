@@ -1429,4 +1429,7 @@ window.I18N_PAGES = {
   "Nhập Excel": ["Import Excel", "엑셀 가져오기"],
   "⤓ Tải Template": ["⤓ Download Template", "⤓ 템플릿 다운로드"],
   "⤒ Nhập từ Excel": ["⤒ Import from Excel", "⤒ 엑셀에서 가져오기"],
+  "Danh mục đối tác": ["Business partner catalog", "거래처 목록"],
+  "Giao diện WMS · Danh mục đối tác": ["WMS screen · Business partner catalog", "WMS 화면 · 거래처 목록"],
+  "Thiết lập chung › Đối tác kinh doanh › Danh mục đối tác": ["General Settings › Business Partners › Business partner catalog", "공통 설정 › 거래처 › 거래처 목록"],
 };

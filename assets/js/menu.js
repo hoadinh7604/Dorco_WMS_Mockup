@@ -34,7 +34,7 @@ window.TSD_MENU = [
         { no: "1.2", title: "Danh mục nhà máy",   id: "m-plant" },
         { no: "1.3", title: "Danh mục kho",       id: "m-warehouse" },
         { no: "1.4", title: "Danh mục vị trí",    id: "m-location" },
-        { no: "1.5", title: "Đối tác kinh doanh", id: "m-partner" },
+        { no: "1.5", title: "Danh mục đối tác", id: "m-partner" },
         { no: "1.6", title: "Danh mục loại hàng", id: "m-material-type" },
         { no: "1.7", title: "Danh mục nhóm hàng", id: "m-material-group" },
         { no: "1.8", title: "Danh mục mặt hàng",  id: "m-material" }
