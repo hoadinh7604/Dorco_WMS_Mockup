@@ -44,11 +44,13 @@ window.TSD_MENU = [
     { no: "2", title: "Quy trình nhập mua", page: "02", href: "pages/02-quy-trinh-mua.html",
       desc: "Inbound từ NCC",
       screens: [
-        { no: "2.1", title: "Yêu cầu nhập mua", id: "p-yc" },
+        { no: "2.1.1", title: "Yêu cầu nhập mua trong nước", id: "p-yc" },
+        { no: "2.1.2", title: "Yêu cầu nhập mua nhập khẩu", id: "p-yc-nk" },
         { no: "2.2", title: "Phát hành in tem", id: "p-tem" },
         { no: "2.3", title: "IQC", id: "p-iqc" },
         { no: "2.4", title: "Nhập mua trên PDA", id: "p-pda-nm" },
-        { no: "2.5", title: "Phiếu nhập mua", id: "p-pn" },
+        { no: "2.5.1", title: "Phiếu nhập mua trong nước", id: "p-pn" },
+        { no: "2.5.2", title: "Phiếu nhập mua nhập khẩu", id: "p-pn-nk" },
         { no: "2.6", title: "Yêu cầu xuất trả nhà cung cấp", id: "p-yctl" },
         { no: "2.7", title: "Xuất trả nhà cung cấp trên PDA", id: "p-pda-xtl" },
         { no: "2.8", title: "Phiếu xuất trả nhà cung cấp", id: "p-xtl" }

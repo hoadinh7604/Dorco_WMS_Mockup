@@ -1,7 +1,7 @@
 /*
  * Dựng khung chung cho mọi trang từ window.TSD_MENU (menu.js):
  * thanh bên, thanh trên, nút Trước/Sau, thẻ mục ở trang chủ, mục lục tự sáng,
- * tìm kiếm, phóng to ảnh, In.
+ * tìm kiếm, phóng to ảnh, copy ảnh màn HTML, In.
  * Trang cần: <body data-root="../" data-page="01"> và <main class="content">.
  * Không cần sửa file này khi thêm mục hay màn hình.
  */
@@ -187,6 +187,120 @@
       b.addEventListener("click", function () { openLb(img); });
       cap.appendChild(b);
     }
+  });
+
+  /* ---------- Copy ảnh / Tải PNG cho màn HTML tương tác (.shot__live) ----------
+     Chụp đúng trạng thái đang hiện trong khung (kể cả popup đang mở) bằng html-to-image (assets/js/vendor).
+     Mở qua web: trang mục chụp thẳng khung. Mở file://: trang mục không đọc được khung nên nhờ mockup tự chụp
+     (mockup nạp assets/js/shot-frame.js). Quá 90 giây thì báo không chụp được, không treo nút. */
+  var h2iP = null;
+  function loadH2I() {
+    if (window.htmlToImage) return Promise.resolve(window.htmlToImage);
+    if (!h2iP) h2iP = new Promise(function (ok, no) {
+      var s = document.createElement("script");
+      s.src = ROOT + "assets/js/vendor/html-to-image.js";
+      s.onload = function () { ok(window.htmlToImage); };
+      s.onerror = function () { h2iP = null; no(new Error("lib")); };
+      document.head.appendChild(s);
+    });
+    return h2iP;
+  }
+  function frameDoc(fr) {
+    try { return fr.contentDocument; } catch (e) { return null; }
+  }
+  function frameReady(fr) {
+    var d = frameDoc(fr);
+    if (!d) return Promise.resolve();               /* khác nguồn (file://): không xem được, coi như đã nạp */
+    if (d.readyState === "complete" && d.location.href !== "about:blank") return Promise.resolve();
+    return new Promise(function (ok) {
+      fr.addEventListener("load", function () { ok(); }, { once: true });
+      fr.loading = "eager";
+    });
+  }
+  function timeout(p, ms) {
+    return Promise.race([p, new Promise(function (ok, no) { setTimeout(function () { no(new Error("timeout")); }, ms); })]);
+  }
+  /* file://: nhờ chính mockup tự chụp (assets/js/shot-frame.js nạp trong mockup) */
+  var shotSeq = 0;
+  function askFrame(fr) {
+    return new Promise(function (ok, no) {
+      var id = "s" + (++shotSeq) + "_" + Date.now();
+      function on(e) {
+        var m = e.data;
+        if (!m || m.type !== "tsd-shot-r" || m.id !== id) return;
+        window.removeEventListener("message", on);
+        if (m.blob) ok(m.blob); else no(new Error(m.error || "shot"));
+      }
+      window.addEventListener("message", on);
+      fr.contentWindow.postMessage({ type: "tsd-shot", id: id, width: 1920 }, "*");
+    });
+  }
+  /* Bỏ qua phần tử nằm hẳn ngoài khung nhìn (bảng dài hàng nghìn ô) để chụp nhanh */
+  function inView(win) {
+    var de = win.document.documentElement;
+    var z = parseFloat(de.style.zoom || win.getComputedStyle(de).zoom) || 1;
+    var vw = Math.max(win.innerWidth, win.innerWidth / z) + 40, vh = Math.max(win.innerHeight, win.innerHeight / z) + 40;
+    return function (n) {
+      if (n.nodeType !== 1 || !n.getBoundingClientRect) return true;
+      var r = n.getBoundingClientRect();
+      if (!r.width && !r.height) return true;
+      return r.bottom >= -40 && r.right >= -40 && r.top <= vh && r.left <= vw;
+    };
+  }
+  function shotPng(fr) {
+    return timeout(frameReady(fr).then(function () {
+      var doc = frameDoc(fr);
+      if (!doc || !doc.body) return askFrame(fr);
+      return loadH2I().then(function (lib) {
+        /* Mockup tự co bằng zoom trên <html>: chụp ở kích thước gốc (zoom 1), ảnh ra rộng 1920 */
+        var de = doc.documentElement, cs = doc.defaultView.getComputedStyle(de);
+        var z = parseFloat(de.style.zoom || cs.zoom) || 1;
+        var w = Math.round(fr.clientWidth / z), h = Math.round(fr.clientHeight / z), pr = Math.max(1, 1920 / w);
+        var bg = doc.defaultView.getComputedStyle(doc.body).backgroundColor;
+        if (!bg || bg === "transparent" || bg === "rgba(0, 0, 0, 0)") bg = "#ffffff";
+        return (doc.fonts ? doc.fonts.ready : Promise.resolve()).then(function () {
+          return lib.toBlob(de, { width: w, height: h, canvasWidth: w, canvasHeight: h, pixelRatio: pr, backgroundColor: bg, style: { zoom: "1" }, filter: inView(doc.defaultView) });
+        });
+      });
+    }).then(function (b) { if (!b) throw new Error("blob"); return b; }), 90000);
+  }
+  function savePng(blob, name) {
+    var a = document.createElement("a"), u = URL.createObjectURL(blob);
+    a.href = u; a.download = name; document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function () { URL.revokeObjectURL(u); }, 4000);
+  }
+  function flash(b, label, msg) {
+    b.textContent = I18N.tr(msg);
+    clearTimeout(b._t);
+    b._t = setTimeout(function () { b.textContent = I18N.tr(label); b.disabled = false; }, 2200);
+  }
+  $$(".shot").forEach(function (f) {
+    var fr = $("iframe.shot__live", f), cap = $("figcaption", f);
+    if (!fr || !cap) return;
+    var file = (fold(fr.getAttribute("title") || "man-hinh").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "man-hinh") + ".png";
+    var acts = el("span", { "class": "shot__acts" });
+    var bc = el("button", { "class": "btn shot__zoom", type: "button" }, T("⧉ Copy ảnh"));
+    var bd = el("button", { "class": "btn shot__zoom", type: "button" }, T("⤓ Tải PNG"));
+    acts.appendChild(bc); acts.appendChild(bd);
+    var open = $("a.shot__zoom", cap);
+    if (open) acts.appendChild(open);
+    cap.appendChild(acts);
+    function fail() { flash(bc, "⧉ Copy ảnh", "✕ Không chụp được"); flash(bd, "⤓ Tải PNG", "⤓ Tải PNG"); }
+    bc.addEventListener("click", function () {
+      if (bc.disabled) return;
+      bc.disabled = true; bc.textContent = I18N.tr("Đang chụp…");
+      var blobP = shotPng(fr);
+      var toFile = function () { return blobP.then(function (b) { savePng(b, file); flash(bc, "⧉ Copy ảnh", "✓ Đã tải PNG"); }, fail); };
+      if (navigator.clipboard && navigator.clipboard.write && window.ClipboardItem && window.isSecureContext) {
+        navigator.clipboard.write([new ClipboardItem({ "image/png": blobP })])
+          .then(function () { flash(bc, "⧉ Copy ảnh", "✓ Đã copy"); }, toFile);
+      } else toFile();
+    });
+    bd.addEventListener("click", function () {
+      if (bd.disabled) return;
+      bd.disabled = true; bd.textContent = I18N.tr("Đang chụp…");
+      shotPng(fr).then(function (b) { savePng(b, file); flash(bd, "⤓ Tải PNG", "⤓ Tải PNG"); }, function () { flash(bd, "⤓ Tải PNG", "✕ Không chụp được"); });
+    });
   });
 
   /* ---------- Màn hình HTML thu nhỏ vừa khung (.shot__fit) ---------- */

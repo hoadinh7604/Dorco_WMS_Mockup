@@ -174,4 +174,5 @@ const ov=document.getElementById('ov');
 document.querySelectorAll('.mag').forEach(m=>m.onclick=()=>{const d=T[m.dataset.r];document.getElementById('mt').textContent=d.t;
  document.getElementById('mbody').innerHTML=d.r.map((x,i)=>'<tr><td>'+(i+1)+'</td><td>'+x[0]+'</td><td style="text-align:right">'+x[1]+'</td><td>'+x[2]+'</td><td>'+x[3]+'</td><td>'+x[4]+'</td><td>'+x[5]+'</td></tr>').join('');ov.classList.add('on');});
 ['mx','mc'].forEach(id=>document.getElementById(id).onclick=()=>ov.classList.remove('on'));ov.onclick=e=>{if(e.target===ov)ov.classList.remove('on')};
-</script><style>html{overflow-x:hidden}</style><script>(function(){var W=1720;function f(){document.documentElement.style.zoom=window.innerWidth/W;}f();window.addEventListener("resize",f);})();</script></body></html>
+</script><style>html{overflow-x:hidden}</style><script>(function(){var W=1720;function f(){document.documentElement.style.zoom=window.innerWidth/W;}f();window.addEventListener("resize",f);})();</script><script src="../../assets/js/shot-frame.js"></script>
+</body></html>

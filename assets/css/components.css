@@ -73,6 +73,8 @@ tr:last-child td{border-bottom:0}
 .shot figcaption{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:7px 8px 7px 12px;background:var(--panel2);border-bottom:1px solid var(--line);font-size:12.5px;color:var(--muted)}
 .shot img{display:block;width:100%;cursor:zoom-in}
 .shot__zoom{font-size:12px;padding:3px 9px}
+.shot__acts{display:flex;align-items:center;gap:6px;flex-shrink:0}
+.shot__acts button[disabled]{opacity:.7;cursor:progress}
 .tag-demo{display:inline-block;background:var(--goldbg);color:var(--gold);border:1px solid var(--goldline);font-size:11.5px;font-weight:600;border-radius:5px;padding:0 6px}
 
 .note{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:15px 18px}
@@ -103,6 +105,8 @@ tr:last-child td{border-bottom:0}
 .shot__scroll::-webkit-scrollbar{width:6px}
 .shot__scroll::-webkit-scrollbar-thumb{background:#B9C7BF;border-radius:3px}
 .shot .shot__scroll img{cursor:default}
+.shot__scroll--x{overflow-x:auto;overflow-y:hidden}
+.shot__scroll--x::-webkit-scrollbar{height:6px}
 
 /* Mockup tương tác nhúng bằng iframe: bảng cuộn ngang, bấm nút mở popup... File mockup đặt ở mockups/NN-ten-muc/N.html */
 .shot__live{display:block;width:100%;aspect-ratio:1920/915;border:0;background:#fff}
