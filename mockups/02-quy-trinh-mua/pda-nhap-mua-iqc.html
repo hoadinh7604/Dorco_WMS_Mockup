@@ -422,7 +422,7 @@
 
   /* ===== IQC ===== */
   .rs{display:inline-block;flex:none;font-size:11.5px;font-weight:700;padding:1px 7px;border-radius:3px;line-height:1.5}
-  .rs.ok{background:#dcfce7;color:#166534}
+  .rs.ok{background:#dbeafe;color:#2563eb}
   .rs.ng{background:#fee2e2;color:#b91c1c}
   .rs.no{background:#f3f4f6;color:#4b5563}
   .pill.wait{background:#f3f4f6;color:#4b5563}
@@ -502,6 +502,13 @@
   .okkv{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;margin:0 0 14px;padding:8px 12px;background:#f7f8f9;border-radius:4px;text-align:left;font-size:13px}
   .okkv dt{color:var(--muted)}
   .okkv dd{margin:0;text-align:right;font-weight:600;color:var(--ink)}
+  .kv .kvsel{flex:1;min-width:0;display:flex;align-items:center;justify-content:space-between;gap:6px;height:28px;margin:-3px 0;padding:0 8px;border:1.5px solid #65a30d;border-radius:4px;background:#fff;font:inherit;color:var(--ink);cursor:pointer}
+  .kv .kvsel b{flex:1;text-align:left;font-weight:600}
+  .kopts{list-style:none;margin:4px 0 6px;padding:0}
+  .kopt{all:unset;box-sizing:border-box;display:flex;align-items:center;gap:10px;width:100%;height:46px;padding:0 10px;border-bottom:1px solid #eef0f3;font-size:15px;color:var(--ink);cursor:pointer}
+  .kopt .rd{width:18px;height:18px;border-radius:50%;border:2px solid #9ca3af;box-sizing:border-box}
+  .kopt.on{font-weight:700;color:#3f6212;background:#f4fbe6}
+  .kopt.on .rd{border:5px solid #65a30d}
   .T-web .primary:disabled{background:#e5e7eb;color:#9ca3af}
   .msw{display:flex;gap:3px;padding:3px;margin:6px 0 2px;background:#e5e7eb;border-radius:4px}
   .msw button{flex:1;height:32px;border:none;border-radius:3px;background:transparent;font:inherit;font-size:13.5px;font-weight:600;color:#9ca3af;cursor:pointer}
@@ -570,7 +577,7 @@
             <li><button class="card active" type="button" aria-current="true">
               <span class="tile" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h2l2.2 11h11l2-8H6.2"/><circle cx="9" cy="19.5" r="1.3"/><circle cx="17" cy="19.5" r="1.3"/></svg></span>
               <span class="txt"><span class="t">Nhập mua</span></span>
-              <span class="count" aria-label="4 công việc đã gửi"><small>GỬI</small><strong>4</strong></span>
+              <span class="count" aria-label="3 công việc đã gửi"><small>GỬI</small><strong>3</strong></span>
             </button></li>
             <li><button class="card" type="button">
               <span class="tile" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7v4a3 3 0 0 1-3 3H5"/><path d="m9 10-4 4 4 4"/></svg></span>
@@ -606,24 +613,20 @@
         <main>
           <div class="list-head">
             <div><h2>Công việc nhập hàng</h2><p class="sub">Danh sách yêu cầu nhập mua</p></div>
-            <span class="total" aria-label="4 yêu cầu">4</span>
+            <span class="total" aria-label="3 yêu cầu">3</span>
           </div>
           <ul class="list">
             <li><button class="req active" type="button" aria-current="true">
-              <div class="req-top"><span class="req-no">YCNK-2610-00005</span><span class="pls"><span class="pill new">Tạo mới</span><span class="pill iqc-ok">Đã QC</span></span></div>
+              <div class="req-top"><span class="req-no">YCNK-2610-00005</span><span class="pill iqc-ok">Đã QC</span></div>
               <div class="r2l"><span class="pt2">Công ty TNHH ABC</span><span class="date">19/10/2026</span></div>
             </button></li>
             <li><button class="req" type="button">
-              <div class="req-top"><span class="req-no">YCNK-2610-00002</span><span class="pls"><span class="pill doing">Đang xử lý</span><span class="pill iqc-ok">Đã QC</span></span></div>
+              <div class="req-top"><span class="req-no">YCNK-2610-00002</span><span class="pill doing">Đang nhập hàng</span></div>
               <div class="r2l"><span class="pt2">Công ty TNHH DEF</span><span class="date">02/10/2026</span></div>
             </button></li>
             <li><button class="req" type="button">
-              <div class="req-top"><span class="req-no">YCNK-2610-00004</span><span class="pls"><span class="pill new">Tạo mới</span><span class="pill iqc-doing">Đang QC</span></span></div>
-              <div class="r2l"><span class="pt2">Công ty TNHH XYZ</span><span class="date">07/10/2026</span></div>
-            </button></li>
-            <li><button class="req" type="button">
-              <div class="req-top"><span class="req-no">YCNK-2610-00003</span><span class="pls"><span class="pill new">Tạo mới</span><span class="pill iqc-no">Chưa QC</span></span></div>
-              <div class="r2l"><span class="pt2">Công ty TNHH Minh Long</span><span class="date">05/10/2026</span></div>
+              <div class="req-top"><span class="req-no">YCNK-2610-00001</span><span class="pill doing">Đang nhập hàng</span></div>
+              <div class="r2l"><span class="pt2">Công ty TNHH Minh Long</span><span class="date">28/09/2026</span></div>
             </button></li>
           </ul>
         </main>
@@ -631,64 +634,11 @@
           <button class="seg on" type="button" aria-pressed="true">Danh sách</button>
           <button class="seg" type="button" aria-pressed="false">Quét</button>
         </nav>
-      </div></div>
-    </section>
-    <svg class="arrow" width="40" height="24" viewBox="0 0 40 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12h34M28 4l8 8-8 8"/></svg>
-    <section class="step" aria-label="Bước 3a">
-      <div class="step-head"><span class="step-no" style="width:auto;padding:0 9px;border-radius:16px">3a</span><div><div class="step-title">Yêu cầu chưa QC</div><div class="step-note">Bấm vào yêu cầu chưa QC: hệ thống báo không thể nhập hàng</div></div></div>
-      <div class="phone"><div class="screen" style="position:relative">
-        <div class="status"><span>11:32</span><span class="ic" aria-hidden="true">
-          <svg width="12" height="10" viewBox="0 0 12 10"><path d="M6 10 0 2.5a9 9 0 0 1 12 0z" fill="#374151"/></svg>
-          <svg width="10" height="10" viewBox="0 0 10 10"><path d="M10 0v10H0z" fill="#374151"/></svg>
-          <svg width="7" height="11" viewBox="0 0 7 11"><rect width="7" height="11" rx="1" fill="#374151"/></svg></span></div>
-        <header>
-          <div class="left">
-            <button class="icon-btn" type="button" aria-label="Quay lại"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12H4M10 6l-6 6 6 6"/></svg></button>
-            <span class="page-title">Nhập mua</span>
-          </div>
-          <div class="actions">
-            <button class="lang" type="button" aria-label="Ngôn ngữ: Tiếng Việt"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>VI<svg width="8" height="8" viewBox="0 0 10 10" aria-hidden="true"><path d="M0 3h10L5 8z" fill="currentColor"/></svg></button>
-          </div>
-        </header>
-        <main>
-          <div class="list-head">
-            <div><h2>Công việc nhập hàng</h2><p class="sub">Danh sách yêu cầu nhập mua</p></div>
-            <span class="total" aria-label="4 yêu cầu">4</span>
-          </div>
-          <ul class="list">
-            <li><button class="req" type="button">
-              <div class="req-top"><span class="req-no">YCNK-2610-00005</span><span class="pls"><span class="pill new">Tạo mới</span><span class="pill iqc-ok">Đã QC</span></span></div>
-              <div class="r2l"><span class="pt2">Công ty TNHH ABC</span><span class="date">19/10/2026</span></div>
-            </button></li>
-            <li><button class="req" type="button">
-              <div class="req-top"><span class="req-no">YCNK-2610-00002</span><span class="pls"><span class="pill doing">Đang xử lý</span><span class="pill iqc-ok">Đã QC</span></span></div>
-              <div class="r2l"><span class="pt2">Công ty TNHH DEF</span><span class="date">02/10/2026</span></div>
-            </button></li>
-            <li><button class="req" type="button">
-              <div class="req-top"><span class="req-no">YCNK-2610-00004</span><span class="pls"><span class="pill new">Tạo mới</span><span class="pill iqc-doing">Đang QC</span></span></div>
-              <div class="r2l"><span class="pt2">Công ty TNHH XYZ</span><span class="date">07/10/2026</span></div>
-            </button></li>
-            <li><button class="req active" type="button" aria-current="true">
-              <div class="req-top"><span class="req-no">YCNK-2610-00003</span><span class="pls"><span class="pill new">Tạo mới</span><span class="pill iqc-no">Chưa QC</span></span></div>
-              <div class="r2l"><span class="pt2">Công ty TNHH Minh Long</span><span class="date">05/10/2026</span></div>
-            </button></li>
-          </ul>
-        </main>
-        <nav class="bottom" aria-label="Chế độ xem">
-          <button class="seg on" type="button" aria-pressed="true">Danh sách</button>
-          <button class="seg" type="button" aria-pressed="false">Quét</button>
-        </nav>
-        <div class="scrim" aria-hidden="true"></div>
-        <div class="cfm" role="alertdialog" aria-modal="true" aria-labelledby="noiqc-l2">
-          <h3 id="noiqc-l2">Thông báo</h3>
-          <p class="cfm-msg">Không thể nhập hàng <span class="nw">YCNK-2610-00003</span> chưa QC</p>
-          <div class="cfm-a"><button type="button" class="cf-close">Đóng</button></div>
-        </div>
       </div></div>
     </section>
     <svg class="arrow" width="40" height="24" viewBox="0 0 40 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12h34M28 4l8 8-8 8"/></svg>
     <section class="step" aria-label="Bước 4">
-      <div class="step-head"><span class="step-no">4</span><div><div class="step-title">Chi tiết yêu cầu – tab Tổng hợp</div><div class="step-note">Mặc định mở tab “Tổng hợp” · chạm “Chi tiết” để quét</div></div></div>
+      <div class="step-head"><span class="step-no">4</span><div><div class="step-title">Chi tiết yêu cầu – tab Tổng hợp</div><div class="step-note">Mở ra ở Kho 1002 · chạm “Kho nhập” để đổi kho</div></div></div>
       <div class="phone"><div class="screen">
         <div class="status"><span>11:33</span><span class="ic" aria-hidden="true">
           <svg width="12" height="10" viewBox="0 0 12 10"><path d="M6 10 0 2.5a9 9 0 0 1 12 0z" fill="#374151"/></svg>
@@ -709,7 +659,86 @@
           </div>
         </div>
         <main>
-          <div class="info"><div class="kv"><span>Phiếu YC</span><b>YCNK-2610-00005</b></div><div class="kv"><span>Kho nhập</span><b>Kho 1000</b></div><div class="kv"><span>Nhà cung cấp</span><b>Công ty TNHH ABC</b></div></div>
+          <div class="info"><div class="kv"><span>Phiếu YC</span><b>YCNK-2610-00005</b></div><div class="kv"><span>Kho nhập</span><button class="kvsel" type="button" aria-haspopup="listbox"><b>Kho 1002</b><svg width="12" height="12" viewBox="0 0 10 10" aria-hidden="true"><path d="M1 3h8L5 7.5z" fill="currentColor"/></svg></button></div><div class="kv"><span>Nhà cung cấp</span><b>Công ty TNHH ABC</b></div></div>
+          <ul class="list">
+            <li class="it2 s0">
+              <div class="i1"><b>#1 · 3251004</b><span class="chip">Chưa quét</span></div>
+              <div class="i2">SK5 STRIP 0.1 X 25 MM</div>
+              <div class="i3"><span>Số lượng</span><span><b>0.00</b> / 200.00 KG</span></div>
+            </li>
+          </ul>
+        </main>
+        <div class="foot"><button class="primary" type="button" disabled>Lưu phiếu</button></div>
+      </div></div>
+    </section>
+    <svg class="arrow" width="40" height="24" viewBox="0 0 40 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12h34M28 4l8 8-8 8"/></svg>
+    <section class="step" aria-label="Bước 4a">
+      <div class="step-head"><span class="step-no" style="width:auto;padding:0 9px;border-radius:16px">4a</span><div><div class="step-title">Chọn kho nhập</div><div class="step-note">Chọn Kho 1000 để nhập mặt hàng của kho này</div></div></div>
+      <div class="phone"><div class="screen" style="position:relative">
+        <div class="status"><span>11:33</span><span class="ic" aria-hidden="true">
+          <svg width="12" height="10" viewBox="0 0 12 10"><path d="M6 10 0 2.5a9 9 0 0 1 12 0z" fill="#374151"/></svg>
+          <svg width="10" height="10" viewBox="0 0 10 10"><path d="M10 0v10H0z" fill="#374151"/></svg>
+          <svg width="7" height="11" viewBox="0 0 7 11"><rect width="7" height="11" rx="1" fill="#374151"/></svg></span></div>
+        <header>
+          <div class="left">
+            <button class="icon-btn" type="button" aria-label="Quay lại"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12H4M10 6l-6 6 6 6"/></svg></button>
+            <span class="page-title">Nhập mua</span>
+          </div>
+          <div class="actions">
+          </div>
+        </header>
+        <div style="background:#fff;padding:0 0 4px">
+          <div class="tabs" role="tablist" aria-label="Chế độ xem yêu cầu">
+            <button class="tab on" type="button" role="tab" aria-selected="true">Tổng hợp</button>
+            <button class="tab " type="button" role="tab" aria-selected="false">Chi tiết</button>
+          </div>
+        </div>
+        <main>
+          <div class="info"><div class="kv"><span>Phiếu YC</span><b>YCNK-2610-00005</b></div><div class="kv"><span>Kho nhập</span><button class="kvsel" type="button" aria-haspopup="listbox"><b>Kho 1002</b><svg width="12" height="12" viewBox="0 0 10 10" aria-hidden="true"><path d="M1 3h8L5 7.5z" fill="currentColor"/></svg></button></div><div class="kv"><span>Nhà cung cấp</span><b>Công ty TNHH ABC</b></div></div>
+          <ul class="list">
+            <li class="it2 s0">
+              <div class="i1"><b>#1 · 3251004</b><span class="chip">Chưa quét</span></div>
+              <div class="i2">SK5 STRIP 0.1 X 25 MM</div>
+              <div class="i3"><span>Số lượng</span><span><b>0.00</b> / 200.00 KG</span></div>
+            </li>
+          </ul>
+        </main>
+        <div class="foot"><button class="primary" type="button" disabled>Lưu phiếu</button></div>
+        <div class="scrim" aria-hidden="true"></div>
+        <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="kho-t-l2">
+          <div class="grab" aria-hidden="true"></div>
+          <div class="sh-head"><h3 id="kho-t-l2">Chọn kho nhập</h3><button class="icon-btn" type="button" aria-label="Đóng"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+          <ul class="kopts" role="listbox">
+            <li><button class="kopt on" type="button" role="option" aria-selected="true"><span class="rd" aria-hidden="true"></span>Kho 1000</button></li>
+            <li><button class="kopt" type="button" role="option" aria-selected="false"><span class="rd" aria-hidden="true"></span>Kho 1002</button></li>
+          </ul>
+        </div>
+      </div></div>
+    </section>
+    <svg class="arrow" width="40" height="24" viewBox="0 0 40 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12h34M28 4l8 8-8 8"/></svg>
+    <section class="step" aria-label="Bước 4b">
+      <div class="step-head"><span class="step-no" style="width:auto;padding:0 9px;border-radius:16px">4b</span><div><div class="step-title">Đổi sang Kho 1000</div><div class="step-note">Chỉ hiện mặt hàng nhập vào Kho 1000 · chạm “Chi tiết” để quét</div></div></div>
+      <div class="phone"><div class="screen">
+        <div class="status"><span>11:33</span><span class="ic" aria-hidden="true">
+          <svg width="12" height="10" viewBox="0 0 12 10"><path d="M6 10 0 2.5a9 9 0 0 1 12 0z" fill="#374151"/></svg>
+          <svg width="10" height="10" viewBox="0 0 10 10"><path d="M10 0v10H0z" fill="#374151"/></svg>
+          <svg width="7" height="11" viewBox="0 0 7 11"><rect width="7" height="11" rx="1" fill="#374151"/></svg></span></div>
+        <header>
+          <div class="left">
+            <button class="icon-btn" type="button" aria-label="Quay lại"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12H4M10 6l-6 6 6 6"/></svg></button>
+            <span class="page-title">Nhập mua</span>
+          </div>
+          <div class="actions">
+          </div>
+        </header>
+        <div style="background:#fff;padding:0 0 4px">
+          <div class="tabs" role="tablist" aria-label="Chế độ xem yêu cầu">
+            <button class="tab on" type="button" role="tab" aria-selected="true">Tổng hợp</button>
+            <button class="tab " type="button" role="tab" aria-selected="false">Chi tiết</button>
+          </div>
+        </div>
+        <main>
+          <div class="info"><div class="kv"><span>Phiếu YC</span><b>YCNK-2610-00005</b></div><div class="kv"><span>Kho nhập</span><button class="kvsel" type="button" aria-haspopup="listbox"><b>Kho 1000</b><svg width="12" height="12" viewBox="0 0 10 10" aria-hidden="true"><path d="M1 3h8L5 7.5z" fill="currentColor"/></svg></button></div><div class="kv"><span>Nhà cung cấp</span><b>Công ty TNHH ABC</b></div></div>
           <ul class="list">
             <li class="it2 s0">
               <div class="i1"><b>#1 · 3242663</b><span class="chip">Chưa quét</span></div>
