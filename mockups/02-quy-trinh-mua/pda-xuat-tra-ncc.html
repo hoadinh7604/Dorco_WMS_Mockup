@@ -486,7 +486,7 @@
             <li><button class="card active" type="button" aria-current="true">
               <span class="tile" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7v4a3 3 0 0 0 3 3h12"/><path d="m15 10 4 4-4 4"/></svg></span>
               <span class="txt"><span class="t">Xuất trả nhà cung cấp</span></span>
-              <span class="count" aria-label="3 công việc đã gửi"><small>GỬI</small><strong>3</strong></span>
+              <span class="count" aria-label="5 công việc đã gửi"><small>GỬI</small><strong>5</strong></span>
             </button></li>
             <li><button class="card" type="button">
               <span class="tile" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M4 14h4l1.5 2.5h5L16 14h4"/><path d="M12 12V6M9 8.5l3-3 3 3"/></svg></span>
@@ -507,7 +507,7 @@
 
     <!-- ===== BƯỚC 3 ===== -->
     <section class="step" aria-label="Bước 3">
-      <div class="step-head"><span class="step-no">3</span><div><div class="step-title">Danh sách yêu cầu xuất trả nhà cung cấp</div><div class="step-note">Chọn yêu cầu cần xuất, hoặc chuyển sang “Quét”</div></div></div>
+      <div class="step-head"><span class="step-no">3</span><div><div class="step-title">Danh sách yêu cầu xuất trả nhà cung cấp</div><div class="step-note">Chỉ hiện yêu cầu Tạo mới, Đang xuất kho</div></div></div>
       <div class="phone"><div class="screen">
         <div class="status"><span>11:32</span><span class="ic" aria-hidden="true">
           <svg width="12" height="10" viewBox="0 0 12 10"><path d="M6 10 0 2.5a9 9 0 0 1 12 0z" fill="#374151"/></svg>
@@ -525,7 +525,7 @@
         <main>
           <div class="list-head">
             <div><h2>Công việc xuất hàng</h2><p class="sub">Danh sách yêu cầu xuất trả nhà cung cấp</p></div>
-            <span class="total" aria-label="3 yêu cầu">3</span>
+            <span class="total" aria-label="5 yêu cầu">5</span>
           </div>
           <ul class="list">
             <li><button class="req active" type="button" aria-current="true">
@@ -533,12 +533,20 @@
               <div class="r2l"><span class="pt2">Công ty TNHH ABC</span><span class="date">26/10/2026</span></div>
             </button></li>
             <li><button class="req" type="button">
-              <div class="req-top"><span class="req-no">YCTL-2610-00002</span><span class="pill doing">Đang xử lý</span></div>
-              <div class="r2l"><span class="pt2">Công ty TNHH XYZ</span><span class="date">21/10/2026</span></div>
+              <div class="req-top"><span class="req-no">YCTL-2610-00018</span><span class="pill new">Tạo mới</span></div>
+              <div class="r2l"><span class="pt2">Công ty Ánh Dương</span><span class="date">17/10/2026</span></div>
             </button></li>
             <li><button class="req" type="button">
-              <div class="req-top"><span class="req-no">YCTL-2610-00001</span><span class="pill doing">Đang xử lý</span></div>
-              <div class="r2l"><span class="pt2">Công ty TNHH DEF</span><span class="date">14/10/2026</span></div>
+              <div class="req-top"><span class="req-no">YCTL-2610-00017</span><span class="pill doing">Đang xuất kho</span></div>
+              <div class="r2l"><span class="pt2">Dorco Korea Co., Ltd.</span><span class="date">16/10/2026</span></div>
+            </button></li>
+            <li><button class="req" type="button">
+              <div class="req-top"><span class="req-no">YCTL-2610-00016</span><span class="pill new">Tạo mới</span></div>
+              <div class="r2l"><span class="pt2">Công ty Minh Phát</span><span class="date">15/10/2026</span></div>
+            </button></li>
+            <li><button class="req" type="button">
+              <div class="req-top"><span class="req-no">YCTL-2610-00014</span><span class="pill doing">Đang xuất kho</span></div>
+              <div class="r2l"><span class="pt2">Công ty Bao bì Sài Gòn</span><span class="date">13/10/2026</span></div>
             </button></li>
           </ul>
         </main>
@@ -676,7 +684,7 @@
           </div>
           <div class="note">
             <label for="sh-note-f2">Lý do sửa số lượng</label>
-            <textarea id="sh-note-f2" rows="2" placeholder="Nhập lý do (không bắt buộc)">Chỉ trả 90 PC, giữ lại 10 PC đạt chất lượng</textarea>
+            <textarea id="sh-note-f2" rows="2" placeholder="Nhập lý do (không bắt buộc)">Chỉ trả lại 90 PC, giữ lại 10 PC</textarea>
             <small>Lý do sẽ lưu vào ghi chú của dòng hàng này trên phiếu.</small>
           </div>
           <div class="pad" role="group" aria-label="Bàn phím số">
