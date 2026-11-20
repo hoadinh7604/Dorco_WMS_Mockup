@@ -424,6 +424,10 @@
   .page{width:1622px;box-sizing:border-box;padding:24px}
   .flow{display:grid;grid-template-columns:repeat(4,356px);gap:30px 50px;align-items:start}
   .flow>.arrow{display:none}
+.cfm.okd{text-align:center;padding:20px 16px 14px}.okic{width:48px;height:48px;margin:0 auto 10px;border-radius:24px;background:#dcfce7;color:#16a34a;display:flex;align-items:center;justify-content:center}.cfm.okd h3{margin-bottom:6px}.cfm .okp{margin:0 0 10px;font-size:14px;color:var(--muted)}.cfm .okp b{display:block;font-size:18px;color:var(--ink);margin-top:2px}.okkv{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;margin:0 0 14px;padding:8px 12px;background:#f7f8f9;border-radius:4px;text-align:left;font-size:13px}.okkv dt{color:var(--muted)}.okkv dd{margin:0;text-align:right;font-weight:600;color:var(--ink)}.cf-close{border:none;background:#c5ef6a;color:#1a2e05}
+.chip.c1{background:#fef3c7;color:#92400e}.chip.c2{background:#dcfce7;color:#166534}
+.cfm p.cfm-note{margin:-6px 0 14px;font-size:13px;color:var(--muted)}
+.okkv dd,.okkv dt{white-space:nowrap}
 </style>
 </head>
 <body class="T-web">
@@ -524,7 +528,7 @@
         </header>
         <main>
           <div class="list-head">
-            <div><h2>Công việc xuất hàng</h2><p class="sub">Danh sách yêu cầu xuất trả nhà cung cấp</p></div>
+            <div><h2>Công việc xuất hàng</h2></div>
             <span class="total" aria-label="5 yêu cầu">5</span>
           </div>
           <ul class="list">
@@ -775,6 +779,129 @@
           <h3 id="cf-luong-2">Xóa tem?</h3>
           <p><b>TEM-2610-000201</b>3242663 – ST300-5P BLUE EX STD 10000 OB<br>Vị trí A001</p>
           <div class="cfm-a"><button type="button" class="cf-no">Hủy</button><button type="button" class="cf-yes">Đồng ý</button></div>
+        </div>
+      </div></div>
+    </section>
+
+    <svg class="arrow" width="40" height="24" viewBox="0 0 40 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12h34M28 4l8 8-8 8"/></svg>
+
+    <!-- ===== BƯỚC 5d ===== -->
+    <section class="step" aria-label="Bước 5d">
+      <div class="step-head"><span class="step-no" style="width:auto;padding:0 9px;border-radius:16px">5d</span><div><div class="step-title">Tab Tổng hợp sau khi quét</div><div class="step-note">Số lượng cộng dồn từ các tem đã quét ở tab Chi tiết</div></div></div>
+      <div class="phone"><div class="screen">
+        <div class="status"><span>11:38</span><span class="ic" aria-hidden="true">
+          <svg width="12" height="10" viewBox="0 0 12 10"><path d="M6 10 0 2.5a9 9 0 0 1 12 0z" fill="#374151"/></svg>
+          <svg width="10" height="10" viewBox="0 0 10 10"><path d="M10 0v10H0z" fill="#374151"/></svg>
+          <svg width="7" height="11" viewBox="0 0 7 11"><rect width="7" height="11" rx="1" fill="#374151"/></svg></span></div>
+        <header>
+          <div class="left">
+            <button class="icon-btn" type="button" aria-label="Quay lại"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12H4M10 6l-6 6 6 6"/></svg></button>
+            <span class="page-title">Xuất trả nhà cung cấp</span>
+          </div>
+          <div class="actions">
+          </div>
+        </header>
+        <div style="background:#fff;padding:0 0 4px">
+          <div class="tabs" role="tablist" aria-label="Chế độ xem yêu cầu">
+            <button class="tab on" type="button" role="tab" aria-selected="true">Tổng hợp</button>
+            <button class="tab " type="button" role="tab" aria-selected="false">Chi tiết <span class="tcnt">(2)</span></button>
+          </div>
+        </div>
+        <main>
+          <div class="info"><div class="kv"><span>Phiếu YC</span><b>YCTL-2610-00003</b></div><div class="kv"><span>Kho xuất</span><b>Kho 1000</b></div><div class="kv"><span>Nhà cung cấp</span><b>Công ty TNHH ABC</b></div></div>
+          <ul class="list">
+            <li class="it2 s1">
+              <div class="i1"><b>#1 · 3242663</b><span class="chip c1">Đang quét</span></div>
+              <div class="i2">ST300-5P BLUE EX STD 10000 OB</div>
+              <div class="i3"><span>Số lượng</span><span><b>90.00</b> / 100.00 PC</span></div>
+            </li>
+            <li class="it2 s2">
+              <div class="i1"><b>#2 · 3247939</b><span class="chip c2">Đủ</span></div>
+              <div class="i2">LTRA1002-PP MTC ROSSMANN 42 OB</div>
+              <div class="i3"><span>Số lượng</span><span><b>200.00</b> / 200.00 PC</span></div>
+            </li>
+          </ul>
+        </main>
+        <div class="foot"><button class="primary" type="button">Lưu phiếu</button></div>
+      </div></div>
+    </section>
+
+    <svg class="arrow" width="40" height="24" viewBox="0 0 40 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12h34M28 4l8 8-8 8"/></svg>
+
+    <!-- ===== BƯỚC 6 ===== -->
+    <section class="step" aria-label="Bước 6">
+      <div class="step-head"><span class="step-no">6</span><div><div class="step-title">Xác nhận lưu phiếu</div><div class="step-note">Bấm Lưu phiếu: hỏi lại trước khi lưu</div></div></div>
+      <div class="phone"><div class="screen" style="position:relative">
+        <div class="status"><span>11:39</span><span class="ic" aria-hidden="true">
+          <svg width="12" height="10" viewBox="0 0 12 10"><path d="M6 10 0 2.5a9 9 0 0 1 12 0z" fill="#374151"/></svg>
+          <svg width="10" height="10" viewBox="0 0 10 10"><path d="M10 0v10H0z" fill="#374151"/></svg>
+          <svg width="7" height="11" viewBox="0 0 7 11"><rect width="7" height="11" rx="1" fill="#374151"/></svg></span></div>
+        <header>
+          <div class="left">
+            <button class="icon-btn" type="button" aria-label="Quay lại"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12H4M10 6l-6 6 6 6"/></svg></button>
+            <span class="page-title">Xuất trả nhà cung cấp</span>
+          </div>
+          <div class="actions">
+          </div>
+        </header>
+        <div style="background:#fff;padding:0 0 4px">
+          <div class="tabs" role="tablist" aria-label="Chế độ xem yêu cầu">
+            <button class="tab on" type="button" role="tab" aria-selected="true">Tổng hợp</button>
+            <button class="tab " type="button" role="tab" aria-selected="false">Chi tiết <span class="tcnt">(2)</span></button>
+          </div>
+        </div>
+        <main>
+          <div class="info"><div class="kv"><span>Phiếu YC</span><b>YCTL-2610-00003</b></div><div class="kv"><span>Kho xuất</span><b>Kho 1000</b></div><div class="kv"><span>Nhà cung cấp</span><b>Công ty TNHH ABC</b></div></div>
+          <ul class="list">
+            <li class="it2 s1">
+              <div class="i1"><b>#1 · 3242663</b><span class="chip c1">Đang quét</span></div>
+              <div class="i2">ST300-5P BLUE EX STD 10000 OB</div>
+              <div class="i3"><span>Số lượng</span><span><b>90.00</b> / 100.00 PC</span></div>
+            </li>
+            <li class="it2 s2">
+              <div class="i1"><b>#2 · 3247939</b><span class="chip c2">Đủ</span></div>
+              <div class="i2">LTRA1002-PP MTC ROSSMANN 42 OB</div>
+              <div class="i3"><span>Số lượng</span><span><b>200.00</b> / 200.00 PC</span></div>
+            </li>
+          </ul>
+        </main>
+        <div class="foot"><button class="primary" type="button">Lưu phiếu</button></div>
+        <div class="scrim" aria-hidden="true"></div>
+        <div class="cfm" role="alertdialog" aria-modal="true" aria-labelledby="cf-save">
+          <h3 id="cf-save">Lưu phiếu xuất trả?</h3>
+          <dl class="okkv"><dt>Yêu cầu</dt><dd>YCTL-2610-00003</dd><dt>Số tem</dt><dd>2</dd><dt>Tổng số lượng</dt><dd>290.00 PC</dd></dl>
+          <p class="cfm-note">Còn 10.00 PC chưa xuất, yêu cầu sẽ ở trạng thái Đang xuất kho.</p>
+          <div class="cfm-a"><button type="button" class="cf-no">Hủy</button><button type="button" class="cf-close">Đồng ý</button></div>
+        </div>
+      </div></div>
+    </section>
+
+    <svg class="arrow" width="40" height="24" viewBox="0 0 40 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12h34M28 4l8 8-8 8"/></svg>
+
+    <!-- ===== BƯỚC 7 ===== -->
+    <section class="step" aria-label="Bước 7">
+      <div class="step-head"><span class="step-no">7</span><div><div class="step-title">Lưu phiếu thành công</div><div class="step-note">Chọn Đồng ý: tạo phiếu xuất trả, báo kết quả</div></div></div>
+      <div class="phone"><div class="screen" style="position:relative">
+        <div class="status"><span>11:40</span><span class="ic" aria-hidden="true">
+          <svg width="12" height="10" viewBox="0 0 12 10"><path d="M6 10 0 2.5a9 9 0 0 1 12 0z" fill="#374151"/></svg>
+          <svg width="10" height="10" viewBox="0 0 10 10"><path d="M10 0v10H0z" fill="#374151"/></svg>
+          <svg width="7" height="11" viewBox="0 0 7 11"><rect width="7" height="11" rx="1" fill="#374151"/></svg></span></div>
+        <header>
+          <div class="left">
+            <button class="icon-btn" type="button" aria-label="Quay lại"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12H4M10 6l-6 6 6 6"/></svg></button>
+            <span class="page-title">Xuất trả nhà cung cấp</span>
+          </div>
+          <div class="actions">
+          </div>
+        </header>
+        <main></main>
+        <div class="scrim" aria-hidden="true"></div>
+        <div class="cfm okd" role="alertdialog" aria-modal="true" aria-labelledby="ok-xt">
+          <div class="okic" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></div>
+          <h3 id="ok-xt">Lưu phiếu thành công</h3>
+          <p class="okp">Đã tạo phiếu xuất trả nhà cung cấp<b>PXTL-2610-00004</b></p>
+          <dl class="okkv"><dt>Yêu cầu</dt><dd>YCTL-2610-00003</dd><dt>Số tem</dt><dd>2</dd></dl>
+          <div class="cfm-a"><button type="button" class="cf-close">Quay về Công việc xuất hàng</button></div>
         </div>
       </div></div>
     </section>
